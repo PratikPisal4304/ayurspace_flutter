@@ -33,19 +33,26 @@ class AppTheme {
   }
 
   // Color Scheme
-  static const ColorScheme _lightColorScheme = ColorScheme.light(
-    primary: AppColors.primary,
-    onPrimary: AppColors.textOnPrimary,
-    secondary: AppColors.saffron,
-    onSecondary: AppColors.textOnPrimary,
-    tertiary: AppColors.lotusPink,
-    surface: AppColors.surface,
-    onSurface: AppColors.textPrimary,
-    surfaceContainerHighest: AppColors.surfaceVariant,
-    error: AppColors.error,
-    onError: AppColors.textOnPrimary,
-    outline: AppColors.border,
-  );
+  static ColorScheme get _lightColorScheme {
+    return ColorScheme.fromSeed(
+      seedColor: AppColors.primary,
+      primary: AppColors.primary,
+      secondary: AppColors.saffron,
+      surface: AppColors.surface,
+      error: AppColors.error,
+      brightness: Brightness.light,
+    ).copyWith(
+      onPrimary: AppColors.textOnPrimary,
+      onSecondary: AppColors.textOnPrimary,
+      tertiary: AppColors.lotusPink,
+      onSurface: AppColors.textPrimary,
+      surfaceContainerHighest: AppColors.surfaceVariant,
+      onError: AppColors.textOnPrimary,
+      outline: AppColors.border,
+      surfaceTint: Colors.white,
+      shadow: AppColors.textPrimary.withValues(alpha: 0.05),
+    );
+  }
 
   // Text Theme
   static TextTheme get _textTheme {
@@ -148,8 +155,8 @@ class AppTheme {
   }
 
   // Card Theme
-  static CardTheme get _cardTheme {
-    return CardTheme(
+  static CardThemeData get _cardTheme {
+    return CardThemeData(
       color: AppColors.surface,
       elevation: 2,
       shadowColor: AppColors.shadow,
@@ -288,7 +295,7 @@ class AppTheme {
   static ChipThemeData get _chipTheme {
     return ChipThemeData(
       backgroundColor: AppColors.surfaceVariant,
-      selectedColor: AppColors.primary.withOpacity(0.2),
+      selectedColor: AppColors.primary.withValues(alpha: 0.2),
       labelStyle: GoogleFonts.outfit(
         fontSize: DesignTokens.fontSizeSm,
         color: AppColors.textPrimary,
