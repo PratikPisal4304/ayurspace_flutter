@@ -10,6 +10,8 @@ import '../screens/plant_detail/plant_detail_screen.dart';
 import '../screens/dosha_quiz/dosha_quiz_screen.dart';
 import '../screens/dosha_profile/dosha_profile_screen.dart';
 import '../screens/remedy_detail/remedy_detail_screen.dart';
+import '../screens/bookmarks/bookmarks_screen.dart';
+import '../screens/favorites/favorites_screen.dart';
 import '../widgets/common/main_scaffold.dart';
 
 /// App router configuration
@@ -99,6 +101,16 @@ final GoRouter appRouter = GoRouter(
         final id = state.pathParameters['id']!;
         return RemedyDetailScreen(remedyId: id);
       },
+    ),
+    GoRoute(
+      path: '/bookmarks',
+      name: 'bookmarks',
+      builder: (context, state) => const BookmarksScreen(),
+    ),
+    GoRoute(
+      path: '/favorites',
+      name: 'favorites',
+      builder: (context, state) => const FavoritesScreen(),
     ),
   ],
 );

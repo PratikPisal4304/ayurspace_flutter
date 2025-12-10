@@ -77,11 +77,11 @@ class ProfileScreen extends ConsumerWidget {
               _MenuItem(
                   icon: Icons.bookmark,
                   label: 'Bookmarked Plants',
-                  onTap: () {}),
+                  onTap: () => context.push('/bookmarks')),
               _MenuItem(
                   icon: Icons.favorite,
                   label: 'Favorite Remedies',
-                  onTap: () {}),
+                  onTap: () => context.push('/favorites')),
               _MenuItem(
                   icon: Icons.quiz,
                   label: 'Take Dosha Quiz',
@@ -90,20 +90,174 @@ class ProfileScreen extends ConsumerWidget {
                   icon: Icons.language,
                   label: 'Language',
                   trailing: 'English',
-                  onTap: () {}),
+                  onTap: () => _showLanguageDialog(context)),
               _MenuItem(
                   icon: Icons.notifications,
                   label: 'Notifications',
-                  onTap: () {}),
+                  onTap: () => _showNotificationsDialog(context)),
               _MenuItem(
-                  icon: Icons.dark_mode, label: 'Dark Mode', onTap: () {}),
+                  icon: Icons.dark_mode,
+                  label: 'Dark Mode',
+                  onTap: () => _showDarkModeSnackBar(context)),
               _MenuItem(
-                  icon: Icons.help, label: 'Help & Support', onTap: () {}),
+                  icon: Icons.help,
+                  label: 'Help & Support',
+                  onTap: () => _showHelpDialog(context)),
               _MenuItem(
-                  icon: Icons.info, label: 'About AyurSpace', onTap: () {}),
+                  icon: Icons.info,
+                  label: 'About AyurSpace',
+                  onTap: () => _showAboutDialog(context)),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Language'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.check, color: AppColors.primary),
+              title: const Text('English'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const SizedBox(width: 24),
+              title: const Text('हिंदी (Hindi)'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Hindi language coming soon!')),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showNotificationsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Notifications'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SwitchListTile(
+              title: const Text('Daily Tips'),
+              subtitle: const Text('Receive daily Ayurvedic tips'),
+              value: true,
+              onChanged: (v) {},
+            ),
+            SwitchListTile(
+              title: const Text('Reminders'),
+              subtitle: const Text('Wellness practice reminders'),
+              value: false,
+              onChanged: (v) {},
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Done'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDarkModeSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Dark mode coming soon!'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showHelpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Help & Support'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('📧 Email: support@ayurspace.app'),
+            SizedBox(height: 8),
+            Text('🌐 Website: www.ayurspace.app'),
+            SizedBox(height: 16),
+            Text(
+              'FAQs',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text('• How do I use the plant scanner?'),
+            Text('• What is my dosha?'),
+            Text('• Are remedies safe to use?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAboutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.spa, color: AppColors.primary),
+            ),
+            const SizedBox(width: 12),
+            const Text('AyurSpace'),
+          ],
+        ),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Version 1.0.0'),
+            SizedBox(height: 12),
+            Text(
+              'Your complete Ayurveda companion. Discover traditional herbs, '
+              'personalized remedies, and wellness practices based on ancient wisdom.',
+            ),
+            SizedBox(height: 16),
+            Text(
+              '© 2024 AyurSpace. All rights reserved.',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
       ),
     );
   }
