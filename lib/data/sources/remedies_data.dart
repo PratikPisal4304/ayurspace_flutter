@@ -1,4 +1,5 @@
-import '../data/models/remedy.dart';
+import '../models/remedy.dart';
+import '../models/dosha.dart';
 
 /// Sample remedies data - ported from React Native
 final List<Remedy> remediesData = [
@@ -10,10 +11,31 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'प्रतिरक्षा और बेहतर नींद के लिए गर्म हल्दी वाला दूध',
     category: 'Immunity',
     ingredients: [
-      Ingredient(id: '1', name: 'Turmeric powder', nameHindi: 'हल्दी पाउडर', quantity: '1/2 tsp', optional: false),
-      Ingredient(id: '2', name: 'Milk', nameHindi: 'दूध', quantity: '1 cup', optional: false),
-      Ingredient(id: '3', name: 'Black pepper', nameHindi: 'काली मिर्च', quantity: 'pinch', optional: false),
-      Ingredient(id: '4', name: 'Honey', nameHindi: 'शहद', quantity: '1 tsp', optional: true, substitutes: ['Jaggery']),
+      Ingredient(
+          id: '1',
+          name: 'Turmeric powder',
+          nameHindi: 'हल्दी पाउडर',
+          quantity: '1/2 tsp',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Milk',
+          nameHindi: 'दूध',
+          quantity: '1 cup',
+          optional: false),
+      Ingredient(
+          id: '3',
+          name: 'Black pepper',
+          nameHindi: 'काली मिर्च',
+          quantity: 'pinch',
+          optional: false),
+      Ingredient(
+          id: '4',
+          name: 'Honey',
+          nameHindi: 'शहद',
+          quantity: '1 tsp',
+          optional: true,
+          substitutes: ['Jaggery']),
     ],
     steps: [
       'Heat milk in a pan until warm',
@@ -29,13 +51,14 @@ final List<Remedy> remediesData = [
       '2-3 मिनट तक उबालें',
       'थोड़ा ठंडा होने पर शहद मिलाएं',
     ],
-    doshaTypes: ['Vata', 'Kapha'],
+    doshaTypes: [DoshaType.vata, DoshaType.kapha],
     healthGoals: ['Immunity', 'Sleep', 'Inflammation'],
     duration: '10 mins',
     difficulty: 'Easy',
     image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800',
     dosage: 'Once daily before bed',
-    precautions: 'Avoid if allergic to dairy. Reduce turmeric if on blood thinners.',
+    precautions:
+        'Avoid if allergic to dairy. Reduce turmeric if on blood thinners.',
   ),
   const Remedy(
     id: '2',
@@ -45,11 +68,36 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'सर्दी, खांसी और प्रतिरक्षा के लिए जड़ी-बूटी का काढ़ा',
     category: 'Immunity',
     ingredients: [
-      Ingredient(id: '1', name: 'Tulsi leaves', nameHindi: 'तुलसी पत्ते', quantity: '10-15 leaves', optional: false),
-      Ingredient(id: '2', name: 'Ginger', nameHindi: 'अदरक', quantity: '1 inch', optional: false),
-      Ingredient(id: '3', name: 'Black pepper', nameHindi: 'काली मिर्च', quantity: '4-5 pieces', optional: false),
-      Ingredient(id: '4', name: 'Cloves', nameHindi: 'लौंग', quantity: '2-3 pieces', optional: true),
-      Ingredient(id: '5', name: 'Jaggery', nameHindi: 'गुड़', quantity: '1 tsp', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Tulsi leaves',
+          nameHindi: 'तुलसी पत्ते',
+          quantity: '10-15 leaves',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Ginger',
+          nameHindi: 'अदरक',
+          quantity: '1 inch',
+          optional: false),
+      Ingredient(
+          id: '3',
+          name: 'Black pepper',
+          nameHindi: 'काली मिर्च',
+          quantity: '4-5 pieces',
+          optional: false),
+      Ingredient(
+          id: '4',
+          name: 'Cloves',
+          nameHindi: 'लौंग',
+          quantity: '2-3 pieces',
+          optional: true),
+      Ingredient(
+          id: '5',
+          name: 'Jaggery',
+          nameHindi: 'गुड़',
+          quantity: '1 tsp',
+          optional: true),
     ],
     steps: [
       'Boil 2 cups of water in a pan',
@@ -65,7 +113,7 @@ final List<Remedy> remediesData = [
       'काढ़े को छान लें',
       'स्वाद के लिए गुड़ मिलाएं और गर्म परोसें',
     ],
-    doshaTypes: ['Kapha', 'Vata'],
+    doshaTypes: [DoshaType.kapha, DoshaType.vata],
     healthGoals: ['Immunity', 'Respiratory', 'Cold & Flu'],
     duration: '20 mins',
     difficulty: 'Easy',
@@ -81,8 +129,18 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'पाचन स्वास्थ्य के लिए सुबह का डिटॉक्स ड्रिंक',
     category: 'Digestion',
     ingredients: [
-      Ingredient(id: '1', name: 'Triphala powder', nameHindi: 'त्रिफला चूर्ण', quantity: '1 tsp', optional: false),
-      Ingredient(id: '2', name: 'Warm water', nameHindi: 'गुनगुना पानी', quantity: '1 glass', optional: false),
+      Ingredient(
+          id: '1',
+          name: 'Triphala powder',
+          nameHindi: 'त्रिफला चूर्ण',
+          quantity: '1 tsp',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Warm water',
+          nameHindi: 'गुनगुना पानी',
+          quantity: '1 glass',
+          optional: false),
     ],
     steps: [
       'Soak triphala powder in a glass of water overnight',
@@ -96,7 +154,7 @@ final List<Remedy> remediesData = [
       'खाली पेट पिएं',
       'नाश्ते से 30 मिनट पहले पिएं',
     ],
-    doshaTypes: ['Vata', 'Pitta', 'Kapha'],
+    doshaTypes: [DoshaType.vata, DoshaType.pitta, DoshaType.kapha],
     healthGoals: ['Digestion', 'Detox', 'Weight Loss'],
     duration: '5 mins',
     difficulty: 'Easy',
@@ -112,10 +170,30 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'तनाव और नींद के लिए शांत करने वाला रात का पेय',
     category: 'Stress',
     ingredients: [
-      Ingredient(id: '1', name: 'Ashwagandha powder', nameHindi: 'अश्वगंधा चूर्ण', quantity: '1/2 tsp', optional: false),
-      Ingredient(id: '2', name: 'Warm milk', nameHindi: 'गर्म दूध', quantity: '1 cup', optional: false),
-      Ingredient(id: '3', name: 'Ghee', nameHindi: 'घी', quantity: '1/2 tsp', optional: true),
-      Ingredient(id: '4', name: 'Cardamom', nameHindi: 'इलायची', quantity: 'pinch', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Ashwagandha powder',
+          nameHindi: 'अश्वगंधा चूर्ण',
+          quantity: '1/2 tsp',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Warm milk',
+          nameHindi: 'गर्म दूध',
+          quantity: '1 cup',
+          optional: false),
+      Ingredient(
+          id: '3',
+          name: 'Ghee',
+          nameHindi: 'घी',
+          quantity: '1/2 tsp',
+          optional: true),
+      Ingredient(
+          id: '4',
+          name: 'Cardamom',
+          nameHindi: 'इलायची',
+          quantity: 'pinch',
+          optional: true),
     ],
     steps: [
       'Heat milk until warm',
@@ -129,13 +207,14 @@ final List<Remedy> remediesData = [
       'स्वाद के लिए घी और इलायची डालें',
       'सोने से 30 मिनट पहले पिएं',
     ],
-    doshaTypes: ['Vata', 'Kapha'],
+    doshaTypes: [DoshaType.vata, DoshaType.kapha],
     healthGoals: ['Stress', 'Sleep', 'Energy'],
     duration: '10 mins',
     difficulty: 'Easy',
     image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800',
     dosage: 'Once daily before bed',
-    precautions: 'Avoid during pregnancy. Consult doctor if on thyroid medication.',
+    precautions:
+        'Avoid during pregnancy. Consult doctor if on thyroid medication.',
   ),
   const Remedy(
     id: '5',
@@ -145,10 +224,30 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'साफ और मुंहासे-मुक्त त्वचा के लिए प्राकृतिक फेस मास्क',
     category: 'Skin',
     ingredients: [
-      Ingredient(id: '1', name: 'Neem powder', nameHindi: 'नीम पाउडर', quantity: '2 tbsp', optional: false),
-      Ingredient(id: '2', name: 'Multani mitti', nameHindi: 'मुल्तानी मिट्टी', quantity: '1 tbsp', optional: false),
-      Ingredient(id: '3', name: 'Rose water', nameHindi: 'गुलाब जल', quantity: 'as needed', optional: false),
-      Ingredient(id: '4', name: 'Turmeric', nameHindi: 'हल्दी', quantity: 'pinch', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Neem powder',
+          nameHindi: 'नीम पाउडर',
+          quantity: '2 tbsp',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Multani mitti',
+          nameHindi: 'मुल्तानी मिट्टी',
+          quantity: '1 tbsp',
+          optional: false),
+      Ingredient(
+          id: '3',
+          name: 'Rose water',
+          nameHindi: 'गुलाब जल',
+          quantity: 'as needed',
+          optional: false),
+      Ingredient(
+          id: '4',
+          name: 'Turmeric',
+          nameHindi: 'हल्दी',
+          quantity: 'pinch',
+          optional: true),
     ],
     steps: [
       'Mix neem powder and multani mitti in a bowl',
@@ -166,7 +265,7 @@ final List<Remedy> remediesData = [
       '15-20 मिनट सूखने दें',
       'गुनगुने पानी से धो लें',
     ],
-    doshaTypes: ['Pitta', 'Kapha'],
+    doshaTypes: [DoshaType.pitta, DoshaType.kapha],
     healthGoals: ['Skin', 'Acne', 'Glow'],
     duration: '25 mins',
     difficulty: 'Medium',
@@ -182,10 +281,30 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'गले और श्वसन स्वास्थ्य के लिए सुखदायक चाय',
     category: 'Respiratory',
     ingredients: [
-      Ingredient(id: '1', name: 'Fresh ginger', nameHindi: 'ताजा अदरक', quantity: '1 inch', optional: false),
-      Ingredient(id: '2', name: 'Honey', nameHindi: 'शहद', quantity: '1 tbsp', optional: false),
-      Ingredient(id: '3', name: 'Lemon juice', nameHindi: 'नींबू रस', quantity: '1 tsp', optional: true),
-      Ingredient(id: '4', name: 'Cinnamon', nameHindi: 'दालचीनी', quantity: 'small piece', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Fresh ginger',
+          nameHindi: 'ताजा अदरक',
+          quantity: '1 inch',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Honey',
+          nameHindi: 'शहद',
+          quantity: '1 tbsp',
+          optional: false),
+      Ingredient(
+          id: '3',
+          name: 'Lemon juice',
+          nameHindi: 'नींबू रस',
+          quantity: '1 tsp',
+          optional: true),
+      Ingredient(
+          id: '4',
+          name: 'Cinnamon',
+          nameHindi: 'दालचीनी',
+          quantity: 'small piece',
+          optional: true),
     ],
     steps: [
       'Grate or slice fresh ginger',
@@ -201,7 +320,7 @@ final List<Remedy> remediesData = [
       'थोड़ा ठंडा होने पर शहद और नींबू मिलाएं',
       'गर्म-गर्म धीरे-धीरे पिएं',
     ],
-    doshaTypes: ['Kapha', 'Vata'],
+    doshaTypes: [DoshaType.kapha, DoshaType.vata],
     healthGoals: ['Respiratory', 'Sore Throat', 'Cold'],
     duration: '10 mins',
     difficulty: 'Easy',
@@ -217,8 +336,18 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'बेहतर नींद और याददाश्त के लिए सिर की मालिश',
     category: 'Sleep',
     ingredients: [
-      Ingredient(id: '1', name: 'Brahmi oil', nameHindi: 'ब्राह्मी तेल', quantity: '2 tbsp', optional: false),
-      Ingredient(id: '2', name: 'Coconut oil', nameHindi: 'नारियल तेल', quantity: '1 tbsp', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Brahmi oil',
+          nameHindi: 'ब्राह्मी तेल',
+          quantity: '2 tbsp',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Coconut oil',
+          nameHindi: 'नारियल तेल',
+          quantity: '1 tbsp',
+          optional: true),
     ],
     steps: [
       'Warm the brahmi oil slightly',
@@ -236,7 +365,7 @@ final List<Remedy> remediesData = [
       '30 मिनट या रात भर छोड़ दें',
       'माइल्ड शैम्पू से धोएं',
     ],
-    doshaTypes: ['Vata', 'Pitta'],
+    doshaTypes: [DoshaType.vata, DoshaType.pitta],
     healthGoals: ['Sleep', 'Memory', 'Stress Relief'],
     duration: '30 mins',
     difficulty: 'Medium',
@@ -252,10 +381,30 @@ final List<Remedy> remediesData = [
     descriptionHindi: 'प्रतिरक्षा के लिए विटामिन सी से भरपूर चटनी',
     category: 'Immunity',
     ingredients: [
-      Ingredient(id: '1', name: 'Fresh amla', nameHindi: 'ताजा आंवला', quantity: '4-5 pieces', optional: false),
-      Ingredient(id: '2', name: 'Green chili', nameHindi: 'हरी मिर्च', quantity: '1-2', optional: true),
-      Ingredient(id: '3', name: 'Salt', nameHindi: 'नमक', quantity: 'to taste', optional: false),
-      Ingredient(id: '4', name: 'Cumin', nameHindi: 'जीरा', quantity: '1/2 tsp', optional: true),
+      Ingredient(
+          id: '1',
+          name: 'Fresh amla',
+          nameHindi: 'ताजा आंवला',
+          quantity: '4-5 pieces',
+          optional: false),
+      Ingredient(
+          id: '2',
+          name: 'Green chili',
+          nameHindi: 'हरी मिर्च',
+          quantity: '1-2',
+          optional: true),
+      Ingredient(
+          id: '3',
+          name: 'Salt',
+          nameHindi: 'नमक',
+          quantity: 'to taste',
+          optional: false),
+      Ingredient(
+          id: '4',
+          name: 'Cumin',
+          nameHindi: 'जीरा',
+          quantity: '1/2 tsp',
+          optional: true),
     ],
     steps: [
       'Wash and deseed amla',
@@ -271,7 +420,7 @@ final List<Remedy> remediesData = [
       'अच्छी तरह मिलाकर फ्रिज में रखें',
       'भोजन के साथ 1 चम्मच खाएं',
     ],
-    doshaTypes: ['Pitta', 'Kapha'],
+    doshaTypes: [DoshaType.pitta, DoshaType.kapha],
     healthGoals: ['Immunity', 'Vitamin C', 'Digestion'],
     duration: '15 mins',
     difficulty: 'Easy',
@@ -295,9 +444,10 @@ List<Remedy> getRemediesByCategory(String category) {
 /// Search remedies
 List<Remedy> searchRemedies(String query) {
   final q = query.toLowerCase();
-  return remediesData.where((r) =>
-    r.title.toLowerCase().contains(q) ||
-    r.description.toLowerCase().contains(q) ||
-    r.healthGoals.any((g) => g.toLowerCase().contains(q))
-  ).toList();
+  return remediesData
+      .where((r) =>
+          r.title.toLowerCase().contains(q) ||
+          r.description.toLowerCase().contains(q) ||
+          r.healthGoals.any((g) => g.toLowerCase().contains(q)))
+      .toList();
 }
