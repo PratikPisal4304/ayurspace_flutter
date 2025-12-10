@@ -14,6 +14,8 @@ import '../screens/dosha_profile/dosha_profile_screen.dart';
 import '../screens/remedy_detail/remedy_detail_screen.dart';
 import '../screens/bookmarks/bookmarks_screen.dart';
 import '../screens/favorites/favorites_screen.dart';
+import '../screens/auth/login_screen.dart';
+import '../screens/auth/signup_screen.dart';
 import '../widgets/common/main_scaffold.dart';
 
 import 'package:flutter/material.dart';
@@ -150,6 +152,16 @@ final GoRouter appRouter = GoRouter(
       path: '/settings',
       name: 'settings',
       builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      name: 'login',
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/signup',
+      name: 'signup',
+      builder: (context, state) => const SignupScreen(),
     ),
   ],
 );

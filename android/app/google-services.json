@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481756200926",
+    "project_id": "ayurspace-app",
+    "storage_bucket": "ayurspace-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481756200926:android:b180613bcf15cf9313e74f",
+        "android_client_info": {
+          "package_name": "com.ayurspace.ayurspace_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8qi57yFSo_gdkF473G-_wRgbl8ITtpT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
