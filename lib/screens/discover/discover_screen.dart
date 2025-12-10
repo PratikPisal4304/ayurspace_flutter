@@ -166,6 +166,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                     )
                   : GridView.builder(
                       padding: const EdgeInsets.all(DesignTokens.spacingMd),
+                      cacheExtent: 500, // Cache 500 pixels of items off-screen
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -176,9 +177,11 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                       itemCount: plantsState.filteredPlants.length,
                       itemBuilder: (context, index) {
                         final plant = plantsState.filteredPlants[index];
-                        return PlantCard(
-                          plant: plant,
-                          onTap: () => context.push('/plant/${plant.id}'),
+                        return RepaintBoundary(
+                          child: PlantCard(
+                            plant: plant,
+                            onTap: () => context.push('/plant/${plant.id}'),
+                          ),
                         );
                       },
                     ),
@@ -207,27 +210,31 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final chipColor = color ?? AppColors.primary;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: DesignTokens.animationFast,
-        padding: const EdgeInsets.symmetric(
-          horizontal: DesignTokens.spacingSm,
-          vertical: DesignTokens.spacingXs,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected ? chipColor : chipColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
-          border: Border.all(
-            color: isSelected ? chipColor : chipColor.withValues(alpha: 0.3),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+        child: AnimatedContainer(
+          duration: DesignTokens.animationFast,
+          padding: const EdgeInsets.symmetric(
+            horizontal: DesignTokens.spacingSm,
+            vertical: DesignTokens.spacingXs,
           ),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: DesignTokens.fontSizeSm,
-            fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : chipColor,
+          decoration: BoxDecoration(
+            color: isSelected ? chipColor : chipColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+            border: Border.all(
+              color: isSelected ? chipColor : chipColor.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: DesignTokens.fontSizeSm,
+              fontWeight: FontWeight.w500,
+              color: isSelected ? Colors.white : chipColor,
+            ),
           ),
         ),
       ),

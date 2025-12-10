@@ -19,51 +19,48 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: DesignTokens.shadowBlurMd,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
+    return Material(
+      color: AppColors.surface,
+      borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+      elevation: 2,
+      shadowColor: AppColors.shadow,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image
+            // Image with RepaintBoundary for performance
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(DesignTokens.radiusMd),
               ),
-              child: SizedBox(
-                height: 120,
-                width: double.infinity,
-                child: CachedNetworkImage(
-                  imageUrl: plant.image,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    color: AppColors.surfaceVariant,
-                    child: const Center(
-                      child: Icon(
-                        Icons.local_florist,
-                        color: AppColors.textTertiary,
-                        size: 32,
+              child: RepaintBoundary(
+                child: SizedBox(
+                  height: 120,
+                  width: double.infinity,
+                  child: CachedNetworkImage(
+                    imageUrl: plant.image,
+                    fit: BoxFit.cover,
+                    memCacheWidth: 400, // Limit memory cache size
+                    placeholder: (context, url) => Container(
+                      color: AppColors.surfaceVariant,
+                      child: const Center(
+                        child: Icon(
+                          Icons.local_florist,
+                          color: AppColors.textTertiary,
+                          size: 32,
+                        ),
                       ),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    color: AppColors.surfaceVariant,
-                    child: const Center(
-                      child: Icon(
-                        Icons.image_not_supported,
-                        color: AppColors.textTertiary,
-                        size: 32,
+                    errorWidget: (context, url, error) => Container(
+                      color: AppColors.surfaceVariant,
+                      child: const Center(
+                        child: Icon(
+                          Icons.image_not_supported,
+                          color: AppColors.textTertiary,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ),

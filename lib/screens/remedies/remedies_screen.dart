@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../data/models/remedy.dart';
+import '../../data/sources/remedies_data.dart';
 
 class RemediesScreen extends StatefulWidget {
   const RemediesScreen({super.key});
@@ -14,112 +16,27 @@ class _RemediesScreenState extends State<RemediesScreen> {
   String _selectedCategory = 'All';
   final _searchController = TextEditingController();
 
-  final List<String> _categories = [
-    'All',
-    'Immunity',
-    'Digestion',
-    'Stress',
-    'Skin',
-    'Respiratory',
-    'Sleep',
-  ];
+  List<Remedy> get _filteredRemedies {
+    List<Remedy> filtered;
 
-  final List<Map<String, dynamic>> _remedies = [
-    {
-      'id': '1',
-      'title': 'Golden Milk',
-      'titleHindi': 'हल्दी दूध',
-      'category': 'Immunity',
-      'duration': '10 mins',
-      'difficulty': 'Easy',
-      'description': 'Warm turmeric milk for immunity and better sleep',
-      'icon': Icons.local_cafe,
-    },
-    {
-      'id': '2',
-      'title': 'Tulsi Kadha',
-      'titleHindi': 'तुलसी काढ़ा',
-      'category': 'Immunity',
-      'duration': '15 mins',
-      'difficulty': 'Easy',
-      'description': 'Herbal decoction for cold and cough',
-      'icon': Icons.local_drink,
-    },
-    {
-      'id': '3',
-      'title': 'Triphala Water',
-      'titleHindi': 'त्रिफला पानी',
-      'category': 'Digestion',
-      'duration': '5 mins',
-      'difficulty': 'Easy',
-      'description': 'Morning detox drink for digestive health',
-      'icon': Icons.water_drop,
-    },
-    {
-      'id': '4',
-      'title': 'Ashwagandha Milk',
-      'titleHindi': 'अश्वगंधा दूध',
-      'category': 'Stress',
-      'duration': '10 mins',
-      'difficulty': 'Easy',
-      'description': 'Calming nighttime drink for stress relief',
-      'icon': Icons.nightlight,
-    },
-    {
-      'id': '5',
-      'title': 'Neem Face Pack',
-      'titleHindi': 'नीम फेस पैक',
-      'category': 'Skin',
-      'duration': '20 mins',
-      'difficulty': 'Medium',
-      'description': 'Natural face mask for clear skin',
-      'icon': Icons.face,
-    },
-    {
-      'id': '6',
-      'title': 'Ginger Honey Tea',
-      'titleHindi': 'अदरक शहद चाय',
-      'category': 'Respiratory',
-      'duration': '10 mins',
-      'difficulty': 'Easy',
-      'description': 'Soothing tea for throat and respiratory health',
-      'icon': Icons.local_cafe,
-    },
-    {
-      'id': '7',
-      'title': 'Brahmi Oil Massage',
-      'titleHindi': 'ब्राह्मी तेल मालिश',
-      'category': 'Sleep',
-      'duration': '30 mins',
-      'difficulty': 'Medium',
-      'description': 'Head massage for better sleep and memory',
-      'icon': Icons.spa,
-    },
-    {
-      'id': '8',
-      'title': 'Amla Chutney',
-      'titleHindi': 'आंवला चटनी',
-      'category': 'Immunity',
-      'duration': '25 mins',
-      'difficulty': 'Medium',
-      'description': 'Vitamin C rich condiment for immunity',
-      'icon': Icons.restaurant,
-    },
-  ];
-
-  List<Map<String, dynamic>> get _filteredRemedies {
-    var filtered = _remedies;
-    if (_selectedCategory != 'All') {
+    // Filter by category
+    if (_selectedCategory == 'All') {
+      filtered = remediesData;
+    } else {
       filtered =
-          filtered.where((r) => r['category'] == _selectedCategory).toList();
+          remediesData.where((r) => r.category == _selectedCategory).toList();
     }
+
+    // Filter by search query
     if (_searchController.text.isNotEmpty) {
       final query = _searchController.text.toLowerCase();
       filtered = filtered.where((r) {
-        return r['title'].toLowerCase().contains(query) ||
-            r['description'].toLowerCase().contains(query);
+        return r.title.toLowerCase().contains(query) ||
+            r.description.toLowerCase().contains(query) ||
+            r.healthGoals.any((goal) => goal.toLowerCase().contains(query));
       }).toList();
     }
+
     return filtered;
   }
 
@@ -129,8 +46,30 @@ class _RemediesScreenState extends State<RemediesScreen> {
     super.dispose();
   }
 
+  IconData _getIconForhealthGoal(String category) {
+    switch (category.toLowerCase()) {
+      case 'immunity':
+        return Icons.verified_user_outlined;
+      case 'digestion':
+        return Icons.water_drop_outlined;
+      case 'stress':
+        return Icons.nightlight_outlined;
+      case 'skin':
+        return Icons.face_outlined;
+      case 'respiratory':
+        return Icons.air;
+      case 'sleep':
+        return Icons.bed_outlined;
+      default:
+        return Icons.medical_services_outlined;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Get unique categories from data plus 'All'
+    final categories = ['All', ...getRemedyCategories()];
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -173,11 +112,11 @@ class _RemediesScreenState extends State<RemediesScreen> {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
                     horizontal: DesignTokens.spacingMd),
-                itemCount: _categories.length,
+                itemCount: categories.length,
                 separatorBuilder: (_, __) =>
                     const SizedBox(width: DesignTokens.spacingXs),
                 itemBuilder: (context, index) {
-                  final cat = _categories[index];
+                  final cat = categories[index];
                   final isSelected = cat == _selectedCategory;
                   return GestureDetector(
                     onTap: () => setState(() => _selectedCategory = cat),
@@ -239,10 +178,13 @@ class _RemediesScreenState extends State<RemediesScreen> {
                       itemBuilder: (context, index) {
                         final remedy = _filteredRemedies[index];
                         return InkWell(
-                          onTap: () => context.push('/remedy/${remedy['id']}'),
+                          onTap: () => context.push('/remedy/${remedy.id}'),
                           borderRadius:
                               BorderRadius.circular(DesignTokens.radiusMd),
-                          child: _RemedyCard(remedy: remedy),
+                          child: _RemedyCard(
+                            remedy: remedy,
+                            icon: _getIconForhealthGoal(remedy.category),
+                          ),
                         );
                       },
                     ),
@@ -255,9 +197,10 @@ class _RemediesScreenState extends State<RemediesScreen> {
 }
 
 class _RemedyCard extends StatelessWidget {
-  final Map<String, dynamic> remedy;
+  final Remedy remedy;
+  final IconData icon;
 
-  const _RemedyCard({required this.remedy});
+  const _RemedyCard({required this.remedy, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +228,7 @@ class _RemedyCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
             ),
             child: Icon(
-              remedy['icon'] as IconData,
+              icon,
               color: AppColors.primary,
               size: 28,
             ),
@@ -300,21 +243,21 @@ class _RemedyCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      remedy['title'],
+                      remedy.title,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    _DifficultyBadge(difficulty: remedy['difficulty']),
+                    _DifficultyBadge(difficulty: remedy.difficulty),
                   ],
                 ),
                 Text(
-                  remedy['titleHindi'],
+                  remedy.titleHindi,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.textTertiary,
                       ),
                 ),
                 const SizedBox(height: DesignTokens.spacingXs),
                 Text(
-                  remedy['description'],
+                  remedy.description,
                   style: Theme.of(context).textTheme.bodySmall,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -329,7 +272,7 @@ class _RemedyCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      remedy['duration'],
+                      remedy.duration,
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                     const SizedBox(width: DesignTokens.spacingMd),
@@ -344,7 +287,7 @@ class _RemedyCard extends StatelessWidget {
                             BorderRadius.circular(DesignTokens.radiusFull),
                       ),
                       child: Text(
-                        remedy['category'],
+                        remedy.category,
                         style: const TextStyle(
                           fontSize: 10,
                           color: AppColors.saffron,

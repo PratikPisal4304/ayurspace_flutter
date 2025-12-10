@@ -107,16 +107,19 @@ class HomeScreen extends ConsumerWidget {
                 height: 220,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
+                  cacheExtent: 300, // Cache 300 pixels of items off-screen
                   itemCount: featuredPlants.length,
                   separatorBuilder: (_, __) =>
                       const SizedBox(width: DesignTokens.spacingSm),
                   itemBuilder: (context, index) {
                     return SizedBox(
                       width: 180,
-                      child: PlantCard(
-                        plant: featuredPlants[index],
-                        onTap: () =>
-                            context.push('/plant/${featuredPlants[index].id}'),
+                      child: RepaintBoundary(
+                        child: PlantCard(
+                          plant: featuredPlants[index],
+                          onTap: () => context
+                              .push('/plant/${featuredPlants[index].id}'),
+                        ),
                       ),
                     );
                   },

@@ -6,6 +6,8 @@ import '../screens/chat/chat_screen.dart';
 import '../screens/remedies/remedies_screen.dart';
 import '../screens/wellness/wellness_screen.dart';
 import '../screens/profile/profile_screen.dart';
+import '../screens/profile/edit_profile_screen.dart';
+import '../screens/settings/settings_screen.dart';
 import '../screens/plant_detail/plant_detail_screen.dart';
 import '../screens/dosha_quiz/dosha_quiz_screen.dart';
 import '../screens/dosha_profile/dosha_profile_screen.dart';
@@ -14,9 +16,36 @@ import '../screens/bookmarks/bookmarks_screen.dart';
 import '../screens/favorites/favorites_screen.dart';
 import '../widgets/common/main_scaffold.dart';
 
+import 'package:flutter/material.dart';
+
 /// App router configuration
 final GoRouter appRouter = GoRouter(
   initialLocation: '/home',
+  redirect: (context, state) {
+    // Redirect root to home
+    if (state.uri.path == '/') {
+      return '/home';
+    }
+    return null;
+  },
+  errorPageBuilder: (context, state) => MaterialPage(
+    child: Scaffold(
+      appBar: AppBar(title: const Text('Page Not Found')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Could not find: ${state.uri.path}'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/home'),
+              child: const Text('Go Home'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
   routes: [
     // Main shell with bottom navigation
     ShellRoute(
@@ -111,6 +140,16 @@ final GoRouter appRouter = GoRouter(
       path: '/favorites',
       name: 'favorites',
       builder: (context, state) => const FavoritesScreen(),
+    ),
+    GoRoute(
+      path: '/edit-profile',
+      name: 'editProfile',
+      builder: (context, state) => const EditProfileScreen(),
+    ),
+    GoRoute(
+      path: '/settings',
+      name: 'settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );
