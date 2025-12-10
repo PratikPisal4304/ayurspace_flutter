@@ -22,11 +22,31 @@ class _BottomNavBar extends StatelessWidget {
   const _BottomNavBar();
 
   static const _navItems = [
-    _NavItem(path: '/home', icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
-    _NavItem(path: '/discover', icon: Icons.local_florist_outlined, activeIcon: Icons.local_florist, label: 'Discover'),
-    _NavItem(path: '/camera', icon: Icons.camera_alt_outlined, activeIcon: Icons.camera_alt, label: 'Scan'),
-    _NavItem(path: '/remedies', icon: Icons.medical_services_outlined, activeIcon: Icons.medical_services, label: 'Remedies'),
-    _NavItem(path: '/profile', icon: Icons.person_outline, activeIcon: Icons.person, label: 'Profile'),
+    _NavItem(
+        path: '/home',
+        icon: Icons.home_outlined,
+        activeIcon: Icons.home,
+        label: 'Home'),
+    _NavItem(
+        path: '/discover',
+        icon: Icons.local_florist_outlined,
+        activeIcon: Icons.local_florist,
+        label: 'Discover'),
+    _NavItem(
+        path: '/camera',
+        icon: Icons.camera_alt_outlined,
+        activeIcon: Icons.camera_alt,
+        label: 'Scan'),
+    _NavItem(
+        path: '/remedies',
+        icon: Icons.medical_services_outlined,
+        activeIcon: Icons.medical_services,
+        label: 'Remedies'),
+    _NavItem(
+        path: '/profile',
+        icon: Icons.person_outline,
+        activeIcon: Icons.person,
+        label: 'Profile'),
   ];
 
   int _getCurrentIndex(BuildContext context) {
@@ -44,13 +64,13 @@ class _BottomNavBar extends StatelessWidget {
     final currentIndex = _getCurrentIndex(context);
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surface,
         boxShadow: [
           BoxShadow(
             color: AppColors.shadow,
             blurRadius: DesignTokens.shadowBlurMd,
-            offset: const Offset(0, -2),
+            offset: Offset(0, -2),
           ),
         ],
       ),
@@ -117,7 +137,9 @@ class _NavItemWidget extends StatelessWidget {
           vertical: DesignTokens.spacingXs,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withOpacity(0.1) : Colors.transparent,
+          color: isSelected
+              ? AppColors.primary.withValues(alpha: 0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(DesignTokens.radiusBase),
         ),
         child: Column(

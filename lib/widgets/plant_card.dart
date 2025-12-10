@@ -25,11 +25,11 @@ class PlantCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: AppColors.shadow,
               blurRadius: DesignTokens.shadowBlurMd,
-              offset: const Offset(0, 2),
+              offset: Offset(0, 2),
             ),
           ],
         ),
@@ -84,7 +84,7 @@ class PlantCard extends StatelessWidget {
                         child: Text(
                           plant.name,
                           style: Theme.of(context).textTheme.titleSmall,
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -98,10 +98,12 @@ class PlantCard extends StatelessWidget {
                           const SizedBox(width: 2),
                           Text(
                             plant.rating.toStringAsFixed(1),
-                            style:
-                                Theme.of(context).textTheme.labelSmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                         ],
                       ),
@@ -142,14 +144,14 @@ class _DoshaBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = AppColors.getDoshaColor(dosha);
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: DesignTokens.spacingXs,
         vertical: DesignTokens.spacingXxxs,
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
       ),
       child: Text(

@@ -51,14 +51,23 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () => context.push('/profile'),
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
-                      child: const Icon(
-                        Icons.person,
-                        color: AppColors.primary,
+                  Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: InkWell(
+                        onTap: () => context.push('/profile'),
+                        customBorder: const CircleBorder(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Icon(
+                            Icons.person,
+                            color: AppColors.primary,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -143,7 +152,7 @@ class _WellnessCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: DesignTokens.shadowBlurLg,
             offset: const Offset(0, 4),
           ),
@@ -158,7 +167,7 @@ class _WellnessCard extends StatelessWidget {
                 Text(
                   'Your Wellness Score',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                       ),
                 ),
                 const SizedBox(height: DesignTokens.spacingXs),
@@ -179,9 +188,10 @@ class _WellnessCard extends StatelessWidget {
                           left: DesignTokens.spacingXxs),
                       child: Text(
                         '/100',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: Colors.white.withOpacity(0.7),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.7),
+                                ),
                       ),
                     ),
                   ],
@@ -190,7 +200,7 @@ class _WellnessCard extends StatelessWidget {
                 Text(
                   'Keep up the great work! 🌿',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                       ),
                 ),
               ],
@@ -200,7 +210,7 @@ class _WellnessCard extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -267,26 +277,36 @@ class _QuickActionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radiusBase),
-            ),
-            child: Icon(icon, color: color, size: 28),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(DesignTokens.radiusBase),
+        child: Container(
+          width: 72,
+          padding: const EdgeInsets.symmetric(vertical: DesignTokens.spacingXs),
+          child: Column(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(DesignTokens.radiusBase),
+                ),
+                child: Icon(icon, color: color, size: 26),
+              ),
+              const SizedBox(height: DesignTokens.spacingXs),
+              Text(
+                label,
+                style: Theme.of(context).textTheme.labelSmall,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          const SizedBox(height: DesignTokens.spacingXs),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium,
-            textAlign: TextAlign.center,
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -295,49 +315,63 @@ class _QuickActionItem extends StatelessWidget {
 class _DailyTipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(DesignTokens.spacingMd),
-      decoration: BoxDecoration(
-        color: AppColors.turmeric.withOpacity(0.1),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('More daily tips coming soon!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        },
         borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-        border: Border.all(
-          color: AppColors.turmeric.withOpacity(0.3),
+        child: Container(
+          padding: const EdgeInsets.all(DesignTokens.spacingMd),
+          decoration: BoxDecoration(
+            color: AppColors.turmeric.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+            border: Border.all(
+              color: AppColors.turmeric.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(DesignTokens.spacingSm),
+                decoration: BoxDecoration(
+                  color: AppColors.turmeric.withValues(alpha: 0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.lightbulb_outline,
+                  color: AppColors.turmeric,
+                ),
+              ),
+              const SizedBox(width: DesignTokens.spacingSm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Daily Tip',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.turmeric,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    const SizedBox(height: DesignTokens.spacingXxs),
+                    Text(
+                      'Start your day with warm water and a teaspoon of honey to boost digestion and energy.',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(DesignTokens.spacingSm),
-            decoration: BoxDecoration(
-              color: AppColors.turmeric.withOpacity(0.2),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.lightbulb_outline,
-              color: AppColors.turmeric,
-            ),
-          ),
-          const SizedBox(width: DesignTokens.spacingSm),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Daily Tip',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: AppColors.turmeric,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                const SizedBox(height: DesignTokens.spacingXxs),
-                Text(
-                  'Start your day with warm water and a teaspoon of honey to boost digestion and energy.',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -74,8 +74,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
             // Filters
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: DesignTokens.spacingMd),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -103,7 +103,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                             label: diff,
                             isSelected: plantsState.selectedDifficulty == diff,
                             color: AppColors.getDifficultyColor(diff),
-                            onTap: () => plantsNotifier.filterByDifficulty(diff),
+                            onTap: () =>
+                                plantsNotifier.filterByDifficulty(diff),
                           ),
                         )),
                   ],
@@ -114,8 +115,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
             // Results count
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: DesignTokens.spacingMd),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -147,7 +148,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                           Icon(
                             Icons.search_off,
                             size: 64,
-                            color: AppColors.textTertiary.withOpacity(0.5),
+                            color:
+                                AppColors.textTertiary.withValues(alpha: 0.8),
                           ),
                           const SizedBox(height: DesignTokens.spacingMd),
                           Text(
@@ -214,10 +216,10 @@ class _FilterChip extends StatelessWidget {
           vertical: DesignTokens.spacingXs,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? chipColor : chipColor.withOpacity(0.1),
+          color: isSelected ? chipColor : chipColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
           border: Border.all(
-            color: isSelected ? chipColor : chipColor.withOpacity(0.3),
+            color: isSelected ? chipColor : chipColor.withValues(alpha: 0.3),
           ),
         ),
         child: Text(

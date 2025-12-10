@@ -83,9 +83,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
     if (lowerQuery.contains('dosha')) {
       return 'In Ayurveda, there are three doshas: Vata (air + space), Pitta (fire + water), and Kapha (earth + water). Your unique combination determines your constitution.\n\nWould you like to take our dosha quiz to discover your type? 🌿';
-    } else if (lowerQuery.contains('immunity') || lowerQuery.contains('immune')) {
+    } else if (lowerQuery.contains('immunity') ||
+        lowerQuery.contains('immune')) {
       return 'For boosting immunity, Ayurveda recommends:\n\n🌿 **Giloy (Guduchi)** - Known as "divine nectar"\n🌿 **Tulsi** - Sacred basil with antimicrobial properties\n🌿 **Amla** - Rich in Vitamin C\n🌿 **Ashwagandha** - Adaptogenic stress reliever\n\nWould you like to know more about any of these herbs?';
-    } else if (lowerQuery.contains('stress') || lowerQuery.contains('anxiety')) {
+    } else if (lowerQuery.contains('stress') ||
+        lowerQuery.contains('anxiety')) {
       return 'Ayurveda offers wonderful stress relief solutions:\n\n🧘 **Brahmi** - Calms the mind\n🧘 **Ashwagandha** - Reduces cortisol\n🧘 **Jatamansi** - Promotes restful sleep\n\n**Daily practices:**\n• Abhyanga (oil massage)\n• Pranayama (breathing exercises)\n• Meditation for 10-15 minutes\n\nWhich approach interests you most?';
     } else if (lowerQuery.contains('sleep')) {
       return 'For better sleep, Ayurveda suggests:\n\n🌙 **Herbs:**\n• Ashwagandha with warm milk\n• Brahmi tea before bed\n• Jatamansi for deep rest\n\n🌙 **Practices:**\n• Avoid screens 1 hour before bed\n• Warm foot massage with sesame oil\n• Go to sleep by 10 PM\n\nShall I share a specific sleep remedy?';
@@ -123,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -196,13 +198,13 @@ class _ChatScreenState extends State<ChatScreen> {
           // Input
           Container(
             padding: const EdgeInsets.all(DesignTokens.spacingMd),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surface,
               boxShadow: [
                 BoxShadow(
                   color: AppColors.shadow,
                   blurRadius: DesignTokens.shadowBlurSm,
-                  offset: const Offset(0, -2),
+                  offset: Offset(0, -2),
                 ),
               ],
             ),
@@ -266,7 +268,7 @@ class _MessageBubble extends StatelessWidget {
           if (!isUser) ...[
             CircleAvatar(
               radius: 16,
-              backgroundColor: AppColors.primary.withOpacity(0.1),
+              backgroundColor: AppColors.primary.withValues(alpha: 0.1),
               child: const Icon(
                 Icons.smart_toy,
                 color: AppColors.primary,
@@ -288,11 +290,11 @@ class _MessageBubble extends StatelessWidget {
                   bottomRight: Radius.circular(
                       isUser ? DesignTokens.radiusXs : DesignTokens.radiusMd),
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: AppColors.shadow,
                     blurRadius: DesignTokens.shadowBlurSm,
-                    offset: const Offset(0, 1),
+                    offset: Offset(0, 1),
                   ),
                 ],
               ),
@@ -320,7 +322,7 @@ class _TypingIndicator extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 16,
-            backgroundColor: AppColors.primary.withOpacity(0.1),
+            backgroundColor: AppColors.primary.withValues(alpha: 0.1),
             child: const Icon(
               Icons.smart_toy,
               color: AppColors.primary,
@@ -342,7 +344,7 @@ class _TypingIndicator extends StatelessWidget {
                   width: 8,
                   height: 8,
                   decoration: BoxDecoration(
-                    color: AppColors.textTertiary.withOpacity(0.5),
+                    color: AppColors.textTertiary.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),

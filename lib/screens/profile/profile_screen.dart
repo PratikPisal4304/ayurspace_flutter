@@ -20,27 +20,51 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(DesignTokens.spacingMd),
           child: Column(
             children: [
-              // Profile Header
+              // Page Header
+              Padding(
+                padding: const EdgeInsets.only(bottom: DesignTokens.spacingMd),
+                child: Row(
+                  children: [
+                    Text('Profile',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                  ],
+                ),
+              ),
+              // Profile Avatar
+              // Avatar
               CircleAvatar(
                 radius: 50,
-                backgroundColor: AppColors.primary.withOpacity(0.1),
+                backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                 child: Text(
-                  user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : 'U',
-                  style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: AppColors.primary),
+                  user?.name.isNotEmpty == true
+                      ? user!.name[0].toUpperCase()
+                      : 'U',
+                  style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary),
                 ),
               ),
               const SizedBox(height: DesignTokens.spacingSm),
-              Text(user?.name ?? 'User', style: Theme.of(context).textTheme.headlineSmall),
-              Text(user?.email ?? '', style: Theme.of(context).textTheme.bodyMedium),
+              Text(user?.name ?? 'User',
+                  style: Theme.of(context).textTheme.headlineSmall),
+              Text(user?.email ?? '',
+                  style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Stats
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _StatItem(label: 'Plants\nScanned', value: '${stats.plantsScanned}'),
-                  _StatItem(label: 'Remedies\nTried', value: '${stats.remediesTried}'),
-                  _StatItem(label: 'Wellness\nScore', value: '${stats.wellnessScore}'),
+                  _StatItem(
+                      label: 'Plants\nScanned',
+                      value: '${stats.plantsScanned}'),
+                  _StatItem(
+                      label: 'Remedies\nTried',
+                      value: '${stats.remediesTried}'),
+                  _StatItem(
+                      label: 'Wellness\nScore',
+                      value: '${stats.wellnessScore}'),
                 ],
               ),
               const SizedBox(height: DesignTokens.spacingLg),
@@ -50,14 +74,33 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Menu Items
-              _MenuItem(icon: Icons.bookmark, label: 'Bookmarked Plants', onTap: () {}),
-              _MenuItem(icon: Icons.favorite, label: 'Favorite Remedies', onTap: () {}),
-              _MenuItem(icon: Icons.quiz, label: 'Take Dosha Quiz', onTap: () => context.push('/dosha-quiz')),
-              _MenuItem(icon: Icons.language, label: 'Language', trailing: 'English', onTap: () {}),
-              _MenuItem(icon: Icons.notifications, label: 'Notifications', onTap: () {}),
-              _MenuItem(icon: Icons.dark_mode, label: 'Dark Mode', onTap: () {}),
-              _MenuItem(icon: Icons.help, label: 'Help & Support', onTap: () {}),
-              _MenuItem(icon: Icons.info, label: 'About AyurSpace', onTap: () {}),
+              _MenuItem(
+                  icon: Icons.bookmark,
+                  label: 'Bookmarked Plants',
+                  onTap: () {}),
+              _MenuItem(
+                  icon: Icons.favorite,
+                  label: 'Favorite Remedies',
+                  onTap: () {}),
+              _MenuItem(
+                  icon: Icons.quiz,
+                  label: 'Take Dosha Quiz',
+                  onTap: () => context.push('/dosha-quiz')),
+              _MenuItem(
+                  icon: Icons.language,
+                  label: 'Language',
+                  trailing: 'English',
+                  onTap: () {}),
+              _MenuItem(
+                  icon: Icons.notifications,
+                  label: 'Notifications',
+                  onTap: () {}),
+              _MenuItem(
+                  icon: Icons.dark_mode, label: 'Dark Mode', onTap: () {}),
+              _MenuItem(
+                  icon: Icons.help, label: 'Help & Support', onTap: () {}),
+              _MenuItem(
+                  icon: Icons.info, label: 'About AyurSpace', onTap: () {}),
             ],
           ),
         ),
@@ -72,18 +115,31 @@ class ProfileScreen extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(DesignTokens.spacingMd),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: [AppColors.primary, AppColors.neemGreen]),
+          gradient: const LinearGradient(
+              colors: [AppColors.primary, AppColors.neemGreen]),
           borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
         ),
         child: Column(
           children: [
             const Icon(Icons.spa, color: Colors.white, size: 40),
             const SizedBox(height: DesignTokens.spacingSm),
-            Text(doshaResult != null ? 'Your Dosha: ${doshaResult.dominant.displayName}' : 'Discover Your Dosha',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
+            Text(
+                doshaResult != null
+                    ? 'Your Dosha: ${doshaResult.dominant.displayName}'
+                    : 'Discover Your Dosha',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Colors.white)),
             const SizedBox(height: DesignTokens.spacingXxs),
-            Text(doshaResult != null ? 'Tap to view details' : 'Take the quiz to find out',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70)),
+            Text(
+                doshaResult != null
+                    ? 'Tap to view details'
+                    : 'Take the quiz to find out',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.white70)),
           ],
         ),
       ),
@@ -100,8 +156,14 @@ class _StatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(value, style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.primary)),
-        Text(label, style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+        Text(value,
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium
+                ?.copyWith(color: AppColors.primary)),
+        Text(label,
+            style: Theme.of(context).textTheme.bodySmall,
+            textAlign: TextAlign.center),
       ],
     );
   }
@@ -112,14 +174,20 @@ class _MenuItem extends StatelessWidget {
   final String label;
   final String? trailing;
   final VoidCallback onTap;
-  const _MenuItem({required this.icon, required this.label, this.trailing, required this.onTap});
+  const _MenuItem(
+      {required this.icon,
+      required this.label,
+      this.trailing,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: AppColors.primary),
       title: Text(label),
-      trailing: trailing != null ? Text(trailing!, style: Theme.of(context).textTheme.bodySmall) : const Icon(Icons.chevron_right),
+      trailing: trailing != null
+          ? Text(trailing!, style: Theme.of(context).textTheme.bodySmall)
+          : const Icon(Icons.chevron_right),
       onTap: onTap,
     );
   }
