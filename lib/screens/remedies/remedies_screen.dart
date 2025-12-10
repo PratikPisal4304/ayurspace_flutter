@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 
@@ -25,6 +26,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
 
   final List<Map<String, dynamic>> _remedies = [
     {
+      'id': '1',
       'title': 'Golden Milk',
       'titleHindi': 'हल्दी दूध',
       'category': 'Immunity',
@@ -34,6 +36,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.local_cafe,
     },
     {
+      'id': '2',
       'title': 'Tulsi Kadha',
       'titleHindi': 'तुलसी काढ़ा',
       'category': 'Immunity',
@@ -43,6 +46,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.local_drink,
     },
     {
+      'id': '3',
       'title': 'Triphala Water',
       'titleHindi': 'त्रिफला पानी',
       'category': 'Digestion',
@@ -52,6 +56,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.water_drop,
     },
     {
+      'id': '4',
       'title': 'Ashwagandha Milk',
       'titleHindi': 'अश्वगंधा दूध',
       'category': 'Stress',
@@ -61,6 +66,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.nightlight,
     },
     {
+      'id': '5',
       'title': 'Neem Face Pack',
       'titleHindi': 'नीम फेस पैक',
       'category': 'Skin',
@@ -70,6 +76,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.face,
     },
     {
+      'id': '6',
       'title': 'Ginger Honey Tea',
       'titleHindi': 'अदरक शहद चाय',
       'category': 'Respiratory',
@@ -79,6 +86,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.local_cafe,
     },
     {
+      'id': '7',
       'title': 'Brahmi Oil Massage',
       'titleHindi': 'ब्राह्मी तेल मालिश',
       'category': 'Sleep',
@@ -88,6 +96,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
       'icon': Icons.spa,
     },
     {
+      'id': '8',
       'title': 'Amla Chutney',
       'titleHindi': 'आंवला चटनी',
       'category': 'Immunity',
@@ -101,9 +110,8 @@ class _RemediesScreenState extends State<RemediesScreen> {
   List<Map<String, dynamic>> get _filteredRemedies {
     var filtered = _remedies;
     if (_selectedCategory != 'All') {
-      filtered = filtered
-          .where((r) => r['category'] == _selectedCategory)
-          .toList();
+      filtered =
+          filtered.where((r) => r['category'] == _selectedCategory).toList();
     }
     if (_searchController.text.isNotEmpty) {
       final query = _searchController.text.toLowerCase();
@@ -212,7 +220,8 @@ class _RemediesScreenState extends State<RemediesScreen> {
                           Icon(
                             Icons.medical_services_outlined,
                             size: 64,
-                            color: AppColors.textTertiary.withOpacity(0.5),
+                            color:
+                                AppColors.textTertiary.withValues(alpha: 0.5),
                           ),
                           const SizedBox(height: DesignTokens.spacingMd),
                           Text(
@@ -228,7 +237,13 @@ class _RemediesScreenState extends State<RemediesScreen> {
                       separatorBuilder: (_, __) =>
                           const SizedBox(height: DesignTokens.spacingSm),
                       itemBuilder: (context, index) {
-                        return _RemedyCard(remedy: _filteredRemedies[index]);
+                        final remedy = _filteredRemedies[index];
+                        return InkWell(
+                          onTap: () => context.push('/remedy/${remedy['id']}'),
+                          borderRadius:
+                              BorderRadius.circular(DesignTokens.radiusMd),
+                          child: _RemedyCard(remedy: remedy),
+                        );
                       },
                     ),
             ),
@@ -251,11 +266,11 @@ class _RemedyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColors.shadow,
             blurRadius: DesignTokens.shadowBlurMd,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
@@ -266,7 +281,7 @@ class _RemedyCard extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
             ),
             child: Icon(
@@ -307,7 +322,7 @@ class _RemedyCard extends StatelessWidget {
                 const SizedBox(height: DesignTokens.spacingXs),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.schedule,
                       size: 14,
                       color: AppColors.textTertiary,
@@ -324,13 +339,13 @@ class _RemedyCard extends StatelessWidget {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.saffron.withOpacity(0.1),
+                        color: AppColors.saffron.withValues(alpha: 0.1),
                         borderRadius:
                             BorderRadius.circular(DesignTokens.radiusFull),
                       ),
                       child: Text(
                         remedy['category'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 10,
                           color: AppColors.saffron,
                           fontWeight: FontWeight.w500,
@@ -343,7 +358,7 @@ class _RemedyCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: DesignTokens.spacingXs),
-          Icon(
+          const Icon(
             Icons.chevron_right,
             color: AppColors.textTertiary,
           ),
@@ -368,7 +383,7 @@ class _DifficultyBadge extends StatelessWidget {
         vertical: 2,
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
       ),
       child: Text(
