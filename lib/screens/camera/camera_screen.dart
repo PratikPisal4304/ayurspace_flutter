@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
@@ -89,14 +90,15 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.surfaceVariant,
-                      borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+                      borderRadius:
+                          BorderRadius.circular(DesignTokens.radiusFull),
                     ),
                     child: Row(
                       children: [
                         Icon(
                           _useCloudRecognition ? Icons.cloud : Icons.smartphone,
                           size: 16,
-                          color: AppColors.primary,
+                          color: Colors.black.withValues(alpha: 0.5),
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -108,8 +110,9 @@ class _CameraScreenState extends State<CameraScreen> {
                           onChanged: (value) {
                             setState(() => _useCloudRecognition = value);
                           },
-                          activeColor: AppColors.primary,
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          activeThumbColor: AppColors.primary,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                         ),
                       ],
                     ),
@@ -185,7 +188,7 @@ class _CameraScreenState extends State<CameraScreen> {
           Container(
             padding: const EdgeInsets.all(DesignTokens.spacingLg),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -239,7 +242,7 @@ class _CameraScreenState extends State<CameraScreen> {
           Container(
             padding: const EdgeInsets.all(DesignTokens.spacingMd),
             decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(0.1),
+              color: AppColors.success.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -278,7 +281,8 @@ class _CameraScreenState extends State<CameraScreen> {
               const SizedBox(width: DesignTokens.spacingSm),
               ElevatedButton.icon(
                 onPressed: () {
-                  // Navigate to plant detail
+                  // Navigate to Tulsi (plant ID 1) as mock result
+                  context.push('/plant/1');
                 },
                 icon: const Icon(Icons.visibility),
                 label: const Text('View Details'),

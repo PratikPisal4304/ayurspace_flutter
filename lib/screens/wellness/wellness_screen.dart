@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 
@@ -15,18 +16,23 @@ class WellnessScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Wellness Hub', style: Theme.of(context).textTheme.headlineMedium),
+              Text('Wellness Hub',
+                  style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: DesignTokens.spacingXs),
-              Text('Your daily Ayurvedic practices', style: Theme.of(context).textTheme.bodyMedium),
+              Text('Your daily Ayurvedic practices',
+                  style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: DesignTokens.spacingLg),
-
-              _buildSection(context, 'Daily Routine', Icons.wb_sunny, AppColors.saffron, [
-                'Wake before sunrise', 'Warm water on empty stomach', 
-                'Oil pulling & tongue scraping', 'Self-massage (Abhyanga)', 'Yoga & meditation'
+              _buildSection(
+                  context, 'Daily Routine', Icons.wb_sunny, AppColors.saffron, [
+                'Wake before sunrise',
+                'Warm water on empty stomach',
+                'Oil pulling & tongue scraping',
+                'Self-massage (Abhyanga)',
+                'Yoga & meditation'
               ]),
               const SizedBox(height: DesignTokens.spacingMd),
-
-              Text('Balance Your Dosha', style: Theme.of(context).textTheme.titleLarge),
+              Text('Balance Your Dosha',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: DesignTokens.spacingSm),
               Row(
                 children: [
@@ -38,14 +44,19 @@ class WellnessScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: DesignTokens.spacingLg),
-
-              _buildSection(context, 'Yoga & Meditation', Icons.self_improvement, AppColors.lotusPink, [
-                'Surya Namaskar', 'Pranayama breathing', 'Mindfulness meditation'
+              _buildSection(context, 'Yoga & Meditation',
+                  Icons.self_improvement, AppColors.lotusPink, [
+                'Surya Namaskar',
+                'Pranayama breathing',
+                'Mindfulness meditation'
               ]),
               const SizedBox(height: DesignTokens.spacingMd),
-
-              _buildSection(context, 'Seasonal Wisdom', Icons.eco, AppColors.primary, [
-                'Winter: Warm foods', 'Spring: Light diet', 'Summer: Stay cool', 'Monsoon: Digestive care'
+              _buildSection(
+                  context, 'Seasonal Wisdom', Icons.eco, AppColors.primary, [
+                'Winter: Warm foods',
+                'Spring: Light diet',
+                'Summer: Stay cool',
+                'Monsoon: Digestive care'
               ]),
             ],
           ),
@@ -54,13 +65,17 @@ class WellnessScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(BuildContext context, String title, IconData icon, Color color, List<String> items) {
+  Widget _buildSection(BuildContext context, String title, IconData icon,
+      Color color, List<String> items) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-        boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 8, offset: const Offset(0, 2))],
+        boxShadow: const [
+          BoxShadow(
+              color: AppColors.shadow, blurRadius: 8, offset: Offset(0, 2))
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +83,9 @@ class WellnessScreen extends StatelessWidget {
           Row(children: [
             Container(
               padding: const EdgeInsets.all(DesignTokens.spacingSm),
-              decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8)),
               child: Icon(icon, color: color),
             ),
             const SizedBox(width: DesignTokens.spacingSm),
@@ -76,13 +93,13 @@ class WellnessScreen extends StatelessWidget {
           ]),
           const SizedBox(height: DesignTokens.spacingSm),
           ...items.map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(children: [
-              Icon(Icons.check_circle, color: color, size: 16),
-              const SizedBox(width: 8),
-              Text(item, style: Theme.of(context).textTheme.bodyMedium),
-            ]),
-          )),
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(children: [
+                  Icon(Icons.check_circle, color: color, size: 16),
+                  const SizedBox(width: 8),
+                  Text(item, style: Theme.of(context).textTheme.bodyMedium),
+                ]),
+              )),
         ],
       ),
     );
@@ -90,18 +107,28 @@ class WellnessScreen extends StatelessWidget {
 
   Widget _buildDoshaCard(BuildContext context, String dosha, Color color) {
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(DesignTokens.spacingSm),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => context.push('/dosha-quiz'),
           borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-          border: Border.all(color: color.withOpacity(0.3)),
+          child: Container(
+            padding: const EdgeInsets.all(DesignTokens.spacingSm),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+              border: Border.all(color: color.withValues(alpha: 0.3)),
+            ),
+            child: Column(children: [
+              Text(dosha,
+                  style: TextStyle(
+                      color: color, fontWeight: FontWeight.bold, fontSize: 16)),
+              const SizedBox(height: 4),
+              Text('Balance tips',
+                  style: Theme.of(context).textTheme.bodySmall),
+            ]),
+          ),
         ),
-        child: Column(children: [
-          Text(dosha, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 4),
-          Text('Balance tips', style: Theme.of(context).textTheme.bodySmall),
-        ]),
       ),
     );
   }

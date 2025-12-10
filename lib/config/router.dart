@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/discover/discover_screen.dart';
@@ -10,6 +9,7 @@ import '../screens/profile/profile_screen.dart';
 import '../screens/plant_detail/plant_detail_screen.dart';
 import '../screens/dosha_quiz/dosha_quiz_screen.dart';
 import '../screens/dosha_profile/dosha_profile_screen.dart';
+import '../screens/remedy_detail/remedy_detail_screen.dart';
 import '../widgets/common/main_scaffold.dart';
 
 /// App router configuration
@@ -91,6 +91,14 @@ final GoRouter appRouter = GoRouter(
       path: '/dosha-profile',
       name: 'doshaProfile',
       builder: (context, state) => const DoshaProfileScreen(),
+    ),
+    GoRoute(
+      path: '/remedy/:id',
+      name: 'remedyDetail',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return RemedyDetailScreen(remedyId: id);
+      },
     ),
   ],
 );
