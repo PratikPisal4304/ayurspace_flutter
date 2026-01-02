@@ -21,6 +21,14 @@ class Plant extends Equatable {
   final String harvestTime;
   final bool isBookmarked;
 
+  // New enhanced fields
+  final String? origin;
+  final String? sanskritName;
+  final String? partUsed;
+  final List<String>? taste; // Ayurvedic rasa: Sweet, Sour, Salty, Bitter, Pungent, Astringent
+  final List<String>? contraindications;
+  final List<String>? chemicalCompounds;
+
   const Plant({
     required this.id,
     required this.name,
@@ -40,6 +48,13 @@ class Plant extends Equatable {
     required this.growingTips,
     required this.harvestTime,
     this.isBookmarked = false,
+    // New optional fields
+    this.origin,
+    this.sanskritName,
+    this.partUsed,
+    this.taste,
+    this.contraindications,
+    this.chemicalCompounds,
   });
 
   /// Create a copy with modified fields
@@ -62,6 +77,12 @@ class Plant extends Equatable {
     String? growingTips,
     String? harvestTime,
     bool? isBookmarked,
+    String? origin,
+    String? sanskritName,
+    String? partUsed,
+    List<String>? taste,
+    List<String>? contraindications,
+    List<String>? chemicalCompounds,
   }) {
     return Plant(
       id: id ?? this.id,
@@ -82,6 +103,12 @@ class Plant extends Equatable {
       growingTips: growingTips ?? this.growingTips,
       harvestTime: harvestTime ?? this.harvestTime,
       isBookmarked: isBookmarked ?? this.isBookmarked,
+      origin: origin ?? this.origin,
+      sanskritName: sanskritName ?? this.sanskritName,
+      partUsed: partUsed ?? this.partUsed,
+      taste: taste ?? this.taste,
+      contraindications: contraindications ?? this.contraindications,
+      chemicalCompounds: chemicalCompounds ?? this.chemicalCompounds,
     );
   }
 
@@ -106,6 +133,17 @@ class Plant extends Equatable {
       growingTips: json['growingTips'] as String,
       harvestTime: json['harvestTime'] as String,
       isBookmarked: json['isBookmarked'] as bool? ?? false,
+      // New optional fields
+      origin: json['origin'] as String?,
+      sanskritName: json['sanskritName'] as String?,
+      partUsed: json['partUsed'] as String?,
+      taste: json['taste'] != null ? List<String>.from(json['taste'] as List) : null,
+      contraindications: json['contraindications'] != null
+          ? List<String>.from(json['contraindications'] as List)
+          : null,
+      chemicalCompounds: json['chemicalCompounds'] != null
+          ? List<String>.from(json['chemicalCompounds'] as List)
+          : null,
     );
   }
 
@@ -130,6 +168,12 @@ class Plant extends Equatable {
       'growingTips': growingTips,
       'harvestTime': harvestTime,
       'isBookmarked': isBookmarked,
+      if (origin != null) 'origin': origin,
+      if (sanskritName != null) 'sanskritName': sanskritName,
+      if (partUsed != null) 'partUsed': partUsed,
+      if (taste != null) 'taste': taste,
+      if (contraindications != null) 'contraindications': contraindications,
+      if (chemicalCompounds != null) 'chemicalCompounds': chemicalCompounds,
     };
   }
 
@@ -153,5 +197,11 @@ class Plant extends Equatable {
         growingTips,
         harvestTime,
         isBookmarked,
+        origin,
+        sanskritName,
+        partUsed,
+        taste,
+        contraindications,
+        chemicalCompounds,
       ];
 }
