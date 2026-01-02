@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/plant.dart';
-import '../data/sources/plants_data.dart';
+import '../data/repositories/plants_repository.dart';
+import '../data/repositories/local_plants_repository.dart';
 
-/// Plants state
+/// Plants state with error handling
 class PlantsState {
   final List<Plant> plants;
   final List<Plant> filteredPlants;
@@ -11,6 +12,7 @@ class PlantsState {
   final String? selectedDosha;
   final String? selectedDifficulty;
   final bool isLoading;
+  final String? error;
 
   const PlantsState({
     this.plants = const [],
@@ -20,6 +22,7 @@ class PlantsState {
     this.selectedDosha,
     this.selectedDifficulty,
     this.isLoading = false,
+    this.error,
   });
 
   PlantsState copyWith({
@@ -30,31 +33,56 @@ class PlantsState {
     String? selectedDosha,
     String? selectedDifficulty,
     bool? isLoading,
+    String? error,
+    bool clearError = false,
+    bool clearFilters = false,
   }) {
     return PlantsState(
       plants: plants ?? this.plants,
       filteredPlants: filteredPlants ?? this.filteredPlants,
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedCategory: selectedCategory ?? this.selectedCategory,
-      selectedDosha: selectedDosha ?? this.selectedDosha,
-      selectedDifficulty: selectedDifficulty ?? this.selectedDifficulty,
+      selectedCategory: clearFilters ? null : (selectedCategory ?? this.selectedCategory),
+      selectedDosha: clearFilters ? null : (selectedDosha ?? this.selectedDosha),
+      selectedDifficulty: clearFilters ? null : (selectedDifficulty ?? this.selectedDifficulty),
       isLoading: isLoading ?? this.isLoading,
+      error: clearError ? null : (error ?? this.error),
     );
   }
 }
 
-/// Plants notifier
+/// Repository provider for dependency injection
+final plantsRepositoryProvider = Provider<PlantsRepository>((ref) {
+  return LocalPlantsRepository();
+});
+
+/// Plants notifier with repository pattern
 class PlantsNotifier extends StateNotifier<PlantsState> {
-  PlantsNotifier() : super(const PlantsState()) {
+  final PlantsRepository _repository;
+
+  PlantsNotifier(this._repository) : super(const PlantsState()) {
     _loadPlants();
   }
 
-  void _loadPlants() {
-    state = state.copyWith(
-      plants: plantsData,
-      filteredPlants: plantsData,
-      isLoading: false,
-    );
+  Future<void> _loadPlants() async {
+    state = state.copyWith(isLoading: true, clearError: true);
+    try {
+      final plants = await _repository.getPlants();
+      state = state.copyWith(
+        plants: plants,
+        filteredPlants: plants,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: 'Failed to load plants: ${e.toString()}',
+      );
+    }
+  }
+
+  /// Refresh plants from repository
+  Future<void> refreshPlants() async {
+    await _loadPlants();
   }
 
   /// Search plants by name or scientific name
@@ -85,10 +113,8 @@ class PlantsNotifier extends StateNotifier<PlantsState> {
   void clearFilters() {
     state = state.copyWith(
       searchQuery: '',
-      selectedCategory: null,
-      selectedDosha: null,
-      selectedDifficulty: null,
       filteredPlants: state.plants,
+      clearFilters: true,
     );
   }
 
@@ -148,9 +174,9 @@ class PlantsNotifier extends StateNotifier<PlantsState> {
       state.plants.where((p) => p.isBookmarked).toList();
 }
 
-/// Plants provider
+/// Plants provider with repository injection
 final plantsProvider = StateNotifierProvider<PlantsNotifier, PlantsState>(
-  (ref) => PlantsNotifier(),
+  (ref) => PlantsNotifier(ref.watch(plantsRepositoryProvider)),
 );
 
 /// Single plant provider
