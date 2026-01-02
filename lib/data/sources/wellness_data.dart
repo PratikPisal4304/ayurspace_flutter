@@ -67,4 +67,52 @@ class WellnessData {
     {'en': 'Avoid eating when stressed or upset', 'hi': 'तनाव या परेशान होने पर भोजन न करें'},
     {'en': 'Chew food 32 times before swallowing', 'hi': 'निगलने से पहले 32 बार चबाएं'},
   ];
+
+  /// Evening routine (Ratricharya) items
+  static const List<Map<String, String>> eveningRoutine = [
+    {'en': 'Eat light dinner before sunset', 'hi': 'सूर्यास्त से पहले हल्का रात्रि भोजन'},
+    {'en': 'Take a short walk after dinner', 'hi': 'रात्रि भोजन के बाद थोड़ी देर टहलें'},
+    {'en': 'Avoid screens 1 hour before bed', 'hi': 'सोने से 1 घंटे पहले स्क्रीन से बचें'},
+    {'en': 'Practice gentle stretching or yoga', 'hi': 'हल्की स्ट्रेचिंग या योग करें'},
+    {'en': 'Massage feet with warm oil', 'hi': 'गर्म तेल से पैरों की मालिश करें'},
+    {'en': 'Drink warm milk with turmeric', 'hi': 'हल्दी वाला गर्म दूध पिएं'},
+    {'en': 'Sleep by 10 PM', 'hi': 'रात 10 बजे तक सो जाएं'},
+  ];
+
+  /// Meditation types with durations
+  static const List<Map<String, dynamic>> meditationTypes = [
+    {'name': 'Breathing Focus', 'icon': 'air', 'duration': 5, 'description': 'Simple breath awareness'},
+    {'name': 'Body Scan', 'icon': 'accessibility_new', 'duration': 10, 'description': 'Progressive relaxation'},
+    {'name': 'Mantra Meditation', 'icon': 'record_voice_over', 'duration': 15, 'description': 'Om chanting'},
+    {'name': 'Loving Kindness', 'icon': 'favorite', 'duration': 10, 'description': 'Metta meditation'},
+    {'name': 'Visualization', 'icon': 'landscape', 'duration': 15, 'description': 'Peaceful imagery'},
+  ];
+
+  /// Sleep sounds for relaxation
+  static const List<Map<String, String>> sleepSounds = [
+    {'name': 'Rain', 'icon': 'water_drop', 'color': '0xFF4FC3F7'},
+    {'name': 'Ocean', 'icon': 'waves', 'color': '0xFF0288D1'},
+    {'name': 'Forest', 'icon': 'forest', 'color': '0xFF4CAF50'},
+    {'name': 'Thunder', 'icon': 'thunderstorm', 'color': '0xFF7E57C2'},
+    {'name': 'Fire', 'icon': 'local_fire_department', 'color': '0xFFFF7043'},
+    {'name': 'Om Chant', 'icon': 'self_improvement', 'color': '0xFFFFB74D'},
+  ];
+
+  /// Daily affirmations
+  static const List<Map<String, String>> affirmations = [
+    {'en': 'I am in harmony with nature and my body.', 'hi': 'मैं प्रकृति और अपने शरीर के साथ सामंजस्य में हूं।'},
+    {'en': 'My mind is calm, my body is healthy.', 'hi': 'मेरा मन शांत है, मेरा शरीर स्वस्थ है।'},
+    {'en': 'I nourish myself with wholesome foods.', 'hi': 'मैं पौष्टिक भोजन से खुद को पोषित करता हूं।'},
+    {'en': 'Balance flows through every cell of my being.', 'hi': 'संतुलन मेरे हर कोशिका में बहता है।'},
+    {'en': 'I honor my body\'s natural rhythms.', 'hi': 'मैं अपने शरीर की प्राकृतिक लय का सम्मान करता हूं।'},
+  ];
+
+  /// Mood emoji mapping
+  static const List<Map<String, dynamic>> moodOptions = [
+    {'value': 1, 'emoji': '😴', 'label': 'Tired'},
+    {'value': 2, 'emoji': '😐', 'label': 'Okay'},
+    {'value': 3, 'emoji': '😊', 'label': 'Good'},
+    {'value': 4, 'emoji': '😄', 'label': 'Great'},
+    {'value': 5, 'emoji': '🤩', 'label': 'Amazing'},
+  ];
 }
