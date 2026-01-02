@@ -16,7 +16,16 @@ class _RemediesScreenState extends State<RemediesScreen> {
   String _selectedCategory = 'All';
   final _searchController = TextEditingController();
 
-  List<Remedy> get _filteredRemedies {
+  List<Remedy> _filteredRemedies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredRemedies = remediesData;
+    _searchController.addListener(_updateFilteredRemedies);
+  }
+
+  void _updateFilteredRemedies() {
     List<Remedy> filtered;
 
     // Filter by category
@@ -37,7 +46,9 @@ class _RemediesScreenState extends State<RemediesScreen> {
       }).toList();
     }
 
-    return filtered;
+    setState(() {
+      _filteredRemedies = filtered;
+    });
   }
 
   @override
@@ -95,7 +106,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
                   // Search
                   TextField(
                     controller: _searchController,
-                    onChanged: (_) => setState(() {}),
+                    // Listener handles updates
                     decoration: const InputDecoration(
                       hintText: 'Search remedies...',
                       prefixIcon: Icon(Icons.search),
@@ -119,7 +130,10 @@ class _RemediesScreenState extends State<RemediesScreen> {
                   final cat = categories[index];
                   final isSelected = cat == _selectedCategory;
                   return GestureDetector(
-                    onTap: () => setState(() => _selectedCategory = cat),
+                    onTap: () {
+                      _selectedCategory = cat;
+                      _updateFilteredRemedies();
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: DesignTokens.spacingMd,

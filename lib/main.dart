@@ -4,29 +4,31 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'config/theme.dart';
 import 'config/router.dart';
-
-/// Whether Firebase is available
-bool isFirebaseInitialized = false;
+import 'providers/firebase_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Create container to set initial provider state
+  final container = ProviderContainer();
+  
   // Try to initialize Firebase, but don't crash if it fails
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    isFirebaseInitialized = true;
+    container.read(firebaseInitializedProvider.notifier).state = true;
     debugPrint('✅ Firebase initialized successfully');
   } catch (e) {
     debugPrint('⚠️ Firebase initialization failed: $e');
     debugPrint('App will run in offline mode');
-    isFirebaseInitialized = false;
+    container.read(firebaseInitializedProvider.notifier).state = false;
   }
 
   runApp(
-    const ProviderScope(
-      child: AyurSpaceApp(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const AyurSpaceApp(),
     ),
   );
 }

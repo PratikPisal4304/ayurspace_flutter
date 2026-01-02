@@ -25,7 +25,7 @@ class _CameraScreenState extends State<CameraScreen> {
         _selectedImage = image;
         _scanResult = null;
       });
-      _analyzeImage();
+      await _analyzeImage();
     }
   }
 
@@ -36,7 +36,7 @@ class _CameraScreenState extends State<CameraScreen> {
         _selectedImage = image;
         _scanResult = null;
       });
-      _analyzeImage();
+      await _analyzeImage();
     }
   }
 
