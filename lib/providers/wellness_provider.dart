@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -195,7 +196,85 @@ class MeditationTimerState {
   }
 }
 
+/// Meditation Timer Notifier - handles all timer logic
+class MeditationTimerNotifier extends StateNotifier<MeditationTimerState> {
+  final Ref _ref;
+  Timer? _timer;
+
+  MeditationTimerNotifier(this._ref) : super(const MeditationTimerState());
+
+  /// Start meditation timer with specified minutes
+  void startMeditation(int minutes) {
+    _timer?.cancel();
+
+    final totalSeconds = minutes * 60;
+    state = MeditationTimerState(
+      remainingSeconds: totalSeconds,
+      totalSeconds: totalSeconds,
+      isRunning: true,
+      isComplete: false,
+    );
+
+    _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+  }
+
+  void _onTick(Timer timer) {
+    if (state.remainingSeconds <= 1) {
+      // Timer complete
+      timer.cancel();
+      _timer = null;
+
+      final minutes = state.totalSeconds ~/ 60;
+      _ref.read(wellnessProvider.notifier).addMeditationMinutes(minutes);
+
+      state = state.copyWith(
+        remainingSeconds: 0,
+        isRunning: false,
+        isComplete: true,
+      );
+    } else {
+      state = state.copyWith(
+        remainingSeconds: state.remainingSeconds - 1,
+      );
+    }
+  }
+
+  /// Stop the meditation timer
+  void stopMeditation() {
+    _timer?.cancel();
+    _timer = null;
+    state = const MeditationTimerState();
+  }
+
+  /// Pause the meditation timer
+  void pauseMeditation() {
+    _timer?.cancel();
+    _timer = null;
+    state = state.copyWith(isRunning: false);
+  }
+
+  /// Resume the meditation timer
+  void resumeMeditation() {
+    if (state.remainingSeconds > 0 && !state.isRunning) {
+      state = state.copyWith(isRunning: true);
+      _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+    }
+  }
+
+  /// Reset completion status (after showing dialog)
+  void acknowledgeCompletion() {
+    state = const MeditationTimerState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+}
+
 /// Meditation timer provider
-final meditationTimerProvider = StateProvider<MeditationTimerState>(
-  (ref) => const MeditationTimerState(),
+final meditationTimerProvider =
+    StateNotifierProvider<MeditationTimerNotifier, MeditationTimerState>(
+  (ref) => MeditationTimerNotifier(ref),
 );

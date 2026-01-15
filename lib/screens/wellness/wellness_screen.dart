@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,58 +5,13 @@ import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../data/sources/wellness_data.dart';
 import '../../providers/wellness_provider.dart';
+import '../../l10n/app_strings.dart';
+import '../../providers/user_provider.dart';
 
-class WellnessScreen extends ConsumerStatefulWidget {
+class WellnessScreen extends ConsumerWidget {
   const WellnessScreen({super.key});
 
-  @override
-  ConsumerState<WellnessScreen> createState() => _WellnessScreenState();
-}
-
-class _WellnessScreenState extends ConsumerState<WellnessScreen> {
-  Timer? _meditationTimer;
-
-  @override
-  void dispose() {
-    _meditationTimer?.cancel();
-    super.dispose();
-  }
-
-  void _startMeditation(int minutes) {
-    final totalSeconds = minutes * 60;
-    ref.read(meditationTimerProvider.notifier).state = MeditationTimerState(
-      remainingSeconds: totalSeconds,
-      totalSeconds: totalSeconds,
-      isRunning: true,
-      isComplete: false,
-    );
-
-    _meditationTimer?.cancel();
-    _meditationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      final current = ref.read(meditationTimerProvider);
-      if (current.remainingSeconds <= 1) {
-        timer.cancel();
-        ref.read(meditationTimerProvider.notifier).state = current.copyWith(
-          remainingSeconds: 0,
-          isRunning: false,
-          isComplete: true,
-        );
-        ref.read(wellnessProvider.notifier).addMeditationMinutes(minutes);
-        _showCompletionDialog();
-      } else {
-        ref.read(meditationTimerProvider.notifier).state = current.copyWith(
-          remainingSeconds: current.remainingSeconds - 1,
-        );
-      }
-    });
-  }
-
-  void _stopMeditation() {
-    _meditationTimer?.cancel();
-    ref.read(meditationTimerProvider.notifier).state = const MeditationTimerState();
-  }
-
-  void _showCompletionDialog() {
+  void _showCompletionDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -74,7 +28,10 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(ctx),
+            onPressed: () {
+              ref.read(meditationTimerProvider.notifier).acknowledgeCompletion();
+              Navigator.pop(ctx);
+            },
             child: const Text('Done'),
           ),
         ],
@@ -83,10 +40,19 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final wellnessState = ref.watch(wellnessProvider);
     final timerState = ref.watch(meditationTimerProvider);
     final playingSound = ref.watch(playingSoundProvider);
+
+    // Listen for meditation completion
+    ref.listen<MeditationTimerState>(meditationTimerProvider, (previous, next) {
+      if (next.isComplete && !(previous?.isComplete ?? false)) {
+        _showCompletionDialog(context, ref);
+      }
+    });
+
+    final lang = ref.watch(userProfileProvider)?.settings.language ?? 'en';
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -97,56 +63,59 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header
-              Text('Wellness Hub', style: Theme.of(context).textTheme.headlineMedium),
+              Text(tr(AppStrings.wellnessHub, lang),
+                  style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: DesignTokens.spacingXs),
-              Text('Your daily Ayurvedic practices', style: Theme.of(context).textTheme.bodyMedium),
+              Text(tr(AppStrings.dailyRoutine, lang), // Using 'Daily Routine' for subtitle for now
+                  style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Streak Card
-              _buildStreakCard(wellnessState),
+              _buildStreakCard(context, wellnessState),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Mood Check-in
-              _buildMoodCheckIn(wellnessState),
+              _buildMoodCheckIn(context, ref, wellnessState),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Progress Stats
-              _buildProgressStats(wellnessState),
+              _buildProgressStats(context, wellnessState),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Morning/Evening Toggle
-              _buildRoutineToggle(wellnessState),
+              _buildRoutineToggle(context, ref, wellnessState),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Daily Routine Section
-              _buildRoutineSection(wellnessState),
+              _buildRoutineSection(context, wellnessState, lang),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Quick Meditation Timer
-              _buildMeditationSection(timerState),
+              _buildMeditationSection(context, ref, timerState),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Sleep Sounds
-              _buildSleepSoundsSection(playingSound),
+              _buildSleepSoundsSection(context, ref, playingSound),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Dosha Balance Cards
-              Text('Balance Your Dosha', style: Theme.of(context).textTheme.titleLarge),
+              Text(tr(AppStrings.balanceDosha, lang),
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: DesignTokens.spacingSm),
               Row(
                 children: [
-                  _buildDoshaCard('Vata', AppColors.vata),
+                  _buildDoshaCard(context, tr(AppStrings.vata, lang), AppColors.vata),
                   const SizedBox(width: DesignTokens.spacingSm),
-                  _buildDoshaCard('Pitta', AppColors.pitta),
+                  _buildDoshaCard(context, tr(AppStrings.pitta, lang), AppColors.pitta),
                   const SizedBox(width: DesignTokens.spacingSm),
-                  _buildDoshaCard('Kapha', AppColors.kapha),
+                  _buildDoshaCard(context, tr(AppStrings.kapha, lang), AppColors.kapha),
                 ],
               ),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Seasonal Wisdom
-              _buildSection('Seasonal Wisdom', Icons.eco, AppColors.primary,
-                WellnessData.seasonalWisdom.map((s) => s['en']!).toList()),
+              _buildSection(context, tr(AppStrings.seasonalWisdom, lang), Icons.eco, AppColors.primary,
+                WellnessData.seasonalWisdom.map((s) => s[lang] ?? s['en']!).toList()),
             ],
           ),
         ),
@@ -154,7 +123,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildStreakCard(WellnessState state) {
+  Widget _buildStreakCard(BuildContext context, WellnessState state) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
@@ -202,7 +171,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildMoodCheckIn(WellnessState state) {
+  Widget _buildMoodCheckIn(BuildContext context, WidgetRef ref, WellnessState state) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
@@ -258,19 +227,19 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildProgressStats(WellnessState state) {
+  Widget _buildProgressStats(BuildContext context, WellnessState state) {
     return Row(
       children: [
-        _buildStatCard('🧘', '${state.totalMeditationMinutes}', 'Mins Meditated'),
+        _buildStatCard(context, '🧘', '${state.totalMeditationMinutes}', 'Mins Meditated'),
         const SizedBox(width: DesignTokens.spacingSm),
-        _buildStatCard('✅', '${state.weeklyCheckIns}', 'This Week'),
+        _buildStatCard(context, '✅', '${state.weeklyCheckIns}', 'This Week'),
         const SizedBox(width: DesignTokens.spacingSm),
-        _buildStatCard('🔥', '${state.currentStreak}', 'Day Streak'),
+        _buildStatCard(context, '🔥', '${state.currentStreak}', 'Day Streak'),
       ],
     );
   }
 
-  Widget _buildStatCard(String emoji, String value, String label) {
+  Widget _buildStatCard(BuildContext context, String emoji, String value, String label) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(DesignTokens.spacingSm),
@@ -290,7 +259,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildRoutineToggle(WellnessState state) {
+  Widget _buildRoutineToggle(BuildContext context, WidgetRef ref, WellnessState state) {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
@@ -360,18 +329,18 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildRoutineSection(WellnessState state) {
+  Widget _buildRoutineSection(BuildContext context, WellnessState state, String lang) {
     final routineItems = state.isMorningRoutine
         ? WellnessData.dailyRoutine
         : WellnessData.eveningRoutine;
-    final title = state.isMorningRoutine ? 'Morning Routine (Dinacharya)' : 'Evening Routine (Ratricharya)';
+    final title = state.isMorningRoutine ? 'Morning Routine' : 'Evening Routine';
     final icon = state.isMorningRoutine ? Icons.wb_sunny : Icons.nightlight_round;
     final color = state.isMorningRoutine ? AppColors.saffron : AppColors.primary;
 
-    return _buildSection(title, icon, color, routineItems.map((r) => r['en']!).toList());
+    return _buildSection(context, title, icon, color, routineItems.map((r) => r[lang] ?? r['en']!).toList());
   }
 
-  Widget _buildMeditationSection(MeditationTimerState timerState) {
+  Widget _buildMeditationSection(BuildContext context, WidgetRef ref, MeditationTimerState timerState) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
@@ -426,7 +395,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
                   ),
                   const SizedBox(height: DesignTokens.spacingMd),
                   ElevatedButton.icon(
-                    onPressed: _stopMeditation,
+                    onPressed: () => ref.read(meditationTimerProvider.notifier).stopMeditation(),
                     icon: const Icon(Icons.stop),
                     label: const Text('Stop'),
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
@@ -441,7 +410,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: OutlinedButton(
-                      onPressed: () => _startMeditation(mins),
+                      onPressed: () => ref.read(meditationTimerProvider.notifier).startMeditation(mins),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         side: const BorderSide(color: AppColors.lotusPink),
@@ -458,7 +427,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildSleepSoundsSection(String? playingSound) {
+  Widget _buildSleepSoundsSection(BuildContext context, WidgetRef ref, String? playingSound) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
@@ -542,7 +511,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildSection(String title, IconData icon, Color color, List<String> items) {
+  Widget _buildSection(BuildContext context, String title, IconData icon, Color color, List<String> items) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(
@@ -583,7 +552,7 @@ class _WellnessScreenState extends ConsumerState<WellnessScreen> {
     );
   }
 
-  Widget _buildDoshaCard(String dosha, Color color) {
+  Widget _buildDoshaCard(BuildContext context, String dosha, Color color) {
     return Expanded(
       child: Material(
         color: Colors.transparent,

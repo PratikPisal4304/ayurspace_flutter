@@ -13,6 +13,8 @@ class UserProfile extends Equatable {
   final DateTime updatedAt;
   final UserSettings settings;
   final UserStats stats;
+  final List<String> bookmarkedPlantIds;
+  final List<String> favoriteRemedyIds;
 
   const UserProfile({
     required this.id,
@@ -25,6 +27,8 @@ class UserProfile extends Equatable {
     required this.updatedAt,
     this.settings = const UserSettings(),
     this.stats = const UserStats(),
+    this.bookmarkedPlantIds = const [],
+    this.favoriteRemedyIds = const [],
   });
 
   UserProfile copyWith({
@@ -38,6 +42,8 @@ class UserProfile extends Equatable {
     DateTime? updatedAt,
     UserSettings? settings,
     UserStats? stats,
+    List<String>? bookmarkedPlantIds,
+    List<String>? favoriteRemedyIds,
   }) {
     return UserProfile(
       id: id ?? this.id,
@@ -50,6 +56,8 @@ class UserProfile extends Equatable {
       updatedAt: updatedAt ?? this.updatedAt,
       settings: settings ?? this.settings,
       stats: stats ?? this.stats,
+      bookmarkedPlantIds: bookmarkedPlantIds ?? this.bookmarkedPlantIds,
+      favoriteRemedyIds: favoriteRemedyIds ?? this.favoriteRemedyIds,
     );
   }
 
@@ -63,6 +71,10 @@ class UserProfile extends Equatable {
         doshaResult,
         createdAt,
         updatedAt,
+        settings,
+        stats,
+        bookmarkedPlantIds,
+        favoriteRemedyIds,
       ];
 }
 

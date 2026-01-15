@@ -12,7 +12,20 @@
           "package_name": "com.ayurspace.ayurspace_flutter"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "481756200926-bf4enibsak55lj1maq2b610skvi656hm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayurspace.ayurspace_flutter",
+            "certificate_hash": "4a198571a40c6afaf799a89dac9acfcda5ab25a6"
+          }
+        },
+        {
+          "client_id": "481756200926-8u890soddk3p732bq0ib8dgfuosnoa0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB8qi57yFSo_gdkF473G-_wRgbl8ITtpT4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481756200926-8u890soddk3p732bq0ib8dgfuosnoa0p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "481756200926-0sn7tcjqbfui51baci9e1gngspm6i114.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ayurspace.ayurspaceFlutter"
+              }
+            }
+          ]
         }
       }
     }

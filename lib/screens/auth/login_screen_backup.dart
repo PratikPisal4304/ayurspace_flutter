@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
-import '../../providers/auth_provider.dart';
+import '../../services/auth_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +16,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // bool _isLoading = false; // Removed
+  bool _isLoading = false;
   bool _obscurePassword = true;
   String? _errorMessage;
 
@@ -30,10 +30,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _handleLogin() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _errorMessage = null);
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
 
     try {
-      await ref.read(authProvider.notifier).signIn(
+      final authService = ref.read(authServiceProvider);
+      await authService.signInWithEmail(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
@@ -42,27 +46,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         context.go('/home');
       }
     } catch (e) {
+      setState(() {
+        _errorMessage = e.toString();
+      });
+    } finally {
       if (mounted) {
         setState(() {
-          _errorMessage = e.toString();
-        });
-      }
-    }
-  }
-
-  Future<void> _handleGoogleSignIn() async {
-    setState(() => _errorMessage = null);
-
-    try {
-      await ref.read(authProvider.notifier).signInWithGoogle();
-
-      if (mounted) {
-        context.go('/home');
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _errorMessage = e.toString();
+          _isLoading = false;
         });
       }
     }
@@ -108,13 +98,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               }
 
               try {
-                await ref.read(authProvider.notifier).sendPasswordReset(email);
-                if (context.mounted) {
-                  Navigator.pop(context); // Close dialog
-                  ScaffoldMessenger.of(context).showSnackBar( // Use messenger directly
-                    SnackBar(content: Text('Password reset link sent to $email')),
-                  );
-                }
+                final authService = ref.read(authServiceProvider);
+                final navigator = Navigator.of(context);
+                final messenger = ScaffoldMessenger.of(context);
+                await authService.sendPasswordReset(email);
+                navigator.pop();
+                messenger.showSnackBar(
+                  SnackBar(content: Text('Password reset link sent to $email')),
+                );
               } catch (e) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -132,7 +123,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(authProvider).isLoading;
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -285,12 +275,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 SizedBox(
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : _handleLogin,
+                    onPressed: _isLoading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                     ),
-                    child: isLoading
+                    child: _isLoading
                         ? const SizedBox(
                             width: 24,
                             height: 24,
@@ -300,65 +290,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                           )
                         : const Text('Sign In', style: TextStyle(fontSize: 16)),
-                  ),
-                ),
-                const SizedBox(height: DesignTokens.spacingMd),
-
-                // OR Divider
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: AppColors.border)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
-                      child: Text(
-                        'OR',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Divider(color: AppColors.border)),
-                  ],
-                ),
-                const SizedBox(height: DesignTokens.spacingMd),
-
-                // Google Sign In Button
-                SizedBox(
-                  height: 56,
-                  child: OutlinedButton(
-                    onPressed: isLoading ? null : _handleGoogleSignIn,
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: AppColors.border),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
-                      ),
-                    ),
-                    child: isLoading 
-                      ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_\"G\"_logo.svg/1200px-Google_\"G\"_logo.svg.png',
-                              width: 22,
-                              height: 22,
-                              errorBuilder: (_, __, ___) => const Icon(Icons.g_mobiledata, size: 24),
-                            ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'Continue with Google',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                          ],
-                        ),
                   ),
                 ),
                 const SizedBox(height: DesignTokens.spacingLg),

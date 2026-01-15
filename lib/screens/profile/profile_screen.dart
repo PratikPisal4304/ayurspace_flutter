@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../providers/user_provider.dart';
@@ -12,6 +13,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProfileProvider);
     final stats = ref.watch(userStatsProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -24,7 +26,7 @@ class ProfileScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Profile',
+                  Text(l10n.navProfile,
                       style: Theme.of(context).textTheme.headlineMedium),
                   IconButton(
                     icon: const Icon(Icons.settings_outlined),
@@ -35,15 +37,15 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Profile Card
-              _ProfileCard(user: user, stats: stats),
+              _ProfileCard(user: user, stats: stats, l10n: l10n),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Achievements Section
-              _AchievementsSection(stats: stats),
+              _AchievementsSection(stats: stats, l10n: l10n),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Dosha Card
-              _buildDoshaCard(context, user?.doshaResult),
+              _buildDoshaCard(context, user?.doshaResult, l10n),
               const SizedBox(height: DesignTokens.spacingMd),
 
               // Menu Items
@@ -51,15 +53,15 @@ class ProfileScreen extends ConsumerWidget {
                 children: [
                   _MenuItem(
                       icon: Icons.bookmark_outline,
-                      label: 'Bookmarked Plants',
+                      label: l10n.profileBookmarks,
                       onTap: () => context.push('/bookmarks')),
                   _MenuItem(
                       icon: Icons.favorite_outline,
-                      label: 'Favorite Remedies',
+                      label: l10n.profileFavorites,
                       onTap: () => context.push('/favorites')),
                   _MenuItem(
                       icon: Icons.quiz_outlined,
-                      label: 'Take Dosha Quiz',
+                      label: l10n.profileDoshaQuiz,
                       onTap: () => context.push('/dosha-quiz')),
                 ],
               ),
@@ -68,11 +70,11 @@ class ProfileScreen extends ConsumerWidget {
                 children: [
                   _MenuItem(
                       icon: Icons.help_outline,
-                      label: 'Help & Support',
+                      label: l10n.profileHelp,
                       onTap: () => _showHelpDialog(context)),
                   _MenuItem(
                       icon: Icons.info_outline,
-                      label: 'About AyurSpace',
+                      label: l10n.profileAbout,
                       onTap: () => _showAboutDialog(context)),
                 ],
               ),
@@ -161,7 +163,17 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDoshaCard(BuildContext context, dynamic doshaResult) {
+  Widget _buildDoshaCard(BuildContext context, dynamic doshaResult, AppLocalizations l10n) {
+    String doshaName = '';
+    if (doshaResult != null) {
+        final locale = Localizations.localeOf(context).languageCode;
+        // Accessing nested dominant property. Usually doshaResult is DoshaResult type
+        // Assuming dynamic resolution works or use type casting
+        doshaName = locale == 'hi' 
+            ? doshaResult.dominant.hindi 
+            : doshaResult.dominant.displayName;
+    }
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -181,8 +193,8 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingSm),
               Text(
                   doshaResult != null
-                      ? 'Your Dosha: ${doshaResult.dominant.displayName}'
-                      : 'Discover Your Dosha',
+                      ? l10n.doshaResultTitle(doshaName)
+                      : l10n.doshaDiscover,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
@@ -190,8 +202,8 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingXxs),
               Text(
                   doshaResult != null
-                      ? 'Tap to view details'
-                      : 'Take the quiz to find out',
+                      ? l10n.doshaViewDetails
+                      : l10n.doshaTakeQuiz,
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -207,8 +219,9 @@ class ProfileScreen extends ConsumerWidget {
 class _ProfileCard extends StatelessWidget {
   final dynamic user;
   final dynamic stats;
+  final AppLocalizations l10n;
 
-  const _ProfileCard({this.user, this.stats});
+  const _ProfileCard({this.user, this.stats, required this.l10n});
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +282,7 @@ class _ProfileCard extends StatelessWidget {
                               color: AppColors.saffron, size: 16),
                           const SizedBox(width: 4),
                           Text(
-                            '7 day streak',
+                            l10n.streakDays(7), // Mock value
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall
@@ -296,15 +309,15 @@ class _ProfileCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _StatItem(
-                  label: 'Plants\nScanned',
+                  label: l10n.statsPlants,
                   value: '${stats?.plantsScanned ?? 0}'),
               Container(height: 40, width: 1, color: AppColors.border),
               _StatItem(
-                  label: 'Remedies\nTried',
+                  label: l10n.statsRemedies,
                   value: '${stats?.remediesTried ?? 0}'),
               Container(height: 40, width: 1, color: AppColors.border),
               _StatItem(
-                  label: 'Wellness\nScore',
+                  label: l10n.statsWellness,
                   value: '${stats?.wellnessScore ?? 72}'),
             ],
           ),
@@ -337,15 +350,16 @@ class _StatItem extends StatelessWidget {
 
 class _AchievementsSection extends StatelessWidget {
   final dynamic stats;
+  final AppLocalizations l10n;
 
-  const _AchievementsSection({this.stats});
+  const _AchievementsSection({this.stats, required this.l10n});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Achievements', style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.achievementsTitle, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: DesignTokens.spacingSm),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -378,7 +392,7 @@ class _AchievementsSection extends StatelessWidget {
                 color: AppColors.lotusPink,
               ),
               const SizedBox(width: DesignTokens.spacingSm),
-              const _AchievementBadge(
+              _AchievementBadge(
                 icon: Icons.local_fire_department,
                 title: 'Week Streak',
                 subtitle: '7 days active',
@@ -517,3 +531,5 @@ class _MenuItem extends StatelessWidget {
     );
   }
 }
+
+

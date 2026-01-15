@@ -5,6 +5,9 @@ import 'firebase_options.dart';
 import 'config/theme.dart';
 import 'config/router.dart';
 import 'providers/firebase_provider.dart';
+import 'services/auth_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ayurspace_flutter/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +22,14 @@ void main() async {
     );
     container.read(firebaseInitializedProvider.notifier).state = true;
     debugPrint('✅ Firebase initialized successfully');
+
+    // Attempt Silent Google Sign-In (Professional "Instant Login" flow)
+    try {
+      final authService = container.read(authServiceProvider);
+      await authService.signInSilently();
+    } catch (e) {
+      debugPrint('Silent sign-in skipped: $e');
+    }
   } catch (e) {
     debugPrint('⚠️ Firebase initialization failed: $e');
     debugPrint('App will run in offline mode');
@@ -33,16 +44,29 @@ void main() async {
   );
 }
 
-class AyurSpaceApp extends StatelessWidget {
+
+class AyurSpaceApp extends ConsumerWidget {
   const AyurSpaceApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
     return MaterialApp.router(
-      title: 'AyurSpace',
+      title: 'AyurSpace', // This is usually distinct from l10n title unless using onGenerateTitle
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      routerConfig: appRouter,
+      routerConfig: router,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('hi'),
+      ],
     );
   }
 }

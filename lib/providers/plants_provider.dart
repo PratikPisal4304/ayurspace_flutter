@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/plant.dart';
 import '../data/repositories/plants_repository.dart';
 import '../data/repositories/local_plants_repository.dart';
+// import '../services/firestore_service.dart';
+// import '../data/repositories/firestore_plants_repository.dart';
 
 /// Plants state with error handling
 class PlantsState {
@@ -52,6 +54,11 @@ class PlantsState {
 
 /// Repository provider for dependency injection
 final plantsRepositoryProvider = Provider<PlantsRepository>((ref) {
+  // Switch to FirestorePlantsRepository for production
+  // return FirestorePlantsRepository(ref.watch(firestoreProvider));
+  
+  // Keeping LocalPlantsRepository active for now ensuring data visibility
+  // until Firestore is populated.
   return LocalPlantsRepository();
 });
 

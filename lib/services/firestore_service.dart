@@ -119,6 +119,14 @@ class FirestoreService {
     });
   }
 
+  /// Update user email
+  Future<void> updateEmail(String uid, String email) async {
+    await _usersCollection.doc(uid).update({
+      'email': email,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
   /// Save dosha result
   Future<void> saveDoshaResult(String uid, Map<String, dynamic> result) async {
     await _usersCollection.doc(uid).update({

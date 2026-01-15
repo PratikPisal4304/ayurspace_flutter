@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../services/auth_service.dart';
-import '../../services/firestore_service.dart';
+import '../../providers/auth_provider.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -19,7 +19,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  bool _isLoading = false;
+  // bool _isLoading = false; // Removed in favor of provider
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String? _errorMessage;
@@ -36,44 +36,23 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   Future<void> _handleSignup() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
+    // Reset local error message (provider handles its own error state, but we display via local variable or snackbar)
+    setState(() => _errorMessage = null);
 
     try {
-      final authService = ref.read(authServiceProvider);
-      final firestoreService = ref.read(firestoreServiceProvider);
+      await ref.read(authProvider.notifier).signUp(
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+            name: _nameController.text.trim(),
+          );
 
-      // Create account
-      final credential = await authService.createAccount(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      );
-
-      if (credential?.user != null) {
-        // Update display name
-        await authService.updateDisplayName(_nameController.text.trim());
-
-        // Create Firestore user document
-        await firestoreService.createUser(
-          uid: credential!.user!.uid,
-          name: _nameController.text.trim(),
-          email: _emailController.text.trim(),
-        );
-
-        if (mounted) {
-          context.go('/home');
-        }
+      if (mounted) {
+        context.go('/home');
       }
     } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-      });
-    } finally {
       if (mounted) {
         setState(() {
-          _isLoading = false;
+          _errorMessage = e.toString();
         });
       }
     }
@@ -81,6 +60,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
+    final isLoading = authState.isLoading;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -236,12 +218,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 SizedBox(
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _handleSignup,
+                    onPressed: isLoading ? null : _handleSignup,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
                     ),
-                    child: _isLoading
+                    child: isLoading
                         ? const SizedBox(
                             width: 24,
                             height: 24,

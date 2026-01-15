@@ -50,18 +50,31 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     super.dispose();
   }
 
-  void _saveProfile() {
-    final userNotifier = ref.read(userProvider.notifier);
-    userNotifier.updateName(_nameController.text.trim());
-    userNotifier.updateEmail(_emailController.text.trim());
+  Future<void> _saveProfile() async {
+    try {
+      final userNotifier = ref.read(userProvider.notifier);
+      await userNotifier.updateName(_nameController.text.trim());
+      await userNotifier.updateEmail(_emailController.text.trim());
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Profile updated successfully!'),
-        backgroundColor: AppColors.success,
-      ),
-    );
-    context.pop();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile updated successfully!'),
+            backgroundColor: AppColors.success,
+          ),
+        );
+        context.pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error updating profile: $e'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    }
   }
 
   @override

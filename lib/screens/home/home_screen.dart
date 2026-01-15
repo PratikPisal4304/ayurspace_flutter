@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../providers/user_provider.dart';
@@ -10,18 +11,26 @@ import '../../providers/plants_provider.dart';
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  String _getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProfileProvider);
     final plantsState = ref.watch(plantsProvider);
     final featuredPlants = plantsState.plants.take(4).toList();
+    final greetingType = ref.watch(greetingTypeProvider);
+    final l10n = AppLocalizations.of(context)!;
+
+    String greeting;
+    switch (greetingType) {
+      case GreetingType.morning:
+        greeting = l10n.greetingMorning;
+        break;
+      case GreetingType.afternoon:
+        greeting = l10n.greetingAfternoon;
+        break;
+      case GreetingType.evening:
+        greeting = l10n.greetingEvening;
+        break;
+    }
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -39,7 +48,7 @@ class HomeScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _getGreeting(),
+                        greeting,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: AppColors.textSecondary,
                             ),
@@ -76,16 +85,16 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Wellness Score Card
-              _WellnessCard(user: user),
+              _WellnessCard(user: user, l10n: l10n),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Quick Actions
               Text(
-                'Quick Actions',
+                l10n.quickActions,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: DesignTokens.spacingSm),
-              const _QuickActionsRow(),
+              _QuickActionsRow(l10n: l10n),
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Featured Plants
@@ -93,12 +102,12 @@ class HomeScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Featured Plants',
+                    l10n.featuredPlants,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   TextButton(
                     onPressed: () => context.go('/discover'),
-                    child: const Text('View All'),
+                    child: Text(l10n.viewAll),
                   ),
                 ],
               ),
@@ -128,7 +137,7 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: DesignTokens.spacingLg),
 
               // Daily Tip
-              _DailyTipCard(),
+              _DailyTipCard(l10n: l10n),
             ],
           ),
         ),
@@ -139,8 +148,9 @@ class HomeScreen extends ConsumerWidget {
 
 class _WellnessCard extends StatelessWidget {
   final dynamic user;
+  final AppLocalizations l10n;
 
-  const _WellnessCard({this.user});
+  const _WellnessCard({this.user, required this.l10n});
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +178,7 @@ class _WellnessCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your Wellness Score',
+                  l10n.wellnessScoreTitle,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Colors.white.withValues(alpha: 0.9),
                       ),
@@ -183,7 +193,7 @@ class _WellnessCard extends StatelessWidget {
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                              ),
+                                ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -201,7 +211,7 @@ class _WellnessCard extends StatelessWidget {
                 ),
                 const SizedBox(height: DesignTokens.spacingXs),
                 Text(
-                  'Keep up the great work! 🌿',
+                  l10n.wellnessKeepUp,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.white.withValues(alpha: 0.9),
                       ),
@@ -229,7 +239,8 @@ class _WellnessCard extends StatelessWidget {
 }
 
 class _QuickActionsRow extends StatelessWidget {
-  const _QuickActionsRow();
+  final AppLocalizations l10n;
+  const _QuickActionsRow({required this.l10n});
 
   @override
   Widget build(BuildContext context) {
@@ -238,25 +249,25 @@ class _QuickActionsRow extends StatelessWidget {
       children: [
         _QuickActionItem(
           icon: Icons.camera_alt,
-          label: 'Scan Plant',
+          label: l10n.plantScan,
           color: AppColors.primary,
           onTap: () => context.go('/camera'),
         ),
         _QuickActionItem(
           icon: Icons.chat_bubble_outline,
-          label: 'Ask AyurBot',
+          label: l10n.consultAi,
           color: AppColors.saffron,
           onTap: () => context.go('/chat'),
         ),
         _QuickActionItem(
           icon: Icons.self_improvement,
-          label: 'Wellness',
+          label: l10n.navWellness,
           color: AppColors.lotusPink,
           onTap: () => context.go('/wellness'),
         ),
         _QuickActionItem(
           icon: Icons.quiz_outlined,
-          label: 'Dosha Quiz',
+          label: l10n.doshaQuiz,
           color: AppColors.vata,
           onTap: () => context.push('/dosha-quiz'),
         ),
@@ -316,6 +327,9 @@ class _QuickActionItem extends StatelessWidget {
 }
 
 class _DailyTipCard extends StatelessWidget {
+  final AppLocalizations l10n;
+  const _DailyTipCard({required this.l10n});
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -324,7 +338,7 @@ class _DailyTipCard extends StatelessWidget {
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('More daily tips coming soon!'),
+              content: Text('More daily tips coming soon!'), // Localize
               duration: Duration(seconds: 2),
             ),
           );
@@ -358,7 +372,7 @@ class _DailyTipCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Daily Tip',
+                      l10n.dailyTip,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             color: AppColors.turmeric,
                             fontWeight: FontWeight.w600,
@@ -366,7 +380,7 @@ class _DailyTipCard extends StatelessWidget {
                     ),
                     const SizedBox(height: DesignTokens.spacingXxs),
                     Text(
-                      'Start your day with warm water and a teaspoon of honey to boost digestion and energy.',
+                      'Start your day with warm water and a teaspoon of honey to boost digestion and energy.', // Dynamic content?
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

@@ -1,62 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../providers/scan_provider.dart';
 
-class CameraScreen extends StatefulWidget {
+class CameraScreen extends ConsumerWidget {
   const CameraScreen({super.key});
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scanState = ref.watch(scanProvider);
+    final notifier = ref.read(scanProvider.notifier);
 
-class _CameraScreenState extends State<CameraScreen> {
-  final ImagePicker _picker = ImagePicker();
-  XFile? _selectedImage;
-  bool _isAnalyzing = false;
-  bool _useCloudRecognition = true;
-  String? _scanResult;
-
-  Future<void> _pickImageFromGallery() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _selectedImage = image;
-        _scanResult = null;
-      });
-      await _analyzeImage();
-    }
-  }
-
-  Future<void> _takePhoto() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
-    if (image != null) {
-      setState(() {
-        _selectedImage = image;
-        _scanResult = null;
-      });
-      await _analyzeImage();
-    }
-  }
-
-  Future<void> _analyzeImage() async {
-    if (_selectedImage == null) return;
-
-    setState(() => _isAnalyzing = true);
-
-    // Simulate analysis delay
-    await Future.delayed(const Duration(seconds: 2));
-
-    // Mock result - in real app, this would call plant identification API
-    setState(() {
-      _isAnalyzing = false;
-      _scanResult = 'Tulsi (Holy Basil)';
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -96,20 +53,18 @@ class _CameraScreenState extends State<CameraScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          _useCloudRecognition ? Icons.cloud : Icons.smartphone,
+                          scanState.useCloudRecognition ? Icons.cloud : Icons.smartphone,
                           size: 16,
                           color: Colors.black.withValues(alpha: 0.5),
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          _useCloudRecognition ? 'Cloud' : 'Local',
+                          scanState.useCloudRecognition ? 'Cloud' : 'Local',
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         Switch(
-                          value: _useCloudRecognition,
-                          onChanged: (value) {
-                            setState(() => _useCloudRecognition = value);
-                          },
+                          value: scanState.useCloudRecognition,
+                          onChanged: notifier.toggleCloudRecognition,
                           activeThumbColor: AppColors.primary,
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
@@ -133,11 +88,11 @@ class _CameraScreenState extends State<CameraScreen> {
                     width: 2,
                   ),
                 ),
-                child: _isAnalyzing
-                    ? _buildAnalyzingState()
-                    : _scanResult != null
-                        ? _buildResultState()
-                        : _buildEmptyState(),
+                child: scanState.isAnalyzing
+                    ? _buildAnalyzingState(context, scanState)
+                    : scanState.scanResult != null
+                        ? _buildResultState(context, notifier, scanState)
+                        : _buildEmptyState(context),
               ),
             ),
 
@@ -148,7 +103,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: _pickImageFromGallery,
+                      onPressed: () => notifier.pickImage(ImageSource.gallery),
                       icon: const Icon(Icons.photo_library),
                       label: const Text('Gallery'),
                       style: OutlinedButton.styleFrom(
@@ -160,7 +115,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   Expanded(
                     flex: 2,
                     child: ElevatedButton.icon(
-                      onPressed: _takePhoto,
+                      onPressed: () => notifier.pickImage(ImageSource.camera),
                       icon: const Icon(Icons.camera_alt),
                       label: const Text('Take Photo'),
                       style: ElevatedButton.styleFrom(
@@ -172,15 +127,15 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
             ),
 
-            // Recent scans
-            _buildRecentScans(),
+            // Recent scans (Mock)
+            _buildRecentScans(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -213,7 +168,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _buildAnalyzingState() {
+  Widget _buildAnalyzingState(BuildContext context, ScanState state) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +181,7 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           const SizedBox(height: DesignTokens.spacingXs),
           Text(
-            _useCloudRecognition ? 'Using cloud AI' : 'Using local recognition',
+            state.useCloudRecognition ? 'Using cloud AI' : 'Using local recognition',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -234,7 +189,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _buildResultState() {
+  Widget _buildResultState(BuildContext context, ScanNotifier notifier, ScanState state) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -258,7 +213,7 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           const SizedBox(height: DesignTokens.spacingXs),
           Text(
-            _scanResult ?? '',
+            state.scanResult ?? '',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
@@ -269,12 +224,7 @@ class _CameraScreenState extends State<CameraScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _selectedImage = null;
-                    _scanResult = null;
-                  });
-                },
+                onPressed: notifier.reset,
                 icon: const Icon(Icons.refresh),
                 label: const Text('Scan Again'),
               ),
@@ -294,7 +244,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _buildRecentScans() {
+  Widget _buildRecentScans(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       child: Column(

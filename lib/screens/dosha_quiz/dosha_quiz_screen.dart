@@ -3,153 +3,134 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
-import '../../data/models/dosha.dart';
-import '../../providers/user_provider.dart';
 
-class DoshaQuizScreen extends ConsumerStatefulWidget {
+import '../../providers/dosha_quiz_provider.dart';
+
+class DoshaQuizScreen extends ConsumerWidget {
   const DoshaQuizScreen({super.key});
+
   @override
-  ConsumerState<DoshaQuizScreen> createState() => _DoshaQuizScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quizState = ref.watch(doshaQuizProvider);
+    final quizNotifier = ref.read(doshaQuizProvider.notifier);
 
-class _DoshaQuizScreenState extends ConsumerState<DoshaQuizScreen> {
-  int _currentQuestion = 0;
-  final Map<int, int> _answers = {};
-  int _vataScore = 0, _pittaScore = 0, _kaphaScore = 0;
-
-  final List<Map<String, dynamic>> _questions = [
-    {
-      'q': 'How is your body frame?',
-      'options': [
-        {'t': 'Thin, light, hard to gain weight', 'd': 'vata'},
-        {'t': 'Medium, muscular, athletic', 'd': 'pitta'},
-        {'t': 'Large, solid, easy to gain weight', 'd': 'kapha'},
-      ]
-    },
-    {
-      'q': 'How is your skin?',
-      'options': [
-        {'t': 'Dry, rough, cool', 'd': 'vata'},
-        {'t': 'Warm, oily, prone to redness', 'd': 'pitta'},
-        {'t': 'Thick, smooth, cool', 'd': 'kapha'},
-      ]
-    },
-    {
-      'q': 'How do you handle stress?',
-      'options': [
-        {'t': 'Become anxious, worry', 'd': 'vata'},
-        {'t': 'Get irritated, angry', 'd': 'pitta'},
-        {'t': 'Become withdrawn, sad', 'd': 'kapha'},
-      ]
-    },
-    {
-      'q': 'How is your appetite?',
-      'options': [
-        {'t': 'Variable, skipping meals is easy', 'd': 'vata'},
-        {'t': 'Strong, get irritable if hungry', 'd': 'pitta'},
-        {'t': 'Steady, can skip meals without issue', 'd': 'kapha'},
-      ]
-    },
-    {
-      'q': 'How is your sleep?',
-      'options': [
-        {'t': 'Light, interrupted, hard to fall asleep', 'd': 'vata'},
-        {'t': 'Moderate, wake refreshed', 'd': 'pitta'},
-        {'t': 'Deep, heavy, hard to wake up', 'd': 'kapha'},
-      ]
-    },
-  ];
-
-  void _selectAnswer(int answerIndex, String dosha) {
-    setState(() {
-      _answers[_currentQuestion] = answerIndex;
-      if (dosha == 'vata') {
-        _vataScore++;
-      } else if (dosha == 'pitta') {
-        _pittaScore++;
-      } else {
-        _kaphaScore++;
+    // Handle quiz completion - navigate to result
+    ref.listen<DoshaQuizState>(doshaQuizProvider, (previous, next) {
+      if (next.isComplete && !(previous?.isComplete ?? false)) {
+        context.pushReplacement('/dosha-profile');
       }
     });
 
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (_currentQuestion < _questions.length - 1) {
-        setState(() => _currentQuestion++);
-      } else {
-        _showResults();
-      }
-    });
-  }
-
-  void _showResults() {
-    final result = DoshaResult.calculate(
-      vata: _vataScore.toDouble(),
-      pitta: _pittaScore.toDouble(),
-      kapha: _kaphaScore.toDouble(),
-    );
-    ref.read(userProvider.notifier).saveDoshaResult(result);
-    context.pushReplacement('/dosha-profile');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final q = _questions[_currentQuestion];
-    final progress = (_currentQuestion + 1) / _questions.length;
+    final currentQuestion = quizState.currentQuestion;
+    if (currentQuestion == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Dosha Quiz'),
-          leading: IconButton(
-              icon: const Icon(Icons.close), onPressed: () => context.pop())),
+        title: const Text('Dosha Quiz'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            quizNotifier.reset();
+            context.pop();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(DesignTokens.spacingMd),
           child: Column(
             children: [
+              // Progress indicator
               LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: AppColors.surfaceVariant,
-                  color: AppColors.primary),
+                value: quizState.progress,
+                backgroundColor: AppColors.surfaceVariant,
+                color: AppColors.primary,
+              ),
               const SizedBox(height: DesignTokens.spacingXs),
-              Text('Question ${_currentQuestion + 1} of ${_questions.length}',
-                  style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                'Question ${quizState.currentQuestionIndex + 1} of ${quizState.questions.length}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
               const SizedBox(height: DesignTokens.spacingXl),
-              Text(q['q'],
-                  style: Theme.of(context).textTheme.headlineSmall,
-                  textAlign: TextAlign.center),
+
+              // Question text
+              Text(
+                currentQuestion.question,
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: DesignTokens.spacingLg),
-              ...(q['options'] as List).asMap().entries.map((e) {
-                final i = e.key;
-                final opt = e.value as Map<String, dynamic>;
-                final isSelected = _answers[_currentQuestion] == i;
+
+              // Options
+              ...currentQuestion.options.asMap().entries.map((entry) {
+                final index = entry.key;
+                final option = entry.value;
+                final isSelected = quizState.currentAnswer == index;
+
                 return Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: DesignTokens.spacingSm),
-                  child: InkWell(
-                    onTap: () => _selectAnswer(i, opt['d']),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(DesignTokens.spacingMd),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.primary.withValues(alpha: 0.2)
-                            : AppColors.surface,
-                        borderRadius:
-                            BorderRadius.circular(DesignTokens.radiusMd),
-                        border: Border.all(
-                            color: isSelected
-                                ? AppColors.primary
-                                : AppColors.border,
-                            width: isSelected ? 2 : 1),
-                      ),
-                      child: Text(opt['t'],
-                          style: Theme.of(context).textTheme.bodyLarge),
-                    ),
+                  padding: const EdgeInsets.only(bottom: DesignTokens.spacingSm),
+                  child: _QuizOptionCard(
+                    text: option.text,
+                    isSelected: isSelected,
+                    onTap: () {
+                      quizNotifier.selectAnswer(index, option.dosha);
+                      // Auto-advance after a short delay
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        quizNotifier.nextQuestion();
+                      });
+                    },
                   ),
                 );
               }),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Card widget for quiz options
+class _QuizOptionCard extends StatelessWidget {
+  final String text;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _QuizOptionCard({
+    required this.text,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+      child: AnimatedContainer(
+        duration: DesignTokens.animationFast,
+        width: double.infinity,
+        padding: const EdgeInsets.all(DesignTokens.spacingMd),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppColors.primary.withValues(alpha: 0.2)
+              : AppColors.surface,
+          borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : AppColors.border,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: isSelected ? AppColors.primary : null,
+                fontWeight: isSelected ? FontWeight.w500 : null,
+              ),
         ),
       ),
     );

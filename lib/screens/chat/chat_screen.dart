@@ -1,99 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../data/models/chat_message.dart';
-import 'package:uuid/uuid.dart';
+import '../../providers/chat_provider.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends ConsumerStatefulWidget {
   const ChatScreen({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  ConsumerState<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
-  final List<ChatMessage> _messages = [];
-  bool _isTyping = false;
-
-  final List<String> _suggestions = [
-    'What is my dosha type?',
-    'Best herbs for immunity',
-    'How to reduce stress naturally?',
-    'Ayurvedic diet tips',
-    'Herbs for better sleep',
-  ];
 
   @override
-  void initState() {
-    super.initState();
-    _addWelcomeMessage();
-  }
-
-  void _addWelcomeMessage() {
-    _messages.add(
-      ChatMessage(
-        id: const Uuid().v4(),
-        role: ChatRole.assistant,
-        content:
-            '🙏 Namaste! I\'m AyurBot, your Ayurvedic wellness assistant.\n\nI can help you with:\n• Understanding your dosha\n• Finding remedies for ailments\n• Learning about herbs and plants\n• Diet and lifestyle guidance\n\nHow can I assist you today?',
-        timestamp: DateTime.now(),
-      ),
-    );
-  }
-
-  void _sendMessage(String text) {
-    if (text.trim().isEmpty) return;
-
-    setState(() {
-      _messages.add(
-        ChatMessage(
-          id: const Uuid().v4(),
-          role: ChatRole.user,
-          content: text,
-          timestamp: DateTime.now(),
-        ),
-      );
-      _isTyping = true;
-    });
-
-    _textController.clear();
-    _scrollToBottom();
-
-    // Simulate AI response
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      setState(() {
-        _isTyping = false;
-        _messages.add(
-          ChatMessage(
-            id: const Uuid().v4(),
-            role: ChatRole.assistant,
-            content: _getAIResponse(text),
-            timestamp: DateTime.now(),
-          ),
-        );
-      });
-      _scrollToBottom();
-    });
-  }
-
-  String _getAIResponse(String query) {
-    final lowerQuery = query.toLowerCase();
-
-    if (lowerQuery.contains('dosha')) {
-      return 'In Ayurveda, there are three doshas: Vata (air + space), Pitta (fire + water), and Kapha (earth + water). Your unique combination determines your constitution.\n\nWould you like to take our dosha quiz to discover your type? 🌿';
-    } else if (lowerQuery.contains('immunity') ||
-        lowerQuery.contains('immune')) {
-      return 'For boosting immunity, Ayurveda recommends:\n\n🌿 **Giloy (Guduchi)** - Known as "divine nectar"\n🌿 **Tulsi** - Sacred basil with antimicrobial properties\n🌿 **Amla** - Rich in Vitamin C\n🌿 **Ashwagandha** - Adaptogenic stress reliever\n\nWould you like to know more about any of these herbs?';
-    } else if (lowerQuery.contains('stress') ||
-        lowerQuery.contains('anxiety')) {
-      return 'Ayurveda offers wonderful stress relief solutions:\n\n🧘 **Brahmi** - Calms the mind\n🧘 **Ashwagandha** - Reduces cortisol\n🧘 **Jatamansi** - Promotes restful sleep\n\n**Daily practices:**\n• Abhyanga (oil massage)\n• Pranayama (breathing exercises)\n• Meditation for 10-15 minutes\n\nWhich approach interests you most?';
-    } else if (lowerQuery.contains('sleep')) {
-      return 'For better sleep, Ayurveda suggests:\n\n🌙 **Herbs:**\n• Ashwagandha with warm milk\n• Brahmi tea before bed\n• Jatamansi for deep rest\n\n🌙 **Practices:**\n• Avoid screens 1 hour before bed\n• Warm foot massage with sesame oil\n• Go to sleep by 10 PM\n\nShall I share a specific sleep remedy?';
-    } else {
-      return 'Thank you for your question! Based on Ayurvedic principles, maintaining balance in your daily routine (Dinacharya) is essential.\n\nWould you like me to:\n1. Suggest specific herbs for your concern\n2. Recommend lifestyle practices\n3. Share relevant remedies\n\nPlease let me know how I can help further! 🙏';
-    }
+  void dispose() {
+    _textController.dispose();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void _scrollToBottom() {
@@ -108,15 +35,27 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _textController.dispose();
-    _scrollController.dispose();
-    super.dispose();
+  void _handleSend() {
+    final text = _textController.text;
+    if (text.trim().isEmpty) return;
+
+    ref.read(chatProvider.notifier).sendMessage(text);
+    _textController.clear();
+    _scrollToBottom();
   }
 
   @override
   Widget build(BuildContext context) {
+    final chatState = ref.watch(chatProvider);
+    final showSuggestions = ref.watch(showSuggestionsProvider);
+
+    // Scroll to bottom when messages change
+    ref.listen<ChatState>(chatProvider, (previous, next) {
+      if ((previous?.messages.length ?? 0) != next.messages.length) {
+        _scrollToBottom();
+      }
+    });
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -140,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 const Text('AyurBot'),
                 Text(
-                  _isTyping ? 'typing...' : 'Online',
+                  chatState.isTyping ? 'typing...' : 'Online',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.success,
                       ),
@@ -150,9 +89,19 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
         actions: [
-          IconButton(
+          PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
-            onPressed: () {},
+            onSelected: (value) {
+              if (value == 'clear') {
+                ref.read(chatProvider.notifier).clearChat();
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'clear',
+                child: Text('Clear chat'),
+              ),
+            ],
           ),
         ],
       ),
@@ -163,31 +112,35 @@ class _ChatScreenState extends State<ChatScreen> {
             child: ListView.builder(
               controller: _scrollController,
               padding: const EdgeInsets.all(DesignTokens.spacingMd),
-              itemCount: _messages.length + (_isTyping ? 1 : 0),
+              itemCount:
+                  chatState.messages.length + (chatState.isTyping ? 1 : 0),
               itemBuilder: (context, index) {
-                if (index == _messages.length && _isTyping) {
-                  return _TypingIndicator();
+                if (index == chatState.messages.length && chatState.isTyping) {
+                  return const _TypingIndicator();
                 }
-                return _MessageBubble(message: _messages[index]);
+                return _MessageBubble(message: chatState.messages[index]);
               },
             ),
           ),
 
           // Suggestions
-          if (_messages.length <= 2)
+          if (showSuggestions)
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(
                 horizontal: DesignTokens.spacingMd,
               ),
               child: Row(
-                children: _suggestions
+                children: ChatService.suggestions
                     .map((s) => Padding(
-                          padding: const EdgeInsets.only(
-                              right: DesignTokens.spacingXs),
+                          padding:
+                              const EdgeInsets.only(right: DesignTokens.spacingXs),
                           child: ActionChip(
                             label: Text(s),
-                            onPressed: () => _sendMessage(s),
+                            onPressed: () {
+                              ref.read(chatProvider.notifier).sendMessage(s);
+                              _scrollToBottom();
+                            },
                           ),
                         ))
                     .toList(),
@@ -196,52 +149,9 @@ class _ChatScreenState extends State<ChatScreen> {
           const SizedBox(height: DesignTokens.spacingXs),
 
           // Input
-          Container(
-            padding: const EdgeInsets.all(DesignTokens.spacingMd),
-            decoration: const BoxDecoration(
-              color: AppColors.surface,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.shadow,
-                  blurRadius: DesignTokens.shadowBlurSm,
-                  offset: Offset(0, -2),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _textController,
-                      decoration: const InputDecoration(
-                        hintText: 'Ask me about Ayurveda...',
-                        border: InputBorder.none,
-                      ),
-                      maxLines: null,
-                      textInputAction: TextInputAction.send,
-                      onSubmitted: _sendMessage,
-                    ),
-                  ),
-                  const SizedBox(width: DesignTokens.spacingXs),
-                  IconButton(
-                    onPressed: () => _sendMessage(_textController.text),
-                    icon: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        color: AppColors.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          _ChatInput(
+            controller: _textController,
+            onSend: _handleSend,
           ),
         ],
       ),
@@ -249,6 +159,69 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+/// Chat input field
+class _ChatInput extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onSend;
+
+  const _ChatInput({
+    required this.controller,
+    required this.onSend,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(DesignTokens.spacingMd),
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: DesignTokens.shadowBlurSm,
+            offset: Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  hintText: 'Ask me about Ayurveda...',
+                  border: InputBorder.none,
+                ),
+                maxLines: null,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => onSend(),
+              ),
+            ),
+            const SizedBox(width: DesignTokens.spacingXs),
+            IconButton(
+              onPressed: onSend,
+              icon: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Message bubble widget
 class _MessageBubble extends StatelessWidget {
   final ChatMessage message;
 
@@ -313,7 +286,10 @@ class _MessageBubble extends StatelessWidget {
   }
 }
 
+/// Typing indicator widget
 class _TypingIndicator extends StatelessWidget {
+  const _TypingIndicator();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -355,9 +331,4 @@ class _TypingIndicator extends StatelessWidget {
       ),
     );
   }
-}
-
-// Fix: MainAxisAlignment_start should be MainAxisAlignment.start
-extension on MainAxisAlignment {
-  // ignore, this is autocomplete artifact
 }

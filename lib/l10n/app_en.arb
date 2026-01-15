@@ -1,0 +1,67 @@
+{
+  "appTitle": "AyurSpace",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "navHome": "Home",
+  "navRemedies": "Remedies",
+  "navScan": "Scan",
+  "navWellness": "Wellness",
+  "navProfile": "Profile",
+  "greetingMorning": "Good Morning",
+  "greetingAfternoon": "Good Afternoon",
+  "greetingEvening": "Good Evening",
+  "dailyTip": "Daily Tip",
+  "featuredRemedies": "Featured Remedies",
+  "featuredPlants": "Featured Plants",
+  "viewAll": "View All",
+  "searchHint": "Search remedies, plants...",
+  "quickActions": "Quick Actions",
+  "doshaQuiz": "Dosha Quiz",
+  "plantScan": "Plant Scan",
+  "consultAi": "Consult AI",
+  "myHealth": "My Health",
+  "wellnessScoreTitle": "Your Wellness Score",
+  "wellnessKeepUp": "Keep up the great work! 🌿",
+  "remediesSubtitle": "Traditional Ayurvedic solutions",
+  "clearFilters": "Clear filters",
+  "remediesFound": "{count} remedies found",
+  "@remediesFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorGeneric": "Something went wrong",
+  "tryAgain": "Try again",
+  "noRemediesFound": "No remedies found",
+  "profileBookmarks": "Bookmarked Plants",
+  "profileFavorites": "Favorite Remedies",
+  "profileDoshaQuiz": "Take Dosha Quiz",
+  "profileHelp": "Help & Support",
+  "profileAbout": "About AyurSpace",
+  "statsPlants": "Plants\nScanned",
+  "statsRemedies": "Remedies\nTried",
+  "statsWellness": "Wellness\nScore",
+  "achievementsTitle": "Achievements",
+  "doshaResultTitle": "Your Dosha: {dosha}",
+  "@doshaResultTitle": {
+    "placeholders": {
+      "dosha": {
+        "type": "String"
+      }
+    }
+  },
+  "doshaDiscover": "Discover Your Dosha",
+  "doshaViewDetails": "Tap to view details",
+  "doshaTakeQuiz": "Take the quiz to find out",
+  "streakDays": "{count} day streak",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

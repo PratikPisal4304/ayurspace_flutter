@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../data/models/remedy.dart';
-import '../../data/sources/remedies_data.dart';
+import '../../data/models/dosha.dart'; // Needed for DoshaType
+import '../../providers/remedies_provider.dart';
+import '../../providers/user_provider.dart';
 
-class RemedyDetailScreen extends StatelessWidget {
+class RemedyDetailScreen extends ConsumerWidget {
   final String remedyId;
   const RemedyDetailScreen({super.key, required this.remedyId});
 
   @override
-  Widget build(BuildContext context) {
-    // Find remedy by ID
-    final remedy = remediesData.firstWhere(
-      (r) => r.id == remedyId,
-      orElse: () => remediesData.first,
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Find remedy by ID via Provider
+    final remedy = ref.watch(remedyByIdProvider(remedyId));
+    final userProfile = ref.watch(userProfileProvider);
+
+    if (remedy == null) {
+      return const Scaffold(
+        body: Center(child: Text('Remedy not found')),
+      );
+    }
+
+    final isFavorite = userProfile?.favoriteRemedyIds.contains(remedyId) ?? false;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -56,10 +65,12 @@ class RemedyDetailScreen extends StatelessWidget {
             actions: [
               IconButton(
                 icon: Icon(
-                  remedy.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                   ref.read(userProvider.notifier).toggleFavoriteRemedy(remedy.id);
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.share, color: Colors.white),
