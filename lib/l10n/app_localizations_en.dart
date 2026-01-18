@@ -15,6 +15,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navHome => 'Home';
 
   @override
+  String get navDiscover => 'Discover';
+
+  @override
   String get navRemedies => 'Remedies';
 
   @override
@@ -37,6 +40,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyTip => 'Daily Tip';
+
+  @override
+  String get dailyTipContent =>
+      'Start your day with warm water and a teaspoon of honey to boost digestion and energy.';
 
   @override
   String get featuredRemedies => 'Featured Remedies';
@@ -135,5 +142,166 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String streakDays(int count) {
     return '$count day streak';
+  }
+
+  @override
+  String get welcomeBack => 'Welcome Back';
+
+  @override
+  String get signInToContWith => 'Sign in to continue your wellness journey';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
+  String get or => 'OR';
+
+  @override
+  String get continueWithGoogle => 'Continue with Google';
+
+  @override
+  String get noAccountYet => 'Don\'t have an account?';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get continueAsGuest => 'Continue as Guest';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get startWellnessJourney => 'Start your Ayurvedic wellness journey';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get sessionComplete => 'Session Complete!';
+
+  @override
+  String get meditationGreatJob => 'Great job on your meditation practice.';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get howAreYouFeeling => 'How are you feeling?';
+
+  @override
+  String get quickMeditation => 'Quick Meditation';
+
+  @override
+  String get sleepSounds => 'Sleep Sounds';
+
+  @override
+  String nowPlaying(String sound) {
+    return 'Now playing: $sound';
+  }
+
+  @override
+  String dayStreakTitle(int count) {
+    return '$count Day Streak!';
+  }
+
+  @override
+  String get startWellnessToday => 'Start your wellness journey today';
+
+  @override
+  String get keepItUp => 'Keep it up! You\'re doing great.';
+
+  @override
+  String get minsMediated => 'Mins Meditated';
+
+  @override
+  String get thisWeek => 'This Week';
+
+  @override
+  String get dayStreak => 'Day Streak';
+
+  @override
+  String get morning => 'Morning';
+
+  @override
+  String get evening => 'Evening';
+
+  @override
+  String get morningRoutine => 'Morning Routine';
+
+  @override
+  String get eveningRoutine => 'Evening Routine';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get helpAndSupport => 'Help & Support';
+
+  @override
+  String get helpEmail => 'Email: support@ayurspace.app';
+
+  @override
+  String get helpWebsite => 'Website: www.ayurspace.app';
+
+  @override
+  String get faqs => 'FAQs';
+
+  @override
+  String get faqScanner => 'How do I use the plant scanner?';
+
+  @override
+  String get faqDosha => 'What is my dosha?';
+
+  @override
+  String get faqRemedies => 'Are remedies safe to use?';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get aboutVersion => 'Version 1.0.0';
+
+  @override
+  String get aboutDescription =>
+      'Your complete Ayurveda companion. Discover traditional herbs, personalized remedies, and wellness practices based on ancient wisdom.';
+
+  @override
+  String get aboutCopyright => '© 2024 AyurSpace. All rights reserved.';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get resetPasswordDesc =>
+      'Enter your email address and we\'ll send you a link to reset your password.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get sendLink => 'Send Link';
+
+  @override
+  String get validEmailRequired => 'Please enter a valid email';
+
+  @override
+  String passwordResetSent(String email) {
+    return 'Password reset link sent to $email';
   }
 }

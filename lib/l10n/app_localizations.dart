@@ -110,6 +110,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get navHome;
 
+  /// No description provided for @navDiscover.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get navDiscover;
+
   /// No description provided for @navRemedies.
   ///
   /// In en, this message translates to:
@@ -157,6 +163,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Daily Tip'**
   String get dailyTip;
+
+  /// No description provided for @dailyTipContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your day with warm water and a teaspoon of honey to boost digestion and energy.'**
+  String get dailyTipContent;
 
   /// No description provided for @featuredRemedies.
   ///
@@ -343,6 +355,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} day streak'**
   String streakDays(int count);
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back'**
+  String get welcomeBack;
+
+  /// No description provided for @signInToContWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue your wellness journey'**
+  String get signInToContWith;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'OR'**
+  String get or;
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @noAccountYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get noAccountYet;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @continueAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as Guest'**
+  String get continueAsGuest;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @startWellnessJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your Ayurvedic wellness journey'**
+  String get startWellnessJourney;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @sessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Complete!'**
+  String get sessionComplete;
+
+  /// No description provided for @meditationGreatJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job on your meditation practice.'**
+  String get meditationGreatJob;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @howAreYouFeeling.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling?'**
+  String get howAreYouFeeling;
+
+  /// No description provided for @quickMeditation.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Meditation'**
+  String get quickMeditation;
+
+  /// No description provided for @sleepSounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Sounds'**
+  String get sleepSounds;
+
+  /// No description provided for @nowPlaying.
+  ///
+  /// In en, this message translates to:
+  /// **'Now playing: {sound}'**
+  String nowPlaying(String sound);
+
+  /// No description provided for @dayStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Day Streak!'**
+  String dayStreakTitle(int count);
+
+  /// No description provided for @startWellnessToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your wellness journey today'**
+  String get startWellnessToday;
+
+  /// No description provided for @keepItUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it up! You\'re doing great.'**
+  String get keepItUp;
+
+  /// No description provided for @minsMediated.
+  ///
+  /// In en, this message translates to:
+  /// **'Mins Meditated'**
+  String get minsMediated;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get thisWeek;
+
+  /// No description provided for @dayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get dayStreak;
+
+  /// No description provided for @morning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get morning;
+
+  /// No description provided for @evening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening'**
+  String get evening;
+
+  /// No description provided for @morningRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Routine'**
+  String get morningRoutine;
+
+  /// No description provided for @eveningRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening Routine'**
+  String get eveningRoutine;
+
+  /// No description provided for @stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// No description provided for @helpAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpAndSupport;
+
+  /// No description provided for @helpEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email: support@ayurspace.app'**
+  String get helpEmail;
+
+  /// No description provided for @helpWebsite.
+  ///
+  /// In en, this message translates to:
+  /// **'Website: www.ayurspace.app'**
+  String get helpWebsite;
+
+  /// No description provided for @faqs.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQs'**
+  String get faqs;
+
+  /// No description provided for @faqScanner.
+  ///
+  /// In en, this message translates to:
+  /// **'How do I use the plant scanner?'**
+  String get faqScanner;
+
+  /// No description provided for @faqDosha.
+  ///
+  /// In en, this message translates to:
+  /// **'What is my dosha?'**
+  String get faqDosha;
+
+  /// No description provided for @faqRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Are remedies safe to use?'**
+  String get faqRemedies;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version 1.0.0'**
+  String get aboutVersion;
+
+  /// No description provided for @aboutDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your complete Ayurveda companion. Discover traditional herbs, personalized remedies, and wellness practices based on ancient wisdom.'**
+  String get aboutDescription;
+
+  /// No description provided for @aboutCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2024 AyurSpace. All rights reserved.'**
+  String get aboutCopyright;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @resetPasswordDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a link to reset your password.'**
+  String get resetPasswordDesc;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @sendLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Link'**
+  String get sendLink;
+
+  /// No description provided for @validEmailRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get validEmailRequired;
+
+  /// No description provided for @passwordResetSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset link sent to {email}'**
+  String passwordResetSent(String email);
 }
 
 class _AppLocalizationsDelegate

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
-import '../../services/auth_service.dart';
 import '../../providers/auth_provider.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {

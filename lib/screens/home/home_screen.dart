@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../data/models/user_profile.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/plant_card.dart';
 import '../../providers/plants_provider.dart';
@@ -147,7 +148,7 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class _WellnessCard extends StatelessWidget {
-  final dynamic user;
+  final UserProfile? user;
   final AppLocalizations l10n;
 
   const _WellnessCard({this.user, required this.l10n});
@@ -188,7 +189,7 @@ class _WellnessCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${user?.stats?.wellnessScore ?? 72}',
+                      '${user?.stats.wellnessScore ?? 72}',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 color: Colors.white,
@@ -380,7 +381,7 @@ class _DailyTipCard extends StatelessWidget {
                     ),
                     const SizedBox(height: DesignTokens.spacingXxs),
                     Text(
-                      'Start your day with warm water and a teaspoon of honey to boost digestion and energy.', // Dynamic content?
+                      l10n.dailyTipContent,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../data/models/remedy.dart';
-import '../../data/models/dosha.dart'; // Needed for DoshaType
 import '../../providers/remedies_provider.dart';
 import '../../providers/user_provider.dart';
 

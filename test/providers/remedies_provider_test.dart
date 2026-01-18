@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ayurspace_flutter/providers/remedies_provider.dart';
 import 'package:ayurspace_flutter/data/models/remedy.dart';
 import 'package:ayurspace_flutter/data/models/dosha.dart';

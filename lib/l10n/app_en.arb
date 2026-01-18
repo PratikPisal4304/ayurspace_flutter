@@ -4,6 +4,7 @@
     "description": "The title of the application"
   },
   "navHome": "Home",
+  "navDiscover": "Discover",
   "navRemedies": "Remedies",
   "navScan": "Scan",
   "navWellness": "Wellness",
@@ -12,6 +13,7 @@
   "greetingAfternoon": "Good Afternoon",
   "greetingEvening": "Good Evening",
   "dailyTip": "Daily Tip",
+  "dailyTipContent": "Start your day with warm water and a teaspoon of honey to boost digestion and energy.",
   "featuredRemedies": "Featured Remedies",
   "featuredPlants": "Featured Plants",
   "viewAll": "View All",
@@ -61,6 +63,78 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "welcomeBack": "Welcome Back",
+  "signInToContWith": "Sign in to continue your wellness journey",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password?",
+  "signIn": "Sign In",
+  "or": "OR",
+  "continueWithGoogle": "Continue with Google",
+  "noAccountYet": "Don't have an account?",
+  "signUp": "Sign Up",
+  "continueAsGuest": "Continue as Guest",
+  "createAccount": "Create Account",
+  "startWellnessJourney": "Start your Ayurvedic wellness journey",
+  "fullName": "Full Name",
+  "confirmPassword": "Confirm Password",
+  "alreadyHaveAccount": "Already have an account?",
+  "sessionComplete": "Session Complete!",
+  "meditationGreatJob": "Great job on your meditation practice.",
+  "done": "Done",
+  "howAreYouFeeling": "How are you feeling?",
+  "quickMeditation": "Quick Meditation",
+  "sleepSounds": "Sleep Sounds",
+  "nowPlaying": "Now playing: {sound}",
+  "@nowPlaying": {
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "dayStreakTitle": "{count} Day Streak!",
+  "@dayStreakTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "startWellnessToday": "Start your wellness journey today",
+  "keepItUp": "Keep it up! You're doing great.",
+  "minsMediated": "Mins Meditated",
+  "thisWeek": "This Week",
+  "dayStreak": "Day Streak",
+  "morning": "Morning",
+  "evening": "Evening",
+  "morningRoutine": "Morning Routine",
+  "eveningRoutine": "Evening Routine",
+  "stop": "Stop",
+  "helpAndSupport": "Help & Support",
+  "helpEmail": "Email: support@ayurspace.app",
+  "helpWebsite": "Website: www.ayurspace.app",
+  "faqs": "FAQs",
+  "faqScanner": "How do I use the plant scanner?",
+  "faqDosha": "What is my dosha?",
+  "faqRemedies": "Are remedies safe to use?",
+  "close": "Close",
+  "aboutVersion": "Version 1.0.0",
+  "aboutDescription": "Your complete Ayurveda companion. Discover traditional herbs, personalized remedies, and wellness practices based on ancient wisdom.",
+  "aboutCopyright": "© 2024 AyurSpace. All rights reserved.",
+  "resetPassword": "Reset Password",
+  "resetPasswordDesc": "Enter your email address and we'll send you a link to reset your password.",
+  "cancel": "Cancel",
+  "sendLink": "Send Link",
+  "validEmailRequired": "Please enter a valid email",
+  "passwordResetSent": "Password reset link sent to {email}",
+  "@passwordResetSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
       }
     }
   }

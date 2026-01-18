@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
@@ -307,7 +308,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 // OR Divider
                 Row(
                   children: [
-                    Expanded(child: Divider(color: AppColors.border)),
+                    const Expanded(child: Divider(color: AppColors.border)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
                       child: Text(
@@ -317,7 +318,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                     ),
-                    Expanded(child: Divider(color: AppColors.border)),
+                    const Expanded(child: Divider(color: AppColors.border)),
                   ],
                 ),
                 const SizedBox(height: DesignTokens.spacingMd),
@@ -342,11 +343,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_\"G\"_logo.svg/1200px-Google_\"G\"_logo.svg.png',
+                            SvgPicture.asset(
+                              'assets/icons/google_g.svg',
                               width: 22,
                               height: 22,
-                              errorBuilder: (_, __, ___) => const Icon(Icons.g_mobiledata, size: 24),
                             ),
                             const SizedBox(width: 12),
                             const Text(

@@ -138,7 +138,7 @@ class DoshaQuizNotifier extends StateNotifier<DoshaQuizState> {
 
   /// Reset the quiz to start over
   void reset() {
-    state = DoshaQuizState(questions: doshaQuizData);
+    state = const DoshaQuizState().copyWith(questions: doshaQuizData);
   }
 
   /// Go to a specific question (for review purposes)

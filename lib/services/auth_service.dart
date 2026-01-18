@@ -56,7 +56,7 @@ class AuthService {
     if (kIsWeb || _googleSignIn == null) return null;
     
     try {
-      final googleUser = await _googleSignIn!.signInSilently();
+      final googleUser = await _googleSignIn.signInSilently();
       if (googleUser == null) return null;
       
       final googleAuth = await googleUser.authentication;
@@ -95,7 +95,7 @@ class AuthService {
       }
 
       // Trigger the native pickers
-      final GoogleSignInAccount? googleUser = await _googleSignIn!.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       
       if (googleUser == null) {
         // User cancelled the sign-in (professional apps treat this as null, not an error)
@@ -154,7 +154,7 @@ class AuthService {
     await _auth.signOut();
     // Only sign out from GoogleSignIn on mobile
     if (_googleSignIn != null) {
-      await _googleSignIn!.signOut();
+      await _googleSignIn.signOut();
     }
   }
 

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../data/models/user_profile.dart';
+import '../../data/models/dosha.dart';
 import '../../providers/user_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -86,32 +88,33 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _showHelpDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Help & Support'),
-        content: const Column(
+        title: Text(l10n.helpAndSupport),
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('📧 Email: support@ayurspace.app'),
-            SizedBox(height: 8),
-            Text('🌐 Website: www.ayurspace.app'),
-            SizedBox(height: 16),
+            Text('📧 ${l10n.helpEmail}'),
+            const SizedBox(height: 8),
+            Text('🌐 ${l10n.helpWebsite}'),
+            const SizedBox(height: 16),
             Text(
-              'FAQs',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              l10n.faqs,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            Text('• How do I use the plant scanner?'),
-            Text('• What is my dosha?'),
-            Text('• Are remedies safe to use?'),
+            const SizedBox(height: 8),
+            Text('• ${l10n.faqScanner}'),
+            Text('• ${l10n.faqDosha}'),
+            Text('• ${l10n.faqRemedies}'),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(l10n.close),
           ),
         ],
       ),
@@ -119,6 +122,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _showAboutDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -133,37 +137,34 @@ class ProfileScreen extends ConsumerWidget {
               child: const Icon(Icons.spa, color: AppColors.primary),
             ),
             const SizedBox(width: 12),
-            const Text('AyurSpace'),
+            Text(l10n.appTitle),
           ],
         ),
-        content: const Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Version 1.0.0'),
-            SizedBox(height: 12),
+            Text(l10n.aboutVersion),
+            const SizedBox(height: 12),
+            Text(l10n.aboutDescription),
+            const SizedBox(height: 16),
             Text(
-              'Your complete Ayurveda companion. Discover traditional herbs, '
-              'personalized remedies, and wellness practices based on ancient wisdom.',
-            ),
-            SizedBox(height: 16),
-            Text(
-              '© 2024 AyurSpace. All rights reserved.',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              l10n.aboutCopyright,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(l10n.close),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDoshaCard(BuildContext context, dynamic doshaResult, AppLocalizations l10n) {
+  Widget _buildDoshaCard(BuildContext context, DoshaResult? doshaResult, AppLocalizations l10n) {
     String doshaName = '';
     if (doshaResult != null) {
         final locale = Localizations.localeOf(context).languageCode;
@@ -217,8 +218,8 @@ class ProfileScreen extends ConsumerWidget {
 }
 
 class _ProfileCard extends StatelessWidget {
-  final dynamic user;
-  final dynamic stats;
+  final UserProfile? user;
+  final UserStats? stats;
   final AppLocalizations l10n;
 
   const _ProfileCard({this.user, this.stats, required this.l10n});
@@ -349,7 +350,7 @@ class _StatItem extends StatelessWidget {
 }
 
 class _AchievementsSection extends StatelessWidget {
-  final dynamic stats;
+  final UserStats? stats;
   final AppLocalizations l10n;
 
   const _AchievementsSection({this.stats, required this.l10n});
@@ -392,7 +393,7 @@ class _AchievementsSection extends StatelessWidget {
                 color: AppColors.lotusPink,
               ),
               const SizedBox(width: DesignTokens.spacingSm),
-              _AchievementBadge(
+              const _AchievementBadge(
                 icon: Icons.local_fire_department,
                 title: 'Week Streak',
                 subtitle: '7 days active',

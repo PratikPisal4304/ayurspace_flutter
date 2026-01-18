@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ayurspace_flutter/providers/user_provider.dart';
 import 'package:ayurspace_flutter/services/firestore_service.dart';

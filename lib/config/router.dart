@@ -33,14 +33,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isLoggedIn = authState.value != null;
       final isLoggingIn = state.uri.path == '/login' || state.uri.path == '/signup';
 
-      // Protected routes
+      // Protected routes (require authentication)
       final protectedRoutes = [
         '/profile',
         '/settings',
         '/bookmarks',
         '/favorites',
         '/edit-profile',
-        '/dosha-profile'
+        '/dosha-profile',
+        '/seed', // Admin route - secured
       ];
       
       final isProtectedRoute = protectedRoutes.any((r) => state.uri.path.startsWith(r));

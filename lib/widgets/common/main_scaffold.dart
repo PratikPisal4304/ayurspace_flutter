@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Main scaffold with bottom navigation
 class MainScaffold extends StatelessWidget {
@@ -21,38 +21,42 @@ class MainScaffold extends StatelessWidget {
 class _BottomNavBar extends StatelessWidget {
   const _BottomNavBar();
 
-  static const _navItems = [
-    _NavItem(
-        path: '/home',
-        icon: Icons.home_outlined,
-        activeIcon: Icons.home,
-        label: 'Home'),
-    _NavItem(
-        path: '/discover',
-        icon: Icons.local_florist_outlined,
-        activeIcon: Icons.local_florist,
-        label: 'Discover'),
-    _NavItem(
-        path: '/camera',
-        icon: Icons.camera_alt_outlined,
-        activeIcon: Icons.camera_alt,
-        label: 'Scan'),
-    _NavItem(
-        path: '/remedies',
-        icon: Icons.medical_services_outlined,
-        activeIcon: Icons.medical_services,
-        label: 'Remedies'),
-    _NavItem(
-        path: '/profile',
-        icon: Icons.person_outline,
-        activeIcon: Icons.person,
-        label: 'Profile'),
-  ];
+  /// Get localized nav items based on context
+  List<_NavItem> _getNavItems(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      _NavItem(
+          path: '/home',
+          icon: Icons.home_outlined,
+          activeIcon: Icons.home,
+          label: l10n.navHome),
+      _NavItem(
+          path: '/discover',
+          icon: Icons.local_florist_outlined,
+          activeIcon: Icons.local_florist,
+          label: l10n.navDiscover),
+      _NavItem(
+          path: '/camera',
+          icon: Icons.camera_alt_outlined,
+          activeIcon: Icons.camera_alt,
+          label: l10n.navScan),
+      _NavItem(
+          path: '/remedies',
+          icon: Icons.medical_services_outlined,
+          activeIcon: Icons.medical_services,
+          label: l10n.navRemedies),
+      _NavItem(
+          path: '/profile',
+          icon: Icons.person_outline,
+          activeIcon: Icons.person,
+          label: l10n.navProfile),
+    ];
+  }
 
-  int _getCurrentIndex(BuildContext context) {
+  int _getCurrentIndex(BuildContext context, List<_NavItem> navItems) {
     final location = GoRouterState.of(context).uri.path;
-    for (int i = 0; i < _navItems.length; i++) {
-      if (location.startsWith(_navItems[i].path)) {
+    for (int i = 0; i < navItems.length; i++) {
+      if (location.startsWith(navItems[i].path)) {
         return i;
       }
     }
@@ -61,16 +65,17 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = _getCurrentIndex(context);
+    final navItems = _getNavItems(context);
+    final currentIndex = _getCurrentIndex(context, navItems);
 
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
+            color: Theme.of(context).colorScheme.shadow,
             blurRadius: DesignTokens.shadowBlurMd,
-            offset: Offset(0, -2),
+            offset: const Offset(0, -2),
           ),
         ],
       ),
@@ -82,7 +87,7 @@ class _BottomNavBar extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _navItems.asMap().entries.map((entry) {
+            children: navItems.asMap().entries.map((entry) {
               final index = entry.key;
               final item = entry.value;
               final isSelected = index == currentIndex;
@@ -127,6 +132,10 @@ class _NavItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final primaryColor = colorScheme.primary;
+    final tertiaryColor = colorScheme.onSurfaceVariant;
+    
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -138,7 +147,7 @@ class _NavItemWidget extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.primary.withValues(alpha: 0.1)
+              ? primaryColor.withValues(alpha: 0.1)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(DesignTokens.radiusBase),
         ),
@@ -147,7 +156,7 @@ class _NavItemWidget extends StatelessWidget {
           children: [
             Icon(
               isSelected ? item.activeIcon : item.icon,
-              color: isSelected ? AppColors.primary : AppColors.textTertiary,
+              color: isSelected ? primaryColor : tertiaryColor,
               size: DesignTokens.iconSizeMd,
             ),
             const SizedBox(height: DesignTokens.spacingXxs),
@@ -156,7 +165,7 @@ class _NavItemWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: DesignTokens.fontSizeXs,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? AppColors.primary : AppColors.textTertiary,
+                color: isSelected ? primaryColor : tertiaryColor,
               ),
             ),
           ],

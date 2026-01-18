@@ -53,7 +53,7 @@ class AyurSpaceApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'AyurSpace', // This is usually distinct from l10n title unless using onGenerateTitle
+      title: 'AyurSpace',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: router,

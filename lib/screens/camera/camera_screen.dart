@@ -39,42 +39,10 @@ class CameraScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  // Cloud/Local toggle
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: DesignTokens.spacingSm,
-                      vertical: DesignTokens.spacingXs,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.surfaceVariant,
-                      borderRadius:
-                          BorderRadius.circular(DesignTokens.radiusFull),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          scanState.useCloudRecognition ? Icons.cloud : Icons.smartphone,
-                          size: 16,
-                          color: Colors.black.withValues(alpha: 0.5),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          scanState.useCloudRecognition ? 'Cloud' : 'Local',
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Switch(
-                          value: scanState.useCloudRecognition,
-                          onChanged: notifier.toggleCloudRecognition,
-                          activeThumbColor: AppColors.primary,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
+
 
             // Camera/Image preview area
             Expanded(
@@ -91,8 +59,10 @@ class CameraScreen extends ConsumerWidget {
                 child: scanState.isAnalyzing
                     ? _buildAnalyzingState(context, scanState)
                     : scanState.scanResult != null
-                        ? _buildResultState(context, notifier, scanState)
-                        : _buildEmptyState(context),
+                        ? _buildResultState(context, ref, scanState)
+                        : scanState.error != null
+                            ? _buildErrorState(context, notifier, scanState)
+                            : _buildEmptyState(context),
               ),
             ),
 
@@ -103,7 +73,9 @@ class CameraScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () => notifier.pickImage(ImageSource.gallery),
+                      onPressed: scanState.isAnalyzing 
+                          ? null 
+                          : () => notifier.pickImage(ImageSource.gallery),
                       icon: const Icon(Icons.photo_library),
                       label: const Text('Gallery'),
                       style: OutlinedButton.styleFrom(
@@ -115,7 +87,9 @@ class CameraScreen extends ConsumerWidget {
                   Expanded(
                     flex: 2,
                     child: ElevatedButton.icon(
-                      onPressed: () => notifier.pickImage(ImageSource.camera),
+                      onPressed: scanState.isAnalyzing 
+                          ? null 
+                          : () => notifier.pickImage(ImageSource.camera),
                       icon: const Icon(Icons.camera_alt),
                       label: const Text('Take Photo'),
                       style: ElevatedButton.styleFrom(
@@ -176,12 +150,14 @@ class CameraScreen extends ConsumerWidget {
           const CircularProgressIndicator(color: AppColors.primary),
           const SizedBox(height: DesignTokens.spacingMd),
           Text(
-            'Analyzing plant...',
+            state.analysisStatus.isNotEmpty 
+                ? state.analysisStatus 
+                : 'Analyzing plant...',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: DesignTokens.spacingXs),
           Text(
-            state.useCloudRecognition ? 'Using cloud AI' : 'Using local recognition',
+            'Using Plant.id + Gemini AI',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -189,11 +165,57 @@ class CameraScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildResultState(BuildContext context, ScanNotifier notifier, ScanState state) {
+  Widget _buildErrorState(BuildContext context, ScanNotifier notifier, ScanState state) {
     return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(DesignTokens.spacingMd),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(DesignTokens.spacingMd),
+              decoration: BoxDecoration(
+                color: AppColors.error.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.error_outline,
+                size: 64,
+                color: AppColors.error,
+              ),
+            ),
+            const SizedBox(height: DesignTokens.spacingMd),
+            Text(
+              'Identification Failed',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: DesignTokens.spacingXs),
+            Text(
+              state.error ?? 'Unknown error occurred',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: DesignTokens.spacingMd),
+            OutlinedButton.icon(
+              onPressed: notifier.reset,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Try Again'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildResultState(BuildContext context, WidgetRef ref, ScanState state) {
+    final result = state.scanResult!;
+    final isLocalMatch = result.source == 'local';
+    
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(DesignTokens.spacingMd),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Success indicator
           Container(
             padding: const EdgeInsets.all(DesignTokens.spacingMd),
             decoration: BoxDecoration(
@@ -202,46 +224,225 @@ class CameraScreen extends ConsumerWidget {
             ),
             child: const Icon(
               Icons.check_circle,
-              size: 64,
+              size: 48,
               color: AppColors.success,
             ),
           ),
-          const SizedBox(height: DesignTokens.spacingMd),
-          Text(
-            'Plant Identified!',
-            style: Theme.of(context).textTheme.titleMedium,
+          const SizedBox(height: DesignTokens.spacingSm),
+          
+          // Confidence badge
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DesignTokens.spacingSm,
+              vertical: DesignTokens.spacingXxs,
+            ),
+            decoration: BoxDecoration(
+              color: _getConfidenceColor(result.confidence).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+            ),
+            child: Text(
+              '${(result.confidence * 100).toStringAsFixed(0)}% match',
+              style: TextStyle(
+                color: _getConfidenceColor(result.confidence),
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
           ),
-          const SizedBox(height: DesignTokens.spacingXs),
+          const SizedBox(height: DesignTokens.spacingSm),
+          
+          // Plant name
           Text(
-            state.scanResult ?? '',
+            result.plantName,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
+            textAlign: TextAlign.center,
           ),
+          
+          // Scientific name
+          Text(
+            result.scientificName,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+          ),
+          const SizedBox(height: DesignTokens.spacingXs),
+          
+          // Source badge
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DesignTokens.spacingSm,
+              vertical: DesignTokens.spacingXxs,
+            ),
+            decoration: BoxDecoration(
+              color: isLocalMatch 
+                  ? AppColors.primary.withValues(alpha: 0.1)
+                  : AppColors.saffron.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  isLocalMatch ? Icons.local_florist : Icons.auto_awesome,
+                  size: 14,
+                  color: isLocalMatch ? AppColors.primary : AppColors.saffron,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  isLocalMatch ? 'Ayurvedic Database' : 'AI Generated Info',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: isLocalMatch ? AppColors.primary : AppColors.saffron,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
           const SizedBox(height: DesignTokens.spacingMd),
+          
+          // Ayurvedic info preview (for AI-generated results)
+          if (!isLocalMatch && result.ayurvedicInfo != null) ...[
+            Container(
+              padding: const EdgeInsets.all(DesignTokens.spacingSm),
+              decoration: BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.spa, size: 16, color: AppColors.primary),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Ayurvedic Information',
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: DesignTokens.spacingXs),
+                  Text(
+                    result.ayurvedicInfo!.length > 300
+                        ? '${result.ayurvedicInfo!.substring(0, 300)}...'
+                        : result.ayurvedicInfo!,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: DesignTokens.spacingMd),
+          ],
+          
+          // Action buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
-                onPressed: notifier.reset,
+                onPressed: ref.read(scanProvider.notifier).reset,
                 icon: const Icon(Icons.refresh),
                 label: const Text('Scan Again'),
               ),
               const SizedBox(width: DesignTokens.spacingSm),
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Navigate to Tulsi (plant ID 1) as mock result
-                  context.push('/plant/1');
-                },
-                icon: const Icon(Icons.visibility),
-                label: const Text('View Details'),
-              ),
+              if (isLocalMatch && result.matchedPlant != null)
+                ElevatedButton.icon(
+                  onPressed: () {
+                    context.push('/plant/${result.matchedPlant!.id}');
+                  },
+                  icon: const Icon(Icons.visibility),
+                  label: const Text('View Details'),
+                )
+              else
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // Show full AI-generated info in a dialog or new screen
+                    _showFullInfoDialog(context, result);
+                  },
+                  icon: const Icon(Icons.info_outline),
+                  label: const Text('Full Info'),
+                ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void _showFullInfoDialog(BuildContext context, PlantScanResult result) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.spa, color: AppColors.primary),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                result.plantName,
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                result.scientificName,
+                style: const TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                result.ayurvedicInfo ?? result.description ?? 'No additional information available.',
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.info_outline, size: 16, color: AppColors.warning),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'This information is AI-generated. Please verify with an Ayurvedic practitioner.',
+                        style: TextStyle(fontSize: 12, color: AppColors.warning),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Color _getConfidenceColor(double confidence) {
+    if (confidence >= 0.8) return AppColors.success;
+    if (confidence >= 0.5) return AppColors.warning;
+    return AppColors.error;
   }
 
   Widget _buildRecentScans(BuildContext context) {
