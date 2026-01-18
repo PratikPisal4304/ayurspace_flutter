@@ -52,7 +52,7 @@ Keep the response concise but informative. Format with clear sections.
     }
 
     try {
-      const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
+      final url = 'https://generativelanguage.googleapis.com/v1beta/models/'
           '${ApiConfig.geminiModel}:generateContent?key=${ApiConfig.geminiApiKey}';
 
       final response = await _client.post(
@@ -113,7 +113,7 @@ Keep the response concise but informative. Format with clear sections.
     try {
       final base64Image = base64Encode(imageBytes);
       
-      const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
+      final url = 'https://generativelanguage.googleapis.com/v1beta/models/'
           '${ApiConfig.geminiModel}:generateContent?key=${ApiConfig.geminiApiKey}';
 
       final response = await _client.post(

@@ -8,9 +8,13 @@ import 'providers/firebase_provider.dart';
 import 'services/auth_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ayurspace_flutter/l10n/app_localizations.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Load environment variables
+  await dotenv.load(fileName: '.env');
 
   // Create container to set initial provider state
   final container = ProviderContainer();
