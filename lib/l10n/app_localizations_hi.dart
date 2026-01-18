@@ -306,4 +306,109 @@ class AppLocalizationsHi extends AppLocalizations {
   String passwordResetSent(String email) {
     return '$email पर पासवर्ड रीसेट लिंक भेजा गया';
   }
+
+  @override
+  String get plantAbout => 'कथा';
+
+  @override
+  String get plantBenefits => 'स्वास्थ्य लाभ';
+
+  @override
+  String get plantDoshas => 'दोष संतुलन';
+
+  @override
+  String get plantSeasons => 'सर्वोत्तम मौसम';
+
+  @override
+  String get plantCompounds => 'सक्रिय तत्व';
+
+  @override
+  String get plantUses => 'पारंपरिक उपयोग';
+
+  @override
+  String get plantDosage => 'अनुशंसित खुराक';
+
+  @override
+  String get plantPrecautions => 'सावधानियां';
+
+  @override
+  String get plantContraindications => 'निषेध (Contraindications)';
+
+  @override
+  String get plantDifficulty => 'उगाने में कठिनाई';
+
+  @override
+  String get plantTips => 'उगाने के सुझाव';
+
+  @override
+  String get plantHarvest => 'कटाई का समय';
+
+  @override
+  String get plantDetails => 'पौधे का विवरण';
+
+  @override
+  String get plantCategory => 'श्रेणी';
+
+  @override
+  String get plantPartUsed => 'प्रयुक्त भाग';
+
+  @override
+  String get plantOrigin => 'मूल';
+
+  @override
+  String get plantDoshaBalance => 'दोष संतुलन';
+
+  @override
+  String get plantTaste => 'स्वाद (रस)';
+
+  @override
+  String get plantNames => 'नाम';
+
+  @override
+  String get nameEnglish => 'अंग्रेज़ी';
+
+  @override
+  String get nameHindi => 'हिंदी';
+
+  @override
+  String get nameScientific => 'वैज्ञानिक';
+
+  @override
+  String get nameSanskrit => 'संस्कृत';
+
+  @override
+  String get ayurvedicProps => 'आयुर्वेदिक गुण';
+
+  @override
+  String get propBalances => 'संतुलित करता है';
+
+  @override
+  String get propPotency => 'वीर्य (Potency)';
+
+  @override
+  String get propPostDigestive => 'विपाक (Post-Digestive)';
+
+  @override
+  String get actionFindRemedies => 'उपचार खोजें';
+
+  @override
+  String get actionSave => 'सहेजें';
+
+  @override
+  String get actionSaved => 'सहेजा गया';
+
+  @override
+  String get actionShare => 'साझा करें';
+
+  @override
+  String get tabOverview => 'अवलोकन';
+
+  @override
+  String get tabUses => 'उपयोग';
+
+  @override
+  String get tabGrowing => 'खेती';
+
+  @override
+  String get tabAyurveda => 'आयुर्वेद';
 }

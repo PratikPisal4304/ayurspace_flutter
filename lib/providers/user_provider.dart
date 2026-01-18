@@ -56,11 +56,20 @@ class UserNotifier extends StateNotifier<UserState> {
             isLoading: false,
           );
         } else {
-          // User authenticated but no Firestore doc? 
-          // This might happen during signup before doc is created.
-          // We can optionally create it here or wait for signup flow to do it.
-          // For now, we'll wait or show loading.
-          state = state.copyWith(isLoading: false);
+          // User authenticated but no Firestore doc yet
+          // This can happen during Google Sign-In before document is created.
+          // Create a minimal profile from Firebase Auth to show immediately.
+          state = state.copyWith(
+            profile: UserProfile(
+              id: firebaseUser.uid,
+              name: firebaseUser.displayName ?? 'User',
+              email: firebaseUser.email ?? '',
+              avatarUrl: firebaseUser.photoURL,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+            ),
+            isLoading: false,
+          );
         }
       }, onError: (e) {
         state = state.copyWith(

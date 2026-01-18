@@ -80,10 +80,13 @@ class _BottomNavBar extends StatelessWidget {
         ],
       ),
       child: SafeArea(
+        bottom: false, // Force to bottom edge as requested
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: DesignTokens.spacingXs,
-            vertical: DesignTokens.spacingXs,
+          padding: EdgeInsets.only(
+            left: DesignTokens.spacingXs,
+            right: DesignTokens.spacingXs,
+            top: DesignTokens.spacingXs,
+            bottom: 12.0, // Little up from the bottom
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

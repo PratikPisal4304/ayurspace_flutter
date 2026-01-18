@@ -32,6 +32,28 @@ class ChatMessage extends Equatable {
     );
   }
 
+  /// Convert to JSON for persistence
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'role': role.name,
+      'content': content,
+      'timestamp': timestamp.toIso8601String(),
+      'isLoading': isLoading,
+    };
+  }
+
+  /// Create from JSON
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    return ChatMessage(
+      id: json['id'] as String,
+      role: ChatRole.values.firstWhere((r) => r.name == json['role']),
+      content: json['content'] as String,
+      timestamp: DateTime.parse(json['timestamp'] as String),
+      isLoading: json['isLoading'] as bool? ?? false,
+    );
+  }
+
   @override
   List<Object?> get props => [id, role, content, timestamp, isLoading];
 }

@@ -8,6 +8,8 @@ import '../../data/models/user_profile.dart';
 import '../../data/models/dosha.dart';
 import '../../providers/user_provider.dart';
 
+import '../../widgets/common/responsive_center.dart';
+
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
@@ -20,10 +22,11 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: ResponsiveCenter(
           padding: const EdgeInsets.all(DesignTokens.spacingMd),
-          child: Column(
-            children: [
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
               // Page Header with Settings
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +87,8 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ),
+  );
   }
 
   void _showHelpDialog(BuildContext context) {

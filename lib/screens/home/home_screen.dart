@@ -9,6 +9,8 @@ import '../../providers/user_provider.dart';
 import '../../widgets/plant_card.dart';
 import '../../providers/plants_provider.dart';
 
+import '../../widgets/common/responsive_center.dart';
+
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -36,11 +38,12 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: ResponsiveCenter(
           padding: const EdgeInsets.all(DesignTokens.spacingMd),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               // Header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +146,8 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ),
+  );
   }
 }
 

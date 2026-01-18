@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../services/auth_service.dart';
@@ -18,19 +20,20 @@ import '../screens/bookmarks/bookmarks_screen.dart';
 import '../screens/favorites/favorites_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
-import '../screens/admin/data_seeder_screen.dart';
+
 import '../widgets/common/main_scaffold.dart';
 
 
 /// Router provider with auth guards
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
-
+  final authService = ref.watch(authServiceProvider);
+  
   return GoRouter(
     initialLocation: '/home',
     debugLogDiagnostics: true,
+    refreshListenable: GoRouterRefreshStream(authService.authStateChanges()),
     redirect: (context, state) {
-      final isLoggedIn = authState.value != null;
+      final isLoggedIn = authService.currentUser != null;
       final isLoggingIn = state.uri.path == '/login' || state.uri.path == '/signup';
 
       // Protected routes (require authentication)
@@ -41,22 +44,23 @@ final routerProvider = Provider<GoRouter>((ref) {
         '/favorites',
         '/edit-profile',
         '/dosha-profile',
-        '/seed', // Admin route - secured
       ];
       
       final isProtectedRoute = protectedRoutes.any((r) => state.uri.path.startsWith(r));
 
+      // 2. If not logged in and trying to access protected route -> Login
       if (!isLoggedIn && isProtectedRoute) {
         return '/login';
       }
 
+      // 3. If logged in and trying to access login/signup -> Home
       if (isLoggedIn && isLoggingIn) {
         return '/home';
       }
 
-      // Redirect root to home
+      // 4. If root -> Home (if logged in) or Login (if not)
       if (state.uri.path == '/') {
-        return '/home';
+        return isLoggedIn ? '/home' : '/login';
       }
 
       return null;
@@ -89,13 +93,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               child: CameraScreen(),
             ),
           ),
-          GoRoute(
-            path: '/chat',
-            name: 'chat',
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ChatScreen(),
-            ),
-          ),
+
           GoRoute(
             path: '/remedies',
             name: 'remedies',
@@ -120,6 +118,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         ],
       ),
       // Detail screens
+      // Chat - Full screen without bottom nav
+      GoRoute(
+        path: '/chat',
+        name: 'chat',
+        builder: (context, state) => const ChatScreen(),
+      ),
       GoRoute(
         path: '/plant/:id',
         name: 'plantDetail',
@@ -176,11 +180,24 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: 'signup',
         builder: (context, state) => const SignupScreen(),
       ),
-      GoRoute(
-        path: '/seed',
-        name: 'seed',
-        builder: (context, state) => const DataSeederScreen(),
-      ),
+
     ],
   );
 });
+
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen(
+      (dynamic _) => notifyListeners(),
+    );
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}

@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
@@ -7,23 +7,19 @@ import '../services/firestore_service.dart';
 class AuthState {
   final bool isLoading;
   final String? error;
-  final User? user;
 
   const AuthState({
     this.isLoading = false,
     this.error,
-    this.user,
   });
 
   AuthState copyWith({
     bool? isLoading,
     String? error,
-    User? user,
   }) {
     return AuthState(
       isLoading: isLoading ?? this.isLoading,
       error: error,
-      user: user ?? this.user,
     );
   }
 }
@@ -40,11 +36,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> signIn({required String email, required String password}) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
-      final credential = await _authService.signInWithEmail(
+      await _authService.signInWithEmail(
         email: email,
         password: password,
       );
-      state = state.copyWith(isLoading: false, user: credential?.user);
+      state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
       rethrow; // Allow UI to handle if needed (navigating etc)
@@ -76,7 +72,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           email: email,
         );
 
-        state = state.copyWith(isLoading: false, user: credential.user);
+        state = state.copyWith(isLoading: false);
       }
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -104,7 +100,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       if (credential?.user != null) {
         final user = credential!.user!;
         
-        // Check if this is a new user (additionalUserInfo.isNewUser)
+        // Check if this is a new user OR if Firestore doc is missing (legacy/migration)
         final isNewUser = credential.additionalUserInfo?.isNewUser ?? false;
         
         if (isNewUser) {
@@ -114,9 +110,20 @@ class AuthNotifier extends StateNotifier<AuthState> {
             name: user.displayName ?? 'User',
             email: user.email ?? '',
           );
+        } else {
+          // Check if user exists in Firestore, if not create it (Sync)
+          final userDoc = await _firestoreService.getUser(user.uid);
+          if (userDoc == null) {
+            await _firestoreService.createUser(
+              uid: user.uid,
+              name: user.displayName ?? 'User',
+              email: user.email ?? '',
+            );
+          }
         }
         
-        state = state.copyWith(isLoading: false, user: user);
+        
+        state = state.copyWith(isLoading: false);
       } else {
         // User cancelled sign-in
         state = state.copyWith(isLoading: false);

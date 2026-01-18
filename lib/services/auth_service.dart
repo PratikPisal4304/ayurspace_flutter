@@ -35,6 +35,12 @@ class AuthService {
 
   AuthService(this._auth, this._googleSignIn);
 
+  /// Get the current logged in user
+  User? get currentUser => _auth.currentUser;
+
+  /// Stream of auth state changes for router refresh
+  Stream<User?> authStateChanges() => _auth.authStateChanges();
+
   /// Sign in with email and password
   Future<UserCredential?> signInWithEmail({
     required String email,
@@ -154,6 +160,7 @@ class AuthService {
     await _auth.signOut();
     // Only sign out from GoogleSignIn on mobile
     if (_googleSignIn != null) {
+      await _googleSignIn.disconnect(); // Disconnect to ensure account picker shows up next time
       await _googleSignIn.signOut();
     }
   }

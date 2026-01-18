@@ -28,6 +28,10 @@ class Plant extends Equatable {
   final List<String>? taste; // Ayurvedic rasa: Sweet, Sour, Salty, Bitter, Pungent, Astringent
   final List<String>? contraindications;
   final List<String>? chemicalCompounds;
+  
+  // Dravyaguna Specifics
+  final String? virya;   // Potency: Ushna (Hot) / Sheeta (Cold)
+  final String? vipaka;  // Post-digestive Effect: Madhura (Sweet), Amla (Sour), Katu (Pungent)
 
   const Plant({
     required this.id,
@@ -55,6 +59,8 @@ class Plant extends Equatable {
     this.taste,
     this.contraindications,
     this.chemicalCompounds,
+    this.virya,
+    this.vipaka,
   });
 
   /// Create a copy with modified fields
@@ -83,6 +89,8 @@ class Plant extends Equatable {
     List<String>? taste,
     List<String>? contraindications,
     List<String>? chemicalCompounds,
+    String? virya,
+    String? vipaka,
   }) {
     return Plant(
       id: id ?? this.id,
@@ -109,6 +117,8 @@ class Plant extends Equatable {
       taste: taste ?? this.taste,
       contraindications: contraindications ?? this.contraindications,
       chemicalCompounds: chemicalCompounds ?? this.chemicalCompounds,
+      virya: virya ?? this.virya,
+      vipaka: vipaka ?? this.vipaka,
     );
   }
 
@@ -144,6 +154,8 @@ class Plant extends Equatable {
       chemicalCompounds: json['chemicalCompounds'] != null
           ? List<String>.from(json['chemicalCompounds'] as List)
           : null,
+      virya: json['virya'] as String?,
+      vipaka: json['vipaka'] as String?,
     );
   }
 
@@ -174,6 +186,8 @@ class Plant extends Equatable {
       if (taste != null) 'taste': taste,
       if (contraindications != null) 'contraindications': contraindications,
       if (chemicalCompounds != null) 'chemicalCompounds': chemicalCompounds,
+      if (virya != null) 'virya': virya,
+      if (vipaka != null) 'vipaka': vipaka,
     };
   }
 
@@ -203,5 +217,7 @@ class Plant extends Equatable {
         taste,
         contraindications,
         chemicalCompounds,
+        virya,
+        vipaka,
       ];
 }

@@ -4,6 +4,7 @@ import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../providers/user_provider.dart';
 import '../../data/models/user_profile.dart';
+import '../../providers/auth_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -138,11 +139,7 @@ class SettingsScreen extends ConsumerWidget {
 
           // Logout Button
           OutlinedButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Logout coming soon!')),
-              );
-            },
+            onPressed: () => _showSignOutDialog(context, ref),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.error,
               side: const BorderSide(color: AppColors.error),
@@ -215,6 +212,31 @@ class SettingsScreen extends ConsumerWidget {
               );
             },
             child: const Text('Clear'),
+          ),
+        ],
+      ),
+    );
+  }
+  void _showSignOutDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Sign Out'),
+        content: const Text('Are you sure you want to sign out?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context); // Close dialog
+              await ref.read(authProvider.notifier).signOut();
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.error,
+            ),
+            child: const Text('Sign Out'),
           ),
         ],
       ),

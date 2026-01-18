@@ -304,4 +304,109 @@ class AppLocalizationsEn extends AppLocalizations {
   String passwordResetSent(String email) {
     return 'Password reset link sent to $email';
   }
+
+  @override
+  String get plantAbout => 'About';
+
+  @override
+  String get plantBenefits => 'Health Benefits';
+
+  @override
+  String get plantDoshas => 'Balances Doshas';
+
+  @override
+  String get plantSeasons => 'Best Seasons';
+
+  @override
+  String get plantCompounds => 'Active Compounds';
+
+  @override
+  String get plantUses => 'Traditional Uses';
+
+  @override
+  String get plantDosage => 'Recommended Dosage';
+
+  @override
+  String get plantPrecautions => 'Precautions';
+
+  @override
+  String get plantContraindications => 'Contraindications';
+
+  @override
+  String get plantDifficulty => 'Growing Difficulty';
+
+  @override
+  String get plantTips => 'Growing Tips';
+
+  @override
+  String get plantHarvest => 'Harvest Time';
+
+  @override
+  String get plantDetails => 'Plant Details';
+
+  @override
+  String get plantCategory => 'Category';
+
+  @override
+  String get plantPartUsed => 'Part Used';
+
+  @override
+  String get plantOrigin => 'Origin';
+
+  @override
+  String get plantDoshaBalance => 'Dosha Balance';
+
+  @override
+  String get plantTaste => 'Taste Profile (Rasa)';
+
+  @override
+  String get plantNames => 'Names';
+
+  @override
+  String get nameEnglish => 'English';
+
+  @override
+  String get nameHindi => 'Hindi';
+
+  @override
+  String get nameScientific => 'Scientific';
+
+  @override
+  String get nameSanskrit => 'Sanskrit';
+
+  @override
+  String get ayurvedicProps => 'Ayurvedic Properties';
+
+  @override
+  String get propBalances => 'Balances';
+
+  @override
+  String get propPotency => 'Potency (Virya)';
+
+  @override
+  String get propPostDigestive => 'Post-Digestive (Vipaka)';
+
+  @override
+  String get actionFindRemedies => 'Find Remedies';
+
+  @override
+  String get actionSave => 'Save';
+
+  @override
+  String get actionSaved => 'Saved';
+
+  @override
+  String get actionShare => 'Share';
+
+  @override
+  String get tabOverview => 'Overview';
+
+  @override
+  String get tabUses => 'Uses';
+
+  @override
+  String get tabGrowing => 'Growing';
+
+  @override
+  String get tabAyurveda => 'Ayurveda';
 }

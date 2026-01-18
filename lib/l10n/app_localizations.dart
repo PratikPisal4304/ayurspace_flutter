@@ -661,6 +661,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password reset link sent to {email}'**
   String passwordResetSent(String email);
+
+  /// No description provided for @plantAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get plantAbout;
+
+  /// No description provided for @plantBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Benefits'**
+  String get plantBenefits;
+
+  /// No description provided for @plantDoshas.
+  ///
+  /// In en, this message translates to:
+  /// **'Balances Doshas'**
+  String get plantDoshas;
+
+  /// No description provided for @plantSeasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Seasons'**
+  String get plantSeasons;
+
+  /// No description provided for @plantCompounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Compounds'**
+  String get plantCompounds;
+
+  /// No description provided for @plantUses.
+  ///
+  /// In en, this message translates to:
+  /// **'Traditional Uses'**
+  String get plantUses;
+
+  /// No description provided for @plantDosage.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Dosage'**
+  String get plantDosage;
+
+  /// No description provided for @plantPrecautions.
+  ///
+  /// In en, this message translates to:
+  /// **'Precautions'**
+  String get plantPrecautions;
+
+  /// No description provided for @plantContraindications.
+  ///
+  /// In en, this message translates to:
+  /// **'Contraindications'**
+  String get plantContraindications;
+
+  /// No description provided for @plantDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Growing Difficulty'**
+  String get plantDifficulty;
+
+  /// No description provided for @plantTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Growing Tips'**
+  String get plantTips;
+
+  /// No description provided for @plantHarvest.
+  ///
+  /// In en, this message translates to:
+  /// **'Harvest Time'**
+  String get plantHarvest;
+
+  /// No description provided for @plantDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant Details'**
+  String get plantDetails;
+
+  /// No description provided for @plantCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get plantCategory;
+
+  /// No description provided for @plantPartUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Part Used'**
+  String get plantPartUsed;
+
+  /// No description provided for @plantOrigin.
+  ///
+  /// In en, this message translates to:
+  /// **'Origin'**
+  String get plantOrigin;
+
+  /// No description provided for @plantDoshaBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Dosha Balance'**
+  String get plantDoshaBalance;
+
+  /// No description provided for @plantTaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Taste Profile (Rasa)'**
+  String get plantTaste;
+
+  /// No description provided for @plantNames.
+  ///
+  /// In en, this message translates to:
+  /// **'Names'**
+  String get plantNames;
+
+  /// No description provided for @nameEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get nameEnglish;
+
+  /// No description provided for @nameHindi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get nameHindi;
+
+  /// No description provided for @nameScientific.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific'**
+  String get nameScientific;
+
+  /// No description provided for @nameSanskrit.
+  ///
+  /// In en, this message translates to:
+  /// **'Sanskrit'**
+  String get nameSanskrit;
+
+  /// No description provided for @ayurvedicProps.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayurvedic Properties'**
+  String get ayurvedicProps;
+
+  /// No description provided for @propBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Balances'**
+  String get propBalances;
+
+  /// No description provided for @propPotency.
+  ///
+  /// In en, this message translates to:
+  /// **'Potency (Virya)'**
+  String get propPotency;
+
+  /// No description provided for @propPostDigestive.
+  ///
+  /// In en, this message translates to:
+  /// **'Post-Digestive (Vipaka)'**
+  String get propPostDigestive;
+
+  /// No description provided for @actionFindRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Remedies'**
+  String get actionFindRemedies;
+
+  /// No description provided for @actionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get actionSave;
+
+  /// No description provided for @actionSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get actionSaved;
+
+  /// No description provided for @actionShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get actionShare;
+
+  /// No description provided for @tabOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get tabOverview;
+
+  /// No description provided for @tabUses.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses'**
+  String get tabUses;
+
+  /// No description provided for @tabGrowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Growing'**
+  String get tabGrowing;
+
+  /// No description provided for @tabAyurveda.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayurveda'**
+  String get tabAyurveda;
 }
 
 class _AppLocalizationsDelegate

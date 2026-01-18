@@ -10,7 +10,7 @@ class MockChatService extends Fake implements ChatService {
   bool shouldThrow = false;
   
   @override
-  Future<String> getResponse(String query) async {
+  Future<String> getResponse(String query, List<ChatMessage> history) async {
     if (shouldThrow) {
       throw Exception('Network Error');
     }

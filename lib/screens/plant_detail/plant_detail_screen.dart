@@ -5,6 +5,7 @@ import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../providers/plants_provider.dart';
 import '../../data/models/plant.dart';
+import '../../l10n/app_localizations.dart';
 
 part 'plant_detail_tabs.dart';
 
@@ -61,12 +62,22 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
   }
 
   Widget _buildHeroSection(BuildContext context, Plant plant) {
+    final l10n = AppLocalizations.of(context)!;
     return SliverAppBar(
       expandedHeight: 320,
       pinned: true,
       stretch: true,
       backgroundColor: AppColors.primary,
       flexibleSpace: FlexibleSpaceBar(
+        title: Text(
+          plant.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        expandedTitleScale: 1.5,
         stretchModes: const [StretchMode.zoomBackground],
         background: Stack(
           fit: StackFit.expand,
@@ -75,7 +86,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
             CachedNetworkImage(
               imageUrl: plant.image,
               fit: BoxFit.cover,
-              placeholder: (_, __) => Container(color: AppColors.surfaceVariant),
+              placeholder: (_, __) =>
+                  Container(color: AppColors.surfaceVariant),
               errorWidget: (_, __, ___) => Container(
                 color: AppColors.surfaceVariant,
                 child: const Icon(Icons.local_florist,
@@ -97,23 +109,15 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                 ),
               ),
             ),
-            // Plant info overlay
+            // Plant info overlay (Bottom Left)
             Positioned(
               left: DesignTokens.spacingMd,
               right: DesignTokens.spacingMd,
-              bottom: DesignTokens.spacingMd,
+              bottom: DesignTokens.spacingXl + 20, // Move up to avoid collision with title
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    plant.name,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 4),
                   Text(
                     '${plant.hindi} • ${plant.scientificName}',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -124,7 +128,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                   if (plant.sanskritName != null) ...[
                     const SizedBox(height: 2),
                     Text(
-                      'Sanskrit: ${plant.sanskritName}',
+                      '${l10n.nameSanskrit}: ${plant.sanskritName}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.white.withValues(alpha: 0.8),
                           ),
@@ -133,7 +137,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                   const SizedBox(height: DesignTokens.spacingSm),
                   // Rating chip
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20),
@@ -141,7 +146,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.star, color: AppColors.turmeric, size: 16),
+                        const Icon(Icons.star,
+                            color: AppColors.turmeric, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           '${plant.rating}',
@@ -161,6 +167,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
       ),
       actions: [
         IconButton(
+          tooltip: plant.isBookmarked ? l10n.actionSaved : l10n.actionSave,
           icon: Icon(
             plant.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
             color: Colors.white,
@@ -169,6 +176,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
               ref.read(plantsProvider.notifier).toggleBookmark(widget.plantId),
         ),
         IconButton(
+          tooltip: l10n.actionShare,
           icon: const Icon(Icons.share, color: Colors.white),
           onPressed: () {},
         ),
@@ -177,6 +185,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
   }
 
   Widget _buildQuickStats(BuildContext context, Plant plant) {
+    // Note: QuickStats labels come from model (difficulty) which might be English only
+    // Ideally these values (Easy, Medium) should be mapped to l10n too.
     return SliverToBoxAdapter(
       child: Container(
         padding: const EdgeInsets.all(DesignTokens.spacingMd),
@@ -210,6 +220,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
   }
 
   Widget _buildTabBar(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SliverPersistentHeader(
       pinned: true,
       delegate: _StickyTabBarDelegate(
@@ -220,11 +231,11 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
           indicatorColor: AppColors.primary,
           indicatorWeight: 3,
           labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-          tabs: const [
-            Tab(text: 'Overview'),
-            Tab(text: 'Uses'),
-            Tab(text: 'Growing'),
-            Tab(text: 'Ayurveda'),
+          tabs: [
+            Tab(text: l10n.tabOverview),
+            Tab(text: l10n.tabUses),
+            Tab(text: l10n.tabGrowing),
+            Tab(text: l10n.tabAyurveda),
           ],
         ),
       ),
@@ -232,6 +243,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
   }
 
   Widget _buildBottomActionBar(BuildContext context, Plant plant) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: DesignTokens.spacingMd,
@@ -257,7 +269,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                 icon: Icon(
                   plant.isBookmarked ? Icons.bookmark : Icons.bookmark_add_outlined,
                 ),
-                label: Text(plant.isBookmarked ? 'Saved' : 'Save'),
+                label: Text(plant.isBookmarked ? l10n.actionSaved : l10n.actionSave),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primary,
                   side: const BorderSide(color: AppColors.primary),
@@ -270,7 +282,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
               child: FilledButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.healing),
-                label: const Text('Find Remedies'),
+                label: Text(l10n.actionFindRemedies),
                 style: FilledButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 12),

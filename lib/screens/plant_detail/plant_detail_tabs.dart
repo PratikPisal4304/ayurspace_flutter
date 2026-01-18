@@ -7,12 +7,13 @@ class _OverviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       children: [
         // Description Section
         _SectionCard(
-          title: 'About',
+          title: l10n.plantAbout,
           icon: Icons.info_outline,
           child: Text(
             plant.description,
@@ -25,7 +26,7 @@ class _OverviewTab extends StatelessWidget {
 
         // Health Benefits
         _SectionCard(
-          title: 'Health Benefits',
+          title: l10n.plantBenefits,
           icon: Icons.favorite_outline,
           child: Wrap(
             spacing: 8,
@@ -39,7 +40,7 @@ class _OverviewTab extends StatelessWidget {
 
         // Dosha Badges
         _SectionCard(
-          title: 'Balances Doshas',
+          title: l10n.plantDoshas,
           icon: Icons.balance,
           child: Row(
             children: plant.doshas.map((dosha) {
@@ -54,7 +55,7 @@ class _OverviewTab extends StatelessWidget {
 
         // Seasons
         _SectionCard(
-          title: 'Best Seasons',
+          title: l10n.plantSeasons,
           icon: Icons.calendar_today,
           child: Wrap(
             spacing: 8,
@@ -67,7 +68,7 @@ class _OverviewTab extends StatelessWidget {
         if (plant.chemicalCompounds != null && plant.chemicalCompounds!.isNotEmpty) ...[
           const SizedBox(height: DesignTokens.spacingMd),
           _SectionCard(
-            title: 'Active Compounds',
+            title: l10n.plantCompounds,
             icon: Icons.science,
             child: Wrap(
               spacing: 8,
@@ -95,12 +96,13 @@ class _UsesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       children: [
         // Uses List
         _SectionCard(
-          title: 'Traditional Uses',
+          title: l10n.plantUses,
           icon: Icons.medication_outlined,
           child: Column(
             children: plant.uses.asMap().entries.map((entry) {
@@ -115,7 +117,7 @@ class _UsesTab extends StatelessWidget {
 
         // Dosage Card
         _InfoCard(
-          title: 'Recommended Dosage',
+          title: l10n.plantDosage,
           content: plant.dosage,
           icon: Icons.medical_services,
           color: AppColors.primary,
@@ -124,7 +126,7 @@ class _UsesTab extends StatelessWidget {
 
         // Precautions Card
         _InfoCard(
-          title: 'Precautions',
+          title: l10n.plantPrecautions,
           content: plant.precautions,
           icon: Icons.warning_amber,
           color: AppColors.warning,
@@ -134,7 +136,7 @@ class _UsesTab extends StatelessWidget {
         if (plant.contraindications != null && plant.contraindications!.isNotEmpty) ...[
           const SizedBox(height: DesignTokens.spacingSm),
           _InfoCard(
-            title: 'Contraindications',
+            title: l10n.plantContraindications,
             content: plant.contraindications!.join('\n• '),
             icon: Icons.do_not_disturb,
             color: AppColors.error,
@@ -154,12 +156,13 @@ class _GrowingTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       children: [
         // Difficulty Indicator
         _SectionCard(
-          title: 'Growing Difficulty',
+          title: l10n.plantDifficulty,
           icon: Icons.trending_up,
           child: _DifficultyMeter(difficulty: plant.difficulty),
         ),
@@ -167,7 +170,7 @@ class _GrowingTab extends StatelessWidget {
 
         // Growing Tips
         _InfoCard(
-          title: 'Growing Tips',
+          title: l10n.plantTips,
           content: plant.growingTips,
           icon: Icons.tips_and_updates,
           color: AppColors.neemGreen,
@@ -176,7 +179,7 @@ class _GrowingTab extends StatelessWidget {
 
         // Harvest Time
         _InfoCard(
-          title: 'Harvest Time',
+          title: l10n.plantHarvest,
           content: plant.harvestTime,
           icon: Icons.schedule,
           color: AppColors.saffron,
@@ -185,15 +188,15 @@ class _GrowingTab extends StatelessWidget {
 
         // Category & Part Used
         _SectionCard(
-          title: 'Plant Details',
+          title: l10n.plantDetails,
           icon: Icons.eco,
           child: Column(
             children: [
-              _DetailRow(label: 'Category', value: plant.category),
+              _DetailRow(label: l10n.plantCategory, value: plant.category),
               if (plant.partUsed != null)
-                _DetailRow(label: 'Part Used', value: plant.partUsed!),
+                _DetailRow(label: l10n.plantPartUsed, value: plant.partUsed!),
               if (plant.origin != null)
-                _DetailRow(label: 'Origin', value: plant.origin!),
+                _DetailRow(label: l10n.plantOrigin, value: plant.origin!),
             ],
           ),
         ),
@@ -211,12 +214,13 @@ class _AyurvedaTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       padding: const EdgeInsets.all(DesignTokens.spacingMd),
       children: [
         // Dosha Visualization
         _SectionCard(
-          title: 'Dosha Balance',
+          title: l10n.plantDoshaBalance,
           icon: Icons.pie_chart,
           child: _DoshaVisualization(doshas: plant.doshas),
         ),
@@ -225,7 +229,7 @@ class _AyurvedaTab extends StatelessWidget {
         // Taste Profile (Rasa)
         if (plant.taste != null && plant.taste!.isNotEmpty) ...[
           _SectionCard(
-            title: 'Taste Profile (Rasa)',
+            title: l10n.plantTaste,
             icon: Icons.restaurant,
             child: Wrap(
               spacing: 8,
@@ -238,15 +242,15 @@ class _AyurvedaTab extends StatelessWidget {
 
         // Names Section
         _SectionCard(
-          title: 'Names',
+          title: l10n.plantNames,
           icon: Icons.translate,
           child: Column(
             children: [
-              _DetailRow(label: 'English', value: plant.name),
-              _DetailRow(label: 'Hindi', value: plant.hindi),
-              _DetailRow(label: 'Scientific', value: plant.scientificName),
+              _DetailRow(label: l10n.nameEnglish, value: plant.name),
+              _DetailRow(label: l10n.nameHindi, value: plant.hindi),
+              _DetailRow(label: l10n.nameScientific, value: plant.scientificName),
               if (plant.sanskritName != null)
-                _DetailRow(label: 'Sanskrit', value: plant.sanskritName!),
+                _DetailRow(label: l10n.nameSanskrit, value: plant.sanskritName!),
             ],
           ),
         ),
@@ -254,25 +258,33 @@ class _AyurvedaTab extends StatelessWidget {
 
         // Properties Summary
         _SectionCard(
-          title: 'Ayurvedic Properties',
+          title: l10n.ayurvedicProps,
           icon: Icons.auto_awesome,
           child: Column(
             children: [
               _PropertyRow(
-                label: 'Balances',
+                label: l10n.propBalances,
                 value: plant.doshas.join(', '),
                 icon: Icons.balance,
               ),
               _PropertyRow(
-                label: 'Category',
+                label: l10n.plantCategory,
                 value: plant.category,
                 icon: Icons.category,
               ),
+              // Use real field data for Virya (Potency)
               _PropertyRow(
-                label: 'Potency',
-                value: _getPotency(plant),
+                label: l10n.propPotency,
+                value: plant.virya ?? 'Unknown',
                 icon: Icons.thermostat,
               ),
+              // Added Vipaka (Post-digestive)
+               if (plant.vipaka != null)
+                _PropertyRow(
+                  label: l10n.propPostDigestive,
+                  value: plant.vipaka!,
+                  icon: Icons.science_outlined,
+                ),
             ],
           ),
         ),
@@ -281,16 +293,8 @@ class _AyurvedaTab extends StatelessWidget {
       ],
     );
   }
+  // Logic removed: _getPotency logic is domain logic and should be in the model
 
-  String _getPotency(Plant plant) {
-    // Infer potency from doshas
-    if (plant.doshas.contains('Pitta')) {
-      return 'Cooling (Sheeta)';
-    } else if (plant.doshas.contains('Vata') || plant.doshas.contains('Kapha')) {
-      return 'Warming (Ushna)';
-    }
-    return 'Balanced';
-  }
 }
 
 // ============ HELPER WIDGETS ============
