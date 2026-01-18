@@ -14,7 +14,7 @@ class ApiConfig {
   /// Google Gemini API Key
   /// Get yours at: https://makersuite.google.com/app/apikey
   /// Free tier: 60 requests/minute
-  static const String geminiApiKey = 'YOUR_GEMINI_API_KEY';
+  static const String geminiApiKey = 'AIzaSyD-Q0c3o1nKpLv3epsS0HR_UZ6-FXtpe-4';
   
   /// Gemini Model to use
   static const String geminiModel = 'gemini-1.5-flash';
