@@ -645,21 +645,25 @@ class _ChatMessageList extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
-      child: ListView.builder(
-        controller: scrollController,
-        padding: const EdgeInsets.only(
-          left: DesignTokens.spacingMd,
-          right: DesignTokens.spacingMd,
-          bottom: DesignTokens.spacingSm,
-          top: DesignTokens.spacingMd, // Added top padding to separate from header
+      child: ScrollConfiguration(
+        // Disable automatic scrollbars to prevent multiple ScrollPosition attachments
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: ListView.builder(
+          controller: scrollController,
+          padding: const EdgeInsets.only(
+            left: DesignTokens.spacingMd,
+            right: DesignTokens.spacingMd,
+            bottom: DesignTokens.spacingSm,
+            top: DesignTokens.spacingMd,
+          ),
+          itemCount: messages.length + (isTyping ? 1 : 0),
+          itemBuilder: (context, index) {
+            if (index == messages.length && isTyping) {
+              return const _TypingIndicator();
+            }
+            return _MessageBubble(message: messages[index]);
+          },
         ),
-        itemCount: messages.length + (isTyping ? 1 : 0),
-        itemBuilder: (context, index) {
-          if (index == messages.length && isTyping) {
-            return const _TypingIndicator();
-          }
-          return _MessageBubble(message: messages[index]);
-        },
       ),
     );
   }

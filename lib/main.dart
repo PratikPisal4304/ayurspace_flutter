@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -48,6 +49,22 @@ void main() async {
   );
 }
 
+/// Custom scroll behavior that prevents automatic interactive scrollbars on web
+/// This fixes "ScrollController attached to multiple positions" errors
+class NoThumbScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+  };
+  
+  @override
+  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) {
+    // Return child without wrapping in Scrollbar to prevent multiple position attachments
+    return child;
+  }
+}
 
 class AyurSpaceApp extends ConsumerWidget {
   const AyurSpaceApp({super.key});
@@ -61,6 +78,7 @@ class AyurSpaceApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: router,
+      scrollBehavior: NoThumbScrollBehavior(),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

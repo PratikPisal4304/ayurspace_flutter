@@ -1,8 +1,11 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+# Define platform for faster dependency resolution
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+# Use modular headers for faster builds
+use_modular_headers!
 
 project 'Runner', {
   'Debug' => :debug,
@@ -39,5 +42,16 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # Disable bitcode for faster builds
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+      # Enable incremental builds
+      config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+      # Reduce debug info for Debug builds
+      if config.name == 'Debug'
+        config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
+        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+      end
+    end
   end
 end
