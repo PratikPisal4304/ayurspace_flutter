@@ -195,4 +195,3 @@ final authServiceProvider = Provider<AuthService>((ref) {
     ref.watch(googleSignInProvider),
   );
 });
-
