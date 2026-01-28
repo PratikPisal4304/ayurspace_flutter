@@ -172,5 +172,32 @@
   "tabOverview": "Overview",
   "tabUses": "Uses",
   "tabGrowing": "Growing",
-  "tabAyurveda": "Ayurveda"
+  "tabAyurveda": "Ayurveda",
+
+  "scannerTitle": "Plant Scanner",
+  "scannerSubtitle": "Identify any Ayurvedic plant",
+  "pointToIdentify": "Point at a plant to identify",
+  "clearPhotoHint": "Take a clear photo of leaves or the whole plant",
+  "analyzing": "Analyzing plant...",
+  "aiPowered": "Using Plant.id + Gemini AI",
+  "identificationFailed": "Identification Failed",
+  "scanAgain": "Scan Again",
+  "viewDetails": "View Details",
+  "fullInfo": "Full Info",
+  "recentScans": "Recent Scans",
+  "gallery": "Gallery",
+  "takePhoto": "Take Photo",
+  "ayurvedicInfo": "Ayurvedic Information",
+  "aiDisclaimer": "This information is AI-generated. Please verify with an Ayurvedic practitioner.",
+  "ayurvedicDatabase": "Ayurvedic Database",
+  "aiGeneratedInfo": "AI Generated Info",
+  "confidenceMatch": "{percent}% match",
+  "@confidenceMatch": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "moreDailyTips": "More daily tips coming soon!"
 }

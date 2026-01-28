@@ -409,4 +409,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tabAyurveda => 'Ayurveda';
+
+  @override
+  String get scannerTitle => 'Plant Scanner';
+
+  @override
+  String get scannerSubtitle => 'Identify any Ayurvedic plant';
+
+  @override
+  String get pointToIdentify => 'Point at a plant to identify';
+
+  @override
+  String get clearPhotoHint =>
+      'Take a clear photo of leaves or the whole plant';
+
+  @override
+  String get analyzing => 'Analyzing plant...';
+
+  @override
+  String get aiPowered => 'Using Plant.id + Gemini AI';
+
+  @override
+  String get identificationFailed => 'Identification Failed';
+
+  @override
+  String get scanAgain => 'Scan Again';
+
+  @override
+  String get viewDetails => 'View Details';
+
+  @override
+  String get fullInfo => 'Full Info';
+
+  @override
+  String get recentScans => 'Recent Scans';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get takePhoto => 'Take Photo';
+
+  @override
+  String get ayurvedicInfo => 'Ayurvedic Information';
+
+  @override
+  String get aiDisclaimer =>
+      'This information is AI-generated. Please verify with an Ayurvedic practitioner.';
+
+  @override
+  String get ayurvedicDatabase => 'Ayurvedic Database';
+
+  @override
+  String get aiGeneratedInfo => 'AI Generated Info';
+
+  @override
+  String confidenceMatch(int percent) {
+    return '$percent% match';
+  }
+
+  @override
+  String get moreDailyTips => 'More daily tips coming soon!';
 }

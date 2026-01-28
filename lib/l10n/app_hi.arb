@@ -127,5 +127,25 @@
   "tabOverview": "अवलोकन",
   "tabUses": "उपयोग",
   "tabGrowing": "खेती",
-  "tabAyurveda": "आयुर्वेद"
+  "tabAyurveda": "आयुर्वेद",
+
+  "scannerTitle": "पादप स्कैनर",
+  "scannerSubtitle": "किसी भी आयुर्वेदिक पौधे की पहचान करें",
+  "pointToIdentify": "पहचान करने के लिए पौधे की ओर इंगित करें",
+  "clearPhotoHint": "पत्तियों या पूरे पौधे की स्पष्ट तस्वीर लें",
+  "analyzing": "पौधे का विश्लेषण किया जा रहा है...",
+  "aiPowered": "Plant.id + Gemini AI का उपयोग",
+  "identificationFailed": "पहचान विफल रही",
+  "scanAgain": "पुनः स्कैन करें",
+  "viewDetails": "विवरण देखें",
+  "fullInfo": "पूर्ण जानकारी",
+  "recentScans": "हालिया स्कैन",
+  "gallery": "गैलरी",
+  "takePhoto": "तस्वीर लें",
+  "ayurvedicInfo": "आयुर्वेदिक जानकारी",
+  "aiDisclaimer": "यह जानकारी एआई द्वारा निर्मित है। कृपया आयुर्वेदिक चिकित्सक से सत्यापित करें।",
+  "ayurvedicDatabase": "आयुर्वेदिक डेटाबेस",
+  "aiGeneratedInfo": "AI जनित जानकारी",
+  "confidenceMatch": "{percent}% मिलान",
+  "moreDailyTips": "अधिक दैनिक सुझाव जल्द आ रहे हैं!"
 }

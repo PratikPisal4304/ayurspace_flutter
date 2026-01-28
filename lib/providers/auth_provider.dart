@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
+import '../utils/auth_error_mapper.dart';
 
 /// Authentication State
 class AuthState {
@@ -42,7 +43,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       );
       state = state.copyWith(isLoading: false);
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow; // Allow UI to handle if needed (navigating etc)
     }
   }
@@ -62,20 +63,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
       );
 
       if (credential?.user != null) {
-        // 2. Update Display Name
-        await _authService.updateDisplayName(name);
+        try {
+          // 2. Update Display Name
+          await _authService.updateDisplayName(name);
 
-        // 3. Create Firestore Document
-        await _firestoreService.createUser(
-          uid: credential!.user!.uid,
-          name: name,
-          email: email,
-        );
+          // 3. Create Firestore Document
+          await _firestoreService.createUser(
+            uid: credential!.user!.uid,
+            name: name,
+            email: email,
+          );
+        } catch (e) {
+          // Rollback: Delete account if profile creation fails
+          try {
+            await credential!.user!.delete();
+          } catch (_) {
+            await _authService.signOut();
+          }
+          throw Exception('Failed to setup profile. Please try again.');
+        }
 
         state = state.copyWith(isLoading: false);
       }
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow;
     }
   }
@@ -87,7 +98,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await _authService.signOut();
       state = const AuthState();
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
     }
   }
 
@@ -103,25 +114,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
         // Check if this is a new user OR if Firestore doc is missing (legacy/migration)
         final isNewUser = credential.additionalUserInfo?.isNewUser ?? false;
         
-        if (isNewUser) {
-          // Create Firestore document for new Google user
-          await _firestoreService.createUser(
-            uid: user.uid,
-            name: user.displayName ?? 'User',
-            email: user.email ?? '',
-          );
-        } else {
-          // Check if user exists in Firestore, if not create it (Sync)
-          final userDoc = await _firestoreService.getUser(user.uid);
-          if (userDoc == null) {
+        try {
+          if (isNewUser) {
+            // Create Firestore document for new Google user
             await _firestoreService.createUser(
               uid: user.uid,
               name: user.displayName ?? 'User',
               email: user.email ?? '',
             );
+          } else {
+            // Check if user exists in Firestore, if not create it (Sync)
+            final userDoc = await _firestoreService.getUser(user.uid);
+            if (userDoc == null) {
+              await _firestoreService.createUser(
+                uid: user.uid,
+                name: user.displayName ?? 'User',
+                email: user.email ?? '',
+              );
+            }
           }
+        } catch (e) {
+          // Rollback: Sign out if Firestore creation fails to prevent "Zombie" state
+          await _authService.signOut();
+          throw Exception('Failed to create user profile. Please try again.');
         }
-        
         
         state = state.copyWith(isLoading: false);
       } else {
@@ -129,7 +145,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         state = state.copyWith(isLoading: false);
       }
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow;
     }
   }
@@ -139,7 +155,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       await _authService.sendPasswordReset(email);
     } catch (e) {
-      state = state.copyWith(error: e.toString());
+      state = state.copyWith(error: AuthErrorMapper.getErrorMessage(e));
       rethrow;
     }
   }

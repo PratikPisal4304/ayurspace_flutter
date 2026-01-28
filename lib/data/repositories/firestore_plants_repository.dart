@@ -36,8 +36,17 @@ class FirestorePlantsRepository implements PlantsRepository {
 
   @override
   Future<List<Plant>> searchPlants(String query) async {
-    // Basic client-side filtering since Firestore weak text search
-    // For production, use Algolia/Typesense
+    // TODO(search-optimization): Client-side search is inefficient at scale.
+    // Current approach: Fetches ALL documents, then filters in memory.
+    // Recommended solutions:
+    //   1. Algolia: Best for full-text search, typo-tolerance, faceting
+    //      - https://www.algolia.com/doc/guides/getting-started/quick-start/
+    //   2. Typesense: Open-source alternative to Algolia
+    //      - https://typesense.org/docs/guide/
+    //   3. Firebase Extensions: "Search with Algolia" extension
+    //      - https://extensions.dev/extensions/algolia/firestore-algolia-search
+    // For now, this works for small datasets (<1000 documents).
+    
     final plants = await getPlants();
     final lowercaseQuery = query.toLowerCase();
     

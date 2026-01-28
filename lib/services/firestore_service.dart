@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../utils/app_exceptions.dart';
 
 /// Firestore instance provider
 final firestoreProvider = Provider<FirebaseFirestore>((ref) {
@@ -86,21 +87,29 @@ class FirestoreService {
     required String name,
     required String email,
   }) async {
-    final user = FirestoreUser(
-      uid: uid,
-      name: name,
-      email: email,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-    await _usersCollection.doc(uid).set(user.toFirestore());
+    try {
+      final user = FirestoreUser(
+        uid: uid,
+        name: name,
+        email: email,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
+      await _usersCollection.doc(uid).set(user.toFirestore());
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Get user document
   Future<FirestoreUser?> getUser(String uid) async {
-    final doc = await _usersCollection.doc(uid).get();
-    if (!doc.exists) return null;
-    return FirestoreUser.fromFirestore(doc);
+    try {
+      final doc = await _usersCollection.doc(uid).get();
+      if (!doc.exists) return null;
+      return FirestoreUser.fromFirestore(doc);
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Stream user document
@@ -113,74 +122,110 @@ class FirestoreService {
 
   /// Update user name
   Future<void> updateName(String uid, String name) async {
-    await _usersCollection.doc(uid).update({
-      'name': name,
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'name': name,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Update user email
   Future<void> updateEmail(String uid, String email) async {
-    await _usersCollection.doc(uid).update({
-      'email': email,
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'email': email,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Save dosha result
   Future<void> saveDoshaResult(String uid, Map<String, dynamic> result) async {
-    await _usersCollection.doc(uid).update({
-      'doshaResult': result,
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'doshaResult': result,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Add bookmark
   Future<void> addBookmark(String uid, String plantId) async {
-    await _usersCollection.doc(uid).update({
-      'bookmarks': FieldValue.arrayUnion([plantId]),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'bookmarks': FieldValue.arrayUnion([plantId]),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Remove bookmark
   Future<void> removeBookmark(String uid, String plantId) async {
-    await _usersCollection.doc(uid).update({
-      'bookmarks': FieldValue.arrayRemove([plantId]),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'bookmarks': FieldValue.arrayRemove([plantId]),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Add favorite
   Future<void> addFavorite(String uid, String remedyId) async {
-    await _usersCollection.doc(uid).update({
-      'favorites': FieldValue.arrayUnion([remedyId]),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'favorites': FieldValue.arrayUnion([remedyId]),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Remove favorite
   Future<void> removeFavorite(String uid, String remedyId) async {
-    await _usersCollection.doc(uid).update({
-      'favorites': FieldValue.arrayRemove([remedyId]),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'favorites': FieldValue.arrayRemove([remedyId]),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Increment plants scanned
   Future<void> incrementPlantsScanned(String uid) async {
-    await _usersCollection.doc(uid).update({
-      'plantsScanned': FieldValue.increment(1),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'plantsScanned': FieldValue.increment(1),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 
   /// Increment remedies tried
   Future<void> incrementRemediesTried(String uid) async {
-    await _usersCollection.doc(uid).update({
-      'remediesTried': FieldValue.increment(1),
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await _usersCollection.doc(uid).update({
+        'remediesTried': FieldValue.increment(1),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
   }
 }
 
@@ -188,3 +233,4 @@ class FirestoreService {
 final firestoreServiceProvider = Provider<FirestoreService>((ref) {
   return FirestoreService(ref.watch(firestoreProvider));
 });
+

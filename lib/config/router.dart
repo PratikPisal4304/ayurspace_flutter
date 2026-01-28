@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../services/auth_service.dart';
+import 'routes.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/discover/discover_screen.dart';
 import '../screens/camera/camera_screen.dart';
@@ -29,38 +30,29 @@ final routerProvider = Provider<GoRouter>((ref) {
   final authService = ref.watch(authServiceProvider);
   
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: AppRoutes.home,
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshStream(authService.authStateChanges()),
     redirect: (context, state) {
       final isLoggedIn = authService.currentUser != null;
-      final isLoggingIn = state.uri.path == '/login' || state.uri.path == '/signup';
+      final isLoggingIn = state.uri.path == AppRoutes.login || state.uri.path == AppRoutes.signup;
 
-      // Protected routes (require authentication)
-      final protectedRoutes = [
-        '/profile',
-        '/settings',
-        '/bookmarks',
-        '/favorites',
-        '/edit-profile',
-        '/dosha-profile',
-      ];
-      
-      final isProtectedRoute = protectedRoutes.any((r) => state.uri.path.startsWith(r));
+      // Use centralized protected routes list
+      final isProtectedRoute = AppRoutes.protectedRoutes.any((r) => state.uri.path.startsWith(r));
 
-      // 2. If not logged in and trying to access protected route -> Login
+      // If not logged in and trying to access protected route -> Login
       if (!isLoggedIn && isProtectedRoute) {
-        return '/login';
+        return AppRoutes.login;
       }
 
-      // 3. If logged in and trying to access login/signup -> Home
+      // If logged in and trying to access login/signup -> Home
       if (isLoggedIn && isLoggingIn) {
-        return '/home';
+        return AppRoutes.home;
       }
 
-      // 4. If root -> Home (if logged in) or Login (if not)
+      // If root -> Home (if logged in) or Login (if not)
       if (state.uri.path == '/') {
-        return isLoggedIn ? '/home' : '/login';
+        return isLoggedIn ? AppRoutes.home : AppRoutes.login;
       }
 
       return null;

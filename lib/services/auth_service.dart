@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, debugPrint;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../utils/auth_error_mapper.dart';
+import '../utils/app_exceptions.dart';
 
 /// Firebase Auth instance provider
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
@@ -52,7 +54,7 @@ class AuthService {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthError(e);
+      throw AuthException(AuthErrorMapper.mapErrorCode(e.code), code: e.code);
     }
   }
 
@@ -129,9 +131,9 @@ class AuthService {
       return await _auth.signInWithCredential(credential);
       
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthError(e);
+      throw AuthException(AuthErrorMapper.mapErrorCode(e.code), code: e.code);
     } catch (e) {
-      throw 'An unexpected error occurred: $e';
+      throw AuthException('An unexpected error occurred. Please try again.', originalError: e);
     }
   }
 
@@ -146,7 +148,7 @@ class AuthService {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthError(e);
+      throw AuthException(AuthErrorMapper.mapErrorCode(e.code), code: e.code);
     }
   }
 
@@ -170,22 +172,7 @@ class AuthService {
     await _auth.sendPasswordResetEmail(email: email);
   }
 
-  String _handleAuthError(FirebaseAuthException e) {
-    switch (e.code) {
-      case 'weak-password':
-        return 'Password is too weak.';
-      case 'email-already-in-use':
-        return 'An account already exists with this email.';
-      case 'user-not-found':
-        return 'No account found with this email.';
-      case 'wrong-password':
-        return 'Incorrect password.';
-      case 'invalid-email':
-        return 'Invalid email address.';
-      default:
-        return e.message ?? 'Authentication failed.';
-    }
-  }
+  // Error handling now uses centralized AuthErrorMapper utility
 }
 
 /// Auth service provider

@@ -411,4 +411,64 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tabAyurveda => 'आयुर्वेद';
+
+  @override
+  String get scannerTitle => 'पादप स्कैनर';
+
+  @override
+  String get scannerSubtitle => 'किसी भी आयुर्वेदिक पौधे की पहचान करें';
+
+  @override
+  String get pointToIdentify => 'पहचान करने के लिए पौधे की ओर इंगित करें';
+
+  @override
+  String get clearPhotoHint => 'पत्तियों या पूरे पौधे की स्पष्ट तस्वीर लें';
+
+  @override
+  String get analyzing => 'पौधे का विश्लेषण किया जा रहा है...';
+
+  @override
+  String get aiPowered => 'Plant.id + Gemini AI का उपयोग';
+
+  @override
+  String get identificationFailed => 'पहचान विफल रही';
+
+  @override
+  String get scanAgain => 'पुनः स्कैन करें';
+
+  @override
+  String get viewDetails => 'विवरण देखें';
+
+  @override
+  String get fullInfo => 'पूर्ण जानकारी';
+
+  @override
+  String get recentScans => 'हालिया स्कैन';
+
+  @override
+  String get gallery => 'गैलरी';
+
+  @override
+  String get takePhoto => 'तस्वीर लें';
+
+  @override
+  String get ayurvedicInfo => 'आयुर्वेदिक जानकारी';
+
+  @override
+  String get aiDisclaimer =>
+      'यह जानकारी एआई द्वारा निर्मित है। कृपया आयुर्वेदिक चिकित्सक से सत्यापित करें।';
+
+  @override
+  String get ayurvedicDatabase => 'आयुर्वेदिक डेटाबेस';
+
+  @override
+  String get aiGeneratedInfo => 'AI जनित जानकारी';
+
+  @override
+  String confidenceMatch(int percent) {
+    return '$percent% मिलान';
+  }
+
+  @override
+  String get moreDailyTips => 'अधिक दैनिक सुझाव जल्द आ रहे हैं!';
 }

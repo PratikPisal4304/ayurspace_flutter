@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/scan_provider.dart';
 
 class CameraScreen extends ConsumerWidget {
@@ -29,12 +30,12 @@ class CameraScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Plant Scanner',
+                        AppLocalizations.of(context)!.scannerTitle,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: DesignTokens.spacingXxs),
                       Text(
-                        'Identify any Ayurvedic plant',
+                        AppLocalizations.of(context)!.scannerSubtitle,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -77,7 +78,7 @@ class CameraScreen extends ConsumerWidget {
                           ? null 
                           : () => notifier.pickImage(ImageSource.gallery),
                       icon: const Icon(Icons.photo_library),
-                      label: const Text('Gallery'),
+                      label: Text(AppLocalizations.of(context)!.gallery),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
@@ -91,7 +92,7 @@ class CameraScreen extends ConsumerWidget {
                           ? null 
                           : () => notifier.pickImage(ImageSource.camera),
                       icon: const Icon(Icons.camera_alt),
-                      label: const Text('Take Photo'),
+                      label: Text(AppLocalizations.of(context)!.takePhoto),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
@@ -128,12 +129,12 @@ class CameraScreen extends ConsumerWidget {
           ),
           const SizedBox(height: DesignTokens.spacingMd),
           Text(
-            'Point at a plant to identify',
+            AppLocalizations.of(context)!.pointToIdentify,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: DesignTokens.spacingXs),
           Text(
-            'Take a clear photo of leaves or the whole plant',
+            AppLocalizations.of(context)!.clearPhotoHint,
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -152,12 +153,12 @@ class CameraScreen extends ConsumerWidget {
           Text(
             state.analysisStatus.isNotEmpty 
                 ? state.analysisStatus 
-                : 'Analyzing plant...',
+                : AppLocalizations.of(context)!.analyzing,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: DesignTokens.spacingXs),
           Text(
-            'Using Plant.id + Gemini AI',
+            AppLocalizations.of(context)!.aiPowered,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -186,12 +187,12 @@ class CameraScreen extends ConsumerWidget {
             ),
             const SizedBox(height: DesignTokens.spacingMd),
             Text(
-              'Identification Failed',
+              AppLocalizations.of(context)!.identificationFailed,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: DesignTokens.spacingXs),
             Text(
-              state.error ?? 'Unknown error occurred',
+              state.error ?? AppLocalizations.of(context)!.errorGeneric,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -199,7 +200,7 @@ class CameraScreen extends ConsumerWidget {
             OutlinedButton.icon(
               onPressed: notifier.reset,
               icon: const Icon(Icons.refresh),
-              label: const Text('Try Again'),
+              label: Text(AppLocalizations.of(context)!.tryAgain),
             ),
           ],
         ),
@@ -241,7 +242,9 @@ class CameraScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
             ),
             child: Text(
-              '${(result.confidence * 100).toStringAsFixed(0)}% match',
+              AppLocalizations.of(context)!.confidenceMatch(
+                (result.confidence * 100).toInt()
+              ),
               style: TextStyle(
                 color: _getConfidenceColor(result.confidence),
                 fontWeight: FontWeight.w600,
@@ -292,7 +295,9 @@ class CameraScreen extends ConsumerWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  isLocalMatch ? 'Ayurvedic Database' : 'AI Generated Info',
+                  isLocalMatch 
+                    ? AppLocalizations.of(context)!.ayurvedicDatabase 
+                    : AppLocalizations.of(context)!.aiGeneratedInfo,
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
@@ -322,7 +327,7 @@ class CameraScreen extends ConsumerWidget {
                       const Icon(Icons.spa, size: 16, color: AppColors.primary),
                       const SizedBox(width: 4),
                       Text(
-                        'Ayurvedic Information',
+                        AppLocalizations.of(context)!.ayurvedicInfo,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ],
@@ -347,7 +352,7 @@ class CameraScreen extends ConsumerWidget {
               OutlinedButton.icon(
                 onPressed: ref.read(scanProvider.notifier).reset,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Scan Again'),
+                label: Text(AppLocalizations.of(context)!.scanAgain),
               ),
               const SizedBox(width: DesignTokens.spacingSm),
               if (isLocalMatch && result.matchedPlant != null)
@@ -356,7 +361,7 @@ class CameraScreen extends ConsumerWidget {
                     context.push('/plant/${result.matchedPlant!.id}');
                   },
                   icon: const Icon(Icons.visibility),
-                  label: const Text('View Details'),
+                  label: Text(AppLocalizations.of(context)!.viewDetails),
                 )
               else
                 ElevatedButton.icon(
@@ -365,7 +370,7 @@ class CameraScreen extends ConsumerWidget {
                     _showFullInfoDialog(context, result);
                   },
                   icon: const Icon(Icons.info_outline),
-                  label: const Text('Full Info'),
+                  label: Text(AppLocalizations.of(context)!.fullInfo),
                 ),
             ],
           ),
@@ -413,14 +418,14 @@ class CameraScreen extends ConsumerWidget {
                   color: AppColors.warning.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.info_outline, size: 16, color: AppColors.warning),
-                    SizedBox(width: 8),
+                    const Icon(Icons.info_outline, size: 16, color: AppColors.warning),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'This information is AI-generated. Please verify with an Ayurvedic practitioner.',
-                        style: TextStyle(fontSize: 12, color: AppColors.warning),
+                        AppLocalizations.of(context)!.aiDisclaimer,
+                        style: const TextStyle(fontSize: 12, color: AppColors.warning),
                       ),
                     ),
                   ],
@@ -452,7 +457,7 @@ class CameraScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Recent Scans',
+            AppLocalizations.of(context)!.recentScans,
             style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(height: DesignTokens.spacingSm),

@@ -101,7 +101,15 @@ class ScanNotifier extends StateNotifier<ScanState> {
         await analyzeImage();
       }
     } catch (e) {
-      state = state.copyWith(error: 'Failed to pick image: $e');
+      // Handle permission denial specifically
+      if (e.toString().contains('photo_access_denied') || 
+          e.toString().contains('camera_access_denied')) {
+        state = state.copyWith(
+          error: 'Permission denied. Please enable access in Settings.',
+        );
+      } else {
+        state = state.copyWith(error: 'Failed to pick image: $e');
+      }
     }
   }
 

@@ -871,6 +871,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ayurveda'**
   String get tabAyurveda;
+
+  /// No description provided for @scannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant Scanner'**
+  String get scannerTitle;
+
+  /// No description provided for @scannerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Identify any Ayurvedic plant'**
+  String get scannerSubtitle;
+
+  /// No description provided for @pointToIdentify.
+  ///
+  /// In en, this message translates to:
+  /// **'Point at a plant to identify'**
+  String get pointToIdentify;
+
+  /// No description provided for @clearPhotoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a clear photo of leaves or the whole plant'**
+  String get clearPhotoHint;
+
+  /// No description provided for @analyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing plant...'**
+  String get analyzing;
+
+  /// No description provided for @aiPowered.
+  ///
+  /// In en, this message translates to:
+  /// **'Using Plant.id + Gemini AI'**
+  String get aiPowered;
+
+  /// No description provided for @identificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Identification Failed'**
+  String get identificationFailed;
+
+  /// No description provided for @scanAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Again'**
+  String get scanAgain;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewDetails;
+
+  /// No description provided for @fullInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Info'**
+  String get fullInfo;
+
+  /// No description provided for @recentScans.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Scans'**
+  String get recentScans;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Photo'**
+  String get takePhoto;
+
+  /// No description provided for @ayurvedicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayurvedic Information'**
+  String get ayurvedicInfo;
+
+  /// No description provided for @aiDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'This information is AI-generated. Please verify with an Ayurvedic practitioner.'**
+  String get aiDisclaimer;
+
+  /// No description provided for @ayurvedicDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayurvedic Database'**
+  String get ayurvedicDatabase;
+
+  /// No description provided for @aiGeneratedInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Generated Info'**
+  String get aiGeneratedInfo;
+
+  /// No description provided for @confidenceMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% match'**
+  String confidenceMatch(int percent);
+
+  /// No description provided for @moreDailyTips.
+  ///
+  /// In en, this message translates to:
+  /// **'More daily tips coming soon!'**
+  String get moreDailyTips;
 }
 
 class _AppLocalizationsDelegate
