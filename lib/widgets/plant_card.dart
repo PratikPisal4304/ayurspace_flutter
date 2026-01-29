@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../config/colors.dart';
 import '../config/design_tokens.dart';
 import '../data/models/plant.dart';
+import '../utils/cors_image_helper.dart';
 
 /// Plant card widget for displaying plant info
 class PlantCard extends StatelessWidget {
@@ -40,7 +41,7 @@ class PlantCard extends StatelessWidget {
                   height: 120,
                   width: double.infinity,
                   child: CachedNetworkImage(
-                    imageUrl: plant.image,
+                    imageUrl: CorsImageHelper.getImageUrl(plant.image),
                     fit: BoxFit.cover,
                     memCacheWidth: 400, // Limit memory cache size
                     placeholder: (context, url) => Container(

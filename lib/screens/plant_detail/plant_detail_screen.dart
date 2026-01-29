@@ -6,6 +6,7 @@ import '../../config/design_tokens.dart';
 import '../../providers/plants_provider.dart';
 import '../../data/models/plant.dart';
 import '../../l10n/app_localizations.dart';
+import '../../utils/cors_image_helper.dart';
 
 part 'plant_detail_tabs.dart';
 
@@ -84,7 +85,7 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
           children: [
             // Hero Image
             CachedNetworkImage(
-              imageUrl: plant.image,
+              imageUrl: CorsImageHelper.getImageUrl(plant.image),
               fit: BoxFit.cover,
               placeholder: (_, __) =>
                   Container(color: AppColors.surfaceVariant),
