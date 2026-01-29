@@ -17,7 +17,7 @@ class ApiConfig {
   static String get geminiApiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
   
   /// Gemini Model to use
-  static const String geminiModel = 'gemini-1.5-flash';
+  static const String geminiModel = 'gemini-pro';
   
   /// Check if Plant.id is configured
   static bool get isPlantIdConfigured => 

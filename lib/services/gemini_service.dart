@@ -113,8 +113,9 @@ Keep the response concise but informative. Format with clear sections.
     try {
       final base64Image = base64Encode(imageBytes);
       
+      // Use Gemini 1.5 Flash for vision tasks as it supports images
       final url = 'https://generativelanguage.googleapis.com/v1beta/models/'
-          '${ApiConfig.geminiModel}:generateContent?key=${ApiConfig.geminiApiKey}';
+          'gemini-1.5-flash:generateContent?key=${ApiConfig.geminiApiKey}';
 
       final response = await _client.post(
         Uri.parse(url),
