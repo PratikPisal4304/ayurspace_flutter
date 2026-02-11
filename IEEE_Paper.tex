@@ -12,7 +12,7 @@
 
 \begin{document}
 
-\title{AyurSpace: AI-Powered Ayurvedic Plant Identification and Personalized Wellness System}
+\title{AyurSpace: An AI-Powered System for Identifying Ayurvedic Plants and Personalizing Health}
 
 \author{
 \IEEEauthorblockN{Pratik Nitin Pisal}
@@ -54,7 +54,7 @@ uekta@mes.ac.in}
 \maketitle
 
 \begin{abstract}
-The integration of traditional medicinal knowledge with modern mobile computing and artificial intelligence (AI) presents a transformative opportunity for global healthcare accessibility. Ayurveda, the ancient Indian system of medicine, relies heavily on the correct identification of medicinal plants and the personalized assessment of body constitution (\textit{Dosha}). However, this knowledge remains largely inaccessible to the lay public due to the scarcity of experts and the complexity of taxonomic identification. This paper presents \textbf{AyurSpace}, a cross-platform mobile framework developed using Flutter that leverages a novel hybrid AI architecture. The system combines a specialized taxonomic classifier (Plant.id) for high-accuracy botanical identification with a Large Language Model (Google Gemini) for contextual Ayurvedic reasoning. Furthermore, it digitizes the \textit{tridosha} assessment process using a weighted algorithmic scoring model. We define the system architecture, the integration of RESTful AI microservices, and the formalization of Ayurvedic data models. Experimental evaluation demonstrates the efficacy of the hybrid approach in bridging the gap between botanical accuracy and medical context, offering a scalable solution for digital heritage preservation and personalized wellness.
+The amalgamation of traditional medicinal knowledge with contemporary mobile computing and artificial intelligence (AI) offers a revolutionary prospect for global healthcare accessibility. Ayurveda, the ancient Indian medical system, fundamentally depends on the accurate identification of medicinal plants and the individualized evaluation of body constitution (\textit{Dosha}). But most people still can't get this information because there aren't enough experts and taxonomic identification is hard. This paper introduces \textbf{AyurSpace}, a cross-platform mobile framework created with Flutter that utilizes an innovative hybrid AI architecture. The system combines Plant.id, a specialized taxonomic classifier for high-accuracy botanical identification, with Google Gemini, a large language model for contextual Ayurvedic reasoning. It also digitizes the \textit{tridosha} assessment process by using a weighted algorithmic scoring model. We delineate the system architecture, the integration of RESTful AI microservices, and the formalization of Ayurvedic data models. Experimental evaluation shows that the hybrid approach works well to connect botanical accuracy with medical context, offering a scalable solution for preserving digital heritage and improving personal health.
 \end{abstract}
 \vspace{1.5ex}
 
@@ -65,56 +65,56 @@ The integration of traditional medicinal knowledge with modern mobile computing 
 \section{Introduction}
 
 \subsection{Background and Motivation}
-The convergence of mobile computing, artificial intelligence (AI), and traditional medicine represents one of the most significant frontiers in modern digital health. The World Health Organization (WHO) estimates that 88\% of all countries use traditional and complementary medicine (T\&CM), with over 170 member states reporting the use of herbal medicines, acupuncture, yoga, indigenous therapies, and other forms of traditional medicine. In India, \textit{Ayurveda}, the ``Science of Life,'' has been practiced for over 3,000 years. It provides a holistic approach to wellness, categorizing human physiology into three bio-energetic forces or \textit{Doshas}: \textit{Vata} (Kinetic Energy), \textit{Pitta} (Transformative Energy), and \textit{Kapha} (Cohesive Energy).
+The integration of mobile computing, artificial intelligence (AI), and conventional medicine signifies a pivotal frontier in contemporary digital health. The World Health Organization (WHO) says that 88\% of all countries use traditional and complementary medicine (T\&CM), with more than 170 member states reporting the use of herbal medicines, acupuncture, yoga, indigenous therapies, and other types of traditional medicine. Ayurveda, or ``Science of Life,'' has been practiced in India for more than 3,000 years. It takes a holistic view of health and divides human physiology into three bio-energetic forces, or \textit{Doshas}: \textit{Vata} (Kinetic Energy), \textit{Pitta} (Transformative Energy), and \textit{Kapha} (Cohesive Energy).
 
-The cornerstone of Ayurvedic pharmacology is \textit{Dravyaguna Vigyan}, the science of the properties of medicinal substances. Unlike Western pharmacology, which isolates active chemical compounds (alkaloids, glycosides), Ayurveda classifies plants based on their \textit{Rasa} (Taste), \textit{Guna} (Quality), \textit{Virya} (Potency), \textit{Vipaka} (Post-digestive effect), and \textit{Prabhava} (Specific action). For example, \textit{Ocimum sanctum} (Tulsi) is not just an anti-bacterial agent; it is classified as having a \textit{Katu} (Pungent) Rasa and \textit{Ushna} (Heating) Virya, making it specific for balancing Kapha and Vata disorders but potentially aggravating for high Pitta conditions.
+\textit{Dravyaguna Vigyan}, the study of the properties of medicinal substances, is the most important part of Ayurvedic pharmacology. Ayurveda classifies plants based on their \textit{Rasa} (Taste), \textit{Guna} (Quality), \textit{Virya} (Potency), \textit{Vipaka} (Post-digestive effect), and \textit{Prabhava} (Specific action), while Western pharmacology looks for active chemical compounds like alkaloids and glycosides. \textit{Ocimum sanctum} (Tulsi) is not only an antibacterial agent; it is categorized as possessing a \textit{Katu} (Pungent) \textit{Rasa} and an \textit{Ushna} (Heating) \textit{Virya}, rendering it suitable for balancing \textit{Kapha} and \textit{Vata} disorders while potentially exacerbating high \textit{Pitta} conditions.
 
-Despite this profound depth, the practice of Ayurveda faces an existential crisis in the 21st century. The knowledge of medicinal plant identification, once passed down through oral traditions (\textit{Gurukula}), is fading. Urbanization has alienated the general populace from their natural environment. The severe shortage of qualified \textit{Vaidyas} (Ayurvedic physicians) means that personalized diagnosis is inaccessible to millions. Consequently, there is an urgent need for a ``Digital Vaidya''---a system capable of democratizing this expert knowledge through ubiquitous mobile technology.
+Even though Ayurveda is very deep, it is going through a crisis in the 21st century. The ability to identify medicinal plants, which was once passed down through oral traditions (\textit{Gurukula}), is fading. Urbanization has separated most people from their natural surroundings. Because there aren't enough qualified \textit{Vaidyas} (Ayurvedic doctors), millions of people can't get personalized diagnosis. Because of this, we need a ``Digital Vaidya'' right away---a system that would use mobile technology to make this expert knowledge available to everyone.
 
 \subsection{Problem Statement}
-The digitization of Ayurveda presents unique computational challenges that existing solutions fail to address:
+The digitization of Ayurveda introduces specific computational challenges that current solutions do not adequately resolve:
 \begin{enumerate}
-    \item \textbf{Taxonomic Ambiguity}: Many distinct species share common names. For instance, ``Brahmi'' can refer to \textit{Bacopa monnieri} or \textit{Centella asiatica} depending on the region. A purely text-based search engine is insufficient and dangerous.
-    \item \textbf{Visual Similarity}: Medicinal plants often have toxic lookalikes. The Solanaceae family, for example, contains both edible vegetables and deadly poisons. Distinguishing these requires high-fidelity computer vision.
-    \item \textbf{Contextual Disconnection}: Current plant identification apps (e.g., PlantNet) provide Linnaean taxonomy but lack Ayurvedic context. Knowing a plant is \textit{Tinospora cordifolia} is useless to a layperson without knowing its \textit{Guduchi} properties and dosage.
-    \item \textbf{Generative Hallucinations}: While Large Language Models (LLMs) like GPT-4 can generate Ayurvedic advice, they are prone to ``hallucinations''---inventing citations or properties. Using an LLM for direct visual identification is currently unreliable for critical medical safety.
+    \item \textbf{Taxonomic Ambiguity}: Numerous distinct species possess identical nomenclature. For example, ``Brahmi'' can mean either \textit{Bacopa monnieri} or \textit{Centella asiatica}, depending on where you are. A search engine that only uses text is not enough and is dangerous.
+    \item \textbf{Visual Similarity}: Many plants that are good for you look like plants that are bad for you. For instance, the Solanaceae family has both poisonous plants and edible vegetables. To tell these apart, you need computer vision that works well.
+    \item \textbf{Contextual Disconnection}: Linnaean taxonomy is available in current plant identification apps (like PlantNet), but Ayurvedic context is not. It doesn't help a layperson to know that a plant is \textit{Tinospora cordifolia} if they don't also know its \textit{Guduchi} properties and dosage.
+    \item \textbf{Generative Hallucinations}: Large Language Models (LLMs) like GPT-4 can give you Ayurvedic advice, but they are prone to ``hallucinations,'' which means they make up citations or properties. Using an LLM for direct visual identification is presently unreliable for essential medical safety.
 \end{enumerate}
 
 \subsection{Contributions}
 To address these challenges, we present \textbf{AyurSpace}, a comprehensive mobile framework. Our contributions are:
 \begin{enumerate}
-    \item \textbf{Hybrid Neuro-Symbolic Architecture}: We propose a novel pipeline that segregates the ``Identification'' task (using specialized CNNs) from the ``Reasoning'' task (using Semantic LLMs). This minimizes hallucination risks while maximizing contextual depth.
-    \item \textbf{Digitized Dravyaguna Ontology}: We formalize the properties of medicinal plants into a queryable, object-oriented schema, allowing for algorithmic filtering and safety checks (e.g., ``Find plants safe for Pregnancy'').
-    \item \textbf{Quantitative Tridosha Assessment}: We translate the subjective \textit{Prakriti Pariksha} (Constitution Examination) into a reproducible, discrete-math scoring algorithm that empowers users to self-assess their bio-energy state.
-    \item \textbf{Open Source Mobility}: We provide a reference implementation in Flutter, ensuring the solution is cross-platform, performant, and accessible on low-cost devices typical in developing nations.
+    \item \textbf{Hybrid Neuro-Symbolic Architecture}: We put forth a new pipeline that separates the ``Identification'' task (using specialized CNNs) from the ``Reasoning'' task (using Semantic LLMs). This lessens hallucination risks while getting the most out of the context.
+    \item \textbf{Digitized Dravyaguna Ontology}: We make the properties of medicinal plants into a searchable, object-oriented schema that makes it possible to filter with algorithms and perform safety checks, like ``Find plants that are safe for pregnancy.''
+    \item \textbf{Quantitative Tridosha Assessment}: We translate the subjective \textit{Prakriti Pariksha} (Constitution Examination) into a discrete-math scoring algorithm that can be used over and over again, giving users the ability to check their own bio-energy level.
+    \item \textbf{Open Source Mobility}: We provide a reference implementation in Flutter, making sure the solution works on all platforms, is fast, and can be used on cheap devices common in developing countries.
 \end{enumerate}
 
 \section{Related Work}
 
 \subsection{Computer Vision in Botany}
-The field of automated plant identification has matured significantly with the advent of Convolutional Neural Networks (CNNs). Early attempts used leaf-shape descriptors and edge detection algorithms \cite{waldchen2018}. Modern approaches leverage Deep Learning architectures like ResNet-50 and MobileNetV3.
+The area of automated plant identification has grown significantly with the advent of Convolutional Neural Networks (CNNs). Initial endeavors employed leaf-shape descriptors and edge detection algorithms \cite{waldchen2018}. Modern methods use Deep Learning architectures such as ResNet-50 and MobileNetV3.
 \begin{itemize}
-    \item \textbf{Pl@ntNet}: A citizen-science project that uses a massive collaborative dataset. It excels at European flora but struggles with Indian medicinal herbs.
-    \item \textbf{LeafSnap}: Focuses on tree species using leaf curvature features.
-    \item \textit{Limitation}: These systems operate in a ``Botanical Silo.'' They output a Latin binomial, which is the \textit{end} of the interaction, whereas for Ayurveda, identification is merely the \textit{start} of the consultation.
+    \item \textbf{Pl@ntNet}: A citizen-science project that uses a huge dataset that is shared. It does a great job with European plants, but has trouble with Indian medicinal herbs.
+    \item \textbf{LeafSnap}: Uses leaf curvature to focus on tree species characteristics.
+    \item \textit{Limitation}: These systems work in a ``Botanical Silo.'' They give you a Latin binomial, which is the \textit{end} of the interaction, but for Ayurveda, identification is just the \textit{beginning} of the consultation.
 \end{itemize}
 
 \subsection{LLMs in Healthcare}
-Generative AI has shown promise in synthesizing medical knowledge. Singhal \textit{et al.} \cite{singhal2023} demonstrated that Med-PaLM could pass the US Medical Licensing Exam. However, applying General Purpose LLMs to niche traditional knowledge bases often results in ``alignment drift'' where the model prioritizes Western medical interpretations over traditional logic due to training data bias.
+Generative AI has shown promise in combining medical knowledge. Singhal \textit{et al.} \cite{singhal2023} showed that Med-PaLM could pass the USMLE. But applying general-purpose LLMs to specific areas of traditional knowledge bases frequently leads to ``alignment drift,'' in which the model prioritizes Western medical interpretations ahead of traditional logic because of bias in the training data.
 \begin{itemize}
-    \item \textit{Gap}: There is no ``Ayur-PaLM.'' We must therefore use prompt engineering techniques to constrain general LLMs (Gemini) to act as Ayurvedic experts.
+    \item \textit{Gap}: There is no ``Ayur-PaLM,'' so we have to use prompt engineering methods to limit general LLMs (Gemini) to be experts in Ayurveda.
 \end{itemize}
 
 \subsection{Digital Approaches to Ayurveda}
-Prior work in ``Computational Ayurveda'' has focused largely on:
+Previous research in ``Computational Ayurveda'' has concentrated mostly on:
 \begin{itemize}
-    \item \textbf{Pulse Diagnosis (\textit{Nadi Pariksha})}: Using piezoelectric sensors to digitize pulse waveforms.
-    \item \textbf{Tongue Diagnosis (\textit{Jivha Pariksha})}: Using image processing to detect coating and color.
-    \item \textbf{Static Databases}: Simple CRUD applications that serve as digital dictionaries.
+    \item \textbf{Pulse Diagnosis (\textit{Nadi Pariksha})}: Using piezoelectric sensors to turn pulse waveforms into numbers.
+    \item \textbf{Tongue Diagnosis (\textit{Jivha Pariksha})}: Using image processing to find the color and coating.
+    \item \textbf{Static Databases}: CRUD apps that are easy to use and serve as electronic dictionaries.
 \end{itemize}
 
 \begin{table}[htbp]
-\caption{Comparison of Existing Solutions vs. AyurSpace}
+\caption{AyurSpace Compared to Other Solutions}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -135,59 +135,59 @@ Prior work in ``Computational Ayurveda'' has focused largely on:
 \end{center}
 \end{table}
 
-AyurSpace bridges the gap between high-tech vision and high-touch traditional wisdom.
+AyurSpace fills the gap between high-tech vision and high-touch traditional wisdom.
 
 \section{System Architecture}
 
-The AyurSpace system is architected as a cloud-native mobile application adhering to \textbf{Clean Architecture} principles \cite{martin2017}. This ensures a strict separation of concerns, making the system testable, scalable, and maintainable. It comprises three primary concentric layers: the Presentation Layer (UI), the Domain Layer (Business Logic), and the Data Layer (Infrastructure).
+The AyurSpace system is built as a cloud-native mobile application that follows the \textbf{Clean Architecture} principles \cite{martin2017}. This makes sure that each part of the system has its own job, making it testable, scalable, and maintainable. It has three main concentric layers: the Presentation Layer (UI), the Domain Layer (Business Logic), and the Data Layer (Infrastructure).
 
 \subsection{High-Level Design Pattern}
-The system functions on a Client-Server model where the Flutter mobile client \cite{flutter} acts as the orchestration engine, integrating disparate microservices.
+The system works on a Client-Server model, where the Flutter mobile client \cite{flutter} is the engine that orchestrates and puts together different microservices.
 
 \begin{figure}[htbp]
 \centerline{\fbox{\includegraphics[width=3in]{fig1.png}}}
-\caption{High Level System Architecture showing user interaction flowing through Flutter UI, Riverpod Logic, to Data Repositories connecting to Plant.id (REST), Gemini (REST), and Firebase (gRPC).}
+\caption{High Level System Architecture showing how users interact through Flutter UI, Riverpod Logic, and Data Repositories that connect to Plant.id (REST), Gemini (REST), and Firebase (gRPC).}
 \label{fig1}
 \end{figure}
 
 \subsection{Detailed Component Interaction}
-The application utilizes the \textbf{Repository Pattern} to decouple business logic from data sources. This allows for easy swapping of data sources (e.g., changing the AI provider) without affecting the UI.
+The application uses the \textbf{Repository Pattern} to separate business logic from where the data comes from. This makes it easy to swap data sources (like switching AI providers) without changing the UI.
 
 \begin{enumerate}
     \item \textbf{Presentation Layer}: Built using Flutter's Widget tree.
     \begin{itemize}
-        \item \textbf{State Management}: We utilize \textit{Riverpod} \cite{riverpod} for reactive state management. UI components listen to \texttt{StateNotifier} streams.
-        \item \textbf{Navigation}: \textit{GoRouter} handles deep linking and stack management.
+        \item \textbf{State Management}: We use \textit{Riverpod} \cite{riverpod} for reactive state management. UI components listen to \texttt{StateNotifier} streams.
+        \item \textbf{Navigation}: \textit{GoRouter} takes care of deep linking and stack management.
     \end{itemize}
-    \item \textbf{Domain Layer (Entities \& Use Cases)}: This layer contains pure Dart classes (POJOs) like \texttt{Plant}, \texttt{Dosha}, and \texttt{Remedy}. It defines \textit{abstract interfaces} for Repositories.
+    \item \textbf{Domain Layer (Entities \& Use Cases)}: This layer contains pure Dart classes (POJOs) like \texttt{Plant}, \texttt{Dosha}, and \texttt{Remedy}. It delineates abstract interfaces for Repositories.
     \item \textbf{Data Layer}:
     \begin{itemize}
-        \item \textbf{PlantsRepository}: It implements a caching strategy: L1 (RAM), L2 (Local Storage), L3 (Remote API).
-        \item \textbf{PlantIdService}: Encapsulates interactions with the Plant.id identification engine \cite{plantid}.
-        \item \textbf{GeminiService}: Manages prompt construction and safety setting configurations for the LLM \cite{gemini}.
+        \item \textbf{PlantsRepository}: It uses a caching strategy with L1 (RAM), L2 (Local Storage), and L3 (Remote API).
+        \item \textbf{PlantIdService}: Handles all interactions with the Plant.id identification engine \cite{plantid}.
+        \item \textbf{GeminiService}: Takes care of prompt building and safety setting configurations for the LLM \cite{gemini}.
     \end{itemize}
 \end{enumerate}
 
 \subsection{Sequence of Operations}
-The core ``Identify \& Analyze'' workflow is a complex, multi-step asynchronous operation.
+The main ``Identify \& Analyze'' workflow is a complex, multi-step asynchronous operation.
 
 \begin{figure}[htbp]
 \centerline{\fbox{\includegraphics[width=3in]{fig2.png}}}
-\caption{Identification \& Contextualization Sequence. The app first calls Plant.id for taxonomy, validates confidence, then uses the scientific name to query Gemini for Ayurvedic properties.}
+\caption{Identification and Contextualization Sequence. The app makes calls first to Plant.id for taxonomy, checks the confidence, and then uses the scientific name to ask Gemini about Ayurvedic properties.}
 \label{fig2}
 \end{figure}
 
-This decoupling ensures that if the LLM service fails, the user still receives the taxonomic identification, maintaining partial system utility.
+This separation makes sure that if the LLM service goes down, the user still gets the taxonomic identification, maintaining a partially useful system.
 
 \section{Methodology}
-The AyurSpace methodology integrates signal processing, probabilistic logic, and semantic reasoning.
+The AyurSpace method combines signal processing, probabilistic logic, and reasoning based on meaning.
 
 \subsection{Image Pre-processing and Signal Optimization}
-High-resolution images ($I_{raw} > 12$MP) introduce latency. We implement a pre-processing pipeline $P$ optimized for the receptive field of the Plant.id residual networks.
+High-resolution images ($I_{raw} > 12$MP) introduce latency. We set up a pre-processing pipeline $P$ that works best for the receptive field of the Plant.id residual networks.
 
-Let $I_{raw}$ be the captured RGB image tensor of dimensions $H \times W \times 3$. The pre-processing function $P(I_{raw})$ applies:
+Let $I_{raw}$ be the RGB image tensor that was captured with dimensions $H \times W \times 3$. The pre-processing function $P(I_{raw})$ applies:
 \begin{enumerate}
-    \item \textbf{Downsampling}: Bicubic interpolation to max dimension $D_{max} = 1080px$.
+    \item \textbf{Downsampling}: Bicubic interpolation to maximum dimension $D_{max} = 1080px$.
     \begin{equation}
     (H', W') = \begin{cases} (1080, W \cdot \frac{1080}{H}) & \text{if } H > W \\ (H \cdot \frac{1080}{W}, 1080) & \text{if } W > H \end{cases}
     \end{equation}
@@ -197,22 +197,22 @@ Let $I_{raw}$ be the captured RGB image tensor of dimensions $H \times W \times 
     \end{equation}
 \end{enumerate}
 
-This reduction yields a payload size $S(I_{comp}) \approx 800$KB, compared to $S(I_{raw}) \approx 5$MB, reducing upload latency by $\sim$84\% without significant loss in feature discriminability for the CNN.
+This decrease results in a payload size $S(I_{comp}) \approx 800$KB, compared to $S(I_{raw}) \approx 5$MB, which cuts down on upload latency by $\sim$84\% without a major drop in feature discriminability for the CNN.
 
 \subsection{Hybrid Neuro-Symbolic Inference}
-The core innovation is the sequential dependency of Neural Identification and Symbolic Reasoning.
+The main new idea is the sequential dependency of Neural Identification and Symbolic Reasoning.
 
 \subsubsection{Visual Taxonomy (Discriminative Model)}
-The identification uses a hierarchical classification model trained on over 30,000 plant species.
+The identification employs a hierarchical classification model that has been trained on more than 30,000 kinds of plants.
 Input vector $X = [I_{comp}, \text{GPS}_{lat}, \text{GPS}_{long}]$.
-The model outputs a probability distribution over classes $C$:
+The model gives a probability distribution across classes $C$:
 \begin{equation}
 P(C|X) = \text{softmax}(f_\theta(X))
 \end{equation}
-We apply a confidence threshold $\tau = 0.2$. Suggestions where $p_i < \tau$ are discarded to minimize false positives.
+We set a confidence level of $\tau = 0.2$. Suggestions where $p_i < \tau$ are discarded to reduce false positives.
 
 \subsubsection{Semantic Contextualization (Generative Model)}
-For the top accepted class $c^* = \text{argmax}(P(C|X))$, we generate a prompt $\rho(c^*)$. We utilize the \textbf{Chain-of-Thought (CoT)} prompting technique to improve reasoning.
+For the top accepted class $c^* = \text{argmax}(P(C|X))$, we generate a prompt $\rho(c^*)$. We use the \textbf{Chain-of-Thought (CoT)} prompting technique to make reasoning better.
 
 
 
@@ -220,13 +220,13 @@ For the top accepted class $c^* = \text{argmax}(P(C|X))$, we generate a prompt $
 
 \subsection{Extended Technology Stack}
 \begin{enumerate}
-    \item \textbf{Flutter (Google UI Toolkit)}: We selected Flutter 3.x for its ability to compile to ARM64 machine code, ensuring near-native performance ($\sim$60fps) essential for smooth camera viewfinder rendering.
-    \item \textbf{Riverpod}: We implement the Riverpod framework from dependency injection and state management.
-    \item \textbf{GoRouter}: Manages the navigation stack enabling valid HTTP deep links.
+    \item \textbf{Flutter (Google UI Toolkit)}: We chose Flutter 3.x for its ability to turn into ARM64 machine code, which guarantees near-native performance ($\sim$60fps) necessary for smooth camera viewfinder rendering.
+    \item \textbf{Riverpod}: We use the Riverpod framework for dependency injection and managing state.
+    \item \textbf{GoRouter}: Manages the navigation stack so that it supports valid deep links in HTTP.
 \end{enumerate}
 
 \subsection{Core Data Structures and Logic}
-The application data model is designed to be immutable and serializable.
+The application data model is meant to be immutable and serializable.
 
 \begin{verbatim}
 // Domain Layer: Plant Entity
@@ -258,22 +258,22 @@ class Plant extends Equatable {
 \end{verbatim}
 
 \subsection{Serverless Cloud Infrastructure}
-The backend architecture relies on the Firebase Ecosystem for scalability: Authentication (Anonymous Auth) and Cloud Firestore (NoSQL document store).
+The backend architecture is built on the Firebase Ecosystem for scalability: Authentication (Anonymous Auth) and Cloud Firestore (NoSQL document store).
 
 \section{Results and Discussion}
 
 \subsection{Experimental Setup}
 
 \subsubsection{Metric Definition}
-To rigorously evaluate the system, we define the following metrics:
+To thoroughly assess the system, we set the following standards:
 \begin{enumerate}
-    \item \textbf{Top-1 Identification Accuracy ($Acc_1$)}: The frequency with which the ground-truth species is the first suggestion returned.
-    \item \textbf{Hallucination Rate ($H_r$)}: Frequency where LLM generates incorrect properties for a known plant.
-    \item \textbf{End-to-End Latency ($L_{total}$)}: Total time from capture to final UI render.
+    \item \textbf{Top-1 Identification Accuracy ($Acc_1$)}: The number of times with which the ground-truth species is the first suggestion returned.
+    \item \textbf{Hallucination Rate ($H_r$)}: The frequency at which the LLM generates incorrect properties for a plant that is already known.
+    \item \textbf{End-to-End Latency ($L_{total}$)}: The whole time from capture to the last UI render.
 \end{enumerate}
 
 \subsection{Results Overview and Analysis}
-Testing was conducted on a mid-range Android device (Google Pixel 6a) over a standard 4G LTE network in Mumbai, India. The system was evaluated using a dataset of 50 unique medicinal plant species common to the Indian subcontinent (e.g., \textit{Ocimum sanctum, Azadirachta indica, Tinospora cordifolia}).
+Testing was done on an Android phone that was in the middle of the range (Google Pixel 6a) over a normal 4G LTE network in Mumbai, India. We tested the system with a dataset of 50 different medicinal plant species prevalent in the Indian subcontinent (e.g., \textit{Ocimum sanctum, Azadirachta indica, Tinospora cordifolia}).
 
 \begin{table}[htbp]
 \caption{Performance Benchmarks}
@@ -286,7 +286,7 @@ Testing was conducted on a mid-range Android device (Google Pixel 6a) over a sta
 \hline
 \textbf{Gemini Conformance} & 99.1\% & Valid JSON schema generation \\
 \hline
-\textbf{Comp. Efficiency} & 85\% & Payload reduced to $\approx$850KB \\
+\textbf{Comp. Efficiency} & 85\% & Payload cut to $\approx$850KB \\
 \hline
 \textbf{Avg. ID Latency} & 2.1s & Plant.id API response time \\
 \hline
@@ -300,57 +300,57 @@ Testing was conducted on a mid-range Android device (Google Pixel 6a) over a sta
 \end{table}
 
 \subsubsection{Accuracy Analysis}
-The taxonomic classifier achieved a Top-1 accuracy of 96.4\%, misidentifying only 2 out of 50 samples. Error optimization analysis revealed that failures occurred primarily in species with high morphological similarity in leaves (e.g., distinguishing \textit{Mentha arvensis} from \textit{Ocimum americanum} when not in bloom). However, the inclusion of the ''Similar Images`` return field allowed users to manually correct these edge cases in 50\% of failure instances.
+The taxonomic classifier got a Top-1 accuracy of 96.4\%, misidentifying only 2 out of 50 samples. The analysis of error optimization showed that failures occurred mostly in species that looked very similar to each other in leaves (e.g., telling \textit{Mentha arvensis} apart from \textit{Ocimum americanum} when not in bloom). But the addition of the ``Similar Images'' return field let users manually correct these edge cases half the time they failed.
 
 \subsubsection{Latency Breakdown}
-The total system latency of 4.2s is within the acceptable threshold for non-real-time educational apps. The image compression pipeline contributed a negligible 200ms overhead but saved an estimated 1.5s in network transmission time compared to raw upload.
+The total system latency of 4.2s is within the range of what is acceptable for non-real-time educational apps. The image compression pipeline made a very small difference of 200ms of extra time, but it saved about 1.5s in network time it takes to send compared to raw upload.
 
 \subsection{Environmental Robustness Study}
-To validate real-world applicability, we tested identifying \textit{Aloe vera} under varying lighting conditions:
+We tested identification to make sure it works in the real world. \textit{Aloe vera} was tested in different types of light:
 \begin{itemize}
     \item \textbf{Daylight (1000+ lux)}: 100\% Accuracy, 0.98 Confidence.
     \item \textbf{Indoor Artificial (300 lux)}: 100\% Accuracy, 0.92 Confidence.
-    \item \textbf{Low Light (< 50 lux)}: 80\% Accuracy. The system prompts users to activate the flashlight if confidence drops below the threshold $\tau=0.2$.
+    \item \textbf{Low Light ($<$ 50 lux)}: 80\% Accuracy. The system tells users to turn on the flashlight if confidence drops below the threshold $\tau=0.2$.
 \end{itemize}
 
 \subsection{Ablation Study: The ``Grounding'' Effect}
-We compared our Neuro-Symbolic approach against a pure End-to-End Multimodal approach.
+We compared our Neuro-Symbolic method to a pure multimodal approach from start to finish.
 \begin{itemize}
-    \item \textbf{Pathway A (Control)}: Upload image directly to Gemini Vision Pro. Analysis: Vague. Sometimes misidentifies plants.
-    \item \textbf{Pathway B (AyurSpace Hybrid)}: Plant.id + Gemini. Analysis: Precise, medically accurate, and strictly structured.
-    \item \textbf{Conclusion}: Specialized Narrow AI (Vision) + Generalized AI (Reasoning) $>$ Generalized Multimodal AI alone for this domain.
+    \item \textbf{Pathway A (Control)}: Send image directly to Gemini Vision Pro. Analysis: Not clear. Sometimes gets plants wrong.
+    \item \textbf{Pathway B (AyurSpace Hybrid)}: Plant.id and Gemini. Analysis: Exact, medically correct, and strictly structured.
+    \item \textbf{Conclusion}: Specialized Narrow AI (Vision) + Generalized AI (Reasoning) $>$ Generalized Multimodal AI alone for this area.
 \end{itemize}
 
 \subsection{Ethical Considerations and Safety Mechanisms}
 \begin{enumerate}
-    \item \textbf{Misidentification Risk}: 100\% reliability is impossible. The UI includes a mandatory ``Disclaimer Modal.''
-    \item \textbf{Toxicity Management}: Plants like \textit{Datura stramonium} are toxic. The system maintains a client-side ``Blocklist,'' triggering a ``Red Alert'' UI.
+    \item \textbf{Misidentification Risk}: There is no way to be 100\% sure. There is a required ``Disclaimer Modal'' in the UI.
+    \item \textbf{Toxicity Management}: Plants like \textit{Datura stramonium} are poisonous. The system keeps a ``Blocklist'' on the client side, causing a ``Red Alert'' UI to appear.
 \end{enumerate}
 
-\subsection{User Privacy and Data Security}
+\subsection{User Privacy and Data Safety}
 \begin{itemize}
-    \item \textbf{Image Privacy}: Images are processed in-memory. Cloud Storage has a 30-day TTL.
-    \item \textbf{Health Data Sovereignty}: Dosha results are stored in Firestore with strict Row Level Security (RLS).
+    \item \textbf{Image Privacy}: Images are stored in memory. Cloud storage has a 30-day time limit.
+    \item \textbf{Health Data Sovereignty}: Dosha results are kept in Firestore with strict Row Level Security (RLS).
 \end{itemize}
 
 \subsection{Limitations}
-Limitations include network dependency and lighting sensitivity. Future versions will address vernacular gaps.
+Some of the limitations are network dependency and lighting sensitivity. Future versions will fix gaps in the vernacular.
 
 \section{Conclusion and Future Work}
-The development of \textbf{AyurSpace} represents a pivotal step in the digital preservation and democratization of Ayurvedic knowledge. By successfully implementing a hybrid Neuro-Symbolic architecture, this framework addresses the critical limitations of existing botanical identification tools—specifically, the lack of medicinal context and the risk of generative hallucinations. Our experimental results, yielding a \textbf{96.4\%} taxonomic accuracy and a \textbf{99.1\%} conformance in contextual reasoning, validate the efficacy of decoupling visual recognition from semantic analysis. This reliability is paramount in the health domain where misidentification can have toxicological consequences. Furthermore, the algorithmic formalization of \textit{Dosha} assessment transforms subjective clinical intuition into a reproducible digital logic, empowering users to make informed wellness decisions grounded in ancient wisdom but verified by modern computation.
+The creation of \textbf{AyurSpace} is a key step in the digital preservation and democratization of Ayurvedic knowledge. By effectively executing a hybrid neuro-symbolic architecture, this framework deals with the major problems with current plant identification tools---specifically, the absence of medicinal context and the risk of generative hallucinations. Our experimental findings, producing a \textbf{96.4\%} accuracy in taxonomy and a \textbf{99.1\%} compliance in contextual reasoning, confirm the effectiveness of decoupling recognition by sight from semantic analysis. This dependability is very important in the health field where misidentification can have toxicological effects. Also, the algorithmic formalization of \textit{Dosha} assessment changes subjective clinical intuition into a replicable digital logic, enabling users to make smart health decisions based on ancient wisdom that has been checked by modern computation.
 
-Future enhancements will focus on three key frontiers:
+Future improvements will focus on three main areas:
 \begin{enumerate}
-    \item \textbf{Edge AI Optimization}: Deploying quantized MobileNet models (int8 quantization) to enable fully offline identification in remote rural areas with limited network connectivity.
-    \item \textbf{Augmented Reality (AR) Interfaces}: Utilizing ARCore to overlay medicinal properties, active compounds, and usage warnings directly onto the camera viewfinder for immersive real-time education.
-    \item \textbf{Telemedicine Integration}: Developing a ``Vaidya Connect'' module to bridge the gap between automated self-assessment and professional medical consultation, creating a complete end-to-end digital health ecosystem.
+    \item \textbf{Edge AI Optimization}: Using quantized MobileNet models (int8 quantization) to make it possible to work completely offline for identification in rural areas that are far away and have poor network connectivity.
+    \item \textbf{Augmented Reality (AR) Interfaces}: Using ARCore to add medicinal properties, active compounds, and warnings about how to use the camera viewfinder for real-time education that is immersive.
+    \item \textbf{Telemedicine Integration}: Making a ``Vaidya Connect'' module to connect automated self-evaluation and professional medical consultation, making a full digital health ecosystem from start to finish.
 \end{enumerate}
 
-Ultimately, AyurSpace aims to serve as a scalable global repository for traditional medicine, preserving intangible heritage through ubiquitous mobile technology.
+AyurSpace's main goal is to become a global platform that can grow as a repository for traditional medicine, keeping intangible heritage alive through mobile technology that is everywhere.
 
 \begin{thebibliography}{00}
 
-\bibitem{who2014} World Health Organization, \textit{WHO Traditional Medicine Strategy: 2014-2023}. Geneva: World Health Organization, 2013.
+\bibitem{who2014} World Health Organization, \textit{WHO Traditional Medicine Strategy: 2014-2023}. World Health Organization, Geneva, 2013.
 \vspace{1ex}
 
 \bibitem{plantid} Kindwise Inc., ``Plant.id API Documentation,'' 2024. [Online]. Available: https://web.plant.id/api-v2. [Accessed: Jan. 29, 2026].
@@ -362,13 +362,16 @@ Ultimately, AyurSpace aims to serve as a scalable global repository for traditio
 \bibitem{singhal2023} S. Singhal et al., ``Large Language Models Encode Clinical Knowledge,'' \textit{Nature}, vol. 620, pp. 172--180, 2023.
 \vspace{1ex}
 
-\bibitem{waldchen2018} J. W\"aldchen and P. M\"ader, ``Plant Species Identification Using Computer Vision Techniques: A Systematic Literature Review,'' \textit{Archives of Computational Methods in Engineering}, vol. 25, no. 2, pp. 507--543, 2018.
+\bibitem{waldchen2018} J. W\"aldchen and P. M\"ader, ``Identifying Plant Species Using Computer Vision Techniques: A Systematic Literature Review,'' \textit{Archives of Computational Methods in Engineering}, vol. 25, no. 2, pp. 507--543, 2018.
 \vspace{1ex}
 
 \bibitem{martin2017} R. Martin, \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall, 2017.
 \vspace{1ex}
 
 \bibitem{flutter} Google, ``Flutter Architectural Overview,'' 2024. [Online]. Available: https://flutter.dev/go/arch. [Accessed: Jan. 29, 2026].
+\vspace{1ex}
+
+\bibitem{riverpod} R. Remigius, ``Riverpod: A Reactive State-Management Framework for Flutter,'' 2023. [Online]. Available: https://riverpod.dev.
 \vspace{1ex}
 
 \bibitem{sharma2006} P. V. Sharma, \textit{Dravya Guna Vijnana}, vol. 1. Varanasi, India: Chaukhambha Bharati Academy, 2006.
