@@ -17,6 +17,7 @@ class AppRoutes {
   static const String doshaQuiz = '/dosha-quiz';
   static const String doshaProfile = '/dosha-profile';
   static const String remedy = '/remedy/:id';
+  static const String scanResult = '/scan-result';
   static const String bookmarks = '/bookmarks';
   static const String favorites = '/favorites';
   static const String editProfile = '/edit-profile';

@@ -299,6 +299,52 @@ Testing was done on an Android phone that was in the middle of the range (Google
 \end{center}
 \end{table}
 
+\subsection{User Interface and Application Flow}
+The AyurSpace mobile application provides a comprehensive, user-centric interface designed to make Ayurvedic knowledge accessible. Figures \ref{fig:core_ui} through \ref{fig:profile_ui} demonstrate the key screens.
+
+\begin{figure}[htbp]
+\centerline{
+  \includegraphics[height=1.8in]{screenshots/home_screen.png}\hspace{0.1in}
+  \includegraphics[height=1.8in]{screenshots/discover_screen.png}
+}
+\caption{Core Navigation. (Left) Home Screen featuring daily wellness tips. (Right) Discover Screen for exploring Ayurvedic categories and herbs.}
+\label{fig:core_ui}
+\end{figure}
+
+The core interaction revolves around the AI-powered plant identification and the conversational agent, AyurBot.
+
+\begin{figure}[htbp]
+\centerline{
+  \includegraphics[height=1.8in]{screenshots/scan_plant_screen.png}\hspace{0.1in}
+  \includegraphics[height=1.8in]{screenshots/plant_detail_screen.png}\hspace{0.1in}
+  \includegraphics[height=1.8in]{screenshots/AyurBot_screen.png}
+}
+\caption{AI Interaction Flow. (Left) The camera interface for botanical scanning. (Center) The detailed analysis page combining taxonomy with Ayurvedic properties. (Right) The AyurBot chat interface providing generative health advice.}
+\label{fig:ai_flow_ui}
+\end{figure}
+
+The system also digitizes personalized health assessments through a quantifiable Dosha questionnaire, leading to customized lifestyle recommendations.
+
+\begin{figure}[htbp]
+\centerline{
+  \includegraphics[height=1.65in]{screenshots/dosha_quiz_screen.png}\hspace{0.1in}
+  \includegraphics[height=1.65in]{screenshots/wellness_screen.png}
+}
+\vspace{0.1in}
+\centerline{
+  \includegraphics[height=1.65in]{screenshots/remedies_screen.png}\hspace{0.1in}
+  \includegraphics[height=1.65in]{screenshots/remedies_detail_screen.png}
+}
+\caption{Personalized Wellness. (Top Left) The Tridosha assessment quiz. (Top Right) Wellness dashboard with personalized plans. (Bottom Left) Curated home remedies. (Bottom Right) Detailed remedy instructions.}
+\label{fig:wellness_ui}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\fbox{\includegraphics[height=1.8in]{screenshots/profile_screen.png}}}
+\caption{User Profile showcasing persistent state, calculated dosha, and saved preferences.}
+\label{fig:profile_ui}
+\end{figure}
+
 \subsubsection{Accuracy Analysis}
 The taxonomic classifier got a Top-1 accuracy of 96.4\%, misidentifying only 2 out of 50 samples. The analysis of error optimization showed that failures occurred mostly in species that looked very similar to each other in leaves (e.g., telling \textit{Mentha arvensis} apart from \textit{Ocimum americanum} when not in bloom). But the addition of the ``Similar Images'' return field let users manually correct these edge cases half the time they failed.
 

@@ -33,79 +33,57 @@ class ChatState {
 
 /// Comprehensive Ayurveda Expert System Prompt
 const String _ayurvedaSystemPrompt = '''
-You are **AyurBot** 🙏, a highly knowledgeable Ayurvedic wellness consultant trained in the 5,000-year-old science of Ayurveda from the Vedic tradition of India.
+You are **AyurBot** 🙏, a friendly and caring Ayurvedic wellness guide. Think of yourself as a warm, knowledgeable friend who makes the ancient wisdom of Ayurveda feel approachable and easy to follow.
 
-## YOUR EXPERTISE
+## YOUR PERSONALITY
+- You are warm, encouraging, and genuinely caring about the user's wellbeing.
+- You explain things in simple, everyday language. Avoid excessive jargon.
+- When you use an Ayurvedic or Sanskrit term, always explain it in plain words right away (e.g., "Triphala — a gentle 3-fruit digestive blend").
+- You are patient and never judgmental.
 
-### 1. TRI-DOSHA THEORY (त्रिदोष)
-You have deep understanding of the three fundamental bio-energies:
-- **Vata (वात)** - Air + Space: Governs movement, creativity, flexibility. When imbalanced: anxiety, dry skin, constipation, insomnia.
-- **Pitta (पित्त)** - Fire + Water: Governs digestion, metabolism, intellect. When imbalanced: inflammation, acidity, anger, skin rashes.
-- **Kapha (कफ)** - Earth + Water: Governs structure, stability, immunity. When imbalanced: weight gain, congestion, lethargy, depression.
+## YOUR KNOWLEDGE
+You are an expert in all aspects of Ayurveda, including:
+- **Doshas** (body types): Vata, Pitta, Kapha — how to identify and balance them.
+- **Herbal Remedies**: Tulsi, Ashwagandha, Triphala, Brahmi, Amla, Giloy, and hundreds more.
+- **Home Remedies**: Simple kitchen-based solutions using turmeric, ginger, honey, ghee, etc.
+- **Diet & Nutrition**: What to eat (and avoid) based on body type and season.
+- **Daily Routines (Dinacharya)**: Morning rituals, oil massage, tongue scraping, etc.
+- **Yoga & Breathing**: Simple poses and breathing exercises for common issues.
+- **Seasonal Wellness**: How to stay healthy as the seasons change.
 
-### 2. PRAKRITI & VIKRITI
-- **Prakriti**: Birth constitution (unchanging dosha balance)
-- **Vikriti**: Current state of imbalance
-You can assess and advise based on constitution type.
+## HOW TO RESPOND
 
-### 3. AYURVEDIC HERBS & FORMULATIONS (औषधि)
-You have encyclopedic knowledge of:
-- **Adaptogenic Herbs**: Ashwagandha (अश्वगंधा), Shatavari (शतावरी), Brahmi (ब्राह्मी)
-- **Immunity Boosters**: Giloy/Guduchi (गिलोय), Tulsi (तुलसी), Amla (आमला)
-- **Digestive Herbs**: Triphala (त्रिफला), Ginger (अदरक), Cumin (जीरा)
-- **Respiratory Herbs**: Vasaka (वासा), Licorice (मुलेठी), Pippali (पिप्पली)
-- **Classical Formulations**: Chyawanprash, Triphala Churna, Dashamoola, Mahasudarshan, etc.
+1. **Start warm**: Begin with a kind greeting like "Namaste 🙏" or a caring acknowledgement of their concern.
 
-### 4. PANCHAKARMA (पंचकर्म)
-The five purification therapies:
-- Vamana (therapeutic vomiting)
-- Virechana (purgation)
-- Basti (medicated enema)
-- Nasya (nasal administration)
-- Raktamokshana (bloodletting)
+2. **Keep it simple & practical**: 
+   - Lead with the easiest, most practical advice first.
+   - Give specific, actionable steps: what to take, how much, when, and how to prepare it.
+   - Use short paragraphs and bullet points. No walls of text.
 
-### 5. DINACHARYA (दिनचर्या) & RITUCHARYA (ऋतुचर्या)
-- Daily routines for optimal health
-- Seasonal regimens for each Ritu (season)
-- Oil pulling (Gandusha), tongue scraping, Abhyanga (oil massage)
+3. **Use friendly formatting**:
+   - 🌿 for herbs and natural ingredients
+   - 🍵 for teas and recipes
+   - 🧘 for yoga, breathing, and lifestyle tips
+   - 🍲 for food and diet advice
+   - ✨ for quick tips
+   - ⚠️ for important cautions
 
-### 6. AHARA (आहार) - DIETARY WISDOM
-- Six tastes (Shad Rasa): Sweet, Sour, Salty, Pungent, Bitter, Astringent
-- Dosha-specific diet recommendations
-- Food combinations (Viruddha Ahara)
-- Agni (digestive fire) optimization
+4. **Be encouraging**: Celebrate small steps. Say things like "Great question!", "You're on the right track!", "This is a wonderful first step."
 
-### 7. YOGA & PRANAYAMA
-- Dosha-balancing asanas
-- Breathing techniques: Nadi Shodhana, Bhastrika, Sheetali
-- Meditation practices
+5. **End with engagement**: Close your response with a gentle, relevant follow-up question or suggestion to keep the conversation going. Examples:
+   - "Would you like a simple recipe for this?"
+   - "Want me to suggest a morning routine that fits your lifestyle?"
+   - "Shall I explain how to figure out your dosha type?"
 
-## RESPONSE GUIDELINES
+6. **Keep it short**: Aim for 150–300 words. Be helpful but never overwhelming. If the topic is broad, offer to go deeper rather than dumping everything at once.
 
-1. **Be Warm & Respectful**: Start with "Namaste 🙏" when appropriate. Use Sanskrit terms with translations.
+7. **Personalize**: If you know the user's dosha, weave dosha-specific tips naturally into your advice.
 
-2. **Provide Actionable Advice**: Give specific herbs, doses, timing, and preparation methods.
-
-3. **Format Clearly**: Use headers, bullet points, and emojis for readability:
-   - 🌿 for herbs
-   - 🧘 for practices
-   - 🍲 for dietary advice
-   - ⚠️ for warnings
-
-4. **Include Safety Disclaimers**: For serious conditions, recommend consulting a qualified Vaidya (Ayurvedic doctor).
-
-5. **Personalize When Possible**: If user's dosha is known, tailor advice accordingly.
-
-6. **Keep Responses Focused**: Maximum 400 words. Be informative yet concise.
-
-7. **Bridge Ancient & Modern**: Connect traditional wisdom to modern health concerns.
-
-## MEDICAL DISCLAIMER
-While you provide traditional Ayurvedic knowledge, remind users that:
-- This is educational, not medical advice
-- Pregnant/nursing women should consult doctors
-- Those on medication should check herb-drug interactions
-- Serious conditions require professional consultation
+## SAFETY
+- Always remind users that your advice is educational, not a substitute for medical treatment.
+- For serious or chronic conditions, gently suggest they consult an Ayurvedic doctor (Vaidya) or their healthcare provider.
+- Mention caution for pregnant/nursing women and those on medication, when relevant.
+- Never diagnose diseases.
 ''';
 
 /// Service for generating AI responses using Gemini
@@ -118,71 +96,73 @@ class ChatService {
 
   /// Welcome message content
   static const String welcomeMessage =
-      '🙏 Namaste! I am **AyurBot**, your Ayurvedic wellness guide.\n\n'
-      'I have deep knowledge of the 5,000-year-old science of Ayurveda and can help you with:\n\n'
-      '🌿 **Herbs & Remedies** - Tulsi, Ashwagandha, Triphala & 100+ more\n'
-      '⚖️ **Dosha Balancing** - Vata, Pitta, Kapha analysis\n'
-      '🍲 **Diet & Nutrition** - Dosha-specific food guidance\n'
-      '🧘 **Yoga & Lifestyle** - Pranayama, meditation, daily routines\n'
-      '💊 **Natural Treatments** - Traditional remedies for common ailments\n\n'
-      'How may I assist your wellness journey today?';
+      '🙏 Namaste! I\'m **AyurBot**, your friendly Ayurvedic wellness guide.\n\n'
+      'I\'m here to help you explore natural remedies and healthy habits rooted in Ayurveda — in simple, easy-to-follow ways!\n\n'
+      'Here are a few things I can help with:\n\n'
+      '🌿 **Herbal Remedies** — Simple home solutions with Tulsi, Turmeric, Ginger & more\n'
+      '✨ **Know Your Body Type** — Discover your Dosha (Vata, Pitta, or Kapha)\n'
+      '🍲 **Eat Right** — Foods that suit your body and the season\n'
+      '🧘 **Daily Wellness** — Easy morning routines, breathing exercises & tips\n\n'
+      'Just ask me anything — no question is too simple! 😊';
 
   /// Suggested prompts for new users
   static const List<String> suggestions = [
-    'What is my dosha type?',
-    'Best herbs for immunity',
-    'How to reduce stress naturally?',
-    'Ayurvedic diet for digestion',
-    'Herbs for better sleep',
-    'Morning routine (Dinacharya)',
+    '✨ What\'s my body type (Dosha)?',
+    '🌿 A natural remedy for cold & cough',
+    '😴 How can I sleep better?',
+    '🍵 A simple detox tea recipe',
+    '🧘 Quick morning routine for energy',
+    '🍲 What should I eat for better digestion?',
   ];
 
-  /// Build the full prompt with system context and conversation history
-  String _buildPrompt(String userMessage, List<ChatMessage> history) {
+  /// Build the system instruction with user context
+  String _buildSystemInstruction() {
     final buffer = StringBuffer();
-    
-    // System prompt
     buffer.writeln(_ayurvedaSystemPrompt);
-    buffer.writeln();
     
-    // User's dosha if known
     if (_userDosha != null && _userDosha.isNotEmpty) {
+      buffer.writeln();
       buffer.writeln('## USER CONTEXT');
       buffer.writeln('The user\'s Prakriti (constitution) is: **$_userDosha**');
       buffer.writeln('Personalize your advice for this dosha type when relevant.');
-      buffer.writeln();
     }
-    
-    // Conversation history (last 10 messages for context)
-    final recentHistory = history.length > 10 
-        ? history.sublist(history.length - 10) 
-        : history;
-    
-    if (recentHistory.isNotEmpty) {
-      buffer.writeln('## CONVERSATION HISTORY');
-      for (final msg in recentHistory) {
-        final role = msg.role == ChatRole.user ? 'User' : 'AyurBot';
-        buffer.writeln('$role: ${msg.content}');
-      }
-      buffer.writeln();
-    }
-    
-    // Current user message
-    buffer.writeln('## CURRENT QUERY');
-    buffer.writeln('User: $userMessage');
-    buffer.writeln();
-    buffer.writeln('Provide a helpful, knowledgeable Ayurvedic response:');
     
     return buffer.toString();
   }
 
+  /// Build structured conversation history as ChatTurns
+  List<ChatTurn> _buildConversationTurns(String userMessage, List<ChatMessage> history) {
+    final turns = <ChatTurn>[];
+    
+    // Add recent conversation history (last 10 messages)
+    final recentHistory = history.length > 10 
+        ? history.sublist(history.length - 10) 
+        : history;
+    
+    for (final msg in recentHistory) {
+      turns.add(ChatTurn(
+        role: msg.role == ChatRole.user ? 'user' : 'model',
+        text: msg.content,
+      ));
+    }
+    
+    // Add current user message
+    turns.add(ChatTurn(role: 'user', text: userMessage));
+    
+    return turns;
+  }
+
   /// Generate an AI response based on the query
   Future<String> getResponse(String query, List<ChatMessage> history) async {
-    final prompt = _buildPrompt(query, history);
-    final response = await _geminiService.sendMessage(prompt);
+    final systemInstruction = _buildSystemInstruction();
+    final turns = _buildConversationTurns(query, history);
+    
+    final response = await _geminiService.sendChat(
+      systemInstruction: systemInstruction,
+      conversationHistory: turns,
+    );
     
     if (response.isError) {
-      // Fall back to basic response on error
       return _getFallbackResponse(query);
     }
     
@@ -194,53 +174,62 @@ class ChatService {
     final lowerQuery = query.toLowerCase();
 
     if (lowerQuery.contains('dosha')) {
-      return '🙏 In Ayurveda, there are three doshas:\n\n'
-          '• **Vata (वात)** - Air + Space: Creative, quick-thinking, prone to anxiety\n'
-          '• **Pitta (पित्त)** - Fire + Water: Ambitious, sharp intellect, prone to inflammation\n'
-          '• **Kapha (कफ)** - Earth + Water: Calm, stable, prone to lethargy\n\n'
-          'Your unique Prakriti (constitution) is a combination of these. '
-          'Would you like to take our Dosha Quiz to discover your type? 🌿';
+      return '🙏 Great question! In Ayurveda, everyone has a unique body type called a **Dosha**. There are three main types:\n\n'
+          '✨ **Vata** — If you\'re creative, energetic, but sometimes feel anxious or have dry skin\n'
+          '🔥 **Pitta** — If you\'re ambitious, focused, but sometimes feel overheated or irritable\n'
+          '🌊 **Kapha** — If you\'re calm, steady, but sometimes feel sluggish or heavy\n\n'
+          'Most people are a mix of two! Would you like to take our **Dosha Quiz** to find out yours? It only takes a minute! 😊';
     } else if (lowerQuery.contains('immunity') || lowerQuery.contains('immune')) {
-      return '🌿 **Ayurvedic Immunity Boosters:**\n\n'
-          '• **Giloy (Guduchi)** - "Amrita" (divine nectar) for immunity\n'
-          '• **Tulsi** - Sacred basil with antimicrobial properties\n'
-          '• **Amla** - Richest source of Vitamin C\n'
-          '• **Ashwagandha** - Adaptogenic stress reliever\n'
-          '• **Chyawanprash** - Classical immune tonic\n\n'
-          '**Daily Practice:** Take 1 tsp Chyawanprash with warm milk each morning.\n\n'
-          '⚠️ Consult a Vaidya for personalized dosing.';
+      return '🌿 Here are some **easy, natural ways** to boost your immunity:\n\n'
+          '🍵 **Tulsi Tea** — Boil 4-5 fresh Tulsi leaves in water. Drink warm with honey.\n'
+          '🍋 **Amla (Indian Gooseberry)** — Nature\'s vitamin C! Have 1 tbsp amla juice with water every morning.\n'
+          '🥛 **Golden Milk** — Warm milk + a pinch of turmeric + black pepper before bed.\n'
+          '🍯 **Chyawanprash** — 1 teaspoon every morning with warm milk. It\'s like a multivitamin from nature!\n\n'
+          '✨ **Quick Tip:** Even just adding fresh ginger and turmeric to your daily cooking makes a big difference!\n\n'
+          'Want me to share a detailed immunity-boosting morning routine? 😊';
     } else if (lowerQuery.contains('stress') || lowerQuery.contains('anxiety')) {
-      return '🧘 **Ayurvedic Stress Relief:**\n\n'
-          '**Herbs:**\n'
-          '• Brahmi - Calms mind, enhances memory\n'
-          '• Ashwagandha - Reduces cortisol\n'
-          '• Jatamansi - Promotes restful sleep\n\n'
-          '**Practices:**\n'
-          '• Abhyanga (warm oil self-massage)\n'
-          '• Nadi Shodhana (alternate nostril breathing)\n'
-          '• Shirodhara (oil flow on forehead)\n\n'
-          '**Tip:** 10 minutes of Pranayama daily can transform your stress response. 🙏';
+      return '🧘 I hear you — stress can really take a toll. Here are some **simple Ayurvedic ways** to feel calmer:\n\n'
+          '🌿 **Ashwagandha** — Known as the "strength herb." Take ½ tsp powder with warm milk at night.\n'
+          '🫁 **Deep Breathing (Nadi Shodhana)** — Breathe in through one nostril, out through the other. Just 5 minutes can calm your mind.\n'
+          '💆 **Warm Oil Massage** — Gently massage warm sesame oil on your feet before bed. It\'s incredibly soothing!\n'
+          '🍵 **Brahmi Tea** — Helps settle racing thoughts.\n\n'
+          '✨ **Try this tonight:** Warm foot massage + slow breathing + no screens for 30 min before bed.\n\n'
+          'Would you like a step-by-step evening relaxation routine? 🌙';
     } else if (lowerQuery.contains('sleep') || lowerQuery.contains('insomnia')) {
-      return '🌙 **Ayurvedic Sleep Solutions:**\n\n'
-          '**Herbs:**\n'
-          '• Ashwagandha with warm milk before bed\n'
-          '• Brahmi tea for mental calmness\n'
-          '• Jatamansi for deep rest\n\n'
-          '**Practices:**\n'
-          '• Warm foot massage with sesame oil\n'
-          '• Avoid screens 1 hour before bed\n'
-          '• Sleep by 10 PM (Kapha time)\n'
-          '• Light dinner by 7 PM\n\n'
-          '**Recipe:** Warm milk + 1/2 tsp Ashwagandha + pinch of nutmeg 🥛';
+      return '🌙 A good night\'s sleep makes everything better! Here\'s what Ayurveda suggests:\n\n'
+          '🥛 **Sleep Milk Recipe:**\n'
+          '   Warm milk + ½ tsp Ashwagandha + a pinch of nutmeg + a little honey\n'
+          '   Drink this 30 minutes before bed — it works wonders!\n\n'
+          '💆 **Foot Massage** — Rub warm sesame or coconut oil on the soles of your feet. This signals your body to relax.\n\n'
+          '🕙 **Sleep by 10 PM** — In Ayurveda, 10 PM to 2 AM is the body\'s natural repair time.\n\n'
+          '🍽️ **Light Dinner** — Eat something warm and easy to digest, at least 2-3 hours before bed.\n\n'
+          '✨ **Avoid:** Heavy food, caffeine after 3 PM, and bright screens before bed.\n\n'
+          'Want me to create a personalized bedtime routine for you? 😊';
+    } else if (lowerQuery.contains('headache') || lowerQuery.contains('head pain')) {
+      return '😔 Sorry to hear about your headache! Here are some quick natural remedies:\n\n'
+          '🌿 **Peppermint or Eucalyptus Oil** — Dab a drop on your temples and gently massage.\n'
+          '💧 **Stay Hydrated** — Dehydration is a common cause. Drink warm water with a squeeze of lemon.\n'
+          '🧘 **Slow Deep Breaths** — 10 slow breaths can ease tension headaches.\n'
+          '🍵 **Ginger Tea** — Boil fresh ginger in water for 5 min. Sip slowly.\n\n'
+          '⚠️ If headaches are frequent or severe, please do consult a doctor.\n\n'
+          'Feeling better? Let me know if you\'d like more tips! 💛';
+    } else if (lowerQuery.contains('digest') || lowerQuery.contains('stomach') || lowerQuery.contains('acidity') || lowerQuery.contains('bloating')) {
+      return '🍲 Digestive issues are so common — let\'s sort that out with some easy tips!\n\n'
+          '🍵 **Cumin-Coriander-Fennel Tea (CCF Tea)** — Mix equal parts, boil in water, sip after meals. This is a classic Ayurvedic digestive tonic!\n'
+          '🫚 **Ginger Slice** — Chew a thin slice of fresh ginger with a pinch of salt before meals to fire up digestion.\n'
+          '🍯 **Warm Lemon Water** — First thing in the morning on an empty stomach.\n'
+          '🚫 **Avoid** — Ice-cold drinks with meals, overeating, and eating when stressed.\n\n'
+          '✨ **Golden Rule:** Eat your biggest meal at lunch when your digestive fire is strongest!\n\n'
+          'Want me to suggest a dosha-specific diet plan? 😊';
     }
     
-    return '🙏 Thank you for your question! I\'m having trouble connecting to my knowledge base right now.\n\n'
-        'Please try again, or ask about:\n'
-        '• Dosha analysis\n'
-        '• Herbal remedies\n'
-        '• Diet recommendations\n'
-        '• Stress relief practices\n\n'
-        'I\'m here to guide your Ayurvedic wellness journey! 🌿';
+    return '🙏 Thanks for reaching out! I\'m having a little trouble connecting right now, but I\'m still here to help!\n\n'
+        'In the meantime, here are some things you can ask me about:\n\n'
+        '✨ "What\'s my body type?"\n'
+        '🌿 "A home remedy for cold"\n'
+        '🍵 "A healthy tea recipe"\n'
+        '😴 "How to sleep better"\n\n'
+        'Try again in a moment — I\'ll be ready! 💚';
   }
 
   /// Create a new message

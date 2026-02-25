@@ -19,6 +19,7 @@ import '../screens/dosha_profile/dosha_profile_screen.dart';
 import '../screens/remedy_detail/remedy_detail_screen.dart';
 import '../screens/bookmarks/bookmarks_screen.dart';
 import '../screens/favorites/favorites_screen.dart';
+import '../screens/scan_result/scan_result_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
 
@@ -146,6 +147,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/bookmarks',
         name: 'bookmarks',
         builder: (context, state) => const BookmarksScreen(),
+      ),
+      GoRoute(
+        path: '/scan-result',
+        name: 'scanResult',
+        builder: (context, state) => const ScanResultScreen(),
       ),
       GoRoute(
         path: '/favorites',
