@@ -1,0 +1,34 @@
+graph LR
+    classDef process fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    classDef datastore fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+
+    User(("User"))
+    PlantId(("Plant.id API"))
+    Gemini(("Gemini API"))
+
+    D1[("D1: User Profiles")]:::datastore
+    D2[("D2: Scan History")]:::datastore
+
+    P1["1.0 Auth Mgmt"]:::process
+    P2["2.0 Vision Processor"]:::process
+    P3["3.0 Reasoning Engine"]:::process
+    P4["4.0 Health Profiling"]:::process
+
+    User -- "Credentials" --> P1
+    P1 -- "Read/Write Auth" --> D1
+
+    User -- "Image" --> P2
+    P2 -- "Compressions" --> PlantId
+    PlantId -- "Taxonomy" --> P2
+
+    P2 -- "Context data" --> P3
+    User -- "Chat Text" --> P3
+    P3 -- "LLM Prompt" --> Gemini
+    Gemini -- "AI Generation" --> P3
+
+    P3 -- "Store Result" --> D2
+    D2 -- "Retrieve Log" --> User
+
+    User -- "Tridosha Answers" --> P4
+    P4 -- "Update Prakriti" --> D1
+    D1 -- "Apply context" --> P3

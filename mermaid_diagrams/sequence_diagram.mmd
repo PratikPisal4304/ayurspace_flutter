@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant User
+    participant FlutterClient as Flutter Client
+    participant PlantID as Plant.id API
+    participant Gemini as Gemini API
+    participant Firestore as Cloud Firestore
+
+    User->>FlutterClient: Tap Camera and Capture Image
+    activate FlutterClient
+    FlutterClient->>FlutterClient: Downsample and Compress to Base64
+
+    FlutterClient->>PlantID: POST base64_image
+    activate PlantID
+    PlantID-->>FlutterClient: Return plant classification JSON
+    deactivate PlantID
+
+    FlutterClient->>FlutterClient: Extract top probability
+
+    FlutterClient->>Gemini: POST Prompt with PlantName
+    activate Gemini
+    Gemini-->>FlutterClient: Return AI text with Dosha and Uses
+    deactivate Gemini
+
+    FlutterClient->>Firestore: Save scan history object
+    activate Firestore
+    Firestore-->>FlutterClient: Confirmation
+    deactivate Firestore
+
+    FlutterClient-->>User: Render Plant Details interface
+    deactivate FlutterClient

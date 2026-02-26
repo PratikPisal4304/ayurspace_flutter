@@ -1,0 +1,1420 @@
+\documentclass[12pt, a4paper]{report}
+
+\renewcommand{\baselinestretch}{1.5}
+\usepackage{makeidx}
+\makeindex
+\usepackage{graphicx,wrapfig}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[dvipsnames, svgnames, table]{xcolor}
+\usepackage{epstopdf}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{commath}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+
+\def\delequal{\mathrel{\stackon[1pt]{=}{$\scriptstyle\Delta$}}}
+\usepackage{stackengine}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]  {\vspace{1cm} \normalfont  \Large  \bfseries \centering } {\chaptertitlename\ \thechapter} {20pt}  {\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+
+
+\author{Shreyash Shinde}
+\title{}
+\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt, bottom=72pt]{geometry}
+\geometry{left=30mm,right=20mm,headheight=10mm,headsep=12 mm}
+
+\makeatletter
+	\newenvironment{indentation}[3]%
+	{\par\setlength{\parindent}{#3}
+	\setlength{\leftmargin}{#1}
+	\setlength{\rightmargin}{#2}%
+	\advance\linewidth -\leftmargin
+	\advance\linewidth -\rightmargin%
+	\advance\@totalleftmargin\leftmargin
+	\@setpar{{\@@par}}%
+	\parshape 1\@totalleftmargin
+	\linewidth\ignorespaces}{\par}%
+	\makeatother
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{array}
+
+
+\usepackage{enumitem}
+\usepackage{tocbibind}
+
+%\bibliographystyle{unsrt}
+
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\lhead{}
+\rhead{\footnotesize {Chain-checkmate}}
+\cfoot{}
+\lfoot{\footnotesize Pillai HOC College of Engineering and Technology, B.E. Computer Engineering}
+\rfoot{\thepage}
+
+
+\newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
+
+
+\begin{document}
+\renewcommand*\contentsname{Table Of Content}
+\pagenumbering{roman}
+\pagestyle{fancy}
+
+\tableofcontents
+
+
+
+\pagestyle{fancy}
+\listoffigures
+\listoftables
+\newpage
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+
+
+\begin{abbreviations}
+ 1. NFT -  Non-Fungible Token
+\new
+ 2. WEB 3 - Third generation of world wide web
+
+
+\end{abbreviations}
+
+%\pagestyle{fancy}
+%\listoftables
+
+
+\newpage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+%\rule{\textwidth}{2 pt}
+
+
+
+
+%\newpage
+ % \begin{center}
+%\vspace{15cm} 
+%\vspace*{1cm}
+%\textbf{\huge {Abstract}}  \\
+%\end{center}
+%\vspace{1cm}
+
+\textit{Blockchain technology has emerged as a groundbreaking database mechanism, which offers transparency and security to information sharing across networks. "Chain Checkmate" leverages the potency of blockchain to chronicle every move and outcome securely and unalterably. In our project aimed at elevating the prominence of chess as a competitive sport, the existing online chess game platform faces limitations such as the incapacity for players to communicate during matches, a lack of token-based rewards, and the potential for unauthorized alterations in the game. These limitations highlight the importance of considering a blockchain-based solution. The main challenge in this project is to create an online chess blockchain platform that addresses the key challenges of data security, trust, and game record management. By presenting chess pieces on the blockchain as NFTs, the project ensures security and transparency of the game records. Additionally, smart contracts are employed to streamline and enhance the efficiency of the chess game. This project also places emphasis on promoting fair play by applying blockchain's unchangeable nature to thwart cheating and fraudulent activities in online chess games. Through decentralized storage of game data and transparent verification processes, players can have confidence in the legitimacy of their opponents' moves and game results. Furthermore, the platform fosters a global chess network by enabling cross-border participation and incentives for players, fostering a more robust sense of community within the chess ecosystem. By implementing blockchain's decentralized ledger and smart contracts, the project aims to revolutionize not only the way chess games are played and recorded but also how players interact and engage with each other. This innovative approach brings a new level of trust and fairness to online chess, ultimately strengthening the global chess community and encouraging broader participation in this timeless and strategic game.
+\new
+}\textbf{Keywords}\textit{—Blockchain, NFT, Security, Immutable, Token, Chess}
+\newpage
+{\setcounter{page}{1}}
+\pagenumbering{arabic}
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 1}}\\
+\vspace{5mm}
+\textbf{\Huge{Introduction}}
+
+\endgroup
+\vspace*{\fill}
+\newpage
+\fancypagestyle{plain}{}
+\chapter{Introduction}
+
+\section{Background} 
+\justify
+Blockchain technology has opened up new frontiers in data management and transparency across networks. "Chain Checkmate" is a groundbreaking project that harnesses blockchain's potential to transform the world of online chess. Existing online chess platforms have limitations, including the inability for players to communicate during matches, a lack of token-based rewards, and concerns about unauthorized game alterations[2]. "Chain Checkmate" seeks to revolutionize online chess by implementing a blockchain platform that ensures data integrity, trustworthiness, and fair gameplay. By representing chess pieces as non-fungible tokens (NFTs) on the blockchain, this project guarantees secure and unalterable game records[6]. Smart contracts enhance game efficiency, and blockchain's immutable nature combats cheating in online chess. Through decentralized data storage and transparent verification processes, "Chain Checkmate" promotes confidence in players' moves and game results. Additionally, it fosters a global chess network, enabling cross-border participation and incentivizing players, ultimately strengthening the chess community. This project's innovative use of blockchain is set to redefine online chess, making it more trustworthy and accessible.
+\renewcommand{\figurename}{Figure}
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.6\linewidth]{Intro.png}
+\end{mdframed}
+\caption{Blockchain-Enhanced Chess }
+\end{figure}
+\newpage
+\section{Relevance} 
+
+In Chain Checkmate: Chess Game Using Blockchain, some issues that are considered as follows:
+\new
+In the context of "Chain Checkmate: Chess Game Using Blockchain," understanding the importance and necessity of integrating blockchain technology into the traditional online chess gaming environment is crucial. Blockchain technology, known for its transparency and security in data management, forms the basis of "Chain Checkmate." By utilizing blockchain, the project addresses key issues present in current online chess platforms, such as communication barriers between players, the lack of token-based rewards, and susceptibility to unauthorized modifications. The significance of blockchain in this initiative lies in its capacity to offer immutable and transparent records of all moves and outcomes in chess matches. Through the use of Non-Fungible Tokens (NFTs) to represent chess pieces on the blockchain, the project guarantees the security and authenticity of game records, reducing the risk of tampering or manipulation. Furthermore, smart contracts play a crucial role in optimizing game processes and improving efficiency. By automating tasks like match adjudication, reward distribution, and dispute resolution, smart contracts contribute to a more seamless and reliable gaming experience for participants. The theory of relevance also extends to promoting fairness and trust within the chess community. The immutable nature of blockchain acts as a deterrent against cheating and fraudulent activities, creating an environment where players can trust the legitimacy of their opponents' moves and game results. The decentralized storage of game data further enhances transparency and accountability, ensuring that no single entity has control over the integrity of the gaming platform. Additionally, by facilitating cross-border engagement and motivating players through token-based rewards, "Chain Checkmate" encourages a more inclusive and interconnected global chess network. This aspect of relevance underscores how blockchain technology not only transforms but also strengthens the online chess gaming experience.
+\begin{enumerate}[label={\textbf{\arabic*.}}, leftmargin=*]
+
+\end{enumerate}
+
+\newpage
+\section{Organisation of Report}
+\justify
+This report is composed of the following sections:
+
+
+\item{\textbf{Chapter 1 :}}Introduction\\
+This chapter introduces the Chess game using blockchain project. Highlight the significance of utilizing blockchain technology in chess gaming and provide an overview of the report’s structure.
+
+\item{\textbf{Chapter 2 : }} Literature Review\\
+This chapter exposes the existing system, work flow of existing systems, shortcoming of existing systems.
+
+\item{\textbf{Chapter 3 : }} Requirement Gathering\\
+This chapter discusses the main theme of the thesis. It gives the solution to the proposed. problem, its present different scenario of the proposed system.
+
+\item {\textbf{Chapter 4 : }} Plan of Project\\
+A project plan outlines the approach, tasks, timelines, resources, and deliverables for completing a software development project. It serves as a roadmap that guides the team through- out the project lifecycle.
+
+\item {\textbf{Chapter 5 : }} Project Analysis\\
+Project analysis involves the systematic examination and evaluation of various aspects of a software development project to ensure its feasibility, viability, and success. It typically encompasses several key activities aimed at understanding the project's goals, requirements, constraints, risks, and potential impacts.
+
+ \item {\textbf{Chapter 6 : }} Project Design\\
+This chapter defines the analysis of the thesis through modeling language and by using the Design Model Data Flow Diagram, it is a simple graphical formalism that can be used to represent a system in terms of the input data to the system, various processing carried out on these data, and the output data are generated by the system.
+
+\item {\textbf{Chapter 7 : }} Implemented System\\
+This chapter defines, the goals of Decentralization in our project.
+
+\item {\textbf{Chapter 8 : }} Result Analysis\\
+This chapter shows the actual snapshot of the project flow.
+
+\item {\textbf{Chapter 9 : }} Conclusion and Future Scope
+This chapter summarizes the conclusion of this research work with the future scope.
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 2}}\\
+\vspace{5mm}
+\textbf{\Huge{Literature Review}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+\chapter{Literature Review}
+\justify
+\section{Related Work}
+\item \textbf{A Hybrid Board Game For Learning Blockchain Mechanism:}\\
+Trisnawawi Azmi Ali, et al.  The content of this article describes the board games designed for educational purposes to teach the mechanisms of blockchain technology. The term “Hybrid” expresses a combination of traditional board game elements and aspects related to blockchain learning. Applying this board game strategy, the project can integrate blockchain technology into the world's foremost board game, chess. It could be an innovative and engaging approach to make the learning of blockchain more accessible and enjoyable, providing to individuals who prefer an actual, game-based learning experience.
+\new
+
+\item \textbf{A Scoring System For Multiplayer Game Based On Blockchain Technology:} 
+\new
+Yunifa Miftachul Arif, et al. The article is all about creating a fair and secure scoring system for multiplayer games, and it's using the latest technology blockchain. The main focus is on making the scoring process in multiplayer games more fair, secure, and transparent. The blockchain technology is explored in the context of its robust and secure digital ledger capabilities. This article proposes the formation of the smart contracts, advanced digital agreements designed to autonomously ensure fair play and accurate recording of player's scores, while preventing unauthorized modifications to the data. In this article, a score system was established within the multiplayer mode, in which victorious players are rewarded with token credits.
+\new
+\item \textbf{Decentralized NFT-Based Evolvable Games:} 
+\new
+Christos Karapapas, et al.This article discussed the concept of decentralizing NFT-based evolvable games. In simple terms, it likely discusses the idea of using Non-Fungible Tokens (NFTs) in games where the in-game assets (like characters or items) can evolve over time. The primary focus is on decentralization, where the underlying technology, blockchain is used to distribute control and ownership, making these evolvable game assets more transparent and secure. The article deep dive into how this decentralized approach can enhance the gaming experience and provide player with unique and evolving virtual assets. The report summarizes the concept related to the blockchain and gets an idea of how NFT works in blockchain.
+\new
+
+\item \textbf{Decentralized Mining Pool Games In Blockchain: }
+\new
+Zhihuai Chen, et al. The content of this article is to explores the concept of mining pool games within a decentralized blockchain framework. It explores the decentralization of mining pools, where groups of miners join forces to improve the chances of successfully mining blocks. Blockchain technology is used to achieve this decentralization. This article focuses on the advantages and challenges of decentralized mining pools, covering topics such as security, transparency and efficiency.This article explains how blockchain is being used in new ways to change how mining groups operate in the world of cryptocurrencies
+\new
+
+\item \textbf{Blockchain Games: A Survey:} 
+Tian Min, et al. This article highlights the overall implementation of blockchain technology in gaming industry. It includes topics such as blockchain in gaming, game mechanics, and in-game assets such as tokens and item distribution. This survey also explores how blockchain enhances features of gaming such as security, ownership, and player interaction. It also discusses challenges and opportunities in the intersection of blockchain and gaming.
+\new
+
+\item \textbf{A Blockchain Based Decentralized Computing And NFT Infrastructure For Game Networks: }
+\new
+Koushik Bhargav Muthe, et al. This article explores how blockchain can be used in decentralized computing , discussing the core concept and creating a system for game networks with NFTs. Essentially, it explores how blockchain can be used to build a more distributed and secure infrastructure for games, especially focusing on the unique digital assets known as NFTs. The goal is likely to improve the overall performance, security, and ownership aspects of game networks through the innovative application of blockchain technology. With the help of this article, we get to know the basic networking and how it deals with connecting to the blockchain technologies.
+\new
+
+\item \textbf{The Development And Evaluation Of Web-Based Multiplayer Games With Imperfect Information Using Websocket:}
+\new
+Sugiyanto, et al. This article explains various concepts about creating and testing online multiplayer games on the web. It specifically focuses on games where players do not have all the information, making it more interesting. The article also discusses how these games are developed, how well they work, and possibly touch on the challenges faced during the process. Overall, it provides insights into making and assessing web based multiplayer games with an element of mystery, using a communication tool called WebSocket. The technology WebSocket helps in real-time communication. Specifically, concepts like testing and creating a game which deals with real time management service it does require some technology with can communicate with the server as we show the status of communication in real time.
+\new
+\item \textbf{Research Opportunities In Using Blockchain For Video Games. A Scoping Reviews: }
+\new
+Joan Arnedo-Moreno, et al. This article is based on the research opportunities in using blockchain for video games. A scoping review means it is like taking a closer look at the terrain to understand its breadth and depth. It is summarizing the possibilities and potential areas for study where blockchain can be applied in the gaming world. It is a guide to the different ways in which blockchain technology could make video games more interesting. This article explains the how many potential research opportunities are present in the current time and it shows the value of research until now. It also explains how the research related to blockchain has given a boost to the academic studies and to implement new innovative ideas. Moreover, applying this research to make a video game based on blockchain technology.
+
+
+
+\newpage
+ \section{Basic Terminologies}
+\item{\textbf{Blockchain:}}\\
+A decentralized, distributed ledger technology that records transactions across multiple computers in a way that makes them tamper-resistant and transparent. Each block in the chain contains a number of transactions, and every new block is linked to the previous one, forming a chain of blocks.
+
+\item{\textbf{NFT (Non-Fungible Token):}}\\ 
+A unique digital asset stored on a blockchain that represents ownership of a specific item or piece of content. Unlike cryptocurrencies such as Bitcoin or Ethereum, NFTs are not mutually interchangeable, meaning each one has unique properties and value.
+
+\item{\textbf{Smart Contracts:}}\\  
+Self-executing contracts with the terms of the agreement directly written into code. They automatically enforce and facilitate the execution of agreements or transactions when predefined conditions are met, without the need for intermediaries.
+
+\item{\textbf{Immutable:}}\\ 
+In the context of blockchain, immutable refers to the inability to change or alter data once it has been recorded on the blockchain. This feature ensures the integrity and security of the information stored on the blockchain.
+
+\item{\textbf{Token:}}\\
+A digital representation of an asset or utility, often existing on a blockchain. Tokens can represent various things such as ownership rights, access to services, or voting power within a decentralized system.
+
+\item{\textbf{WEB 3:}}\\
+Also known as Web3, it refers to the next generation of the internet that is decentralized, peer-to-peer, and powered by blockchain technology. It aims to give users more control over their data, identities, and online interactions while enabling new types of decentralized applications (DApps) and services.
+
+\item{\textbf{E-wallet:}}\\
+An electronic device or online service that allows individuals to store, manage, and transact digital currencies or assets. E-wallets provide a secure way for users to access and control their funds, often utilizing encryption and other security measures.
+
+
+\newpage
+\section{Existing System}
+\justify
+The existing system seeks to address limitations in the current online chess game platform by utilizing blockchain technology. The current online chess game lacks player communication during matches, token-based rewards, and faces potential unauthorized alterations. To overcome these issues, the project employs a blockchain platform that ensures data integrity, trustworthiness, and game record maintenance. Chess pieces are represented as non-fungible tokens (NFTs) on the blockchain, guaranteeing security and transparency. Smart contracts enhance game efficiency and prevent cheating. Decentralized storage and transparent verification processes build player confidence, while global participation and incentives foster community growth. This project aims to revolutionize online chess, promoting trust, fairness, and global participation in the chess community.
+\newpage
+\section{Problem Statement}
+\justify
+Implementing a blockchain-based solution for online chess can address the critical issues data integrity, and trust, records of chess game ,including move histories and outcomes ultimately enhancing the chess gaming experience for players the with the chess pieces in the digital realm can be represented as non-fungible tokens (NFTs) on the blockchain and providing a secure and transparent platform for Organizing chess tournaments becomes more transparent and efficient using smart contracts for global chess community.
+\vspace{50pt}
+\setcounter{figure}{3} % Set figure counter to 1
+\renewcommand{\figurename}{Figure}
+\begin{figure}[h]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.75\linewidth]{Pie chart.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\caption{Blockchain development survey}
+\end{figure}
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 3}}\\
+\vspace{5mm}
+\textbf{\Huge{Requirement Gathering}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+
+\chapter{Requirement Gathering}
+
+\section{Software and Hardware Requirements}
+
+\justify
+%\section*{System Requirement}
+
+\begin{enumerate}[label={\Roman*.}]
+    \item \textbf{Software Requirements:}
+    \begin{itemize}
+  \item OS      \hspace{30mm}       : Windows 11
+  \item Web Browser: \hspace{10mm} : Chrome
+  \item Payment Gateway: \hspace{2mm}:  Blocto wallet
+\end{itemize}
+   \item \textbf{ Hardware Requirements:}
+    \begin{itemize}
+  \item Processor \hspace{19mm} : i3/i5 and higher 
+  \item RAM \hspace{26mm} : 4GB and 16GB
+  \item Hard Disk \hspace{18mm} : 240GB and higher
+\end{itemize}
+\end{enumerate}
+
+
+
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 4}}\\
+\vspace{5mm}
+\textbf{\Huge{Plan Of Project}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+
+\chapter{Plan Of Project}
+\section{Methodology}
+\justify
+\item[$\bullet$]\textbf{ E-Wallet Login :}\\  Our platform offers a secure and user-friendly login experience through integration with the Blocto e-wallet system. This ensures enhanced authentication and user data privacy. By leveraging the power of blockchain technology, users can log in with confidence, knowing their personal information is well-protected.
+
+\item[$\bullet$]\textbf{User Dashboard :}\\ Upon login, users are greeted with an intuitive dashboard that streamlines navigation and access to various game features. This dashboard serves as a centralized hub for players to manage their gaming experience, review their progress, and easily explore available features, ensuring a seamless and user-friendly experience.
+
+\item[$\bullet$]\textbf{ NFT Integration :  }\\In an innovative move, we represent chess pieces as non-fungible tokens (NFTs) using a marketplace API. This integration not only enhances gameplay but also opens up possibilities for collecting and trading unique in-game assets, making chess even more engaging and immersive.
+
+
+\item[$\bullet$]\textbf{ Real-time Multiplayer : }\\ Our platform incorporates real-time multiplayer functionality, allowing players to engage in interactive gameplay with opponents from around the world. This feature brings the thrill of real-world chess matches to the online realm, enabling players to test their skills against a diverse and global player base.
+
+\item[$\bullet$]\textbf{  Efficient Data Storage :   }\\To ensure rapid data access and storage, we employ Redis, a high-performance, in-memory data store. This technology powers live streaming of games and facilitates the secure storage of critical user data. It ensures that all in-game actions are processed swiftly and without interruptions, providing a smooth and uninterrupted gaming experience.
+
+\item[$\bullet$]\textbf{   Decentralized Model :   }\\ We implement smart contracts within our platform to create a decentralized chess game. This approach not only guarantees transparency but also enhances security. By recording every move and outcome securely and unalterably on the blockchain, players can have full confidence in the legitimacy of their games. Smart contracts ensure that the rules of the game are enforced without the need for intermediaries.
+
+
+\item[$\bullet$]\textbf{   Front-end Framework :   }\\ For an attractive and responsive user interface, we utilize popular front-end technologies such as React Router, React DOM, and Tailwind CSS. These tools enable us to create a visually appealing and user-friendly interface, enhancing the overall gaming experience by making it both visually pleasing and highly accessible.
+
+\newpage
+\section{Project Plan(Timeline Diagram)}
+
+\renewcommand{\thefigure}{4.2.1}
+\renewcommand{\figurename}{Table}
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[scale=0.35]{Project Plan.png}
+\caption{Project Plan}
+\end{center}
+\end{figure}
+The Project Plan Table outlines the comprehensive timeline for the project's lifecycle, detailing the start date and completion date of various modules. It serves as a roadmap, providing a clear overview of the project's milestones and deadlines, ensuring efficient project management and coordination among team members.
+
+\newpage
+\renewcommand{\figurename}{Table}
+\renewcommand{\thefigure}{4.2.2}
+\begin{figure}[!htbp]
+
+\begin{center}
+\boxed{\includegraphics[scale=0.20]{Online Gantt 20240329.png}}
+\caption{Timeline Diagram}
+\end{center}
+\end{figure}
+The Timeline Diagram presents a visual representation of the project plan through a Gantt chart, illustrating the timeline of various project modules. It offers a detailed overview of task durations, dependencies, and deadlines, facilitating effective project scheduling and resource allocation. This visual tool enhances communication and coordination among team members, allowing for better tracking of progress and timely completion of project milestones.
+
+
+\newpage
+\section{Proposed System Architecture}
+\renewcommand{\thefigure}{4.3}
+\renewcommand{\figurename}{Figure}
+\begin{figure}[h]
+
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{Untitled Diagram.drawio (2).png}
+    \label{fig:enter-label}
+\end{mdframed}
+\caption{Proposed System Architecture}
+\end{figure}
+\justify
+ChainCheckmate's system architecture combines various components to deliver a seamless and secure chess gaming experience. Our first component is the E-Wallet Login, which utilizes the Blocto e-wallet system to ensure robust user authentication and data privacy. This feature empowers users with confidence in the protection of their personal information. Once logged in, users can access the User Dashboard, a streamlined hub that offers intuitive game management, progress tracking, and feature exploration. This user-centric design ensures an effortless and enjoyable experience for all players.To enhance gameplay, we integrate non-fungible tokens (NFTs) through a marketplace API. These NFTs represent chess pieces as unique in-game assets, adding an immersive and collectible element to the game. Additionally, our real-time multiplayer functionality allows players from around the world to engage in interactive matches, testing their skills against a diverse player base. This mirrors real-world chess matches in an online realm, adding excitement and competitiveness to the gaming experience.Efficient data storage is a priority, and we achieve this through Redis, a high-performance, in-memory data store. This ensures swift game streaming and secure user data storage, creating a seamless and uninterrupted gaming experience. Furthermore, our decentralized model utilizes smart contracts, which provide transparency and security by recording moves and outcomes unalterably on the blockchain. This guarantees the legitimacy of the game and enforces rules without the need for intermediaries.To create an attractive and responsive user interface, we employ popular front-end technologies such as React Router, React DOM, and Tailwind CSS. These tools help us design a visually appealing and user-friendly interface, enhancing the overall gaming experience. By harmonizing blockchain technology, engaging gameplay features, and a user-centric design, ChainCheckmate offers an exceptional chess gaming experience.
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 5}}\\
+\vspace{5mm}
+\textbf{\Huge{Project Analysis}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+
+\chapter{Project Analysis}
+
+\section{Use Case Diagram}
+\justify
+A use case diagram for a blockchain-based chess game project outlines the specific functionality and interaction between various components of the system that are involved in the process of enhancing chess gameplay and interaction. This use case diagram for the chess game project ensures that all necessary features and interactions are considered, enabling the system to function effectively and efficiently in providing a captivating and secure chess experience through blockchain technology.
+\renewcommand{\thefigure}{5.1}
+\begin{figure}[!htpb]
+\begin{mdframed}
+    \centering
+    \includegraphics[scale=0.45]{Updatedusecase.drawio (3).png}
+    \label{fig:enter-label}
+\end{mdframed}
+\caption{Use Case Diagram}
+\end{figure}
+
+
+
+
+\newpage
+\subsection{Use Case Document}
+\begin{enumerate}
+    \item \textbf{ User Registration : }\\ 
+    Users create "Chain Checkmate" accounts by providing personal information.The system validates details for accuracy, granting access upon successful validation.
+
+    \item \textbf{ Chess Gameplay : } \\
+    Users select games, make moves, and the platform records them securely on the blockchain, ensuring game integrity.
+
+    \item \textbf{ Token Rewards : } \\
+     Players earn in-game tokens by participating in chess activities. Tokens offer customization, premium features, and enhanced gaming.
+
+
+     \item \textbf{ Smart Contracts for Rule Enforcement :}\\
+      Smart contracts automate game rule management, ensuring consistent and fair rule enforcement for an enriched user experience.
+   \item \textbf{ Preventing Cheating and Fraud :}\\
+    Blockchain technology and smart contracts deter cheating and fraud, maintaining game data integrity and fair outcomes.
+   \item \textbf{ Cross-Border Participation : }\\
+    "Chain Checkmate" fosters a global chess community, enabling cross-border participation and promoting unity through incentives.
+   \item \textbf{Community Building :}\\
+   The platform encourages player interaction, enhancing the chess community's trust, fairness, and sense of togetherness.
+    
+\end{enumerate}
+
+
+\newpage
+\subsection{Use Case Analysis}
+\justify
+
+Actors:\\
+User: Any individual interested in playing chess, whether they are casual players, enthusiasts, or professional competitors.
+\begin{itemize}
+\item Use Case 1: User Authentication
+
+ In a web application or platform, the login functionality allows users to securely access their accounts by providing their credentials (such as username and password). It involves verifying the user's identity against stored credentials in a database. Security measures like multi-factor authentication (MFA) can enhance the authentication process by adding an extra layer of protection.
+ 
+\item Use Case 2: User Interface for Data Presentation
+
+A dashboard is a visual representation of key data, metrics, and information relevant to a user's role or activities. It provides users with an overview of their performance, tasks, and other important insights in a centralized and easily accessible format. Dashboards can include charts, graphs, tables, and other visualizations to help users make informed decisions.
+
+\item Use Case 3: Online Multiplayer Chess Platform
+
+A chess arena provides a digital platform for players to compete against each other in real-time chess matches. Users can create accounts, search for opponents based on skill level or preferences, and engage in matches using the platform's interface. Features may include live game streaming, chat functionality, leaderboards, and tournaments.
+
+\item Use Case 4: E-commerce Platform for Buying and Selling NFTs
+
+A marketplace enables users to buy and sell products or services within a digital platform. Sellers can create listings for their items, set prices, and manage inventory, while buyers can browse, search, and purchase items. The platform facilitates transactions, ensures security through payment processing, and may offer features like reviews, ratings, and dispute resolution.
+
+\item Use Case 5: Live Streaming Platform for Video Content
+
+A watch stream platform allows users to view live or pre-recorded video content over the internet. Users can watch live broadcasts, participate in real-time chat discussions, and interact with content creators. The platform may support various types of content such as gaming streams, educational sessions, entertainment shows, and more. Additionally, features like channel subscriptions, donations, and monetization options for content creators may be included.
+
+\item Use Case 6: Accessibility and Usability
+
+The web application is designed to be accessible and usable for users with varying technical backgrounds.\\
+Preconditions: The web application is installed and accessible to user.\\
+Flow of Events:\\
+- Users interact with the web application interface.\\
+Postconditions: Users of varying technical backgrounds can effectively utilize the Web application.\\
+\end{itemize}
+\newpage
+\section{Class Diagram}
+
+
+The class diagram illustrates the structure and interactions of key components within a gaming platform. "User Login" manages authentication, guiding users to the "Homepage." In the "Game Arena," users engage in matches, spectating, or joining ongoing games. User data, including profiles and gaming stats, is encapsulated in the "Player" class. The "Dashboard" offers personalized overviews of gaming progress and achievements. "Game Class" defines core mechanics such as turn-based actions and win conditions. "BotPlayer" represents AI participants, while the "Marketplace" facilitates in-game trading. "WatchStream" enables live or recorded gameplay viewing. "Standard Match" sets baseline rules. This diagram outlines the system's architecture, detailing how these components interact to deliver a dynamic and immersive gaming experience.
+\renewcommand{\thefigure}{5.2}
+\begin{figure}[!htpb]
+  \begin{mdframed}
+     \centering
+    \includegraphics[scale=0.375]{UpdFinalclassDiagram (1).drawio.png}
+  \end{mdframed}
+    \caption{Class Diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\newpage
+\section{Swimlane Diagram}
+The swimlane diagram depicts the sequential flow of activities within a gaming platform. It begins with the "Start" activity, initiating the system. Users then proceed to "Login" for authentication. Upon successful login, they navigate to the "Homepage" where they can access various features. In the "Game Arena," users engage in gameplay activities such as initiating matches, joining ongoing games, or spectating. The "Dashboard" provides users with personalized overviews of their gaming progress and achievements. Within the gameplay, users may opt for a "Bot" match or participate in "Multiplayer" mode. After completing their activities, users can choose to "Logout" or directly "Exit" the system. This swimlane diagram visually represents the sequential flow of actions, guiding users through different functionalities and interactions within the gaming platform.
+
+\renewcommand{\thefigure}{5.3}
+\begin{figure}[!htpb]
+    \centering
+    \includegraphics[scale=0.45]{swimlane.drawio (1).png}
+    \caption{Swimlane Diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\newpage
+
+\section{Sequence Diagram}
+\justify
+The Sequence Diagram outlines the step-by-step interaction between various system components: "User," "Homepage," "Dashboard," "Game Arena," and NFT-related activities. It begins with the "User" hoping to view NFTs on the "Dashboard." Initially, the user visits the "Homepage," where they may provide feedback. If the login attempt is successful, the user is redirected back to the "Homepage." After this, if the login is successful again, the user proceeds to the "Dashboard," where they can access options related to NFTs. These options include viewing NFTs, and from the "Dashboard," users can initiate a new chess game via the "Game Arena." The diagram illustrates the flow of actions and decisions as the user navigates through these components, highlighting the sequence of events and potential paths within the system, providing a comprehensive understanding of the user's journey.
+\vspace{2pt}
+\renewcommand{\thefigure}{5.4}
+\begin{figure}[!htpb]
+\begin{mdframed}
+     \centering
+    \includegraphics[scale=0.35]{seqnew.drawio (1).png} 
+\end{mdframed}
+    \caption{Sequence Diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 6}}\\
+\vspace{5mm}
+\textbf{\Huge{Project Design}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+
+\chapter{Project Design}
+
+\section{Data Flow Diagram}
+\vspace{1cm}
+
+
+\subsection{Level 0 DFD}
+
+The Level 0 Data Flow Diagram (DFD) depicts a simplified overview of the interactions between three key components: "User," "Blockchain Chess Game," and "System." In this diagram, the user initiates the process by sending a login request to the Blockchain Chess Game. The Blockchain Chess Game then processes this request and provides a response to the user. Similarly, a similar interaction occurs between the Blockchain Chess Game and the System component, where data and instructions flow back and forth. This Level 0 DFD serves as an essential visualization of the high-level data and process flow within the chess game's ecosystem, emphasizing the communication between these vital elements.
+\vspace{1cm}
+\renewcommand{\thefigure}{6.1.1}
+\begin{figure}[h]
+\begin{mdframed}
+     \centering
+    \includegraphics[width=1\linewidth]{dfd0.png}
+\end{mdframed}
+ \caption{Level 0 DFD}
+  \label{fig:enter-label}
+\end{figure}
+\newpage
+
+\subsection{Level 1 DFD}
+The Level 1 Data Flow Diagram (DFD) provides a more detailed view of the system, highlighting the interactions between various components: "Login," "Dashboard," "Tournament," "NFT Marketplace," and "Chess Arena." The central hub in this diagram is the "Dashboard," which serves as a control panel and gateway to access all other functionalities. Users begin by entering the system through the "Login" component, where they authenticate their identity. From the "Dashboard," users can seamlessly navigate to different sections, such as "Tournament" for participating in chess competitions, "NFT Marketplace" for trading digital assets, and "Chess Arena" for engaging in gameplay. This Level 1 DFD illustrates how the "Dashboard" acts as a unifying interface, connecting users to various features and enabling a user-friendly and efficient experience within the system.
+\vspace{1cm}
+\renewcommand{\thefigure}{6.1.2}
+\begin{figure}[h]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{dfdlevel1.drawio (2).png}
+
+\end{mdframed}
+    \caption{Level 1 DFD}
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+
+\section{Flow Chart}
+The Flowchart illustrates the dynamic behavior of a system with essential components: Start, Login, Marketplace, Dashboard, Logout, Game Arena, Bot, Multiplayer, and Exit. Users initiate the system from the Start state, proceeding to Login for authentication. Once logged in, they gain access to Dashboard, Marketplace for trading, and Game Arena for chess gameplay. In Game Arena, users opt for playing against a Bot or engaging in Multiplayer mode. Upon completion, they can Logout or directly Exit the system. This State Transition Diagram visually demonstrates user transitions among different states and functionalities, promoting a user-friendly and efficient experience.
+\renewcommand{\thefigure}{6.2}
+\begin{figure}[!htpb]
+\begin{mdframed}
+    \centering 
+   \includegraphics[scale=0.42]{FinalFlowchart.drawio (4).png}
+    \label{fig:enter-label}
+\end{mdframed}
+\caption{Flow Chart}
+\end{figure}
+
+
+
+\newpage
+
+
+
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 7}}\\
+\vspace{5mm}
+\textbf{\Huge{Implemented System}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+\chapter{Implemented System}
+\section{System Architecture}
+
+\justify
+ChainCheckmate's system architecture offers a seamless and secure chess gaming experience by integrating several key components. First, we provide E-Wallet Login, leveraging the Blocto e-wallet system to ensure robust user authentication and data privacy, empowering users with confidence in their personal information's protection. Upon login, users access a streamlined User Dashboard, offering an intuitive hub for game management, progress tracking, and feature exploration, ensuring an effortless and user-centric experience. To enhance gameplay further, we integrate non-fungible tokens (NFTs) through a marketplace API, representing chess pieces as unique in-game assets, making chess more immersive and collectible.The game architecture begins with a secure login system, leveraging an e-wallet for heightened authentication and user data protection. Once logged in, players are greeted with an intuitive dashboard designed for seamless navigation and access to various game features. A notable integration involves representing chess pieces as NFTs (Non Fungible Tokens) through an OpenSea API, enriching the gameplay experience and introducing potential for trading. Real-time multiplayer functionality is seamlessly integrated, allowing players to engage in interactive matches with others around the globe. 
+\newpage
+\renewcommand{\thefigure}{7.1}
+\begin{figure}[!htpb]
+\begin{mdframed}
+    \centering
+    \includegraphics[scale=0.45]{sysss archhh.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\caption{System Architecture}
+\end{figure}
+
+\newpage
+\section{Sample Code}
+\justify
+\begin{verbatim}
+//homepage code
+"use client";
+import styles from "@/app/dashboard/dashboard.module.css";
+import GameCard from "@/app/dashboard/GameCard";
+
+export default function Dashboard() {
+  return (
+    <div className="flex flex-col w-full px-14 py-10 
+      font-space-grotesk bg-[#100303] space-y-6">
+      {/* Heading */}
+      <div className="text-3xl font-600 underline 
+      decoration-sky-500 underline-offset-8 ">User Dashboard</div>
+      {/* Game type */}
+
+      <div className="flex flex-col space-y-5 z-10 bg-[#100303]">
+        <div className="div flex flex-col md:flex-row 
+        w-full md:justify-between gap-5">
+          {/* Card1 */}
+          <GameCard
+            className={styles.card1Bg}
+            btnName="Play Now"
+            cardTitle="Standard Match"
+            href="/dashboard/arena/standard"
+            img="chess.png"
+          >
+        <div className="text-center text-xs text-ghostwhite max-w-[15rem]">
+            This Combat match is between your beloved friends or Random mates
+            </div>
+          </GameCard>
+
+          {/* Card2 */}
+          <GameCard
+            href="/dashboard/tournaments/betting"
+            className={styles.card2Bg}
+            btnName="Play Now"
+            cardTitle="Stake Match"
+            img="chess2.png"
+          >
+         <div className="text-center text-xs text-ghostwhite max-w-[15rem]">
+            Stake Flow and Bet with your friends , Random mates for Ultimate
+              winnings
+
+            </div>
+          </GameCard>
+
+          {/* Card3 */}
+          <GameCard
+            href="/dashboard/arena/"
+            className={styles.card3Bg}
+            btnName="Play Now"
+            cardTitle="You Vs Bot"
+            img="chess2.png"
+          >
+        <div className="text-center text-xs text-ghostwhite max-w-[15rem]">
+            This game is for your practice and have no affect on Your Ratings.
+            </div>
+          </GameCard>
+        </div>
+      </div>
+
+      <div className="flex flex-col space-y-10 ">
+        <div className="text-3xl font-600 underline decoration-sky-500 
+            underline-offset-8 mt-10 ">Game Analysis</div>
+        <div className="div flex w-full space-x-10">
+          {/* Rating Card */}
+          <div className="flex flex-col border border-solid 
+            border-lightsteelblue py-2 bg-lavender-300 rounded-xl">
+            <div className="flex items-center space-x-1 px-3">
+              <img src="/icons/activity.svg" />
+              <div className="text-sm font-500">Rating</div>
+            </div>
+            <div className="flex items-center justify-center text-5xl
+               font-bold px-10 py-10">
+              1200
+            </div>
+          </div>
+
+          {/* Rewards Card */}
+          <div className="flex flex-col border border-solid 
+             border-lightsteelblue py-2 bg-lavender-300 rounded-xl">
+            <div className="flex items-center space-x-1 px-3">
+              <img src="/icons/activity.svg" />
+              <div className="text-sm font-500">Rewards</div>
+            </div>
+            <div className="flex items-center justify-center 
+               text-5xl font-bold px-10 py-10">
+              150
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+//MarketPlace
+"use client"
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
+const NFTFetcher = () => {
+  const [nFTs, setNFTs] = useState([]);
+
+  useEffect(() => {
+    const fetchNFTs = async () => {
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          'x-api-key': 'd3c57c8b628247f9abf5cfe1bf4e143c'
+        }
+      };
+
+     try {
+      const response = await fetch('https://api.opensea.io/api/v2/chain/matic
+      /contract/0x473989BF6409D21f8A7Fdd7133a40F9251cC1839/nfts', options);
+        const data = await response.json();
+        setNFTs(data.nfts);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNFTs();
+  }, []);
+
+  function redirectWeb(url) {
+    // Open the link in a new tab
+    window.open(url, '_blank');
+  }
+
+  return (
+    <Scrollbars class="w-auto h-300">
+   
+    <div className="p-4 ">
+      <h1 className="text-4xl  text-center underline decoration-sky-500 
+           underline-offset-8">NFT Marketplace</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+            lg:grid-cols-4 gap-7 overflow-hidden ">
+        {nFTs.map((nft) => (
+          <div className="max-w-md mx-auto rounded-xl shadow-lg p-6 
+                     border-8 border-dashed mb-16">
+      {/* NFT Image */}
+      <img  onClick={() => redirectWeb(`${nft.opensea_url}`)}
+      src={nft.image_url}  // Replace with your actual NFT image source
+        alt={`NFT ${nft.name}`}
+        className="w-full object-cover mb-2 cursor-pointer"
+      />
+
+      {/* NFT Name */}
+      <h2 className="text-2xl font-bold mb-4 ">{nft.name}</h2>
+
+      {/* Owner */}
+      <div className="mb-4">
+        <span className="text-textColor font-poppins">Owner:</span>
+        <span className="ml-2">{nft.collection}</span>
+      </div>
+
+      {/* Contributors */}
+      <div className="mb-4">
+        <span className="text-textColor">Contributors:</span>
+        <span className="ml-2">Alice, Bob, Charlie</span>
+      </div>
+
+      {/* ETH Information */}
+      <div className="mb-4">
+        <span className="text-textColor">ETH:</span>
+        <span className="ml-2">Updating..</span>
+      </div>
+
+      {/* Place Bid Section */}
+      <div>
+      <div className="mb-1">
+        <span className="text-textColor">Category:</span>
+        <span className="ml-2">Gaming (Chess) </span>
+      </div>
+        <form>
+          <label className="block text-gray-600 text-sm mb-1" 
+            htmlFor="bidAmount">
+            Bid Amount (ETH)
+          </label>
+          <input
+            type="number"
+            id="bidAmount"
+            name="bidAmount"
+            className="border rounded-md py-2 px-3 mb-5 cursor-text"
+            placeholder="Enter your bid amount"
+          />
+
+          <button
+            
+            className=" text-white py-2 px-4 rounded-md bg-bgcolor cursor
+             -pointer " onClick={() => redirectWeb(`${nft.opensea_url}`)}
+          >
+            Place Bid
+          </button>
+        </form>
+      </div>
+    </div>
+        ))}
+      </div>
+    </div>
+    </Scrollbars>
+  );
+};
+
+//DashBoard
+'use client';
+import styles from '@/app/dashboard/dashboard.module.css';
+import GameCard from '@/app/dashboard/GameCard';
+
+export default function Dashboard() {
+  return (
+    <div className="flex flex-col w-full px-14 py-10 font-space-
+         grotesk space-y-6  bg-[#100303]">
+      {/* Heading */}
+      <div className="text-3xl font-500 underline decoration-sky-500 
+         underline-offset-8 ">Tournaments</div>
+      {/* Game type */}
+
+      <div className="flex flex-col space-y-5 z-10">
+        <div className="text-xl font-300">Start your game ...</div>
+        <div className="div flex flex-col md:flex-row w-full md:
+           justify-between gap-5">
+          {/* Card1 */}
+          <GameCard
+          img="chesss.png"
+            href="/dashboard/arena/betting"
+            className={styles.card1Bg}
+            btnName="Stake Now"
+            cardTitle="Customs for Beginners"
+          >
+            <div className="text-center text-xs text-ghostwhite max-w-
+              [10rem] mx-[2.5rem]">
+              Very Simple Match Whoever Wins get 10$
+            </div>
+          </GameCard>
+
+          {/* Card2 */}
+          <GameCard
+          img="chesss2.png"
+            href="/dashboard/arena/betting"
+            className={styles.card2Bg}
+            btnName="Stake Now"
+            cardTitle="Customs for Intermediate"
+          >
+            <div className="text-center text-xs text-ghostwhite max-w-
+                [10rem] mx-[2.5rem]">
+              Each Player stake 10$, Winner Earns 20$
+            </div>
+          </GameCard>
+
+          {/* Card3 */}
+          <GameCard
+          img="chessIcon.png"
+            href="/dashboard/arena/betting"
+            className={styles.card3Bg}
+            btnName="Stake Now"
+            cardTitle="Custom for Advanced"
+          >
+            <div className="text-center text-xs text-ghostwhite max-w-
+               [10rem] mx-[2.5rem]">
+              Each Player stakes 25$, Winner Earns 50$
+            </div>
+          </GameCard>
+        </div>
+      </div>
+
+      <div className="w-[20rem] rounded-xl bg-chessboard-bg bg-center bg-
+             cover bg-no-repeat">
+        <div className="flex flex-col justify-center items-center bg-black 
+            bg-opacity-60">
+          <div className="text-2xl font-bold px-10 ">Make Your Ground</div>
+          <div className="text-xs text-ghostwhite font-500">Your Game, 
+            Your Terms</div>
+          <div className="flex items-center-justify-center px-4 py-2 
+            mt-8 mb-5 bg-whitesmoke rounded-md text-black font-bold 
+             hover:bg-slate-700 hover:text-whitesmoke">
+            Create One
+          </div>
+        </div>
+      </div>
+
+    
+    </div>
+  );
+}
+
+//watchstream
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
+function StreamWatch() {
+  const [channels, setChannels] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://lichess.org/api/streamer/live")
+      .then((res) => {
+        console.log(res);
+        const channelData = res.data.map((streamer) => {
+          const channelName = streamer.streamer.twitch
+            ? streamer.streamer.twitch.split("/").pop()
+            : "Unknown";
+          console.log(channelName);
+          return {
+            name: channelName,
+            url: streamer.streamer.twitch,
+          };
+        });
+        setChannels(channelData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  console.log(channels);
+  return (
+    <Container
+      fluid
+      style={{ background: "black", overflow: "hidden", height: 
+                "100%", width: "100%" }}
+    >
+      <h1 className=" ml-4 underline decoration-sky-500
+         underline-offset-8 text-3xl font-500 ">Watch Stream</h1>
+      <Scrollbars class="w-full h-300">
+      <Row
+        xs={2}
+        md={4}
+        className="g-4"
+        style={{ background: "black", display: "flex", flexWrap: "wrap" }}
+      >
+        {channels.map((channel, index) => (
+          <Col key={index}>
+            <Card
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "10px",
+                margin: "10px",
+                background: "black",
+                overflow: "hidden",
+              }}
+            >
+              <iframe
+                src={`https://player.twitch.tv/?channel=${channel
+                .name}&parent=Chain-checkmate.vercel.app&muted=true`}
+                height="250" // Adjust the height and width as needed
+                width="350"
+                allowFullScreen
+              ></iframe>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+      </Scrollbars>
+    </Container>
+  );
+}
+
+export default StreamWatch;
+
+//sidebar
+"use client";
+import Link from "next/link";
+import styles from "./dashboard.module.css";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { menuList } from "@/utils/data";
+import { useContext, useEffect, useMemo } from "react";
+import { AppContext } from "@/AppContext";
+import { useRouter } from "next/navigation";
+import * as fcl from "@onflow/fcl";
+
+export default function Sidebar({ children }) {
+  const layoutSegment = useSelectedLayoutSegment();
+  const segment = `/dashboard/${layoutSegment}`;
+  const { user } = useContext(AppContext);
+  const router = useRouter();
+  const address = useMemo(
+    () => (user.addr ? user.addr.slice(0, 10) + "..." : ""),
+    [user]
+  );
+  function handleLogout() {
+    fcl.unauthenticate();
+  }
+  return (
+    <div className="flex h-full w-full text-white overflow-y-hidden">
+      {/* Side Nav bar */}
+      <div className="hidden flex-col bg-[#100303] md:flex md:min
+            -w-[15%] justify-between py-16 px-8 border-solid border-0 
+                    border-r-2 border-[#AA69FF]">
+        {/* Menu List */}
+        <div className="flex flex-col space-y-4  ">
+          {menuList.map((item, index) => (
+            <Link
+              className={`flex items-center py-3 px-5 gap-2 rounded-xl 
+               text-black no-underline transition duration-300  ${
+                item.link.includes(segment)
+                  ? styles.menuGradientSelected
+                  : styles.menuGradient
+              }`}
+              key={index}
+              href={item.link}
+            >
+              <img
+                src={`/icons/${item.icon}`}
+                alt={item.title}
+                className="w-5 "
+              />
+              <span className="font-manrope font-[600] text-sm 
+                text-white">
+                {item.title}
+              </span>
+            </Link>
+          ))}
+        </div>
+        {/* Wallet */}
+        <div className="flex flex-col px-3 rounded-lg bg-lavender
+               -300 border border-gray-500 border-solid shadow-lg 
+              shadow-gray-600 mt-5">
+          {/* Upper part */}
+          <div className="flex py-1.5 justify-between items-
+            center border-0 border-b border-gray-600 border-solid">
+            {/* profile logo and address */}
+            <div className="flex items-center space-x-2">
+              <div
+                className={`w-8 h-8 rounded-full bg-gradient-to-br 
+                    from-blue-600 to-red-600`}
+              ></div>
+              <div className="flex flex-col space-y- font-space-grotesk">
+                <div className="text-sm text-whitesmoke ">User</div>
+                <div className="text-xs text-ghostwhite">{address}</div>
+              </div>
+            </div>
+            {/* chevron right */}
+            <div
+              onClick={handleLogout}
+              className="flex items-center justify-center rounded-full 
+                  bg-lavender-100 w-7 h-7 hover:bg-slate-700"
+            >
+              <img
+                src="/icons/chevron-right.svg"
+                alt="right"
+                className="transform hover:scale-110 transition 
+                  duration-300"
+              />
+            </div>
+          </div>
+          {/* Lower part */}
+          <div className="flex items-center py-1">
+            <img
+              src="/icons/wallet-gray.svg"
+              alt="wallet-icon"
+              className="text-gray mr-5"
+            />
+            <img
+              src="/imgs/flow.png"
+              alt="flow-icon"
+              className="w-6 h-6 mr-2"
+            />
+            <div>0</div>
+          </div>
+        </div>
+      </div>
+
+      {children}
+    </div>
+  );
+}
+\end{verbatim}
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 8}}\\
+\vspace{5mm}
+\textbf{\Huge{Result Analysis}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+\chapter{Result Analysis}
+
+\renewcommand{\thefigure}{8.1}
+    \begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Home Screen with login button.png}
+    \caption{Home Screen with login button}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+In figure 8.1 illustrates the home screen of the application, featuring a prominent login button for user access. It serves as the entry point for users to interact with the platform.
+
+\newpage
+\renewcommand{\thefigure}{8.2}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Screenshot (316).png}
+    \caption{Authentication using blockchain wallet}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+In figure 8.2 outlines the authentication process utilizing the Blockchain wallet Blocto. It details the flow of actions required for users to securely authenticate their identities using the Blocto platform.
+
+\renewcommand{\thefigure}{8.3}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{User dashboard page.png}
+    \caption{User dashboard page}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+In figure 8.3 presents the user dashboard page, showcasing various functions and features available to users. It provides a comprehensive overview of the dashboard layout and the functionalities accessible to the users.
+
+\renewcommand{\thefigure}{8.4}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Multiplayer live chess game page.png}
+    \caption{Multiplayer live chess game page}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+ In figure 8.4 depicts the multiplayer live chess game feature, enabling users to engage in real-time chess matches with other players. It illustrates the gameplay interface and interactions during a live multiplayer chess session.
+
+\renewcommand{\thefigure}{8.5}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{NFT marketplace page.png}
+    \caption{NFT marketplace page}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+The figure 8.5 showcases the NFT marketplace page dedicated to chess NFTs, where users can browse and purchase unique chess-related non-fungible tokens. It highlights the marketplace layout and the process of buying chess NFTs.
+
+\newpage
+\renewcommand{\thefigure}{8.6}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Watch stream page.png}
+    \caption{Watch stream page}
+    \label{fig:enter-label}
+\end{figure}
+\justify
+This figure 8.6 presents the page dedicated to watching Twitch chess streams within the application. It illustrates the interface for accessing and viewing live or recorded chess streams from the Twitch platform, enhancing the user experience with chess content.
+
+\newpage
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{Chapter 9}}\\
+\vspace{5mm}
+\textbf{\Huge{Conclusion and Future Scope}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+\chapter{Conclusion and Future Scope}
+
+\textbf{\large{Conclusion}}
+\justify
+Chain Checkmate capitalizes on blockchain technology to address limitations in existing online chess platforms. By utilizing non-fungible tokens (NFTs) to represent chess pieces and implementing smart contracts, the project ensures secure, transparent game records, enhances efficiency, and prevents cheating. Through decentralized data storage and transparent verification, players can trust the fairness of their games, fostering a global chess community and encouraging wider participation.In essence, Chain Checkmate not only revolutionizes how chess is played and recorded but also promotes fairness, trust, and inclusivity, strengthening the global chess community in the digital era. This project represents a significant advancement in elevating chess as a competitive sport.
+
+\newpage
+
+\justify 
+\textbf{\large{Future Scope}}
+\justify
+Chain Checkmate has promising avenues for expansion. Implementing a robust reward system can incentivize user engagement, offering rewards like NFT collectibles or cryptocurrency tokens. Enabling random play with global players broadens the platform's reach, fostering a diverse chess community. Hosting tournaments within the platform provides competitive opportunities, while dynamic leaderboards allow players to track progress and compete for top rankings. These developments will enhance user experience, promote inclusivity, and strengthen the global chess community in the digital age.
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{}}\\
+\vspace*{5mm}
+\textbf{\Huge{References}}
+
+\endgroup
+\vspace*{\fill}
+\newpage
+
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+\begin{enumerate}
+\item{\justify T. A. Ali, W. Wongkia and P. Laosinchai, "A Hybrid Board Game for Learning Blockchain Mechanisms," 2023 11th International Conference on Information and Education Technology (ICIET), Fujisawa, Japan, 2023, pp. 177-181.}
+
+\item{\justify  Y. M. Arif, M. N. Firdaus and H. Nurhayati, "A Scoring System For Multiplayer Game Base On Blockchain Technology," 2021 IEEE Asia Pacific Conference on Wireless and Mobile (APWiMob), Bandung, Indonesia, 2021, pp. 200-205.}
+
+\item{\justify C. Karapapas, G. Syros, I. Pittaras and G. C. Polyzos, "Decentralized NFT-based Evolvable Games," 2022 4th Conference on Blockchain Research \& Applications for Innovative Networks and Services (BRAINS), Paris, France, 2022, pp. 67-74. }
+
+\item{\justify Z. Chen, X. Sun, X. Shan and J. Zhang, "Decentralized Mining Pool Games in Blockchain," 2020 IEEE International Conference on Knowledge Graph (ICKG), Nanjing, China, 2020, pp. 426-432. }
+
+\item{\justify T. Min, H. Wang, Y. Guo and W. Cai, "Blockchain Games: A Survey," 2019 IEEE Conference on Games (CoG), London, UK, 2019, pp. 1-8.}
+
+\item {\justify K. B. Muthe, K. Sharma and K. E. N. Sri, "A Blockchain Based Decentralized Computing And NFT Infrastructure For Game Networks," 2020 Second International Conference on Blockchain Computing and Applications (BCCA), Antalya, Turkey, 2020, pp. 73-77.}
+
+\item {\justify Sugiyanto, W. -K. Tai and G. Fernando, "The Development and Evaluation of Web-based Multiplayer Games with Imperfect Information using WebSocket," 2019 12th International Conference on Information \& Communication Technology and System (ICTS), Surabaya, Indonesia, 2019, pp. 252-257. }
+
+\item {\justify J. Arnedo-Moreno and V. Garcia-Font, "Research opportunities in the application of blockchain in video games: A scoping review," 2022 IEEE International Conference on Omni-layer Intelligent Systems (COINS), Barcelona, Spain, 2022, pp. 1-5. }
+
+\item {\justify “Network Security in Cloud Computing using Machin Learning ”NEUROQUANTOLOGY ,  DOI:10.48047/NQ.2022.20.16.NQ880241 }
+
+\item {\justify  “Forensic Face Portrait Fabrication and Identification”, Journal of Communication Engineering &amp; Systems, ISSN: 2249-8613 (Online),ISSN: 2321-5151 (Print),Volume 12, Issue 1, 2022,DOI (Journal): 10.37591/JoCES }
+
+\item {\justify “AI Therapist Using CBT Module and DNN Algorithm” Journal of Advanced Database Management &amp; Systems ISSN: 2393-8730 Volume 8, Issue 1, 2021,DOI (Journal): 10.37591/JoADMS.   }
+
+\item  {\justify “L. Zhou, X. Y. Zhong, J. Liu and M. J. Xia, "Game Analysis of "Blockchain+Supply Chain Finance" Mode in Empowering Small and Micro Enterprises’ Financing," 2021 International Conference on Computer, Blockchain and Financial Development (CBFD), Nanjing, China, 2021, pp. 396-400. }
+
+\item  {\justify “L. Besançon, C. F. D. Silva and P. Ghodous, "Towards Blockchain Interoperability: Improving Video Games Data Exchange," 2019 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Seoul, Korea (South), 2019, pp. 81-85.}
+
+\item  {\justify “M. Du, Q. Chen, L. Liu and X. Ma, "A Blockchain-based Random Number Generation Algorithm and the Application in Blockchain Games," 2019 IEEE International Conference on Systems, Man and Cybernetics (SMC), Bari, Italy, 2019, pp. 3498-3503.}
+
+\item  {\justify “B. Jebari, K. Ibrahimi, M. Jouhari and M. Ghogho, "Analysis of Blockchain Selfish Mining: a Stochastic Game Approach," ICC 2022 - IEEE International Conference on Communications, Seoul, Korea, Republic of, 2022, pp. 4217-4222.}
+    
+
+\end{enumerate}
+
+  
+\newpage
+
+
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+\
+%\vspace{.1cm}\\
+\paragraph{}
+This dissertation report would not have been come into reality without the able guidance, support and wishes of all those who stand by me in the development. I wish to give my special thanks to my guides, \textbf{Prof. Abhijeet More} for their timely advice and guidance.
+\\
+\par
+
+I would like to thank our Principal, \textbf{Dr. J. W. Bakal}  for their constant encouragement throughout the course. I humbly thank our B.E Coordinator, \textbf{Dr. Rajashree Gadhave} and our Head of Department, \textbf{Prof. Rohini Bhosale}, for their valuable guidance \& unending support despite of a very busy work schedule. The cheerful spirit they radiated all the time fueled our desire to excel in the work that I had undertaken.\\
+\par
+
+I acknowledge all the staff members of the Department of Computer Engineering for their help and suggestions during various phases of this project work. It's difficult to forget my eminent supporters that are my Friends and Family Members who are always there encouraging me in my every deed.\par
+
+\vspace*{1cm}
+\hfill
+       
+\begin{flushright}
+  \begin{tabular}{l}
+  \vspace{0.5cm}     
+  \textbf{Omkar Ramishte} \\
+  \vspace{0.5cm}
+  \textbf{Shahid Shaikh } \\
+  \vspace{0.5cm}
+  \textbf{Shreyash Shinde}\\
+\end{tabular}
+\end{flushright} 
+
+
+\newpage
+\vspace*{\fill}
+\begingroup
+\centering
+\textbf{\Huge{}}\\
+\vspace*{5mm}
+\textbf{\Huge{Publications}}
+
+\endgroup
+\vspace*{\fill}
+
+\newpage
+
+\chapter*{List of Publication}
+\addcontentsline{toc}{chapter}{List of Publications}
+
+
+% \item Rushikesh and  Prof. Abhijeet More, “Run Time Public Auditing in Cloud Computing
+% using Protocol Blocker for Privacy" , Pp. 41- 45, April 2015.
+% \item Google Solution Challenge, Pp. 10th February 2024
+\begin{enumerate}
+\item Prof.Abhijeet More, Omkar Ramishte, Shahid Shaikh, Shreyash Shinde "Chain-
+    \new Checkmate: Chess Game using Blockchain" [Waiting for the acceptance~IEEE xplore]
+    \new, April 2024
+\end{enumerate}
+\vspace{2pt}
+\begin{center}
+    \textbf{\Large Competition Participation}
+\end{center}
+
+\begin{enumerate}
+\item FCRIT, "Techspark 2024", Pp. 4th April 2024
+\item Saraswati College of Engineering, "SCOE Avishkar 2024", Pp. 5th April 2024
+\end{enumerate}
+
+\newpage
+\chapter*{Published Paper}
+\addcontentsline{toc}{chapter}{\textbf{Published Paper}}
+\begin{figure}[!htpb]
+\begin{mdframed}
+    \centering
+    \includegraphics[scale=0.65]{chain checkmate-1.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-2.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-3.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-4.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-5.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-6.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\begin{figure}
+\begin{mdframed}
+    \centering
+    \includegraphics[width=1\linewidth]{chain checkmate-7.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+\newpage
+
+\chapter*{Plagarism Report}
+\addcontentsline{toc}{chapter}{\textbf{Plagarism Report}}
+\begin{figure}[!htpb]
+\begin{mdframed}
+    \centering
+    \includegraphics[scale=0.70]{plagrgdg-1.png}
+    \label{fig:enter-label}
+\end{mdframed}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\end{document}
+

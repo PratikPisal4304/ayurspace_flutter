@@ -1,0 +1,30 @@
+graph TD
+    classDef client fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef cloud fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef external fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+
+    subgraph UserDevice["User Device"]
+        A["Flutter App"]:::client
+        B["Camera"]:::client
+        C["Local Storage"]:::client
+    end
+
+    subgraph BackendInfra["Backend Infrastructure"]
+        D["Firebase Auth"]:::cloud
+        E["Cloud Firestore"]:::cloud
+    end
+
+    subgraph AIServices["Third-Party AI Services"]
+        F["Plant.id API"]:::external
+        G["Google Gemini API"]:::external
+    end
+
+    A -- "Captures image" --> B
+    B -- "Compress and Send" --> F
+    A -- "Login/Register" --> D
+    A -- "Sync Profile/History" --> E
+    A -- "Save Preferences" --> C
+
+    F -- "Returns Science Name" --> A
+    A -- "Creates Prompt with Plant ID" --> G
+    G -- "Returns Ayurvedic Properties" --> A

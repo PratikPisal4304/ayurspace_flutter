@@ -1,0 +1,53 @@
+classDiagram
+    class User {
+        +String uid
+        +String name
+        +String email
+        +DoshaResult dosha
+        +authenticate()
+    }
+
+    class Plant {
+        +String scientificName
+        +String hindiName
+        +List~String~ uses
+        +String rasa
+        +String virya
+    }
+
+    class PlantIdService {
+        +String apiKey
+        +identifyFromBytes(Uint8List imageBytes) PlantIdResult
+    }
+
+    class GeminiService {
+        +String apiKey
+        +getAyurvedicInfo(String plantName) GeminiResponse
+        +sendChat(String message, List~ChatTurn~ history) GeminiResponse
+    }
+
+    class PlantIdResult {
+        +String scientificName
+        +String commonName
+        +double probability
+        +bool isHealthy
+        +String description
+    }
+
+    class GeminiResponse {
+        +String text
+        +bool isError
+    }
+
+    class ChatState {
+        +List~ChatMessage~ messages
+        +bool isTyping
+        +String error
+        +copyWith()
+    }
+
+    User --> Plant : scans and saves
+    PlantIdService ..> PlantIdResult : returns
+    GeminiService ..> Plant : hydrates data
+    GeminiService ..> GeminiResponse : returns
+    ChatState --> GeminiService : uses
