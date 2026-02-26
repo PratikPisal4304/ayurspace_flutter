@@ -50,14 +50,14 @@ void main() {
   setUp(() {
     mockRepository = MockRemediesRepository();
     // RemediesNotifier calls loadRemedies() in constructor
-    notifier = RemediesNotifier(mockRepository); 
+    notifier = RemediesNotifier(mockRepository);
   });
 
   group('RemediesNotifier Tests', () {
     test('Initial load populates state', () async {
       // Allow constructor async call to complete
       await Future.delayed(Duration.zero);
-      
+
       expect(notifier.state.remedies.length, 2);
       expect(notifier.state.filteredRemedies.length, 2);
       expect(notifier.state.categories.length, 2);
@@ -73,15 +73,15 @@ void main() {
       expect(notifier.state.filteredRemedies.first.title, 'Turmeric Tea');
       expect(notifier.state.selectedCategory, 'Immunity');
     });
-    
+
     test('filterByCategory(All) clears category filter', () async {
-       await Future.delayed(Duration.zero);
-       notifier.filterByCategory('Immunity');
-       expect(notifier.state.filteredRemedies.length, 1);
-       
-       notifier.filterByCategory('All');
-       expect(notifier.state.filteredRemedies.length, 2);
-       expect(notifier.state.selectedCategory, isNull);
+      await Future.delayed(Duration.zero);
+      notifier.filterByCategory('Immunity');
+      expect(notifier.state.filteredRemedies.length, 1);
+
+      notifier.filterByCategory('All');
+      expect(notifier.state.filteredRemedies.length, 2);
+      expect(notifier.state.selectedCategory, isNull);
     });
 
     test('searchRemedies filters by title', () async {
@@ -109,7 +109,5 @@ void main() {
       notifier.searchRemedies('Tea');
       expect(notifier.state.filteredRemedies.length, 0);
     });
-    
-
   });
 }

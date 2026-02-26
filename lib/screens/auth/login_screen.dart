@@ -35,9 +35,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     try {
       await ref.read(authProvider.notifier).signIn(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      );
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+          );
 
       if (mounted) {
         context.go('/home');
@@ -112,8 +112,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 await ref.read(authProvider.notifier).sendPasswordReset(email);
                 if (context.mounted) {
                   Navigator.pop(context); // Close dialog
-                  ScaffoldMessenger.of(context).showSnackBar( // Use messenger directly
-                    SnackBar(content: Text('Password reset link sent to $email')),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    // Use messenger directly
+                    SnackBar(
+                        content: Text('Password reset link sent to $email')),
                   );
                 }
               } catch (e) {
@@ -310,12 +312,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     const Expanded(child: Divider(color: AppColors.border)),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: DesignTokens.spacingMd),
                       child: Text(
                         'OR',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                              color: AppColors.textSecondary,
+                            ),
                       ),
                     ),
                     const Expanded(child: Divider(color: AppColors.border)),
@@ -331,34 +334,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: AppColors.border),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
+                        borderRadius:
+                            BorderRadius.circular(DesignTokens.radiusMd),
                       ),
                     ),
-                    child: isLoading 
-                      ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/google_g.svg',
-                              width: 22,
-                              height: 22,
-                            ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'Continue with Google',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textPrimary,
+                    child: isLoading
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/google_g.svg',
+                                width: 22,
+                                height: 22,
                               ),
-                            ),
-                          ],
-                        ),
+                              const SizedBox(width: 12),
+                              const Text(
+                                'Continue with Google',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                            ],
+                          ),
                   ),
                 ),
                 const SizedBox(height: DesignTokens.spacingLg),

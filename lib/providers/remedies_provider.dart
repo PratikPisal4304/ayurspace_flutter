@@ -4,6 +4,7 @@ import 'user_provider.dart';
 import '../data/models/remedy.dart';
 import '../data/repositories/remedies_repository.dart';
 import '../data/repositories/local_remedies_repository.dart';
+
 // import '../services/firestore_service.dart';
 // import '../data/repositories/firestore_remedies_repository.dart';
 /// State for the Remedies feature
@@ -55,8 +56,7 @@ class RemediesState {
   }
 
   /// Check if filters are active
-  bool get hasFilters =>
-      selectedCategory != null || searchQuery.isNotEmpty;
+  bool get hasFilters => selectedCategory != null || searchQuery.isNotEmpty;
 }
 
 /// Notifier for managing Remedies state and logic
@@ -111,9 +111,8 @@ class RemediesNotifier extends StateNotifier<RemediesState> {
 
     // Apply category filter
     if (state.selectedCategory != null) {
-      filtered = filtered
-          .where((r) => r.category == state.selectedCategory)
-          .toList();
+      filtered =
+          filtered.where((r) => r.category == state.selectedCategory).toList();
     }
 
     // Apply search filter
@@ -164,7 +163,7 @@ IconData getIconForCategory(String category) {
 final remediesRepositoryProvider = Provider<RemediesRepository>((ref) {
   // Switch to FirestoreRemediesRepository for production
   // return FirestoreRemediesRepository(ref.watch(firestoreProvider));
-  
+
   return LocalRemediesRepository();
 });
 
@@ -189,13 +188,11 @@ final remedyByIdProvider = Provider.family<Remedy?, String>((ref, id) {
 final favoriteRemediesProvider = Provider<List<Remedy>>((ref) {
   final remediesState = ref.watch(remediesProvider);
   final userProfile = ref.watch(userProfileProvider);
-  
+
   if (userProfile == null) return [];
-  
+
   final favIds = userProfile.favoriteRemedyIds;
-  return remediesState.remedies
-      .where((r) => favIds.contains(r.id))
-      .toList();
+  return remediesState.remedies.where((r) => favIds.contains(r.id)).toList();
 });
 
 /// Provider for categories with 'All' option

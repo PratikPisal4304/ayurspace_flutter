@@ -43,9 +43,12 @@ class PlantsState {
       plants: plants ?? this.plants,
       filteredPlants: filteredPlants ?? this.filteredPlants,
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedCategory: clearFilters ? null : (selectedCategory ?? this.selectedCategory),
-      selectedDosha: clearFilters ? null : (selectedDosha ?? this.selectedDosha),
-      selectedDifficulty: clearFilters ? null : (selectedDifficulty ?? this.selectedDifficulty),
+      selectedCategory:
+          clearFilters ? null : (selectedCategory ?? this.selectedCategory),
+      selectedDosha:
+          clearFilters ? null : (selectedDosha ?? this.selectedDosha),
+      selectedDifficulty:
+          clearFilters ? null : (selectedDifficulty ?? this.selectedDifficulty),
       isLoading: isLoading ?? this.isLoading,
       error: clearError ? null : (error ?? this.error),
     );
@@ -56,7 +59,7 @@ class PlantsState {
 final plantsRepositoryProvider = Provider<PlantsRepository>((ref) {
   // Switch to FirestorePlantsRepository for production
   // return FirestorePlantsRepository(ref.watch(firestoreProvider));
-  
+
   // Keeping LocalPlantsRepository active for now ensuring data visibility
   // until Firestore is populated.
   return LocalPlantsRepository();

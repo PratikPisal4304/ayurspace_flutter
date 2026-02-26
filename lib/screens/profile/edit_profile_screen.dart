@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../config/colors.dart';
 import '../../config/design_tokens.dart';
 import '../../providers/user_provider.dart';
+import 'package:ayurspace_flutter/l10n/app_localizations.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -16,6 +17,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   int _selectedAvatarIndex = 0;
+  bool _isLoading = false;
 
   final List<IconData> _avatarIcons = [
     Icons.person,
@@ -41,6 +43,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final user = ref.read(userProfileProvider);
     _nameController = TextEditingController(text: user?.name ?? '');
     _emailController = TextEditingController(text: user?.email ?? '');
+    _selectedAvatarIndex = user?.avatarIndex ?? 0;
   }
 
   @override
@@ -51,15 +54,40 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   Future<void> _saveProfile() async {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final l10n = AppLocalizations.of(context)!;
+
+    if (name.length < 2) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(l10n.editProfileNameShort),
+            backgroundColor: AppColors.error),
+      );
+      return;
+    }
+    if (!email.contains('@') || !email.contains('.')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(l10n.editProfileInvalidEmail),
+            backgroundColor: AppColors.error),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
     try {
       final userNotifier = ref.read(userProvider.notifier);
-      await userNotifier.updateName(_nameController.text.trim());
-      await userNotifier.updateEmail(_emailController.text.trim());
+      await userNotifier.updateName(name);
+      await userNotifier.updateEmail(email);
+      await userNotifier.updateAvatarIndex(_selectedAvatarIndex);
 
       if (mounted) {
+        final l10nMsg = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Profile updated successfully!'),
+          SnackBar(
+            content: Text(l10nMsg.editProfileUpdated),
             backgroundColor: AppColors.success,
           ),
         );
@@ -74,21 +102,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
         );
       }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Edit Profile'),
-        actions: [
-          TextButton(
-            onPressed: _saveProfile,
-            child: const Text('Save'),
-          ),
-        ],
+        title: Text(l10n.editProfile),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(DesignTokens.spacingMd),
@@ -111,7 +136,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   ),
                   const SizedBox(height: DesignTokens.spacingSm),
                   Text(
-                    'Choose Avatar',
+                    l10n.editProfileSelectAvatar,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -152,7 +177,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
             // Name Field
             Text(
-              'Name',
+              l10n.editProfileName,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: DesignTokens.spacingXs),
@@ -167,7 +192,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
             // Email Field
             Text(
-              'Email',
+              l10n.editProfileEmail,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: DesignTokens.spacingXs),
@@ -185,13 +210,19 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _saveProfile,
+                onPressed: _isLoading ? null : _saveProfile,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: const Text('Save Changes'),
+                child: _isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2))
+                    : Text(l10n.editProfileSaveChanges),
               ),
             ),
           ],

@@ -8,6 +8,7 @@ class UserProfile extends Equatable {
   final String email;
   final String? phone;
   final String? avatarUrl;
+  final int avatarIndex;
   final DoshaResult? doshaResult;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -22,6 +23,7 @@ class UserProfile extends Equatable {
     required this.email,
     this.phone,
     this.avatarUrl,
+    this.avatarIndex = 0,
     this.doshaResult,
     required this.createdAt,
     required this.updatedAt,
@@ -31,12 +33,32 @@ class UserProfile extends Equatable {
     this.favoriteRemedyIds = const [],
   });
 
+  /// Formats the createdAt date as "Month Year" (e.g., "February 2026")
+  String get memberSince {
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return '${months[createdAt.month - 1]} ${createdAt.year}';
+  }
+
   UserProfile copyWith({
     String? id,
     String? name,
     String? email,
     String? phone,
     String? avatarUrl,
+    int? avatarIndex,
     DoshaResult? doshaResult,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -51,6 +73,7 @@ class UserProfile extends Equatable {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      avatarIndex: avatarIndex ?? this.avatarIndex,
       doshaResult: doshaResult ?? this.doshaResult,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -68,6 +91,7 @@ class UserProfile extends Equatable {
         email,
         phone,
         avatarUrl,
+        avatarIndex,
         doshaResult,
         createdAt,
         updatedAt,

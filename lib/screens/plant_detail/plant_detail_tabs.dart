@@ -65,7 +65,8 @@ class _OverviewTab extends StatelessWidget {
         ),
 
         // Chemical Compounds (if available)
-        if (plant.chemicalCompounds != null && plant.chemicalCompounds!.isNotEmpty) ...[
+        if (plant.chemicalCompounds != null &&
+            plant.chemicalCompounds!.isNotEmpty) ...[
           const SizedBox(height: DesignTokens.spacingMd),
           _SectionCard(
             title: l10n.plantCompounds,
@@ -133,7 +134,8 @@ class _UsesTab extends StatelessWidget {
         ),
 
         // Contraindications (if available)
-        if (plant.contraindications != null && plant.contraindications!.isNotEmpty) ...[
+        if (plant.contraindications != null &&
+            plant.contraindications!.isNotEmpty) ...[
           const SizedBox(height: DesignTokens.spacingSm),
           _InfoCard(
             title: l10n.plantContraindications,
@@ -248,9 +250,11 @@ class _AyurvedaTab extends StatelessWidget {
             children: [
               _DetailRow(label: l10n.nameEnglish, value: plant.name),
               _DetailRow(label: l10n.nameHindi, value: plant.hindi),
-              _DetailRow(label: l10n.nameScientific, value: plant.scientificName),
+              _DetailRow(
+                  label: l10n.nameScientific, value: plant.scientificName),
               if (plant.sanskritName != null)
-                _DetailRow(label: l10n.nameSanskrit, value: plant.sanskritName!),
+                _DetailRow(
+                    label: l10n.nameSanskrit, value: plant.sanskritName!),
             ],
           ),
         ),
@@ -279,7 +283,7 @@ class _AyurvedaTab extends StatelessWidget {
                 icon: Icons.thermostat,
               ),
               // Added Vipaka (Post-digestive)
-               if (plant.vipaka != null)
+              if (plant.vipaka != null)
                 _PropertyRow(
                   label: l10n.propPostDigestive,
                   value: plant.vipaka!,
@@ -294,7 +298,6 @@ class _AyurvedaTab extends StatelessWidget {
     );
   }
   // Logic removed: _getPotency logic is domain logic and should be in the model
-
 }
 
 // ============ HELPER WIDGETS ============
@@ -536,7 +539,8 @@ class _TasteChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      label: Text(taste, style: TextStyle(color: _color, fontWeight: FontWeight.w500)),
+      label: Text(taste,
+          style: TextStyle(color: _color, fontWeight: FontWeight.w500)),
       backgroundColor: _color.withValues(alpha: 0.1),
       side: BorderSide(color: _color.withValues(alpha: 0.3)),
     );
@@ -720,7 +724,9 @@ class _DoshaVisualization extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 4),
             padding: const EdgeInsets.all(DesignTokens.spacingSm),
             decoration: BoxDecoration(
-              color: isActive ? color.withValues(alpha: 0.15) : AppColors.surfaceVariant,
+              color: isActive
+                  ? color.withValues(alpha: 0.15)
+                  : AppColors.surfaceVariant,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isActive ? color : AppColors.border,

@@ -53,16 +53,23 @@ class Remedy extends Equatable {
               ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      steps: (json['steps'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
-      stepsHindi: (json['stepsHindi'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      steps:
+          (json['steps'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
+      stepsHindi: (json['stepsHindi'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       doshaTypes: (json['doshaTypes'] as List<dynamic>?)?.map((e) {
             final str = e.toString().toLowerCase();
-            return DoshaType.values.firstWhere(
-                (d) => d.name == str,
-                orElse: () => DoshaType.vata);
+            return DoshaType.values
+                .firstWhere((d) => d.name == str, orElse: () => DoshaType.vata);
           }).toList() ??
           const [],
-      healthGoals: (json['healthGoals'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      healthGoals: (json['healthGoals'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       duration: json['duration'] as String? ?? '',
       difficulty: json['difficulty'] as String? ?? '',
       image: json['image'] as String?,
@@ -165,10 +172,13 @@ class Ingredient extends Equatable {
       nameHindi: json['nameHindi'] as String? ?? '',
       quantity: json['quantity'] as String? ?? '',
       optional: json['optional'] as bool? ?? false,
-      substitutes: (json['substitutes'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      substitutes: (json['substitutes'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

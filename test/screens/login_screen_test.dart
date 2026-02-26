@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ayurspace_flutter/providers/auth_provider.dart';
 
 // Mock auth notifier for testing
-class MockAuthNotifier extends StateNotifier<AuthState> with Mock
+class MockAuthNotifier extends StateNotifier<AuthState>
+    with Mock
     implements AuthNotifier {
   MockAuthNotifier() : super(const AuthState());
 
@@ -80,7 +81,8 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
 
       expect(find.text('Welcome Back'), findsOneWidget);
-      expect(find.text('Sign in to continue your wellness journey'), findsOneWidget);
+      expect(find.text('Sign in to continue your wellness journey'),
+          findsOneWidget);
     });
 
     testWidgets('renders form input fields', (WidgetTester tester) async {
@@ -96,7 +98,8 @@ void main() {
       expect(find.text('Forgot Password?'), findsOneWidget);
     });
 
-    testWidgets('password visibility toggle works', (WidgetTester tester) async {
+    testWidgets('password visibility toggle works',
+        (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget());
 
       // Initially password should be obscured (visibility_off icon shown)

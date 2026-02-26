@@ -11,7 +11,8 @@ class ResponsiveCenter extends StatelessWidget {
   const ResponsiveCenter({
     super.key,
     required this.child,
-    this.maxWidth = DesignTokens.breakpointTablet, // Default to tablet width (768)
+    this.maxWidth =
+        DesignTokens.breakpointTablet, // Default to tablet width (768)
     this.padding = EdgeInsets.zero,
   });
 

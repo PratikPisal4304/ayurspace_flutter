@@ -46,13 +46,13 @@ class FirestorePlantsRepository implements PlantsRepository {
     //   3. Firebase Extensions: "Search with Algolia" extension
     //      - https://extensions.dev/extensions/algolia/firestore-algolia-search
     // For now, this works for small datasets (<1000 documents).
-    
+
     final plants = await getPlants();
     final lowercaseQuery = query.toLowerCase();
-    
+
     return plants.where((plant) {
       return plant.name.toLowerCase().contains(lowercaseQuery) ||
-             plant.scientificName.toLowerCase().contains(lowercaseQuery);
+          plant.scientificName.toLowerCase().contains(lowercaseQuery);
     }).toList();
   }
 }

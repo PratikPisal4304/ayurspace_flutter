@@ -14,8 +14,9 @@ class FakeUser extends Fake implements User {
 }
 
 class MockFirestoreService extends Fake implements FirestoreService {
-  final StreamController<FirestoreUser?> _userController = StreamController<FirestoreUser?>.broadcast();
-  
+  final StreamController<FirestoreUser?> _userController =
+      StreamController<FirestoreUser?>.broadcast();
+
   // Verification flags/storage
   String? lastUpdatedName;
   Map<String, dynamic>? lastDoshaResult;
@@ -26,7 +27,7 @@ class MockFirestoreService extends Fake implements FirestoreService {
   Stream<FirestoreUser?> streamUser(String uid) {
     return _userController.stream;
   }
-  
+
   void emitUser(FirestoreUser? user) {
     _userController.add(user);
   }
@@ -40,17 +41,17 @@ class MockFirestoreService extends Fake implements FirestoreService {
   Future<void> saveDoshaResult(String uid, Map<String, dynamic> result) async {
     lastDoshaResult = result;
   }
-  
+
   @override
   Future<void> incrementPlantsScanned(String uid) async {
     plantsScannedIncrementCount++;
   }
-  
+
   @override
   Future<void> incrementRemediesTried(String uid) async {
     remediesTriedIncrementCount++;
   }
-  
+
   void close() {
     _userController.close();
   }
@@ -64,7 +65,7 @@ void main() {
     mockFirestoreService = MockFirestoreService();
     notifier = UserNotifier(mockFirestoreService);
   });
-  
+
   tearDown(() {
     mockFirestoreService.close();
     notifier.dispose();
@@ -78,14 +79,15 @@ void main() {
 
     test('onAuthStateChanged(null) should clear state', () {
       // Setup some state first (hypothetically)
-      // notifier.state = UserState(profile: ...); 
+      // notifier.state = UserState(profile: ...);
       // But we can just verify it stays empty or clears
-      
+
       notifier.onAuthStateChanged(null);
       expect(notifier.state.profile, isNull);
     });
 
-    test('onAuthStateChanged(user) should subscribe to Firestore stream', () async {
+    test('onAuthStateChanged(user) should subscribe to Firestore stream',
+        () async {
       final user = FakeUser('user_123');
       notifier.onAuthStateChanged(user);
 
@@ -102,12 +104,12 @@ void main() {
         bookmarks: ['plant_1'],
         plantsScanned: 5,
       );
-      
+
       mockFirestoreService.emitUser(firestoreUser);
-      
+
       // Wait for stream listener
       await Future.delayed(Duration.zero);
-      
+
       expect(notifier.state.isLoading, isFalse);
       expect(notifier.state.profile, isNotNull);
       expect(notifier.state.profile!.id, 'user_123');
@@ -120,7 +122,7 @@ void main() {
       // Setup logged in user
       final user = FakeUser('user_123');
       notifier.onAuthStateChanged(user);
-      
+
       final firestoreUser = FirestoreUser(
         uid: 'user_123',
         name: 'Old Name',
@@ -142,7 +144,7 @@ void main() {
       // Setup logged in user
       final user = FakeUser('user_123');
       notifier.onAuthStateChanged(user);
-      
+
       final firestoreUser = FirestoreUser(
         uid: 'user_123',
         name: 'Test',
@@ -172,7 +174,7 @@ void main() {
       // Setup logged in user
       final user = FakeUser('user_123');
       notifier.onAuthStateChanged(user);
-      
+
       final firestoreUser = FirestoreUser(
         uid: 'user_123',
         name: 'Test',

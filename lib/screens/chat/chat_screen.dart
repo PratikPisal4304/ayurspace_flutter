@@ -49,7 +49,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
     // Haptic feedback
     HapticFeedback.lightImpact();
-    
+
     ref.read(chatProvider.notifier).sendMessage(text);
     _textController.clear();
     _scrollToBottom();
@@ -126,7 +126,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.background,
-      resizeToAvoidBottomInset: false, // Critical: We handle bottom insets manually
+      resizeToAvoidBottomInset:
+          false, // Critical: We handle bottom insets manually
       endDrawer: _ChatHistoryDrawer(
         onNewChat: () {
           Navigator.pop(context);
@@ -141,39 +142,39 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
             child: SafeArea(
               bottom: false,
               child: _ChatHeader(
-              isTyping: chatState.isTyping,
-              onBack: () {
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  context.go('/home');
-                }
-              },
+                isTyping: chatState.isTyping,
+                onBack: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go('/home');
+                  }
+                },
                 onHistory: _openHistoryDrawer,
                 onClear: _clearChat,
               ),
             ),
           ),
-            
-            // Chat Messages or Loading
-            Expanded(
-              child: historyState.isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(color: AppColors.primary),
-                    )
-                  : _ChatMessageList(
-                      messages: chatState.messages,
-                      isTyping: chatState.isTyping,
-                      scrollController: _scrollController,
-                    ),
-            ),
 
-            // Suggestions (visible only at start)
-            if (showSuggestions)
-              _SuggestionChips(
-                suggestions: ChatService.suggestions,
-                onTap: _handleSuggestionTap,
-              ),
+          // Chat Messages or Loading
+          Expanded(
+            child: historyState.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  )
+                : _ChatMessageList(
+                    messages: chatState.messages,
+                    isTyping: chatState.isTyping,
+                    scrollController: _scrollController,
+                  ),
+          ),
+
+          // Suggestions (visible only at start)
+          if (showSuggestions)
+            _SuggestionChips(
+              suggestions: ChatService.suggestions,
+              onTap: _handleSuggestionTap,
+            ),
 
           // Input Area
           // Remove wrapper SafeArea completely to check raw positioning
@@ -200,7 +201,7 @@ class _ChatHeader extends StatelessWidget {
   final VoidCallback onBack;
   final VoidCallback onHistory;
   final VoidCallback onClear;
-  
+
   const _ChatHeader({
     required this.isTyping,
     required this.onBack,
@@ -223,7 +224,7 @@ class _ChatHeader extends StatelessWidget {
             color: AppColors.textPrimary,
             onPressed: onBack,
           ),
-          
+
           // Avatar with gradient
           Container(
             width: 40,
@@ -243,7 +244,7 @@ class _ChatHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: DesignTokens.spacingSm),
-          
+
           // Title and status
           Expanded(
             child: Column(
@@ -273,7 +274,9 @@ class _ChatHeader extends StatelessWidget {
                       isTyping ? 'Thinking...' : 'Ayurveda Expert',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isTyping ? AppColors.saffron : AppColors.textSecondary,
+                        color: isTyping
+                            ? AppColors.saffron
+                            : AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -281,7 +284,7 @@ class _ChatHeader extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // New Chat button
           IconButton(
             icon: const Icon(Icons.add_comment_outlined, size: 22),
@@ -289,7 +292,7 @@ class _ChatHeader extends StatelessWidget {
             tooltip: 'New Chat',
             onPressed: onClear,
           ),
-          
+
           // History button
           IconButton(
             icon: const Icon(Icons.history, size: 24),
@@ -340,9 +343,11 @@ class _ChatHistoryDrawer extends ConsumerWidget {
                         gradient: const LinearGradient(
                           colors: [AppColors.primary, AppColors.neemGreen],
                         ),
-                        borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
+                        borderRadius:
+                            BorderRadius.circular(DesignTokens.radiusSm),
                       ),
-                      child: const Icon(Icons.history, color: Colors.white, size: 22),
+                      child: const Icon(Icons.history,
+                          color: Colors.white, size: 22),
                     ),
                     const SizedBox(width: DesignTokens.spacingSm),
                     const Expanded(
@@ -374,7 +379,8 @@ class _ChatHistoryDrawer extends ConsumerWidget {
                     onTap: onNewChat,
                     borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: DesignTokens.spacingSm),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: DesignTokens.spacingSm),
                       alignment: Alignment.center,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -425,7 +431,8 @@ class _ChatHistoryDrawer extends ConsumerWidget {
                         ),
                       )
                     : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: DesignTokens.spacingSm),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: DesignTokens.spacingSm),
                         itemCount: sessions.length,
                         itemBuilder: (context, index) {
                           final session = sessions[index];
@@ -434,11 +441,15 @@ class _ChatHistoryDrawer extends ConsumerWidget {
                             session: session,
                             isActive: isActive,
                             onTap: () {
-                              ref.read(chatProvider.notifier).switchSession(session.id);
+                              ref
+                                  .read(chatProvider.notifier)
+                                  .switchSession(session.id);
                               Navigator.pop(context);
                             },
                             onDelete: () {
-                              ref.read(chatProvider.notifier).deleteSession(session.id);
+                              ref
+                                  .read(chatProvider.notifier)
+                                  .deleteSession(session.id);
                             },
                           );
                         },
@@ -448,14 +459,16 @@ class _ChatHistoryDrawer extends ConsumerWidget {
               // Clear All button (only show if there are sessions)
               if (sessions.isNotEmpty)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: DesignTokens.spacingMd),
                   child: TextButton.icon(
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (ctx) => AlertDialog(
                           title: const Text('Clear All History'),
-                          content: const Text('This will delete all your chat conversations. This action cannot be undone.'),
+                          content: const Text(
+                              'This will delete all your chat conversations. This action cannot be undone.'),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(ctx),
@@ -463,10 +476,13 @@ class _ChatHistoryDrawer extends ConsumerWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                ref.read(chatHistoryProvider.notifier).clearAllHistory();
+                                ref
+                                    .read(chatHistoryProvider.notifier)
+                                    .clearAllHistory();
                                 Navigator.pop(ctx);
                               },
-                              style: TextButton.styleFrom(foregroundColor: AppColors.error),
+                              style: TextButton.styleFrom(
+                                  foregroundColor: AppColors.error),
                               child: const Text('Delete All'),
                             ),
                           ],
@@ -517,7 +533,7 @@ class _HistoryListTile extends StatelessWidget {
   String _formatTime(DateTime time) {
     final now = DateTime.now();
     final diff = now.difference(time);
-    
+
     if (diff.inMinutes < 1) {
       return 'Just now';
     } else if (diff.inMinutes < 60) {
@@ -549,10 +565,14 @@ class _HistoryListTile extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          color: isActive ? AppColors.primary.withValues(alpha: 0.08) : AppColors.surface,
+          color: isActive
+              ? AppColors.primary.withValues(alpha: 0.08)
+              : AppColors.surface,
           borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
           border: Border.all(
-            color: isActive ? AppColors.primary.withValues(alpha: 0.3) : AppColors.border.withValues(alpha: 0.5),
+            color: isActive
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : AppColors.border.withValues(alpha: 0.5),
           ),
         ),
         child: ListTile(
@@ -564,14 +584,14 @@ class _HistoryListTile extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: isActive 
-                  ? AppColors.primary.withValues(alpha: 0.2) 
+              color: isActive
+                  ? AppColors.primary.withValues(alpha: 0.2)
                   : AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
             ),
             child: Icon(
-              isActive ? Icons.chat : Icons.chat_bubble_outline, 
-              color: AppColors.primary, 
+              isActive ? Icons.chat : Icons.chat_bubble_outline,
+              color: AppColors.primary,
               size: 20,
             ),
           ),
@@ -692,10 +712,12 @@ class _MessageBubble extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: DesignTokens.spacingMd),
         child: Column(
-          crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Bot avatar
@@ -707,7 +729,8 @@ class _MessageBubble extends StatelessWidget {
                       gradient: const LinearGradient(
                         colors: [AppColors.primary, AppColors.neemGreen],
                       ),
-                      borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
+                      borderRadius:
+                          BorderRadius.circular(DesignTokens.radiusSm),
                     ),
                     child: const Icon(Icons.spa, color: Colors.white, size: 18),
                   ),
@@ -729,12 +752,15 @@ class _MessageBubble extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(DesignTokens.radiusMd),
                         topRight: const Radius.circular(DesignTokens.radiusMd),
-                        bottomLeft: Radius.circular(isUser ? DesignTokens.radiusMd : 4),
-                        bottomRight: Radius.circular(isUser ? 4 : DesignTokens.radiusMd),
+                        bottomLeft:
+                            Radius.circular(isUser ? DesignTokens.radiusMd : 4),
+                        bottomRight:
+                            Radius.circular(isUser ? 4 : DesignTokens.radiusMd),
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: (isUser ? AppColors.primary : Colors.black).withValues(alpha: 0.1),
+                          color: (isUser ? AppColors.primary : Colors.black)
+                              .withValues(alpha: 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -879,7 +905,7 @@ class _TypingIndicatorState extends State<_TypingIndicator>
             child: const Icon(Icons.spa, color: Colors.white, size: 18),
           ),
           const SizedBox(width: DesignTokens.spacingXs),
-          
+
           // Typing bubble
           Container(
             padding: const EdgeInsets.symmetric(
@@ -910,8 +936,9 @@ class _TypingIndicatorState extends State<_TypingIndicator>
                   children: List.generate(3, (index) {
                     final delay = index * 0.2;
                     final animValue = ((_controller.value + delay) % 1.0);
-                    final scale = 0.5 + (0.5 * (1 - (2 * (animValue - 0.5)).abs()));
-                    
+                    final scale =
+                        0.5 + (0.5 * (1 - (2 * (animValue - 0.5)).abs()));
+
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 3),
                       child: Transform.scale(
@@ -970,7 +997,8 @@ class _SuggestionChips extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
+                      borderRadius:
+                          BorderRadius.circular(DesignTokens.radiusFull),
                       border: Border.all(
                         color: AppColors.primary.withValues(alpha: 0.2),
                       ),
@@ -1050,7 +1078,7 @@ class _ChatInputBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: DesignTokens.spacingSm),
-          
+
           // Send Button with accessibility
           Semantics(
             label: isTyping ? 'Sending message, please wait' : 'Send message',

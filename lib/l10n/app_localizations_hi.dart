@@ -30,6 +30,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get navProfile => 'प्रोफ़ाइल';
 
   @override
+  String get navChat => 'चैट';
+
+  @override
   String get greetingMorning => 'सुप्रभात';
 
   @override
@@ -124,6 +127,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get achievementsTitle => 'उपलब्धियां';
+
+  @override
+  String get achievementsPlantScans => 'पौधा खोजकर्ता';
+
+  @override
+  String get achievementsRemedies => 'उपचार विशेषज्ञ';
+
+  @override
+  String get achievementsWellness => 'स्वास्थ्य गुरु';
+
+  @override
+  String get achievementsStreak => 'साप्ताहिक स्ट्रीक';
 
   @override
   String doshaResultTitle(String dosha) {
@@ -253,6 +268,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stop => 'रोकें';
 
   @override
+  String get pause => 'रुकें';
+
+  @override
+  String get resume => 'जारी रखें';
+
+  @override
   String get helpAndSupport => 'सहायता और समर्थन';
 
   @override
@@ -332,7 +353,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get plantPrecautions => 'सावधानियां';
 
   @override
-  String get plantContraindications => 'निषेध (Contraindications)';
+  String get plantContraindications => 'निषेध';
 
   @override
   String get plantDifficulty => 'उगाने में कठिनाई';
@@ -383,10 +404,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get propBalances => 'संतुलित करता है';
 
   @override
-  String get propPotency => 'वीर्य (Potency)';
+  String get propPotency => 'वीर्य';
 
   @override
-  String get propPostDigestive => 'विपाक (Post-Digestive)';
+  String get propPostDigestive => 'विपाक';
 
   @override
   String get actionFindRemedies => 'उपचार खोजें';
@@ -471,4 +492,253 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get moreDailyTips => 'अधिक दैनिक सुझाव जल्द आ रहे हैं!';
+
+  @override
+  String get settingsTitle => 'सेटिंग्स';
+
+  @override
+  String get settingsNotifications => 'सूचनाएं';
+
+  @override
+  String get settingsPushNotifications => 'पुश सूचनाएं';
+
+  @override
+  String get settingsPushSubtitle => 'दैनिक सुझाव और अनुस्मारक प्राप्त करें';
+
+  @override
+  String get settingsDailyTips => 'दैनिक स्वास्थ्य सुझाव';
+
+  @override
+  String get settingsDailyTipsSubtitle =>
+      'प्रतिदिन सुबह आयुर्वेदिक सुझाव प्राप्त करें';
+
+  @override
+  String get settingsAppearance => 'दिखावट';
+
+  @override
+  String get settingsDarkMode => 'डार्क मोड';
+
+  @override
+  String get settingsDarkModeSubtitle => 'डार्क थीम पर स्विच करें';
+
+  @override
+  String get settingsLanguage => 'भाषा';
+
+  @override
+  String get settingsLanguageSubtitle => 'अपनी पसंदीदा भाषा चुनें';
+
+  @override
+  String get settingsData => 'डेटा और भंडारण';
+
+  @override
+  String get settingsAutoBackup => 'स्वचालित बैकअप';
+
+  @override
+  String get settingsAutoBackupSubtitle => 'क्लाउड पर डेटा बैकअप';
+
+  @override
+  String get settingsClearCache => 'कैश साफ़ करें';
+
+  @override
+  String get settingsPrivacyPolicy => 'गोपनीयता नीति';
+
+  @override
+  String get settingsDeleteAccount => 'खाता हटाएं';
+
+  @override
+  String get settingsAbout => 'हमारे बारे में';
+
+  @override
+  String get settingsAppVersion => 'ऐप संस्करण';
+
+  @override
+  String get settingsSignOut => 'साइन आउट';
+
+  @override
+  String get settingsSignOutConfirm => 'क्या आप वाकई साइन आउट करना चाहते हैं?';
+
+  @override
+  String get settingsClearCacheConfirm => 'यह सभी कैश्ड डेटा को साफ़ कर देगा।';
+
+  @override
+  String get settingsCacheCleared => 'कैश सफलतापूर्वक साफ़ किया गया';
+
+  @override
+  String get settingsDarkModeComingSoon => 'डार्क मोड जल्द आ रहा है! 🌙';
+
+  @override
+  String get settingsDeleteAccountTitle => 'खाता हटाएं';
+
+  @override
+  String get settingsDeleteAccountMsg =>
+      'क्या आप वाकई अपना खाता हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती और आप अपने सभी सहेजे गए डेटा खो देंगे।';
+
+  @override
+  String get settingsDeleteAccountRequested =>
+      'खाता हटाने का अनुरोध किया गया। सहायता शीघ्र ही आपसे संपर्क करेगी।';
+
+  @override
+  String get settingsSelectLanguage => 'भाषा चुनें';
+
+  @override
+  String settingsLanguageComingSoon(String lang) {
+    return '$lang भाषा जल्द आ रही है!';
+  }
+
+  @override
+  String get editProfile => 'प्रोफ़ाइल संपादित करें';
+
+  @override
+  String get editProfileSaveChanges => 'परिवर्तन सहेजें';
+
+  @override
+  String get editProfileNameShort => 'नाम कम से कम 2 अक्षर का होना चाहिए';
+
+  @override
+  String get editProfileInvalidEmail => 'कृपया एक वैध ईमेल दर्ज करें';
+
+  @override
+  String get editProfileUpdated => 'प्रोफ़ाइल सफलतापूर्वक अपडेट की गई!';
+
+  @override
+  String get editProfileSelectAvatar => 'अवतार चुनें';
+
+  @override
+  String get editProfileName => 'नाम';
+
+  @override
+  String get editProfileEmail => 'ईमेल';
+
+  @override
+  String get doshaProfileTitle => 'आपकी दोष प्रोफाइल';
+
+  @override
+  String get doshaProfileNoAssessment => 'आपका दोष';
+
+  @override
+  String get doshaDiscoverTitle => 'अपना दोष जानें';
+
+  @override
+  String get doshaDiscoverSubtitle =>
+      'अपनी अनूठी मन-शरीर संरचना जानने और व्यक्तिगत स्वास्थ्य सलाह प्राप्त करने के लिए आयुर्वेदिक मूल्यांकन लें।';
+
+  @override
+  String doshaYouAre(String dosha) {
+    return 'आप $dosha हैं';
+  }
+
+  @override
+  String get doshaBreakdown => 'दोष विवरण';
+
+  @override
+  String doshaAbout(String dosha) {
+    return '$dosha के बारे में';
+  }
+
+  @override
+  String get doshaBalancingDiet => 'संतुलनकारी आहार';
+
+  @override
+  String get doshaFavor => '✅ सेवन करें';
+
+  @override
+  String get doshaAvoid => '❌ परहेज़ करें';
+
+  @override
+  String get doshaSeasonImpact => 'वर्तमान ऋतु प्रभाव';
+
+  @override
+  String doshaSeasonOf(String dosha) {
+    return '$dosha की ऋतु';
+  }
+
+  @override
+  String get doshaSeasonWarning =>
+      'विशेष ध्यान दें! यह ऋतु स्वाभाविक रूप से आपके प्रमुख दोष को बढ़ाती है।';
+
+  @override
+  String doshaSeasonNeutral(String dosha) {
+    return 'यह ऋतु आपके प्रमुख दोष को संतुलित करने में सहायक हो सकती है, लेकिन $dosha वृद्धि से सावधान रहें।';
+  }
+
+  @override
+  String get doshaRetakeQuiz => 'पुनः क्विज़ लें';
+
+  @override
+  String get chatAyurBot => 'आयुरबॉट';
+
+  @override
+  String get chatExpert => 'आयुर्वेद विशेषज्ञ';
+
+  @override
+  String get chatThinking => 'सोच रहा है...';
+
+  @override
+  String get chatNewChat => 'नई चैट';
+
+  @override
+  String get chatHistory => 'चैट इतिहास';
+
+  @override
+  String get chatStartNew => 'नई चैट शुरू करें';
+
+  @override
+  String get chatStartNewConfirm => 'नई चैट शुरू करें?';
+
+  @override
+  String get chatStartNewMsg => 'यह वर्तमान वार्तालाप को साफ़ कर देगा।';
+
+  @override
+  String get chatRecentConversations => 'हाल की बातचीत';
+
+  @override
+  String get chatNoConversations => 'अभी तक कोई बातचीत नहीं';
+
+  @override
+  String get chatClearAll => 'सब इतिहास मिटाएं';
+
+  @override
+  String get chatClearAllMsg =>
+      'यह आपकी सभी चैट वार्तालापों को हटा देगा। यह क्रिया पूर्ववत नहीं की जा सकती।';
+
+  @override
+  String get chatDeleteAll => 'सभी हटाएं';
+
+  @override
+  String get chatSwipeHint => 'हटाने के लिए चैट पर बाएं स्वाइप करें';
+
+  @override
+  String get chatStartConversation => 'बातचीत शुरू करें';
+
+  @override
+  String get chatDismiss => 'खारिज करें';
+
+  @override
+  String get chatTypeMessage => 'आयुर्वेद के बारे में पूछें...';
+
+  @override
+  String memberSince(String date) {
+    return '$date से सदस्य';
+  }
+
+  @override
+  String get wellnessHub => 'स्वास्थ्य केंद्र';
+
+  @override
+  String get dailyRoutine => 'दैनिक दिनचर्या';
+
+  @override
+  String get balanceDosha => 'अपना दोष संतुलित करें';
+
+  @override
+  String get seasonalWisdom => 'ऋतुचर्या';
+
+  @override
+  String get delete => 'हटाएं';
+
+  @override
+  String get save => 'सहेजें';
+
+  @override
+  String get share => 'साझा करें';
 }

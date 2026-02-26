@@ -22,7 +22,8 @@ class RemedyDetailScreen extends ConsumerWidget {
       );
     }
 
-    final isFavorite = userProfile?.favoriteRemedyIds.contains(remedyId) ?? false;
+    final isFavorite =
+        userProfile?.favoriteRemedyIds.contains(remedyId) ?? false;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -68,7 +69,9 @@ class RemedyDetailScreen extends ConsumerWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                   ref.read(userProvider.notifier).toggleFavoriteRemedy(remedy.id);
+                  ref
+                      .read(userProvider.notifier)
+                      .toggleFavoriteRemedy(remedy.id);
                 },
               ),
               IconButton(

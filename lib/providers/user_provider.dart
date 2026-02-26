@@ -48,8 +48,8 @@ class UserNotifier extends StateNotifier<UserState> {
     } else {
       loading();
       // Listen to real-time updates from Firestore
-      _userSubscription =
-          _firestoreService.streamUser(firebaseUser.uid).listen((firestoreUser) {
+      _userSubscription = _firestoreService.streamUser(firebaseUser.uid).listen(
+          (firestoreUser) {
         if (firestoreUser != null) {
           state = state.copyWith(
             profile: _mapFirestoreUserToUserProfile(firestoreUser),
@@ -92,13 +92,21 @@ class UserNotifier extends StateNotifier<UserState> {
     }
   }
 
-  /// Update user email - handled by AuthService, but strictly speaking 
+  /// Update user email - handled by AuthService, but strictly speaking
   /// we might want to update Firestore if we store email there.
   /// Skipping for now as AuthService handles auth email.
   Future<void> updateEmail(String email) async {
     final uid = state.profile?.id;
     if (uid != null) {
       await _firestoreService.updateEmail(uid, email);
+    }
+  }
+
+  /// Update avatar index
+  Future<void> updateAvatarIndex(int index) async {
+    final uid = state.profile?.id;
+    if (uid != null) {
+      await _firestoreService.updateAvatarIndex(uid, index);
     }
   }
 
@@ -116,9 +124,10 @@ class UserNotifier extends StateNotifier<UserState> {
     if (uid == null) return;
 
     final isBookmarked = state.profile!.bookmarkedPlantIds.contains(plantId);
-    
+
     // Optimistic update
-    final currentBookmarks = List<String>.from(state.profile!.bookmarkedPlantIds);
+    final currentBookmarks =
+        List<String>.from(state.profile!.bookmarkedPlantIds);
     if (isBookmarked) {
       currentBookmarks.remove(plantId);
       await _firestoreService.removeBookmark(uid, plantId);
@@ -126,7 +135,7 @@ class UserNotifier extends StateNotifier<UserState> {
       currentBookmarks.add(plantId);
       await _firestoreService.addBookmark(uid, plantId);
     }
-    
+
     // State update happens via Firestore stream subscription automatically,
     // but if we want instant local feedback before network:
     // state = state.copyWith(profile: state.profile!.copyWith(bookmarkedPlantIds: currentBookmarks));
@@ -138,7 +147,7 @@ class UserNotifier extends StateNotifier<UserState> {
     if (uid == null) return;
 
     final isFavorite = state.profile!.favoriteRemedyIds.contains(remedyId);
-    
+
     if (isFavorite) {
       await _firestoreService.removeFavorite(uid, remedyId);
     } else {
@@ -146,7 +155,7 @@ class UserNotifier extends StateNotifier<UserState> {
     }
   }
 
-  /// Update user settings - currently local only in this model, 
+  /// Update user settings - currently local only in this model,
   /// need schema update to persist.
   void updateSettings(UserSettings settings) {
     if (state.profile != null) {
@@ -186,6 +195,7 @@ class UserNotifier extends StateNotifier<UserState> {
       name: firestoreUser.name,
       email: firestoreUser.email,
       avatarUrl: firestoreUser.avatarUrl,
+      avatarIndex: firestoreUser.avatarIndex,
       doshaResult: firestoreUser.doshaResult != null
           ? DoshaResult.fromJson(firestoreUser.doshaResult!)
           : null,
@@ -220,7 +230,7 @@ final userProvider = StateNotifierProvider<UserNotifier, UserState>((ref) {
   // Initialize with current value if available (for initial load)
   final authState = ref.read(authStateProvider);
   if (authState.hasValue) {
-      notifier.onAuthStateChanged(authState.value);
+    notifier.onAuthStateChanged(authState.value);
   }
 
   return notifier;

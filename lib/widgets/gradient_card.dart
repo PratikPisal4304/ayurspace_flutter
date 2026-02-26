@@ -31,7 +31,8 @@ class GradientCard extends StatelessWidget {
           begin: beginAlignment,
           end: endAlignment,
         ),
-        borderRadius: borderRadius ?? BorderRadius.circular(DesignTokens.radiusMd),
+        borderRadius:
+            borderRadius ?? BorderRadius.circular(DesignTokens.radiusMd),
       ),
       child: child,
     );

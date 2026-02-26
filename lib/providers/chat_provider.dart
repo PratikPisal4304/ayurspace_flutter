@@ -92,7 +92,8 @@ class ChatService {
   final GeminiService _geminiService;
   final String? _userDosha;
 
-  ChatService(this._geminiService, {String? userDosha}) : _userDosha = userDosha;
+  ChatService(this._geminiService, {String? userDosha})
+      : _userDosha = userDosha;
 
   /// Welcome message content
   static const String welcomeMessage =
@@ -119,36 +120,37 @@ class ChatService {
   String _buildSystemInstruction() {
     final buffer = StringBuffer();
     buffer.writeln(_ayurvedaSystemPrompt);
-    
+
     if (_userDosha != null && _userDosha.isNotEmpty) {
       buffer.writeln();
       buffer.writeln('## USER CONTEXT');
       buffer.writeln('The user\'s Prakriti (constitution) is: **$_userDosha**');
-      buffer.writeln('Personalize your advice for this dosha type when relevant.');
+      buffer.writeln(
+          'Personalize your advice for this dosha type when relevant.');
     }
-    
+
     return buffer.toString();
   }
 
   /// Build structured conversation history as ChatTurns
-  List<ChatTurn> _buildConversationTurns(String userMessage, List<ChatMessage> history) {
+  List<ChatTurn> _buildConversationTurns(
+      String userMessage, List<ChatMessage> history) {
     final turns = <ChatTurn>[];
-    
+
     // Add recent conversation history (last 10 messages)
-    final recentHistory = history.length > 10 
-        ? history.sublist(history.length - 10) 
-        : history;
-    
+    final recentHistory =
+        history.length > 10 ? history.sublist(history.length - 10) : history;
+
     for (final msg in recentHistory) {
       turns.add(ChatTurn(
         role: msg.role == ChatRole.user ? 'user' : 'model',
         text: msg.content,
       ));
     }
-    
+
     // Add current user message
     turns.add(ChatTurn(role: 'user', text: userMessage));
-    
+
     return turns;
   }
 
@@ -156,16 +158,16 @@ class ChatService {
   Future<String> getResponse(String query, List<ChatMessage> history) async {
     final systemInstruction = _buildSystemInstruction();
     final turns = _buildConversationTurns(query, history);
-    
+
     final response = await _geminiService.sendChat(
       systemInstruction: systemInstruction,
       conversationHistory: turns,
     );
-    
+
     if (response.isError) {
       return _getFallbackResponse(query);
     }
-    
+
     return response.text;
   }
 
@@ -179,7 +181,8 @@ class ChatService {
           '🔥 **Pitta** — If you\'re ambitious, focused, but sometimes feel overheated or irritable\n'
           '🌊 **Kapha** — If you\'re calm, steady, but sometimes feel sluggish or heavy\n\n'
           'Most people are a mix of two! Would you like to take our **Dosha Quiz** to find out yours? It only takes a minute! 😊';
-    } else if (lowerQuery.contains('immunity') || lowerQuery.contains('immune')) {
+    } else if (lowerQuery.contains('immunity') ||
+        lowerQuery.contains('immune')) {
       return '🌿 Here are some **easy, natural ways** to boost your immunity:\n\n'
           '🍵 **Tulsi Tea** — Boil 4-5 fresh Tulsi leaves in water. Drink warm with honey.\n'
           '🍋 **Amla (Indian Gooseberry)** — Nature\'s vitamin C! Have 1 tbsp amla juice with water every morning.\n'
@@ -187,7 +190,8 @@ class ChatService {
           '🍯 **Chyawanprash** — 1 teaspoon every morning with warm milk. It\'s like a multivitamin from nature!\n\n'
           '✨ **Quick Tip:** Even just adding fresh ginger and turmeric to your daily cooking makes a big difference!\n\n'
           'Want me to share a detailed immunity-boosting morning routine? 😊';
-    } else if (lowerQuery.contains('stress') || lowerQuery.contains('anxiety')) {
+    } else if (lowerQuery.contains('stress') ||
+        lowerQuery.contains('anxiety')) {
       return '🧘 I hear you — stress can really take a toll. Here are some **simple Ayurvedic ways** to feel calmer:\n\n'
           '🌿 **Ashwagandha** — Known as the "strength herb." Take ½ tsp powder with warm milk at night.\n'
           '🫁 **Deep Breathing (Nadi Shodhana)** — Breathe in through one nostril, out through the other. Just 5 minutes can calm your mind.\n'
@@ -195,7 +199,8 @@ class ChatService {
           '🍵 **Brahmi Tea** — Helps settle racing thoughts.\n\n'
           '✨ **Try this tonight:** Warm foot massage + slow breathing + no screens for 30 min before bed.\n\n'
           'Would you like a step-by-step evening relaxation routine? 🌙';
-    } else if (lowerQuery.contains('sleep') || lowerQuery.contains('insomnia')) {
+    } else if (lowerQuery.contains('sleep') ||
+        lowerQuery.contains('insomnia')) {
       return '🌙 A good night\'s sleep makes everything better! Here\'s what Ayurveda suggests:\n\n'
           '🥛 **Sleep Milk Recipe:**\n'
           '   Warm milk + ½ tsp Ashwagandha + a pinch of nutmeg + a little honey\n'
@@ -205,7 +210,8 @@ class ChatService {
           '🍽️ **Light Dinner** — Eat something warm and easy to digest, at least 2-3 hours before bed.\n\n'
           '✨ **Avoid:** Heavy food, caffeine after 3 PM, and bright screens before bed.\n\n'
           'Want me to create a personalized bedtime routine for you? 😊';
-    } else if (lowerQuery.contains('headache') || lowerQuery.contains('head pain')) {
+    } else if (lowerQuery.contains('headache') ||
+        lowerQuery.contains('head pain')) {
       return '😔 Sorry to hear about your headache! Here are some quick natural remedies:\n\n'
           '🌿 **Peppermint or Eucalyptus Oil** — Dab a drop on your temples and gently massage.\n'
           '💧 **Stay Hydrated** — Dehydration is a common cause. Drink warm water with a squeeze of lemon.\n'
@@ -213,7 +219,10 @@ class ChatService {
           '🍵 **Ginger Tea** — Boil fresh ginger in water for 5 min. Sip slowly.\n\n'
           '⚠️ If headaches are frequent or severe, please do consult a doctor.\n\n'
           'Feeling better? Let me know if you\'d like more tips! 💛';
-    } else if (lowerQuery.contains('digest') || lowerQuery.contains('stomach') || lowerQuery.contains('acidity') || lowerQuery.contains('bloating')) {
+    } else if (lowerQuery.contains('digest') ||
+        lowerQuery.contains('stomach') ||
+        lowerQuery.contains('acidity') ||
+        lowerQuery.contains('bloating')) {
       return '🍲 Digestive issues are so common — let\'s sort that out with some easy tips!\n\n'
           '🍵 **Cumin-Coriander-Fennel Tea (CCF Tea)** — Mix equal parts, boil in water, sip after meals. This is a classic Ayurvedic digestive tonic!\n'
           '🫚 **Ginger Slice** — Chew a thin slice of fresh ginger with a pinch of salt before meals to fire up digestion.\n'
@@ -222,7 +231,7 @@ class ChatService {
           '✨ **Golden Rule:** Eat your biggest meal at lunch when your digestive fire is strongest!\n\n'
           'Want me to suggest a dosha-specific diet plan? 😊';
     }
-    
+
     return '🙏 Thanks for reaching out! I\'m having a little trouble connecting right now, but I\'m still here to help!\n\n'
         'In the meantime, here are some things you can ask me about:\n\n'
         '✨ "What\'s my body type?"\n'
@@ -252,7 +261,8 @@ class ChatNotifier extends StateNotifier<ChatState> {
   final ChatHistoryNotifier _historyNotifier;
   static const _uuid = Uuid();
 
-  ChatNotifier(this._chatService, this._historyNotifier) : super(const ChatState()) {
+  ChatNotifier(this._chatService, this._historyNotifier)
+      : super(const ChatState()) {
     _syncWithHistory();
   }
 
@@ -287,7 +297,7 @@ class ChatNotifier extends StateNotifier<ChatState> {
     try {
       // Get AI response with conversation history
       final response = await _chatService.getResponse(
-        text, 
+        text,
         state.messages.where((m) => m.id != userMessage.id).toList(),
       );
 
@@ -352,13 +362,13 @@ final geminiServiceProvider = Provider<GeminiService>((ref) {
 final chatServiceProvider = Provider<ChatService>((ref) {
   final geminiService = ref.watch(geminiServiceProvider);
   final userProfile = ref.watch(userProfileProvider);
-  
+
   // Get user's dosha if available
   String? userDosha;
   if (userProfile?.doshaResult != null) {
     userDosha = userProfile!.doshaResult!.dominant.displayName;
   }
-  
+
   return ChatService(geminiService, userDosha: userDosha);
 });
 

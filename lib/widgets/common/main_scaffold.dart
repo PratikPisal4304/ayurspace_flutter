@@ -138,7 +138,7 @@ class _NavItemWidget extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final primaryColor = colorScheme.primary;
     final tertiaryColor = colorScheme.onSurfaceVariant;
-    
+
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,

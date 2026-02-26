@@ -25,21 +25,22 @@ import '../screens/auth/signup_screen.dart';
 
 import '../widgets/common/main_scaffold.dart';
 
-
 /// Router provider with auth guards
 final routerProvider = Provider<GoRouter>((ref) {
   final authService = ref.watch(authServiceProvider);
-  
+
   return GoRouter(
     initialLocation: AppRoutes.home,
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshStream(authService.authStateChanges()),
     redirect: (context, state) {
       final isLoggedIn = authService.currentUser != null;
-      final isLoggingIn = state.uri.path == AppRoutes.login || state.uri.path == AppRoutes.signup;
+      final isLoggingIn = state.uri.path == AppRoutes.login ||
+          state.uri.path == AppRoutes.signup;
 
       // Use centralized protected routes list
-      final isProtectedRoute = AppRoutes.protectedRoutes.any((r) => state.uri.path.startsWith(r));
+      final isProtectedRoute =
+          AppRoutes.protectedRoutes.any((r) => state.uri.path.startsWith(r));
 
       // If not logged in and trying to access protected route -> Login
       if (!isLoggedIn && isProtectedRoute) {
@@ -86,7 +87,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               child: CameraScreen(),
             ),
           ),
-
           GoRoute(
             path: '/remedies',
             name: 'remedies',
@@ -178,7 +178,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: 'signup',
         builder: (context, state) => const SignupScreen(),
       ),
-
     ],
   );
 });
@@ -187,8 +186,8 @@ class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
     notifyListeners();
     _subscription = stream.asBroadcastStream().listen(
-      (dynamic _) => notifyListeners(),
-    );
+          (dynamic _) => notifyListeners(),
+        );
   }
 
   late final StreamSubscription<dynamic> _subscription;

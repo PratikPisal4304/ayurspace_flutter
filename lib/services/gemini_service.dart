@@ -22,15 +22,17 @@ class ChatTurn {
   const ChatTurn({required this.role, required this.text});
 
   Map<String, dynamic> toJson() => {
-    'role': role,
-    'parts': [{'text': text}],
-  };
+        'role': role,
+        'parts': [
+          {'text': text}
+        ],
+      };
 }
 
 /// Service for Google Gemini API integration
 class GeminiService {
   final http.Client _client;
-  
+
   GeminiService({http.Client? client}) : _client = client ?? http.Client();
 
   /// Standard safety settings for all requests
@@ -138,11 +140,13 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
           return GeminiResponse(text: text);
         }
         return const GeminiResponse(
-          text: 'I received an empty response. Could you try rephrasing your question?',
+          text:
+              'I received an empty response. Could you try rephrasing your question?',
           isError: true,
         );
       } else {
-        debugPrint('Gemini API error: ${response.statusCode} - ${response.body}');
+        debugPrint(
+            'Gemini API error: ${response.statusCode} - ${response.body}');
         return const GeminiResponse(
           text: 'Sorry, I encountered an error. Please try again.',
           isError: true,
@@ -151,7 +155,8 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
     } catch (e) {
       debugPrint('Gemini error: $e');
       return const GeminiResponse(
-        text: 'Sorry, I couldn\'t connect to the AI service. Please check your internet connection.',
+        text:
+            'Sorry, I couldn\'t connect to the AI service. Please check your internet connection.',
         isError: true,
       );
     }
@@ -166,7 +171,8 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
       debugPrint('⚠️ Gemini API not configured, using mock response');
       await Future.delayed(const Duration(seconds: 1));
       final lastUserMsg = conversationHistory
-          .lastWhere((t) => t.role == 'user', orElse: () => const ChatTurn(role: 'user', text: ''))
+          .lastWhere((t) => t.role == 'user',
+              orElse: () => const ChatTurn(role: 'user', text: ''))
           .text;
       return _getMockResponse(lastUserMsg);
     }
@@ -177,7 +183,9 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
 
       final body = <String, dynamic>{
         'system_instruction': {
-          'parts': [{'text': systemInstruction}],
+          'parts': [
+            {'text': systemInstruction}
+          ],
         },
         'contents': conversationHistory.map((t) => t.toJson()).toList(),
         'generationConfig': _generationConfig,
@@ -200,11 +208,13 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
           return GeminiResponse(text: text);
         }
         return const GeminiResponse(
-          text: 'I received an empty response. Could you try rephrasing your question?',
+          text:
+              'I received an empty response. Could you try rephrasing your question?',
           isError: true,
         );
       } else {
-        debugPrint('Gemini Chat error: ${response.statusCode} - ${response.body}');
+        debugPrint(
+            'Gemini Chat error: ${response.statusCode} - ${response.body}');
         return const GeminiResponse(
           text: 'Sorry, I encountered an error. Please try again.',
           isError: true,
@@ -213,7 +223,8 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
     } catch (e) {
       debugPrint('Gemini Chat error: $e');
       return const GeminiResponse(
-        text: 'Sorry, I couldn\'t connect to the AI service. Please check your internet connection.',
+        text:
+            'Sorry, I couldn\'t connect to the AI service. Please check your internet connection.',
         isError: true,
       );
     }
@@ -232,7 +243,7 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
 
     try {
       final base64Image = base64Encode(imageBytes);
-      
+
       const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
           '${ApiConfig.geminiModel}:generateContent';
 
@@ -273,11 +284,13 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
           return GeminiResponse(text: text);
         }
         return const GeminiResponse(
-          text: 'Sorry, I couldn\'t analyze this image clearly. Could you try with a different photo?',
+          text:
+              'Sorry, I couldn\'t analyze this image clearly. Could you try with a different photo?',
           isError: true,
         );
       } else {
-        debugPrint('Gemini Vision error: ${response.statusCode} - ${response.body}');
+        debugPrint(
+            'Gemini Vision error: ${response.statusCode} - ${response.body}');
         return const GeminiResponse(
           text: 'Sorry, I couldn\'t analyze this image. Please try again.',
           isError: true,
@@ -295,7 +308,7 @@ Keep it friendly, practical, and under 300 words. Use emojis and bullet points f
   /// Mock response for testing when API is not configured
   GeminiResponse _getMockResponse(String message) {
     final lowerMessage = message.toLowerCase();
-    
+
     if (lowerMessage.contains('tulsi') || lowerMessage.contains('basil')) {
       return const GeminiResponse(
         text: '''**Hindi Name**: तुलसी (Tulsi)
@@ -339,7 +352,8 @@ How can I assist you today?''',
 
   GeminiResponse _getMockImageAnalysis() {
     return const GeminiResponse(
-      text: '''Based on the image, this appears to be **Tulsi (Holy Basil)** - *Ocimum sanctum*.
+      text:
+          '''Based on the image, this appears to be **Tulsi (Holy Basil)** - *Ocimum sanctum*.
 
 **Ayurvedic Properties**:
 - **Dosha**: Balances Vata and Kapha

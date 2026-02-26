@@ -96,7 +96,9 @@ class MockPlantsRepository implements PlantsRepository {
   Future<List<Plant>> searchPlants(String query) async {
     await Future.delayed(const Duration(milliseconds: 10));
     final lowerQuery = query.toLowerCase();
-    return _plants.where((p) => p.name.toLowerCase().contains(lowerQuery)).toList();
+    return _plants
+        .where((p) => p.name.toLowerCase().contains(lowerQuery))
+        .toList();
   }
 }
 
@@ -104,10 +106,10 @@ void main() {
   group('PlantsNotifier', () {
     test('initializes with loading state and loads plants', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
-      
+
       // Wait for async load to complete
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       expect(notifier.state.plants.length, 3);
       expect(notifier.state.filteredPlants.length, 3);
       expect(notifier.state.isLoading, false);
@@ -116,9 +118,9 @@ void main() {
 
     test('handles repository error gracefully', () async {
       final notifier = PlantsNotifier(MockPlantsRepository(shouldThrow: true));
-      
+
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       expect(notifier.state.plants, isEmpty);
       expect(notifier.state.isLoading, false);
       expect(notifier.state.error, isNotNull);
@@ -128,9 +130,9 @@ void main() {
     test('searchPlants filters by name', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.searchPlants('tulsi');
-      
+
       expect(notifier.state.filteredPlants.length, 1);
       expect(notifier.state.filteredPlants.first.name, 'Tulsi');
       expect(notifier.state.searchQuery, 'tulsi');
@@ -139,9 +141,9 @@ void main() {
     test('searchPlants filters by scientific name', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.searchPlants('withania');
-      
+
       expect(notifier.state.filteredPlants.length, 1);
       expect(notifier.state.filteredPlants.first.name, 'Ashwagandha');
     });
@@ -149,9 +151,9 @@ void main() {
     test('filterByCategory filters correctly', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.filterByCategory('Herbs');
-      
+
       expect(notifier.state.filteredPlants.length, 1);
       expect(notifier.state.filteredPlants.first.category, 'Herbs');
     });
@@ -159,9 +161,9 @@ void main() {
     test('filterByDosha filters correctly', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.filterByDosha('Pitta');
-      
+
       expect(notifier.state.filteredPlants.length, 1);
       expect(notifier.state.filteredPlants.first.name, 'Neem');
     });
@@ -169,9 +171,9 @@ void main() {
     test('filterByDifficulty filters correctly', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.filterByDifficulty('Medium');
-      
+
       expect(notifier.state.filteredPlants.length, 1);
       expect(notifier.state.filteredPlants.first.name, 'Ashwagandha');
     });
@@ -179,13 +181,13 @@ void main() {
     test('clearFilters resets all filters', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.searchPlants('tulsi');
       notifier.filterByCategory('Herbs');
       expect(notifier.state.filteredPlants.length, 1);
-      
+
       notifier.clearFilters();
-      
+
       expect(notifier.state.filteredPlants.length, 3);
       expect(notifier.state.searchQuery, '');
       expect(notifier.state.selectedCategory, null);
@@ -194,27 +196,27 @@ void main() {
     test('toggleBookmark toggles plant bookmark state', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       expect(notifier.state.plants.first.isBookmarked, false);
-      
+
       notifier.toggleBookmark('1');
-      
+
       expect(notifier.state.plants.first.isBookmarked, true);
-      
+
       notifier.toggleBookmark('1');
-      
+
       expect(notifier.state.plants.first.isBookmarked, false);
     });
 
     test('bookmarkedPlants returns only bookmarked plants', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.toggleBookmark('1');
       notifier.toggleBookmark('3');
-      
+
       final bookmarked = notifier.bookmarkedPlants;
-      
+
       expect(bookmarked.length, 2);
       expect(bookmarked.map((p) => p.id).toList(), ['1', '3']);
     });
@@ -222,10 +224,10 @@ void main() {
     test('multiple filters combine correctly', () async {
       final notifier = PlantsNotifier(MockPlantsRepository());
       await Future.delayed(const Duration(milliseconds: 50));
-      
+
       notifier.filterByDosha('Kapha');
       expect(notifier.state.filteredPlants.length, 3); // All have Kapha
-      
+
       notifier.filterByDifficulty('Easy');
       expect(notifier.state.filteredPlants.length, 2); // Tulsi and Neem
     });

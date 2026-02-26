@@ -7,6 +7,7 @@ import '../../config/design_tokens.dart';
 import '../../data/models/user_profile.dart';
 import '../../data/models/dosha.dart';
 import '../../providers/user_provider.dart';
+import '../../providers/wellness_provider.dart';
 
 import '../../widgets/common/responsive_center.dart';
 
@@ -17,6 +18,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProfileProvider);
     final stats = ref.watch(userStatsProvider);
+    final wellnessState = ref.watch(wellnessProvider);
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -27,68 +29,73 @@ class ProfileScreen extends ConsumerWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-              // Page Header with Settings
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(l10n.navProfile,
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  IconButton(
-                    icon: const Icon(Icons.settings_outlined),
-                    onPressed: () => context.push('/settings'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: DesignTokens.spacingMd),
+                // Page Header with Settings
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(l10n.navProfile,
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    IconButton(
+                      icon: const Icon(Icons.settings_outlined),
+                      onPressed: () => context.push('/settings'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: DesignTokens.spacingMd),
 
-              // Profile Card
-              _ProfileCard(user: user, stats: stats, l10n: l10n),
-              const SizedBox(height: DesignTokens.spacingLg),
+                // Profile Card
+                _ProfileCard(
+                    user: user,
+                    stats: stats,
+                    wellnessState: wellnessState,
+                    l10n: l10n),
+                const SizedBox(height: DesignTokens.spacingLg),
 
-              // Achievements Section
-              _AchievementsSection(stats: stats, l10n: l10n),
-              const SizedBox(height: DesignTokens.spacingLg),
+                // Achievements Section
+                _AchievementsSection(
+                    stats: stats, wellnessState: wellnessState, l10n: l10n),
+                const SizedBox(height: DesignTokens.spacingLg),
 
-              // Dosha Card
-              _buildDoshaCard(context, user?.doshaResult, l10n),
-              const SizedBox(height: DesignTokens.spacingMd),
+                // Dosha Card
+                _buildDoshaCard(context, user?.doshaResult, l10n),
+                const SizedBox(height: DesignTokens.spacingMd),
 
-              // Menu Items
-              _MenuCard(
-                children: [
-                  _MenuItem(
-                      icon: Icons.bookmark_outline,
-                      label: l10n.profileBookmarks,
-                      onTap: () => context.push('/bookmarks')),
-                  _MenuItem(
-                      icon: Icons.favorite_outline,
-                      label: l10n.profileFavorites,
-                      onTap: () => context.push('/favorites')),
-                  _MenuItem(
-                      icon: Icons.quiz_outlined,
-                      label: l10n.profileDoshaQuiz,
-                      onTap: () => context.push('/dosha-quiz')),
-                ],
-              ),
-              const SizedBox(height: DesignTokens.spacingSm),
-              _MenuCard(
-                children: [
-                  _MenuItem(
-                      icon: Icons.help_outline,
-                      label: l10n.profileHelp,
-                      onTap: () => _showHelpDialog(context)),
-                  _MenuItem(
-                      icon: Icons.info_outline,
-                      label: l10n.profileAbout,
-                      onTap: () => _showAboutDialog(context)),
-                ],
-              ),
-            ],
+                // Menu Items
+                _MenuCard(
+                  children: [
+                    _MenuItem(
+                        icon: Icons.bookmark_outline,
+                        label: l10n.profileBookmarks,
+                        onTap: () => context.push('/bookmarks')),
+                    _MenuItem(
+                        icon: Icons.favorite_outline,
+                        label: l10n.profileFavorites,
+                        onTap: () => context.push('/favorites')),
+                    _MenuItem(
+                        icon: Icons.quiz_outlined,
+                        label: l10n.profileDoshaQuiz,
+                        onTap: () => context.push('/dosha-quiz')),
+                  ],
+                ),
+                const SizedBox(height: DesignTokens.spacingSm),
+                _MenuCard(
+                  children: [
+                    _MenuItem(
+                        icon: Icons.help_outline,
+                        label: l10n.profileHelp,
+                        onTap: () => _showHelpDialog(context)),
+                    _MenuItem(
+                        icon: Icons.info_outline,
+                        label: l10n.profileAbout,
+                        onTap: () => _showAboutDialog(context)),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 
   void _showHelpDialog(BuildContext context) {
@@ -168,15 +175,16 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDoshaCard(BuildContext context, DoshaResult? doshaResult, AppLocalizations l10n) {
+  Widget _buildDoshaCard(
+      BuildContext context, DoshaResult? doshaResult, AppLocalizations l10n) {
     String doshaName = '';
     if (doshaResult != null) {
-        final locale = Localizations.localeOf(context).languageCode;
-        // Accessing nested dominant property. Usually doshaResult is DoshaResult type
-        // Assuming dynamic resolution works or use type casting
-        doshaName = locale == 'hi' 
-            ? doshaResult.dominant.hindi 
-            : doshaResult.dominant.displayName;
+      final locale = Localizations.localeOf(context).languageCode;
+      // Accessing nested dominant property. Usually doshaResult is DoshaResult type
+      // Assuming dynamic resolution works or use type casting
+      doshaName = locale == 'hi'
+          ? doshaResult.dominant.hindi
+          : doshaResult.dominant.displayName;
     }
 
     return Material(
@@ -224,9 +232,55 @@ class ProfileScreen extends ConsumerWidget {
 class _ProfileCard extends StatelessWidget {
   final UserProfile? user;
   final UserStats? stats;
+  final WellnessState wellnessState;
   final AppLocalizations l10n;
 
-  const _ProfileCard({this.user, this.stats, required this.l10n});
+  const _ProfileCard({
+    this.user,
+    this.stats,
+    required this.wellnessState,
+    required this.l10n,
+  });
+
+  Widget _buildAvatar() {
+    if (user?.avatarUrl != null && user!.avatarUrl!.isNotEmpty) {
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: NetworkImage(user!.avatarUrl!),
+        backgroundColor: AppColors.surfaceVariant,
+      );
+    }
+
+    final icons = [
+      Icons.person,
+      Icons.spa,
+      Icons.local_florist,
+      Icons.eco,
+      Icons.self_improvement,
+      Icons.favorite,
+    ];
+    final colors = [
+      AppColors.primary,
+      AppColors.saffron,
+      AppColors.neemGreen,
+      AppColors.lotusPink,
+      AppColors.vata,
+      AppColors.pitta,
+    ];
+
+    final index = user?.avatarIndex ?? 0;
+    final safeIndex = index >= 0 && index < icons.length ? index : 0;
+
+    return CircleAvatar(
+      radius: 40,
+      backgroundColor: colors[safeIndex].withValues(alpha: 0.2),
+      child: Icon(
+        icons[safeIndex],
+        color: colors[safeIndex],
+        size: 40,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,29 +302,55 @@ class _ProfileCard extends StatelessWidget {
           Row(
             children: [
               // Avatar
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                child: Text(
-                  user?.name.isNotEmpty == true
-                      ? user!.name[0].toUpperCase()
-                      : 'U',
-                  style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary),
-                ),
-              ),
+              _buildAvatar(),
               const SizedBox(width: DesignTokens.spacingMd),
               // Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(user?.name ?? 'User',
-                        style: Theme.of(context).textTheme.titleLarge),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(user?.name ?? 'User',
+                              style: Theme.of(context).textTheme.titleLarge,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        if (user?.doshaResult != null) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: AppColors.getDoshaColor(
+                                      user!.doshaResult!.dominant.name)
+                                  .withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              user!.doshaResult!.dominant.displayName,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.getDoshaColor(
+                                    user!.doshaResult!.dominant.name),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                     Text(user?.email ?? '',
-                        style: Theme.of(context).textTheme.bodySmall),
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
+                    if (user != null)
+                      Text('Member since ${user!.memberSince}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(fontStyle: FontStyle.italic)),
                     const SizedBox(height: DesignTokens.spacingXs),
                     // Streak Badge
                     Container(
@@ -287,7 +367,7 @@ class _ProfileCard extends StatelessWidget {
                               color: AppColors.saffron, size: 16),
                           const SizedBox(width: 4),
                           Text(
-                            l10n.streakDays(7), // Mock value
+                            l10n.streakDays(wellnessState.currentStreak),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall
@@ -323,7 +403,7 @@ class _ProfileCard extends StatelessWidget {
               Container(height: 40, width: 1, color: AppColors.border),
               _StatItem(
                   label: l10n.statsWellness,
-                  value: '${stats?.wellnessScore ?? 72}'),
+                  value: '${stats?.wellnessScore ?? 0}'),
             ],
           ),
         ],
@@ -355,16 +435,19 @@ class _StatItem extends StatelessWidget {
 
 class _AchievementsSection extends StatelessWidget {
   final UserStats? stats;
+  final WellnessState wellnessState;
   final AppLocalizations l10n;
 
-  const _AchievementsSection({this.stats, required this.l10n});
+  const _AchievementsSection(
+      {this.stats, required this.wellnessState, required this.l10n});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.achievementsTitle, style: Theme.of(context).textTheme.titleMedium),
+        Text(l10n.achievementsTitle,
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: DesignTokens.spacingSm),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -372,7 +455,7 @@ class _AchievementsSection extends StatelessWidget {
             children: [
               _AchievementBadge(
                 icon: Icons.eco,
-                title: 'Plant Explorer',
+                title: l10n.achievementsPlantScans,
                 subtitle: 'Scan 10 plants',
                 progress: (stats?.plantsScanned ?? 0) / 10,
                 unlocked: (stats?.plantsScanned ?? 0) >= 10,
@@ -381,7 +464,7 @@ class _AchievementsSection extends StatelessWidget {
               const SizedBox(width: DesignTokens.spacingSm),
               _AchievementBadge(
                 icon: Icons.medical_services,
-                title: 'Remedy Master',
+                title: l10n.achievementsRemedies,
                 subtitle: 'Try 5 remedies',
                 progress: (stats?.remediesTried ?? 0) / 5,
                 unlocked: (stats?.remediesTried ?? 0) >= 5,
@@ -390,19 +473,19 @@ class _AchievementsSection extends StatelessWidget {
               const SizedBox(width: DesignTokens.spacingSm),
               _AchievementBadge(
                 icon: Icons.self_improvement,
-                title: 'Wellness Guru',
+                title: l10n.achievementsWellness,
                 subtitle: 'Score 80+',
                 progress: (stats?.wellnessScore ?? 0) / 80,
                 unlocked: (stats?.wellnessScore ?? 0) >= 80,
                 color: AppColors.lotusPink,
               ),
               const SizedBox(width: DesignTokens.spacingSm),
-              const _AchievementBadge(
+              _AchievementBadge(
                 icon: Icons.local_fire_department,
-                title: 'Week Streak',
+                title: l10n.achievementsStreak,
                 subtitle: '7 days active',
-                progress: 7 / 7,
-                unlocked: true,
+                progress: (wellnessState.currentStreak) / 7,
+                unlocked: wellnessState.currentStreak >= 7,
                 color: AppColors.vata,
               ),
             ],
@@ -536,5 +619,3 @@ class _MenuItem extends StatelessWidget {
     );
   }
 }
-
-

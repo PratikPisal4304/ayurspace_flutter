@@ -72,7 +72,8 @@ class DoshaQuizScreen extends ConsumerWidget {
                 final isSelected = quizState.currentAnswer == index;
 
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: DesignTokens.spacingSm),
+                  padding:
+                      const EdgeInsets.only(bottom: DesignTokens.spacingSm),
                   child: _QuizOptionCard(
                     text: option.text,
                     isSelected: isSelected,

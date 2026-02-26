@@ -13,28 +13,31 @@ class CorsImageHelper {
   /// can't follow these redirects properly (resulting in 404 errors).
   static String _convertWikipediaUrl(String url) {
     // Check if this is a Wikipedia Special:FilePath URL
-    const specialFilePathPattern = 'commons.wikimedia.org/wiki/Special:FilePath/';
-    
+    const specialFilePathPattern =
+        'commons.wikimedia.org/wiki/Special:FilePath/';
+
     if (url.contains(specialFilePathPattern)) {
       // Extract the filename
-      final startIndex = url.indexOf(specialFilePathPattern) + specialFilePathPattern.length;
+      final startIndex =
+          url.indexOf(specialFilePathPattern) + specialFilePathPattern.length;
       final filename = url.substring(startIndex);
-      
+
       // Decode the filename if it's URL encoded, then normalize spaces to underscores
-      final decodedFilename = Uri.decodeComponent(filename).replaceAll(' ', '_');
-      
+      final decodedFilename =
+          Uri.decodeComponent(filename).replaceAll(' ', '_');
+
       // Calculate the MD5 hash for the Wikimedia upload path
       // Wikimedia uses the first two characters of the MD5 hash for directory structure
       final hashDigest = md5.convert(utf8.encode(decodedFilename));
       final hashHex = hashDigest.toString();
       final hashPrefix1 = hashHex.substring(0, 1);
       final hashPrefix2 = hashHex.substring(0, 2);
-      
+
       // Construct the direct URL with URL-encoded filename
       final encodedFilename = Uri.encodeComponent(decodedFilename);
       return 'https://upload.wikimedia.org/wikipedia/commons/$hashPrefix1/$hashPrefix2/$encodedFilename';
     }
-    
+
     return url;
   }
 

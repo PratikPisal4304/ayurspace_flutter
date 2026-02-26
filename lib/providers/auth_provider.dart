@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
@@ -43,7 +42,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       );
       state = state.copyWith(isLoading: false);
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
+      state = state.copyWith(
+          isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow; // Allow UI to handle if needed (navigating etc)
     }
   }
@@ -86,7 +86,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         state = state.copyWith(isLoading: false);
       }
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
+      state = state.copyWith(
+          isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow;
     }
   }
@@ -98,7 +99,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await _authService.signOut();
       state = const AuthState();
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
+      state = state.copyWith(
+          isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
     }
   }
 
@@ -107,13 +109,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
     try {
       final credential = await _authService.signInWithGoogle();
-      
+
       if (credential?.user != null) {
         final user = credential!.user!;
-        
+
         // Check if this is a new user OR if Firestore doc is missing (legacy/migration)
         final isNewUser = credential.additionalUserInfo?.isNewUser ?? false;
-        
+
         try {
           if (isNewUser) {
             // Create Firestore document for new Google user
@@ -138,14 +140,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
           await _authService.signOut();
           throw Exception('Failed to create user profile. Please try again.');
         }
-        
+
         state = state.copyWith(isLoading: false);
       } else {
         // User cancelled sign-in
         state = state.copyWith(isLoading: false);
       }
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
+      state = state.copyWith(
+          isLoading: false, error: AuthErrorMapper.getErrorMessage(e));
       rethrow;
     }
   }

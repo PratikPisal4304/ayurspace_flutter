@@ -25,13 +25,15 @@ class Plant extends Equatable {
   final String? origin;
   final String? sanskritName;
   final String? partUsed;
-  final List<String>? taste; // Ayurvedic rasa: Sweet, Sour, Salty, Bitter, Pungent, Astringent
+  final List<String>?
+      taste; // Ayurvedic rasa: Sweet, Sour, Salty, Bitter, Pungent, Astringent
   final List<String>? contraindications;
   final List<String>? chemicalCompounds;
-  
+
   // Dravyaguna Specifics
-  final String? virya;   // Potency: Ushna (Hot) / Sheeta (Cold)
-  final String? vipaka;  // Post-digestive Effect: Madhura (Sweet), Amla (Sour), Katu (Pungent)
+  final String? virya; // Potency: Ushna (Hot) / Sheeta (Cold)
+  final String?
+      vipaka; // Post-digestive Effect: Madhura (Sweet), Amla (Sour), Katu (Pungent)
 
   const Plant({
     required this.id,
@@ -147,7 +149,9 @@ class Plant extends Equatable {
       origin: json['origin'] as String?,
       sanskritName: json['sanskritName'] as String?,
       partUsed: json['partUsed'] as String?,
-      taste: json['taste'] != null ? List<String>.from(json['taste'] as List) : null,
+      taste: json['taste'] != null
+          ? List<String>.from(json['taste'] as List)
+          : null,
       contraindications: json['contraindications'] != null
           ? List<String>.from(json['contraindications'] as List)
           : null,

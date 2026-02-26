@@ -8,4 +8,3 @@ void main() {
     expect(const AyurSpaceApp(), isA<AyurSpaceApp>());
   });
 }
-

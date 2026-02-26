@@ -13,6 +13,7 @@ class FirestoreUser {
   final String name;
   final String email;
   final String? avatarUrl;
+  final int avatarIndex;
   final Map<String, dynamic>? doshaResult;
   final List<String> bookmarks;
   final List<String> favorites;
@@ -27,6 +28,7 @@ class FirestoreUser {
     required this.name,
     required this.email,
     this.avatarUrl,
+    this.avatarIndex = 0,
     this.doshaResult,
     this.bookmarks = const [],
     this.favorites = const [],
@@ -44,6 +46,7 @@ class FirestoreUser {
       name: data['name'] ?? '',
       email: data['email'] ?? '',
       avatarUrl: data['avatarUrl'],
+      avatarIndex: data['avatarIndex'] ?? 0,
       doshaResult: data['doshaResult'],
       bookmarks: List<String>.from(data['bookmarks'] ?? []),
       favorites: List<String>.from(data['favorites'] ?? []),
@@ -60,6 +63,7 @@ class FirestoreUser {
       'name': name,
       'email': email,
       'avatarUrl': avatarUrl,
+      'avatarIndex': avatarIndex,
       'doshaResult': doshaResult,
       'bookmarks': bookmarks,
       'favorites': favorites,
@@ -137,6 +141,18 @@ class FirestoreService {
     try {
       await _usersCollection.doc(uid).update({
         'email': email,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw FirestoreException.fromError(e);
+    }
+  }
+
+  /// Update user avatar index
+  Future<void> updateAvatarIndex(String uid, int index) async {
+    try {
+      await _usersCollection.doc(uid).update({
+        'avatarIndex': index,
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
@@ -233,4 +249,3 @@ class FirestoreService {
 final firestoreServiceProvider = Provider<FirestoreService>((ref) {
   return FirestoreService(ref.watch(firestoreProvider));
 });
-

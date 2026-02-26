@@ -39,7 +39,7 @@ class FirestoreRemediesRepository implements RemediesRepository {
           .collection('remedies')
           .where('category', isEqualTo: category)
           .get();
-      
+
       return snapshot.docs.map((doc) {
         return Remedy.fromJson({...doc.data(), 'id': doc.id});
       }).toList();

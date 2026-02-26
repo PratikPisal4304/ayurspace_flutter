@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../data/sources/wellness_data.dart';
+
+// ============================================================
+// WELLNESS STATE
+// ============================================================
 
 /// Wellness state for tracking user wellness activities
 class WellnessState {
@@ -9,6 +14,7 @@ class WellnessState {
   final int weeklyCheckIns;
   final bool isMorningRoutine;
   final int? todayMood; // 1-5 scale
+  final List<int> moodHistory; // last 7 days moods
   final DateTime? lastCheckInDate;
   final bool isLoading;
 
@@ -18,6 +24,7 @@ class WellnessState {
     this.weeklyCheckIns = 0,
     this.isMorningRoutine = true,
     this.todayMood,
+    this.moodHistory = const [],
     this.lastCheckInDate,
     this.isLoading = false,
   });
@@ -28,21 +35,28 @@ class WellnessState {
     int? weeklyCheckIns,
     bool? isMorningRoutine,
     int? todayMood,
+    List<int>? moodHistory,
     DateTime? lastCheckInDate,
     bool? isLoading,
     bool clearMood = false,
   }) {
     return WellnessState(
       currentStreak: currentStreak ?? this.currentStreak,
-      totalMeditationMinutes: totalMeditationMinutes ?? this.totalMeditationMinutes,
+      totalMeditationMinutes:
+          totalMeditationMinutes ?? this.totalMeditationMinutes,
       weeklyCheckIns: weeklyCheckIns ?? this.weeklyCheckIns,
       isMorningRoutine: isMorningRoutine ?? this.isMorningRoutine,
       todayMood: clearMood ? null : (todayMood ?? this.todayMood),
+      moodHistory: moodHistory ?? this.moodHistory,
       lastCheckInDate: lastCheckInDate ?? this.lastCheckInDate,
       isLoading: isLoading ?? this.isLoading,
     );
   }
 }
+
+// ============================================================
+// WELLNESS NOTIFIER
+// ============================================================
 
 /// Wellness notifier for managing wellness state
 class WellnessNotifier extends StateNotifier<WellnessState> {
@@ -55,6 +69,7 @@ class WellnessNotifier extends StateNotifier<WellnessState> {
   static const _checkInsKey = 'weekly_check_ins';
   static const _lastCheckInKey = 'last_check_in';
   static const _moodKey = 'today_mood';
+  static const _moodHistoryKey = 'mood_history';
 
   Future<void> _loadFromStorage() async {
     state = state.copyWith(isLoading: true);
@@ -65,11 +80,16 @@ class WellnessNotifier extends StateNotifier<WellnessState> {
       final checkIns = prefs.getInt(_checkInsKey) ?? 0;
       final lastCheckInStr = prefs.getString(_lastCheckInKey);
       final mood = prefs.getInt(_moodKey);
+      final moodHistoryStr = prefs.getStringList(_moodHistoryKey) ?? [];
 
       DateTime? lastCheckIn;
       if (lastCheckInStr != null) {
         lastCheckIn = DateTime.tryParse(lastCheckInStr);
       }
+
+      // Parse mood history
+      final moodHistory =
+          moodHistoryStr.map((s) => int.tryParse(s) ?? 3).toList();
 
       // Check if streak should reset (missed a day)
       final today = DateTime.now();
@@ -88,6 +108,7 @@ class WellnessNotifier extends StateNotifier<WellnessState> {
         weeklyCheckIns: checkIns,
         lastCheckInDate: lastCheckIn,
         todayMood: mood,
+        moodHistory: moodHistory,
         isLoading: false,
       );
     } catch (e) {
@@ -124,11 +145,27 @@ class WellnessNotifier extends StateNotifier<WellnessState> {
 
     await prefs.setInt(_moodKey, mood);
 
+    // Update mood history (keep last 7 days)
+    final updatedHistory = List<int>.from(state.moodHistory);
+    if (isNewDay) {
+      updatedHistory.add(mood);
+      if (updatedHistory.length > 7) {
+        updatedHistory.removeAt(0);
+      }
+    } else if (updatedHistory.isNotEmpty) {
+      updatedHistory[updatedHistory.length - 1] = mood;
+    } else {
+      updatedHistory.add(mood);
+    }
+    await prefs.setStringList(
+        _moodHistoryKey, updatedHistory.map((m) => m.toString()).toList());
+
     state = state.copyWith(
       todayMood: mood,
       currentStreak: newStreak,
       weeklyCheckIns: newCheckIns,
       lastCheckInDate: today,
+      moodHistory: updatedHistory,
     );
   }
 
@@ -156,33 +193,44 @@ final wellnessProvider = StateNotifierProvider<WellnessNotifier, WellnessState>(
 /// Currently playing sound provider (null if nothing playing)
 final playingSoundProvider = StateProvider<String?>((ref) => null);
 
+// ============================================================
+// MEDITATION TIMER (Background-Safe)
+// ============================================================
+
 /// Meditation timer state
 class MeditationTimerState {
   final int remainingSeconds;
   final int totalSeconds;
   final bool isRunning;
   final bool isComplete;
+  final DateTime? _endTime; // Background-safe anchor
 
   const MeditationTimerState({
     this.remainingSeconds = 0,
     this.totalSeconds = 0,
     this.isRunning = false,
     this.isComplete = false,
-  });
+    DateTime? endTime,
+  }) : _endTime = endTime;
 
   MeditationTimerState copyWith({
     int? remainingSeconds,
     int? totalSeconds,
     bool? isRunning,
     bool? isComplete,
+    DateTime? endTime,
+    bool clearEndTime = false,
   }) {
     return MeditationTimerState(
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       totalSeconds: totalSeconds ?? this.totalSeconds,
       isRunning: isRunning ?? this.isRunning,
       isComplete: isComplete ?? this.isComplete,
+      endTime: clearEndTime ? null : (endTime ?? _endTime),
     );
   }
+
+  DateTime? get endTime => _endTime;
 
   String get formattedTime {
     final mins = remainingSeconds ~/ 60;
@@ -197,6 +245,7 @@ class MeditationTimerState {
 }
 
 /// Meditation Timer Notifier - handles all timer logic
+/// Uses endTime anchor for background-safe countdown
 class MeditationTimerNotifier extends StateNotifier<MeditationTimerState> {
   final Ref _ref;
   Timer? _timer;
@@ -208,18 +257,29 @@ class MeditationTimerNotifier extends StateNotifier<MeditationTimerState> {
     _timer?.cancel();
 
     final totalSeconds = minutes * 60;
+    final endTime = DateTime.now().add(Duration(seconds: totalSeconds));
+
     state = MeditationTimerState(
       remainingSeconds: totalSeconds,
       totalSeconds: totalSeconds,
       isRunning: true,
       isComplete: false,
+      endTime: endTime,
     );
 
     _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
   }
 
   void _onTick(Timer timer) {
-    if (state.remainingSeconds <= 1) {
+    final endTime = state.endTime;
+    if (endTime == null) {
+      timer.cancel();
+      return;
+    }
+
+    final remaining = endTime.difference(DateTime.now()).inSeconds;
+
+    if (remaining <= 0) {
       // Timer complete
       timer.cancel();
       _timer = null;
@@ -231,11 +291,32 @@ class MeditationTimerNotifier extends StateNotifier<MeditationTimerState> {
         remainingSeconds: 0,
         isRunning: false,
         isComplete: true,
+        clearEndTime: true,
       );
     } else {
+      state = state.copyWith(remainingSeconds: remaining);
+    }
+  }
+
+  /// Recalculate remaining time after returning from background
+  void recalculateFromBackground() {
+    final endTime = state.endTime;
+    if (endTime == null || !state.isRunning) return;
+
+    final remaining = endTime.difference(DateTime.now()).inSeconds;
+    if (remaining <= 0) {
+      _timer?.cancel();
+      _timer = null;
+      final minutes = state.totalSeconds ~/ 60;
+      _ref.read(wellnessProvider.notifier).addMeditationMinutes(minutes);
       state = state.copyWith(
-        remainingSeconds: state.remainingSeconds - 1,
+        remainingSeconds: 0,
+        isRunning: false,
+        isComplete: true,
+        clearEndTime: true,
       );
+    } else {
+      state = state.copyWith(remainingSeconds: remaining);
     }
   }
 
@@ -256,7 +337,10 @@ class MeditationTimerNotifier extends StateNotifier<MeditationTimerState> {
   /// Resume the meditation timer
   void resumeMeditation() {
     if (state.remainingSeconds > 0 && !state.isRunning) {
-      state = state.copyWith(isRunning: true);
+      // Re-anchor the endTime to now + remaining
+      final newEnd =
+          DateTime.now().add(Duration(seconds: state.remainingSeconds));
+      state = state.copyWith(isRunning: true, endTime: newEnd);
       _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
     }
   }
@@ -278,3 +362,33 @@ final meditationTimerProvider =
     StateNotifierProvider<MeditationTimerNotifier, MeditationTimerState>(
   (ref) => MeditationTimerNotifier(ref),
 );
+
+// ============================================================
+// AYURVEDIC TIME & SEASON PROVIDERS
+// ============================================================
+
+/// Provider for the current Ayurvedic time period (Kapha/Pitta/Vata)
+final ayurvedicTimePeriodProvider = Provider<String>((ref) {
+  return WellnessData.getAyurvedicTimePeriod(DateTime.now().hour);
+});
+
+/// Provider for the current Ayurvedic season (Ritucharya)
+final currentSeasonProvider = Provider<String>((ref) {
+  return WellnessData.getCurrentSeason(DateTime.now().month);
+});
+
+/// Provider for the current season's details
+final currentSeasonDetailsProvider = Provider<Map<String, dynamic>?>((ref) {
+  final season = ref.watch(currentSeasonProvider);
+  return WellnessData.seasonalDetails[season];
+});
+
+/// Provider for the time-based greeting
+final ayurvedicGreetingProvider = Provider<Map<String, String>>((ref) {
+  return WellnessData.getTimeGreeting(DateTime.now().hour);
+});
+
+/// Provider for the time-based smart suggestion
+final ayurvedicTimeSuggestionProvider = Provider<Map<String, String>>((ref) {
+  return WellnessData.getTimeSuggestion(DateTime.now().hour);
+});

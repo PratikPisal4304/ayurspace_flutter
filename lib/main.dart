@@ -17,22 +17,22 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Load environment variables
   await dotenv.load(fileName: '.env');
 
   // Create container to set initial provider state
   final container = ProviderContainer();
-  
+
   // Try to initialize Firebase, but don't crash if it fails
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    
+
     // Pass all uncaught 'fatal' errors from the framework to Crashlytics
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-    
+
     // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
     PlatformDispatcher.instance.onError = (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -68,13 +68,14 @@ void main() async {
 class NoThumbScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    PointerDeviceKind.stylus,
-  };
-  
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.stylus,
+      };
+
   @override
-  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) {
+  Widget buildScrollbar(
+      BuildContext context, Widget child, ScrollableDetails details) {
     // Return child without wrapping in Scrollbar to prevent multiple position attachments
     return child;
   }
@@ -90,7 +91,8 @@ class AyurSpaceApp extends ConsumerWidget {
 
     if (!isFirebaseInitialized) {
       return const MaintenanceScreen(
-        error: 'Firebase initialization failed. Check your internet connection.',
+        error:
+            'Firebase initialization failed. Check your internet connection.',
       );
     }
 
@@ -109,6 +111,7 @@ class AyurSpaceApp extends ConsumerWidget {
       supportedLocales: const [
         Locale('en'),
         Locale('hi'),
+        Locale('mr'),
       ],
     );
   }

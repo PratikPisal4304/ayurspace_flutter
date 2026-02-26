@@ -20,7 +20,7 @@ class SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Container(
       padding: padding ?? const EdgeInsets.all(DesignTokens.spacingMd),
       decoration: BoxDecoration(

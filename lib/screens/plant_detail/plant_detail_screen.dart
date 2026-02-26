@@ -114,7 +114,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
             Positioned(
               left: DesignTokens.spacingMd,
               right: DesignTokens.spacingMd,
-              bottom: DesignTokens.spacingXl + 20, // Move up to avoid collision with title
+              bottom: DesignTokens.spacingXl +
+                  20, // Move up to avoid collision with title
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -138,8 +139,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
                   const SizedBox(height: DesignTokens.spacingSm),
                   // Rating chip
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20),
@@ -231,7 +232,8 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
           unselectedLabelColor: AppColors.textSecondary,
           indicatorColor: AppColors.primary,
           indicatorWeight: 3,
-          labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          labelStyle:
+              const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           tabs: [
             Tab(text: l10n.tabOverview),
             Tab(text: l10n.tabUses),
@@ -265,12 +267,16 @@ class _PlantDetailScreenState extends ConsumerState<PlantDetailScreen>
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () =>
-                    ref.read(plantsProvider.notifier).toggleBookmark(widget.plantId),
+                onPressed: () => ref
+                    .read(plantsProvider.notifier)
+                    .toggleBookmark(widget.plantId),
                 icon: Icon(
-                  plant.isBookmarked ? Icons.bookmark : Icons.bookmark_add_outlined,
+                  plant.isBookmarked
+                      ? Icons.bookmark
+                      : Icons.bookmark_add_outlined,
                 ),
-                label: Text(plant.isBookmarked ? l10n.actionSaved : l10n.actionSave),
+                label: Text(
+                    plant.isBookmarked ? l10n.actionSaved : l10n.actionSave),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primary,
                   side: const BorderSide(color: AppColors.primary),
@@ -351,7 +357,8 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: AppColors.surface,
       child: tabBar,

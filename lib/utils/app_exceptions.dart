@@ -29,21 +29,21 @@ class FirestoreException extends AppException {
   /// Factory constructor for common Firestore errors
   factory FirestoreException.fromError(Object error) {
     final errorString = error.toString();
-    
+
     if (errorString.contains('permission-denied')) {
       return const FirestoreException(
         'You do not have permission to perform this action.',
         code: 'permission-denied',
       );
     }
-    
+
     if (errorString.contains('not-found')) {
       return const FirestoreException(
         'The requested data was not found.',
         code: 'not-found',
       );
     }
-    
+
     if (errorString.contains('unavailable')) {
       return FirestoreException(
         'Service temporarily unavailable. Please check your connection.',
@@ -51,7 +51,7 @@ class FirestoreException extends AppException {
         originalError: error,
       );
     }
-    
+
     return FirestoreException(
       'A database error occurred. Please try again.',
       originalError: error,

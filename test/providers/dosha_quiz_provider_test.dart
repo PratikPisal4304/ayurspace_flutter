@@ -9,7 +9,8 @@ import 'package:ayurspace_flutter/data/sources/dosha_quiz_data.dart';
 
 // --- Mocks ---
 
-class MockUserNotifier extends StateNotifier<UserState> implements UserNotifier {
+class MockUserNotifier extends StateNotifier<UserState>
+    implements UserNotifier {
   MockUserNotifier() : super(const UserState());
 
   // Using simple boolean flags/callback for verification instead of fully fledged mockito for StateNotifier
@@ -21,33 +22,36 @@ class MockUserNotifier extends StateNotifier<UserState> implements UserNotifier 
     saveDoshaResultCalled = true;
     savedResult = result;
   }
-  
+
   @override
   void onAuthStateChanged(dynamic user) {}
-  
+
   @override
   void loading() {}
-  
+
   @override
   Future<void> updateName(String name) async {}
-  
+
   @override
   Future<void> updateEmail(String email) async {}
-  
+
   @override
   void updateSettings(UserSettings settings) {}
-  
+
   @override
   Future<void> incrementPlantsScanned() async {}
-  
+
   @override
   Future<void> incrementRemediesTried() async {}
-  
+
   @override
   Future<void> toggleBookmark(String plantId) async {}
-  
+
   @override
   Future<void> toggleFavoriteRemedy(String remedyId) async {}
+
+  @override
+  Future<void> updateAvatarIndex(int index) async {}
 }
 
 void main() {
@@ -70,7 +74,7 @@ void main() {
   group('DoshaQuizNotifier Tests', () {
     test('Initial state loads questions', () {
       final state = container.read(doshaQuizProvider);
-      
+
       expect(state.questions.length, greaterThan(0));
       expect(state.questions.length, doshaQuizData.length);
       expect(state.currentQuestionIndex, 0);
@@ -80,8 +84,8 @@ void main() {
 
     test('selectAnswer updates answers and score', () {
       final notifier = container.read(doshaQuizProvider.notifier);
-      
-      // Select first option (assuming Vata based on implementation, 
+
+      // Select first option (assuming Vata based on implementation,
       // but logic says selectAnswer(index, dosha))
       notifier.selectAnswer(0, DoshaType.vata);
 
@@ -94,9 +98,9 @@ void main() {
 
     test('nextQuestion increments index', () {
       final notifier = container.read(doshaQuizProvider.notifier);
-      
+
       notifier.nextQuestion();
-      
+
       final state = container.read(doshaQuizProvider);
       expect(state.currentQuestionIndex, 1);
     });
@@ -109,20 +113,20 @@ void main() {
       // To simulate "mostly vata", we answer vata for all
       for (int i = 0; i < questionsCount; i++) {
         notifier.selectAnswer(0, DoshaType.vata);
-        
+
         // Move next (if not last)
         if (i < questionsCount - 1) {
-           notifier.nextQuestion();
+          notifier.nextQuestion();
         }
       }
-      
+
       // Now at last question, call nextQuestion triggers complete
       notifier.nextQuestion();
 
       final state = container.read(doshaQuizProvider);
       expect(state.isComplete, true);
       expect(state.result?.dominant, DoshaType.vata);
-      
+
       // Verify persistence
       expect(mockUserNotifier.saveDoshaResultCalled, true);
       expect(mockUserNotifier.savedResult?.dominant, DoshaType.vata);
@@ -132,9 +136,9 @@ void main() {
       final notifier = container.read(doshaQuizProvider.notifier);
       notifier.selectAnswer(0, DoshaType.vata);
       notifier.nextQuestion();
-      
+
       notifier.reset();
-      
+
       final state = container.read(doshaQuizProvider);
       expect(state.currentQuestionIndex, 0);
       expect(state.answers.isEmpty, true);

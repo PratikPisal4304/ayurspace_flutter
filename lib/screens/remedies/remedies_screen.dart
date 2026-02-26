@@ -79,8 +79,8 @@ class _RemediesScreenState extends ConsumerState<RemediesScreen> {
               height: 40,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: DesignTokens.spacingMd),
                 itemCount: categories.length,
                 separatorBuilder: (_, __) =>
                     const SizedBox(width: DesignTokens.spacingXs),
@@ -125,8 +125,8 @@ class _RemediesScreenState extends ConsumerState<RemediesScreen> {
             // Results info
             if (remediesState.hasFilters)
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: DesignTokens.spacingMd),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: DesignTokens.spacingMd),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -155,7 +155,8 @@ class _RemediesScreenState extends ConsumerState<RemediesScreen> {
     );
   }
 
-  Widget _buildRemediesList(BuildContext context, RemediesState state, AppLocalizations l10n) {
+  Widget _buildRemediesList(
+      BuildContext context, RemediesState state, AppLocalizations l10n) {
     if (state.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }

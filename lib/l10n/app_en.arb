@@ -9,9 +9,12 @@
   "navScan": "Scan",
   "navWellness": "Wellness",
   "navProfile": "Profile",
+  "navChat": "Chat",
+
   "greetingMorning": "Good Morning",
   "greetingAfternoon": "Good Afternoon",
   "greetingEvening": "Good Evening",
+
   "dailyTip": "Daily Tip",
   "dailyTipContent": "Start your day with warm water and a teaspoon of honey to boost digestion and energy.",
   "featuredRemedies": "Featured Remedies",
@@ -23,49 +26,55 @@
   "plantScan": "Plant Scan",
   "consultAi": "Consult AI",
   "myHealth": "My Health",
+
   "wellnessScoreTitle": "Your Wellness Score",
   "wellnessKeepUp": "Keep up the great work! 🌿",
+
   "remediesSubtitle": "Traditional Ayurvedic solutions",
   "clearFilters": "Clear filters",
   "remediesFound": "{count} remedies found",
   "@remediesFound": {
     "placeholders": {
-      "count": {
-        "type": "int"
-      }
+      "count": { "type": "int" }
     }
   },
   "errorGeneric": "Something went wrong",
   "tryAgain": "Try again",
   "noRemediesFound": "No remedies found",
+
   "profileBookmarks": "Bookmarked Plants",
   "profileFavorites": "Favorite Remedies",
   "profileDoshaQuiz": "Take Dosha Quiz",
   "profileHelp": "Help & Support",
   "profileAbout": "About AyurSpace",
+
   "statsPlants": "Plants\nScanned",
   "statsRemedies": "Remedies\nTried",
   "statsWellness": "Wellness\nScore",
+
   "achievementsTitle": "Achievements",
+  "achievementsPlantScans": "Plant Explorer",
+  "achievementsRemedies": "Remedy Master",
+  "achievementsWellness": "Wellness Guru",
+  "achievementsStreak": "Week Streak",
+
   "doshaResultTitle": "Your Dosha: {dosha}",
   "@doshaResultTitle": {
     "placeholders": {
-      "dosha": {
-        "type": "String"
-      }
+      "dosha": { "type": "String" }
     }
   },
   "doshaDiscover": "Discover Your Dosha",
   "doshaViewDetails": "Tap to view details",
   "doshaTakeQuiz": "Take the quiz to find out",
+
   "streakDays": "{count} day streak",
   "@streakDays": {
     "placeholders": {
-      "count": {
-        "type": "int"
-      }
+      "count": { "type": "int" }
     }
   },
+
   "welcomeBack": "Welcome Back",
   "signInToContWith": "Sign in to continue your wellness journey",
   "email": "Email",
@@ -82,6 +91,7 @@
   "fullName": "Full Name",
   "confirmPassword": "Confirm Password",
   "alreadyHaveAccount": "Already have an account?",
+
   "sessionComplete": "Session Complete!",
   "meditationGreatJob": "Great job on your meditation practice.",
   "done": "Done",
@@ -91,17 +101,13 @@
   "nowPlaying": "Now playing: {sound}",
   "@nowPlaying": {
     "placeholders": {
-      "sound": {
-        "type": "String"
-      }
+      "sound": { "type": "String" }
     }
   },
   "dayStreakTitle": "{count} Day Streak!",
   "@dayStreakTitle": {
     "placeholders": {
-      "count": {
-        "type": "int"
-      }
+      "count": { "type": "int" }
     }
   },
   "startWellnessToday": "Start your wellness journey today",
@@ -114,6 +120,9 @@
   "morningRoutine": "Morning Routine",
   "eveningRoutine": "Evening Routine",
   "stop": "Stop",
+  "pause": "Pause",
+  "resume": "Resume",
+
   "helpAndSupport": "Help & Support",
   "helpEmail": "Email: support@ayurspace.app",
   "helpWebsite": "Website: www.ayurspace.app",
@@ -122,9 +131,11 @@
   "faqDosha": "What is my dosha?",
   "faqRemedies": "Are remedies safe to use?",
   "close": "Close",
+
   "aboutVersion": "Version 1.0.0",
   "aboutDescription": "Your complete Ayurveda companion. Discover traditional herbs, personalized remedies, and wellness practices based on ancient wisdom.",
   "aboutCopyright": "© 2024 AyurSpace. All rights reserved.",
+
   "resetPassword": "Reset Password",
   "resetPasswordDesc": "Enter your email address and we'll send you a link to reset your password.",
   "cancel": "Cancel",
@@ -133,11 +144,10 @@
   "passwordResetSent": "Password reset link sent to {email}",
   "@passwordResetSent": {
     "placeholders": {
-      "email": {
-        "type": "String"
-      }
+      "email": { "type": "String" }
     }
   },
+
   "plantAbout": "About",
   "plantBenefits": "Health Benefits",
   "plantDoshas": "Balances Doshas",
@@ -194,10 +204,122 @@
   "confidenceMatch": "{percent}% match",
   "@confidenceMatch": {
     "placeholders": {
-      "percent": {
-        "type": "int"
-      }
+      "percent": { "type": "int" }
     }
   },
-  "moreDailyTips": "More daily tips coming soon!"
+  "moreDailyTips": "More daily tips coming soon!",
+
+  "settingsTitle": "Settings",
+  "settingsNotifications": "Notifications",
+  "settingsPushNotifications": "Push Notifications",
+  "settingsPushSubtitle": "Receive daily tips and reminders",
+  "settingsDailyTips": "Daily Wellness Tips",
+  "settingsDailyTipsSubtitle": "Get Ayurvedic tips each morning",
+  "settingsAppearance": "Appearance",
+  "settingsDarkMode": "Dark Mode",
+  "settingsDarkModeSubtitle": "Switch to dark theme",
+  "settingsLanguage": "Language",
+  "settingsLanguageSubtitle": "Choose your preferred language",
+  "settingsData": "Data & Storage",
+  "settingsAutoBackup": "Auto Backup",
+  "settingsAutoBackupSubtitle": "Backup data to cloud",
+  "settingsClearCache": "Clear Cache",
+  "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsDeleteAccount": "Delete Account",
+  "settingsAbout": "About",
+  "settingsAppVersion": "App Version",
+  "settingsSignOut": "Sign Out",
+  "settingsSignOutConfirm": "Are you sure you want to sign out?",
+  "settingsClearCacheConfirm": "This will clear all cached data. Downloaded content may need to be re-downloaded.",
+  "settingsCacheCleared": "Cache cleared successfully",
+  "settingsDarkModeComingSoon": "Dark mode coming soon! 🌙",
+  "settingsDeleteAccountTitle": "Delete Account",
+  "settingsDeleteAccountMsg": "Are you sure you want to delete your account? This action cannot be undone and you will lose all your saved data, including Dosha profile, bookmarks, and streaks.",
+  "settingsDeleteAccountRequested": "Account deletion requested. Support will contact you shortly.",
+  "settingsSelectLanguage": "Select Language",
+  "settingsLanguageComingSoon": "{lang} language coming soon!",
+  "@settingsLanguageComingSoon": {
+    "placeholders": {
+      "lang": { "type": "String" }
+    }
+  },
+
+  "editProfile": "Edit Profile",
+  "editProfileSaveChanges": "Save Changes",
+  "editProfileNameShort": "Name must be at least 2 characters",
+  "editProfileInvalidEmail": "Please enter a valid email",
+  "editProfileUpdated": "Profile updated successfully!",
+  "editProfileSelectAvatar": "Select Avatar",
+  "editProfileName": "Name",
+  "editProfileEmail": "Email",
+
+  "doshaProfileTitle": "Your Dosha Profile",
+  "doshaProfileNoAssessment": "Your Dosha",
+  "doshaDiscoverTitle": "Discover Your Dosha",
+  "doshaDiscoverSubtitle": "Take the Ayurvedic assessment to reveal your unique mind-body constitution and unlock personalized wellness advice.",
+  "doshaYouAre": "You are {dosha}",
+  "@doshaYouAre": {
+    "placeholders": {
+      "dosha": { "type": "String" }
+    }
+  },
+  "doshaBreakdown": "Dosha Breakdown",
+  "doshaAbout": "About {dosha}",
+  "@doshaAbout": {
+    "placeholders": {
+      "dosha": { "type": "String" }
+    }
+  },
+  "doshaBalancingDiet": "Balancing Diet (Ahara)",
+  "doshaFavor": "✅ Favor",
+  "doshaAvoid": "❌ Avoid",
+  "doshaSeasonImpact": "Current Season Impact",
+  "doshaSeasonOf": "Season of {dosha}",
+  "@doshaSeasonOf": {
+    "placeholders": {
+      "dosha": { "type": "String" }
+    }
+  },
+  "doshaSeasonWarning": "Pay extra attention! This season naturally increases your dominant dosha. Stick strictly to your balancing routines.",
+  "doshaSeasonNeutral": "This season may help balance your dominant dosha, but remain mindful of {dosha} aggravation.",
+  "@doshaSeasonNeutral": {
+    "placeholders": {
+      "dosha": { "type": "String" }
+    }
+  },
+  "doshaRetakeQuiz": "Retake Quiz",
+
+  "chatAyurBot": "AyurBot",
+  "chatExpert": "Ayurveda Expert",
+  "chatThinking": "Thinking...",
+  "chatNewChat": "New Chat",
+  "chatHistory": "Chat History",
+  "chatStartNew": "Start New Chat",
+  "chatStartNewConfirm": "Start New Chat?",
+  "chatStartNewMsg": "This will clear the current conversation.",
+  "chatRecentConversations": "Recent Conversations",
+  "chatNoConversations": "No conversations yet",
+  "chatClearAll": "Clear All History",
+  "chatClearAllMsg": "This will delete all your chat conversations. This action cannot be undone.",
+  "chatDeleteAll": "Delete All",
+  "chatSwipeHint": "Swipe left on a chat to delete it",
+  "chatStartConversation": "Start a conversation",
+  "chatDismiss": "Dismiss",
+  "chatTypeMessage": "Ask about Ayurveda...",
+
+  "memberSince": "Member since {date}",
+  "@memberSince": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "wellnessHub": "Wellness Hub",
+  "dailyRoutine": "Daily Routine (Dinacharya)",
+  "balanceDosha": "Balance Your Dosha",
+  "seasonalWisdom": "Seasonal Wisdom (Ritucharya)",
+
+  "delete": "Delete",
+  "save": "Save",
+  "share": "Share"
 }

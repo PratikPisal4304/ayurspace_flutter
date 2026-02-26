@@ -54,7 +54,8 @@ class PlantIdResult {
   factory PlantIdResult.fromJson(Map<String, dynamic> json) {
     final result = json['result'];
     if (result == null) {
-      throw const PlantIdException('Invalid API response: missing "result" field');
+      throw const PlantIdException(
+          'Invalid API response: missing "result" field');
     }
 
     // Guard: check suggestions exist and are non-empty
@@ -82,10 +83,10 @@ class PlantIdResult {
     final rawSimilarImages = suggestion['similar_images'] as List?;
     final similarImageUrls = rawSimilarImages != null
         ? rawSimilarImages
-              .map((img) => (img as Map<String, dynamic>)['url'] as String?)
-              .where((url) => url != null && url.isNotEmpty)
-              .cast<String>()
-              .toList()
+            .map((img) => (img as Map<String, dynamic>)['url'] as String?)
+            .where((url) => url != null && url.isNotEmpty)
+            .cast<String>()
+            .toList()
         : <String>[];
 
     // Parse health data
@@ -122,9 +123,10 @@ class PlantIdResult {
 
     // Parse propagation methods
     final rawPropagation = details['propagation_methods'] as List?;
-    final propagationMethods = rawPropagation != null && rawPropagation.isNotEmpty
-        ? List<String>.from(rawPropagation)
-        : null;
+    final propagationMethods =
+        rawPropagation != null && rawPropagation.isNotEmpty
+            ? List<String>.from(rawPropagation)
+            : null;
 
     return PlantIdResult(
       scientificName: (suggestion['name'] as String?) ?? 'Unknown',
@@ -133,8 +135,8 @@ class PlantIdResult {
       probability: (suggestion['probability'] as num?)?.toDouble() ?? 0.0,
       description: (details['description'] as Map<String, dynamic>?)?['value']
           as String?,
-      imageUrl: (details['image'] as Map<String, dynamic>?)?['value']
-          as String?,
+      imageUrl:
+          (details['image'] as Map<String, dynamic>?)?['value'] as String?,
       similarImages: similarImageUrls,
       isHealthy: isHealthy,
       healthAssessment: healthAssessment,

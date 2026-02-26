@@ -225,8 +225,8 @@ class CameraScreen extends ConsumerWidget {
                   icon: Icons.search,
                   label: 'Identifying plant...',
                   isActive: state.analysisStep == AnalysisStep.identifying,
-                  isDone: state.analysisStep.index >
-                      AnalysisStep.identifying.index,
+                  isDone:
+                      state.analysisStep.index > AnalysisStep.identifying.index,
                 ),
                 const SizedBox(height: DesignTokens.spacingSm),
                 _buildStepIndicator(
@@ -243,8 +243,7 @@ class CameraScreen extends ConsumerWidget {
                   context,
                   icon: Icons.spa,
                   label: 'Getting Ayurvedic insights...',
-                  isActive:
-                      state.analysisStep == AnalysisStep.gettingAyurvedic,
+                  isActive: state.analysisStep == AnalysisStep.gettingAyurvedic,
                   isDone: state.analysisStep.index >
                       AnalysisStep.gettingAyurvedic.index,
                 ),
@@ -342,8 +341,7 @@ class CameraScreen extends ConsumerWidget {
                     horizontal: DesignTokens.spacingMd,
                   ),
                   child: Text(
-                    state.error ??
-                        AppLocalizations.of(context)!.errorGeneric,
+                    state.error ?? AppLocalizations.of(context)!.errorGeneric,
                     style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -427,18 +425,13 @@ class CameraScreen extends ConsumerWidget {
                   children: [
                     _buildBadge(
                       icon: Icons.verified,
-                      label:
-                          '${(result.confidence * 100).toInt()}% match',
+                      label: '${(result.confidence * 100).toInt()}% match',
                       color: _getConfidenceColor(result.confidence),
                     ),
                     const SizedBox(width: DesignTokens.spacingXs),
                     _buildBadge(
-                      icon: result.isHealthy
-                          ? Icons.favorite
-                          : Icons.healing,
-                      label: result.isHealthy
-                          ? 'Healthy'
-                          : 'Issues detected',
+                      icon: result.isHealthy ? Icons.favorite : Icons.healing,
+                      label: result.isHealthy ? 'Healthy' : 'Issues detected',
                       color: result.isHealthy
                           ? AppColors.success
                           : AppColors.warning,
@@ -450,35 +443,30 @@ class CameraScreen extends ConsumerWidget {
                 // Plant name
                 Text(
                   result.plantName,
-                  style:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                   textAlign: TextAlign.center,
                 ),
 
                 // Scientific name
                 Text(
                   result.scientificName,
-                  style:
-                      Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: AppColors.textSecondary,
-                          ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        color: AppColors.textSecondary,
+                      ),
                 ),
                 const SizedBox(height: DesignTokens.spacingXs),
 
                 // Source badge
                 _buildBadge(
-                  icon: isLocalMatch
-                      ? Icons.local_florist
-                      : Icons.auto_awesome,
+                  icon: isLocalMatch ? Icons.local_florist : Icons.auto_awesome,
                   label: isLocalMatch
                       ? AppLocalizations.of(context)!.ayurvedicDatabase
                       : AppLocalizations.of(context)!.aiGeneratedInfo,
-                  color:
-                      isLocalMatch ? AppColors.primary : AppColors.saffron,
+                  color: isLocalMatch ? AppColors.primary : AppColors.saffron,
                 ),
 
                 const SizedBox(height: DesignTokens.spacingMd),
@@ -488,14 +476,11 @@ class CameraScreen extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
-                        onPressed:
-                            ref.read(scanProvider.notifier).reset,
+                        onPressed: ref.read(scanProvider.notifier).reset,
                         icon: const Icon(Icons.refresh, size: 18),
-                        label: Text(
-                            AppLocalizations.of(context)!.scanAgain),
+                        label: Text(AppLocalizations.of(context)!.scanAgain),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           backgroundColor:
                               AppColors.surface.withValues(alpha: 0.9),
                         ),
@@ -506,20 +491,16 @@ class CameraScreen extends ConsumerWidget {
                       flex: 2,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          if (isLocalMatch &&
-                              result.matchedPlant != null) {
-                            context.push(
-                                '/plant/${result.matchedPlant!.id}');
+                          if (isLocalMatch && result.matchedPlant != null) {
+                            context.push('/plant/${result.matchedPlant!.id}');
                           } else {
                             context.push('/scan-result');
                           }
                         },
                         icon: const Icon(Icons.visibility, size: 18),
-                        label: Text(
-                            AppLocalizations.of(context)!.viewDetails),
+                        label: Text(AppLocalizations.of(context)!.viewDetails),
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
@@ -616,8 +597,8 @@ class CameraScreen extends ConsumerWidget {
                         height: 48,
                         decoration: BoxDecoration(
                           color: AppColors.surfaceVariant,
-                          borderRadius: BorderRadius.circular(
-                              DesignTokens.radiusSm),
+                          borderRadius:
+                              BorderRadius.circular(DesignTokens.radiusSm),
                           border: Border.all(
                             color: AppColors.primary.withValues(alpha: 0.3),
                           ),

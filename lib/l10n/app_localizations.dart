@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_mr.dart';
 
 // ignore_for_file: type=lint
 
@@ -95,7 +96,8 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('hi')
+    Locale('hi'),
+    Locale('mr')
   ];
 
   /// The title of the application
@@ -139,6 +141,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get navProfile;
+
+  /// No description provided for @navChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get navChat;
 
   /// No description provided for @greetingMorning.
   ///
@@ -325,6 +333,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Achievements'**
   String get achievementsTitle;
+
+  /// No description provided for @achievementsPlantScans.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant Explorer'**
+  String get achievementsPlantScans;
+
+  /// No description provided for @achievementsRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Remedy Master'**
+  String get achievementsRemedies;
+
+  /// No description provided for @achievementsWellness.
+  ///
+  /// In en, this message translates to:
+  /// **'Wellness Guru'**
+  String get achievementsWellness;
+
+  /// No description provided for @achievementsStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Week Streak'**
+  String get achievementsStreak;
 
   /// No description provided for @doshaResultTitle.
   ///
@@ -559,6 +591,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stop'**
   String get stop;
+
+  /// No description provided for @pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pause;
+
+  /// No description provided for @resume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resume;
 
   /// No description provided for @helpAndSupport.
   ///
@@ -985,6 +1029,468 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More daily tips coming soon!'**
   String get moreDailyTips;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get settingsNotifications;
+
+  /// No description provided for @settingsPushNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notifications'**
+  String get settingsPushNotifications;
+
+  /// No description provided for @settingsPushSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive daily tips and reminders'**
+  String get settingsPushSubtitle;
+
+  /// No description provided for @settingsDailyTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Wellness Tips'**
+  String get settingsDailyTips;
+
+  /// No description provided for @settingsDailyTipsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Ayurvedic tips each morning'**
+  String get settingsDailyTipsSubtitle;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsDarkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get settingsDarkMode;
+
+  /// No description provided for @settingsDarkModeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to dark theme'**
+  String get settingsDarkModeSubtitle;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred language'**
+  String get settingsLanguageSubtitle;
+
+  /// No description provided for @settingsData.
+  ///
+  /// In en, this message translates to:
+  /// **'Data & Storage'**
+  String get settingsData;
+
+  /// No description provided for @settingsAutoBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Backup'**
+  String get settingsAutoBackup;
+
+  /// No description provided for @settingsAutoBackupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup data to cloud'**
+  String get settingsAutoBackupSubtitle;
+
+  /// No description provided for @settingsClearCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Cache'**
+  String get settingsClearCache;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get settingsDeleteAccount;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// No description provided for @settingsAppVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version'**
+  String get settingsAppVersion;
+
+  /// No description provided for @settingsSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get settingsSignOut;
+
+  /// No description provided for @settingsSignOutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get settingsSignOutConfirm;
+
+  /// No description provided for @settingsClearCacheConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This will clear all cached data. Downloaded content may need to be re-downloaded.'**
+  String get settingsClearCacheConfirm;
+
+  /// No description provided for @settingsCacheCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache cleared successfully'**
+  String get settingsCacheCleared;
+
+  /// No description provided for @settingsDarkModeComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode coming soon! 🌙'**
+  String get settingsDarkModeComingSoon;
+
+  /// No description provided for @settingsDeleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get settingsDeleteAccountTitle;
+
+  /// No description provided for @settingsDeleteAccountMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action cannot be undone and you will lose all your saved data, including Dosha profile, bookmarks, and streaks.'**
+  String get settingsDeleteAccountMsg;
+
+  /// No description provided for @settingsDeleteAccountRequested.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deletion requested. Support will contact you shortly.'**
+  String get settingsDeleteAccountRequested;
+
+  /// No description provided for @settingsSelectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get settingsSelectLanguage;
+
+  /// No description provided for @settingsLanguageComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'{lang} language coming soon!'**
+  String settingsLanguageComingSoon(String lang);
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @editProfileSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get editProfileSaveChanges;
+
+  /// No description provided for @editProfileNameShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be at least 2 characters'**
+  String get editProfileNameShort;
+
+  /// No description provided for @editProfileInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get editProfileInvalidEmail;
+
+  /// No description provided for @editProfileUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully!'**
+  String get editProfileUpdated;
+
+  /// No description provided for @editProfileSelectAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Avatar'**
+  String get editProfileSelectAvatar;
+
+  /// No description provided for @editProfileName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get editProfileName;
+
+  /// No description provided for @editProfileEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get editProfileEmail;
+
+  /// No description provided for @doshaProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Dosha Profile'**
+  String get doshaProfileTitle;
+
+  /// No description provided for @doshaProfileNoAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Dosha'**
+  String get doshaProfileNoAssessment;
+
+  /// No description provided for @doshaDiscoverTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover Your Dosha'**
+  String get doshaDiscoverTitle;
+
+  /// No description provided for @doshaDiscoverSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the Ayurvedic assessment to reveal your unique mind-body constitution and unlock personalized wellness advice.'**
+  String get doshaDiscoverSubtitle;
+
+  /// No description provided for @doshaYouAre.
+  ///
+  /// In en, this message translates to:
+  /// **'You are {dosha}'**
+  String doshaYouAre(String dosha);
+
+  /// No description provided for @doshaBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Dosha Breakdown'**
+  String get doshaBreakdown;
+
+  /// No description provided for @doshaAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About {dosha}'**
+  String doshaAbout(String dosha);
+
+  /// No description provided for @doshaBalancingDiet.
+  ///
+  /// In en, this message translates to:
+  /// **'Balancing Diet (Ahara)'**
+  String get doshaBalancingDiet;
+
+  /// No description provided for @doshaFavor.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Favor'**
+  String get doshaFavor;
+
+  /// No description provided for @doshaAvoid.
+  ///
+  /// In en, this message translates to:
+  /// **'❌ Avoid'**
+  String get doshaAvoid;
+
+  /// No description provided for @doshaSeasonImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Season Impact'**
+  String get doshaSeasonImpact;
+
+  /// No description provided for @doshaSeasonOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Season of {dosha}'**
+  String doshaSeasonOf(String dosha);
+
+  /// No description provided for @doshaSeasonWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay extra attention! This season naturally increases your dominant dosha. Stick strictly to your balancing routines.'**
+  String get doshaSeasonWarning;
+
+  /// No description provided for @doshaSeasonNeutral.
+  ///
+  /// In en, this message translates to:
+  /// **'This season may help balance your dominant dosha, but remain mindful of {dosha} aggravation.'**
+  String doshaSeasonNeutral(String dosha);
+
+  /// No description provided for @doshaRetakeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake Quiz'**
+  String get doshaRetakeQuiz;
+
+  /// No description provided for @chatAyurBot.
+  ///
+  /// In en, this message translates to:
+  /// **'AyurBot'**
+  String get chatAyurBot;
+
+  /// No description provided for @chatExpert.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayurveda Expert'**
+  String get chatExpert;
+
+  /// No description provided for @chatThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Thinking...'**
+  String get chatThinking;
+
+  /// No description provided for @chatNewChat.
+  ///
+  /// In en, this message translates to:
+  /// **'New Chat'**
+  String get chatNewChat;
+
+  /// No description provided for @chatHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat History'**
+  String get chatHistory;
+
+  /// No description provided for @chatStartNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Start New Chat'**
+  String get chatStartNew;
+
+  /// No description provided for @chatStartNewConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Start New Chat?'**
+  String get chatStartNewConfirm;
+
+  /// No description provided for @chatStartNewMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'This will clear the current conversation.'**
+  String get chatStartNewMsg;
+
+  /// No description provided for @chatRecentConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Conversations'**
+  String get chatRecentConversations;
+
+  /// No description provided for @chatNoConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations yet'**
+  String get chatNoConversations;
+
+  /// No description provided for @chatClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All History'**
+  String get chatClearAll;
+
+  /// No description provided for @chatClearAllMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'This will delete all your chat conversations. This action cannot be undone.'**
+  String get chatClearAllMsg;
+
+  /// No description provided for @chatDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All'**
+  String get chatDeleteAll;
+
+  /// No description provided for @chatSwipeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left on a chat to delete it'**
+  String get chatSwipeHint;
+
+  /// No description provided for @chatStartConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a conversation'**
+  String get chatStartConversation;
+
+  /// No description provided for @chatDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get chatDismiss;
+
+  /// No description provided for @chatTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask about Ayurveda...'**
+  String get chatTypeMessage;
+
+  /// No description provided for @memberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Member since {date}'**
+  String memberSince(String date);
+
+  /// No description provided for @wellnessHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Wellness Hub'**
+  String get wellnessHub;
+
+  /// No description provided for @dailyRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Routine (Dinacharya)'**
+  String get dailyRoutine;
+
+  /// No description provided for @balanceDosha.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Your Dosha'**
+  String get balanceDosha;
+
+  /// No description provided for @seasonalWisdom.
+  ///
+  /// In en, this message translates to:
+  /// **'Seasonal Wisdom (Ritucharya)'**
+  String get seasonalWisdom;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
 }
 
 class _AppLocalizationsDelegate
@@ -998,7 +1504,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'hi'].contains(locale.languageCode);
+      <String>['en', 'hi', 'mr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1011,6 +1517,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEn();
     case 'hi':
       return AppLocalizationsHi();
+    case 'mr':
+      return AppLocalizationsMr();
   }
 
   throw FlutterError(

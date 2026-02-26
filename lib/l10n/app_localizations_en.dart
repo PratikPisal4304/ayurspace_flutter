@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navProfile => 'Profile';
 
   @override
+  String get navChat => 'Chat';
+
+  @override
   String get greetingMorning => 'Good Morning';
 
   @override
@@ -124,6 +127,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get achievementsTitle => 'Achievements';
+
+  @override
+  String get achievementsPlantScans => 'Plant Explorer';
+
+  @override
+  String get achievementsRemedies => 'Remedy Master';
+
+  @override
+  String get achievementsWellness => 'Wellness Guru';
+
+  @override
+  String get achievementsStreak => 'Week Streak';
 
   @override
   String doshaResultTitle(String dosha) {
@@ -249,6 +264,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stop => 'Stop';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get resume => 'Resume';
 
   @override
   String get helpAndSupport => 'Help & Support';
@@ -470,4 +491,253 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreDailyTips => 'More daily tips coming soon!';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsNotifications => 'Notifications';
+
+  @override
+  String get settingsPushNotifications => 'Push Notifications';
+
+  @override
+  String get settingsPushSubtitle => 'Receive daily tips and reminders';
+
+  @override
+  String get settingsDailyTips => 'Daily Wellness Tips';
+
+  @override
+  String get settingsDailyTipsSubtitle => 'Get Ayurvedic tips each morning';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsDarkMode => 'Dark Mode';
+
+  @override
+  String get settingsDarkModeSubtitle => 'Switch to dark theme';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageSubtitle => 'Choose your preferred language';
+
+  @override
+  String get settingsData => 'Data & Storage';
+
+  @override
+  String get settingsAutoBackup => 'Auto Backup';
+
+  @override
+  String get settingsAutoBackupSubtitle => 'Backup data to cloud';
+
+  @override
+  String get settingsClearCache => 'Clear Cache';
+
+  @override
+  String get settingsPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get settingsDeleteAccount => 'Delete Account';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String get settingsAppVersion => 'App Version';
+
+  @override
+  String get settingsSignOut => 'Sign Out';
+
+  @override
+  String get settingsSignOutConfirm => 'Are you sure you want to sign out?';
+
+  @override
+  String get settingsClearCacheConfirm =>
+      'This will clear all cached data. Downloaded content may need to be re-downloaded.';
+
+  @override
+  String get settingsCacheCleared => 'Cache cleared successfully';
+
+  @override
+  String get settingsDarkModeComingSoon => 'Dark mode coming soon! 🌙';
+
+  @override
+  String get settingsDeleteAccountTitle => 'Delete Account';
+
+  @override
+  String get settingsDeleteAccountMsg =>
+      'Are you sure you want to delete your account? This action cannot be undone and you will lose all your saved data, including Dosha profile, bookmarks, and streaks.';
+
+  @override
+  String get settingsDeleteAccountRequested =>
+      'Account deletion requested. Support will contact you shortly.';
+
+  @override
+  String get settingsSelectLanguage => 'Select Language';
+
+  @override
+  String settingsLanguageComingSoon(String lang) {
+    return '$lang language coming soon!';
+  }
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get editProfileSaveChanges => 'Save Changes';
+
+  @override
+  String get editProfileNameShort => 'Name must be at least 2 characters';
+
+  @override
+  String get editProfileInvalidEmail => 'Please enter a valid email';
+
+  @override
+  String get editProfileUpdated => 'Profile updated successfully!';
+
+  @override
+  String get editProfileSelectAvatar => 'Select Avatar';
+
+  @override
+  String get editProfileName => 'Name';
+
+  @override
+  String get editProfileEmail => 'Email';
+
+  @override
+  String get doshaProfileTitle => 'Your Dosha Profile';
+
+  @override
+  String get doshaProfileNoAssessment => 'Your Dosha';
+
+  @override
+  String get doshaDiscoverTitle => 'Discover Your Dosha';
+
+  @override
+  String get doshaDiscoverSubtitle =>
+      'Take the Ayurvedic assessment to reveal your unique mind-body constitution and unlock personalized wellness advice.';
+
+  @override
+  String doshaYouAre(String dosha) {
+    return 'You are $dosha';
+  }
+
+  @override
+  String get doshaBreakdown => 'Dosha Breakdown';
+
+  @override
+  String doshaAbout(String dosha) {
+    return 'About $dosha';
+  }
+
+  @override
+  String get doshaBalancingDiet => 'Balancing Diet (Ahara)';
+
+  @override
+  String get doshaFavor => '✅ Favor';
+
+  @override
+  String get doshaAvoid => '❌ Avoid';
+
+  @override
+  String get doshaSeasonImpact => 'Current Season Impact';
+
+  @override
+  String doshaSeasonOf(String dosha) {
+    return 'Season of $dosha';
+  }
+
+  @override
+  String get doshaSeasonWarning =>
+      'Pay extra attention! This season naturally increases your dominant dosha. Stick strictly to your balancing routines.';
+
+  @override
+  String doshaSeasonNeutral(String dosha) {
+    return 'This season may help balance your dominant dosha, but remain mindful of $dosha aggravation.';
+  }
+
+  @override
+  String get doshaRetakeQuiz => 'Retake Quiz';
+
+  @override
+  String get chatAyurBot => 'AyurBot';
+
+  @override
+  String get chatExpert => 'Ayurveda Expert';
+
+  @override
+  String get chatThinking => 'Thinking...';
+
+  @override
+  String get chatNewChat => 'New Chat';
+
+  @override
+  String get chatHistory => 'Chat History';
+
+  @override
+  String get chatStartNew => 'Start New Chat';
+
+  @override
+  String get chatStartNewConfirm => 'Start New Chat?';
+
+  @override
+  String get chatStartNewMsg => 'This will clear the current conversation.';
+
+  @override
+  String get chatRecentConversations => 'Recent Conversations';
+
+  @override
+  String get chatNoConversations => 'No conversations yet';
+
+  @override
+  String get chatClearAll => 'Clear All History';
+
+  @override
+  String get chatClearAllMsg =>
+      'This will delete all your chat conversations. This action cannot be undone.';
+
+  @override
+  String get chatDeleteAll => 'Delete All';
+
+  @override
+  String get chatSwipeHint => 'Swipe left on a chat to delete it';
+
+  @override
+  String get chatStartConversation => 'Start a conversation';
+
+  @override
+  String get chatDismiss => 'Dismiss';
+
+  @override
+  String get chatTypeMessage => 'Ask about Ayurveda...';
+
+  @override
+  String memberSince(String date) {
+    return 'Member since $date';
+  }
+
+  @override
+  String get wellnessHub => 'Wellness Hub';
+
+  @override
+  String get dailyRoutine => 'Daily Routine (Dinacharya)';
+
+  @override
+  String get balanceDosha => 'Balance Your Dosha';
+
+  @override
+  String get seasonalWisdom => 'Seasonal Wisdom (Ritucharya)';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get share => 'Share';
 }

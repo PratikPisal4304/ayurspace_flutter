@@ -44,110 +44,111 @@ class HomeScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              // Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        greeting,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.textSecondary,
+                // Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          greeting,
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.textSecondary,
+                                  ),
+                        ),
+                        const SizedBox(height: DesignTokens.spacingXxs),
+                        Text(
+                          user?.name ?? 'Wellness Seeker',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      ],
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          onTap: () => context.push('/profile'),
+                          customBorder: const CircleBorder(),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Icon(
+                              Icons.person,
+                              color: AppColors.primary,
                             ),
-                      ),
-                      const SizedBox(height: DesignTokens.spacingXxs),
-                      Text(
-                        user?.name ?? 'Wellness Seeker',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ],
-                  ),
-                  Material(
-                    color: Colors.transparent,
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: InkWell(
-                        onTap: () => context.push('/profile'),
-                        customBorder: const CircleBorder(),
-                        child: const Padding(
-                          padding: EdgeInsets.all(12),
-                          child: Icon(
-                            Icons.person,
-                            color: AppColors.primary,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: DesignTokens.spacingLg),
-
-              // Wellness Score Card
-              _WellnessCard(user: user, l10n: l10n),
-              const SizedBox(height: DesignTokens.spacingLg),
-
-              // Quick Actions
-              Text(
-                l10n.quickActions,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: DesignTokens.spacingSm),
-              _QuickActionsRow(l10n: l10n),
-              const SizedBox(height: DesignTokens.spacingLg),
-
-              // Featured Plants
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    l10n.featuredPlants,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  TextButton(
-                    onPressed: () => context.go('/discover'),
-                    child: Text(l10n.viewAll),
-                  ),
-                ],
-              ),
-              const SizedBox(height: DesignTokens.spacingSm),
-              SizedBox(
-                height: 220,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  cacheExtent: 300, // Cache 300 pixels of items off-screen
-                  itemCount: featuredPlants.length,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(width: DesignTokens.spacingSm),
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      width: 180,
-                      child: RepaintBoundary(
-                        child: PlantCard(
-                          plant: featuredPlants[index],
-                          onTap: () => context
-                              .push('/plant/${featuredPlants[index].id}'),
-                        ),
-                      ),
-                    );
-                  },
+                  ],
                 ),
-              ),
-              const SizedBox(height: DesignTokens.spacingLg),
+                const SizedBox(height: DesignTokens.spacingLg),
 
-              // Daily Tip
-              _DailyTipCard(l10n: l10n),
-            ],
+                // Wellness Score Card
+                _WellnessCard(user: user, l10n: l10n),
+                const SizedBox(height: DesignTokens.spacingLg),
+
+                // Quick Actions
+                Text(
+                  l10n.quickActions,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: DesignTokens.spacingSm),
+                _QuickActionsRow(l10n: l10n),
+                const SizedBox(height: DesignTokens.spacingLg),
+
+                // Featured Plants
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.featuredPlants,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    TextButton(
+                      onPressed: () => context.go('/discover'),
+                      child: Text(l10n.viewAll),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: DesignTokens.spacingSm),
+                SizedBox(
+                  height: 220,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    cacheExtent: 300, // Cache 300 pixels of items off-screen
+                    itemCount: featuredPlants.length,
+                    separatorBuilder: (_, __) =>
+                        const SizedBox(width: DesignTokens.spacingSm),
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 180,
+                        child: RepaintBoundary(
+                          child: PlantCard(
+                            plant: featuredPlants[index],
+                            onTap: () => context
+                                .push('/plant/${featuredPlants[index].id}'),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: DesignTokens.spacingLg),
+
+                // Daily Tip
+                _DailyTipCard(l10n: l10n),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }
 
@@ -198,7 +199,7 @@ class _WellnessCard extends StatelessWidget {
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                ),
+                              ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(

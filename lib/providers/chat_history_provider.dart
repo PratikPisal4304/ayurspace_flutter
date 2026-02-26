@@ -106,7 +106,8 @@ class ChatHistoryState {
   }) {
     return ChatHistoryState(
       sessions: sessions ?? this.sessions,
-      activeSessionId: clearActiveSession ? null : (activeSessionId ?? this.activeSessionId),
+      activeSessionId:
+          clearActiveSession ? null : (activeSessionId ?? this.activeSessionId),
       isLoading: isLoading ?? this.isLoading,
     );
   }
@@ -126,13 +127,13 @@ class ChatHistoryNotifier extends StateNotifier<ChatHistoryState> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final jsonString = prefs.getString(_storageKey);
-      
+
       if (jsonString != null) {
         final List<dynamic> jsonList = jsonDecode(jsonString);
         final sessions = jsonList
             .map((json) => ChatSession.fromJson(json as Map<String, dynamic>))
             .toList();
-        
+
         state = state.copyWith(
           sessions: sessions,
           activeSessionId: sessions.isNotEmpty ? sessions.first.id : null,
@@ -163,11 +164,12 @@ class ChatHistoryNotifier extends StateNotifier<ChatHistoryState> {
   Future<String> createNewSession() async {
     final sessionId = _uuid.v4();
     final now = DateTime.now();
-    
+
     final welcomeMessage = ChatMessage(
       id: _uuid.v4(),
       role: ChatRole.assistant,
-      content: '🙏 Namaste! I am **AyurBot**, your Ayurvedic wellness guide.\n\n'
+      content:
+          '🙏 Namaste! I am **AyurBot**, your Ayurvedic wellness guide.\n\n'
           'I have deep knowledge of the 5,000-year-old science of Ayurveda and can help you with:\n\n'
           '🌿 **Herbs & Remedies** - Tulsi, Ashwagandha, Triphala & 100+ more\n'
           '⚖️ **Dosha Balancing** - Vata, Pitta, Kapha analysis\n'
@@ -211,11 +213,11 @@ class ChatHistoryNotifier extends StateNotifier<ChatHistoryState> {
       if (session.id == state.activeSessionId) {
         // Update title if this is the first user message
         String newTitle = session.title;
-        if (message.role == ChatRole.user && 
+        if (message.role == ChatRole.user &&
             session.messages.where((m) => m.role == ChatRole.user).isEmpty) {
           // Use first user message as title
-          newTitle = message.content.length > 40 
-              ? '${message.content.substring(0, 40)}...' 
+          newTitle = message.content.length > 40
+              ? '${message.content.substring(0, 40)}...'
               : message.content;
         }
 
@@ -239,11 +241,13 @@ class ChatHistoryNotifier extends StateNotifier<ChatHistoryState> {
 
   /// Delete a session
   Future<void> deleteSession(String sessionId) async {
-    final updatedSessions = state.sessions.where((s) => s.id != sessionId).toList();
-    
+    final updatedSessions =
+        state.sessions.where((s) => s.id != sessionId).toList();
+
     String? newActiveId = state.activeSessionId;
     if (state.activeSessionId == sessionId) {
-      newActiveId = updatedSessions.isNotEmpty ? updatedSessions.first.id : null;
+      newActiveId =
+          updatedSessions.isNotEmpty ? updatedSessions.first.id : null;
     }
 
     state = state.copyWith(
@@ -267,7 +271,8 @@ class ChatHistoryNotifier extends StateNotifier<ChatHistoryState> {
 }
 
 /// Provider for chat history
-final chatHistoryProvider = StateNotifierProvider<ChatHistoryNotifier, ChatHistoryState>((ref) {
+final chatHistoryProvider =
+    StateNotifierProvider<ChatHistoryNotifier, ChatHistoryState>((ref) {
   return ChatHistoryNotifier();
 });
 

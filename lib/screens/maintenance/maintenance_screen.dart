@@ -7,7 +7,7 @@ class MaintenanceScreen extends StatelessWidget {
   final VoidCallback? onRetry;
 
   const MaintenanceScreen({
-    super.key, 
+    super.key,
     this.error,
     this.onRetry,
   });
@@ -59,7 +59,8 @@ class MaintenanceScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(DesignTokens.spacingSm),
                     decoration: BoxDecoration(
                       color: AppColors.surface,
-                      borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
+                      borderRadius:
+                          BorderRadius.circular(DesignTokens.radiusSm),
                       border: Border.all(color: AppColors.border),
                     ),
                     child: Text(

@@ -247,8 +247,9 @@ class ScanNotifier extends StateNotifier<ScanState> {
           scientificName: plantIdResult.scientificName,
           confidence: plantIdResult.probability,
           ayurvedicInfo: geminiResponse.text,
-          source:
-              geminiResponse.isError ? ScanSource.error : ScanSource.aiGenerated,
+          source: geminiResponse.isError
+              ? ScanSource.error
+              : ScanSource.aiGenerated,
           isHealthy: plantIdResult.isHealthy,
           description: plantIdResult.description,
           commonNames: plantIdResult.commonNames,

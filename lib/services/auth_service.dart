@@ -14,7 +14,7 @@ final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
 final googleSignInProvider = Provider<GoogleSignIn?>((ref) {
   // On web, we use signInWithPopup which doesn't need GoogleSignIn
   if (kIsWeb) return null;
-  
+
   return GoogleSignIn(
     scopes: ['email', 'profile'],
   );
@@ -62,17 +62,17 @@ class AuthService {
   /// Useful for persistent login sessions on mobile
   Future<UserCredential?> signInSilently() async {
     if (kIsWeb || _googleSignIn == null) return null;
-    
+
     try {
       final googleUser = await _googleSignIn.signInSilently();
       if (googleUser == null) return null;
-      
+
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      
+
       return await _auth.signInWithCredential(credential);
     } catch (e) {
       debugPrint('Silent Google sign-in failed: $e');
@@ -87,13 +87,15 @@ class AuthService {
       if (kIsWeb) {
         final googleProvider = GoogleAuthProvider();
         // Professional apps often add hints for better UX
-        googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
-        googleProvider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+        googleProvider
+            .addScope('https://www.googleapis.com/auth/userinfo.email');
+        googleProvider
+            .addScope('https://www.googleapis.com/auth/userinfo.profile');
         googleProvider.setCustomParameters({'prompt': 'select_account'});
-        
+
         return await _auth.signInWithPopup(googleProvider);
       }
-      
+
       // 2. Mobile Native Flow (iOS/Android/macOS)
       if (_googleSignIn == null) {
         throw FirebaseAuthException(
@@ -104,20 +106,22 @@ class AuthService {
 
       // Trigger the native pickers
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      
+
       if (googleUser == null) {
         // User cancelled the sign-in (professional apps treat this as null, not an error)
-        return null; 
+        return null;
       }
 
       // Obtain the auth details
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // Validate tokens (Professional check)
       if (googleAuth.idToken == null && googleAuth.accessToken == null) {
         throw FirebaseAuthException(
           code: 'missing-credentials',
-          message: 'Google Sign In failed to provide valid authentication tokens.',
+          message:
+              'Google Sign In failed to provide valid authentication tokens.',
         );
       }
 
@@ -129,11 +133,11 @@ class AuthService {
 
       // Sign in to Firebase
       return await _auth.signInWithCredential(credential);
-      
     } on FirebaseAuthException catch (e) {
       throw AuthException(AuthErrorMapper.mapErrorCode(e.code), code: e.code);
     } catch (e) {
-      throw AuthException('An unexpected error occurred. Please try again.', originalError: e);
+      throw AuthException('An unexpected error occurred. Please try again.',
+          originalError: e);
     }
   }
 
@@ -162,7 +166,8 @@ class AuthService {
     await _auth.signOut();
     // Only sign out from GoogleSignIn on mobile
     if (_googleSignIn != null) {
-      await _googleSignIn.disconnect(); // Disconnect to ensure account picker shows up next time
+      await _googleSignIn
+          .disconnect(); // Disconnect to ensure account picker shows up next time
       await _googleSignIn.signOut();
     }
   }

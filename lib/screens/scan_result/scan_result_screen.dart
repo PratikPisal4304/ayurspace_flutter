@@ -99,9 +99,7 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                                 _getConfidenceColor(result.confidence),
                               ),
                               _buildChip(
-                                result.isHealthy
-                                    ? '🟢 Healthy'
-                                    : '🟡 Issues',
+                                result.isHealthy ? '🟢 Healthy' : '🟡 Issues',
                                 result.isHealthy
                                     ? AppColors.success
                                     : AppColors.warning,
@@ -129,13 +127,11 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                           ),
                           Text(
                             result.scientificName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                  color: Colors.white70,
-                                  fontStyle: FontStyle.italic,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: Colors.white70,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                           ),
                         ],
                       ),
@@ -303,8 +299,7 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                     const SizedBox(width: DesignTokens.spacingSm),
                 itemBuilder: (context, index) {
                   return ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(DesignTokens.radiusSm),
+                    borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
                     child: Image.network(
                       result.similarImages[index],
                       width: 100,
@@ -386,8 +381,7 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                   if (plant.virya != null)
                     _buildPropertyRow('Virya (Potency)', plant.virya!),
                   if (plant.vipaka != null)
-                    _buildPropertyRow(
-                        'Vipaka (Post-digestive)', plant.vipaka!),
+                    _buildPropertyRow('Vipaka (Post-digestive)', plant.vipaka!),
                 ],
               ),
             ),
@@ -413,8 +407,7 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                               Expanded(
                                 child: Text(
                                   use,
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ),
                             ],
@@ -444,9 +437,8 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                               const Text('✨ ', style: TextStyle(fontSize: 14)),
                               Expanded(
                                 child: Text(b,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium),
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
                               ),
                             ],
                           ),
@@ -547,10 +539,9 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
               Container(
                 padding: const EdgeInsets.all(DesignTokens.spacingSm),
                 decoration: BoxDecoration(
-                  color: (result.isHealthy
-                          ? AppColors.success
-                          : AppColors.warning)
-                      .withValues(alpha: 0.1),
+                  color:
+                      (result.isHealthy ? AppColors.success : AppColors.warning)
+                          .withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -569,18 +560,16 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                       result.isHealthy
                           ? 'Plant looks healthy!'
                           : 'Issues detected',
-                      style:
-                          Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     if (!result.isHealthy)
                       Text(
                         '${result.healthIssues.length} issue(s) found',
-                        style:
-                            Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.textSecondary,
-                                ),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                       ),
                   ],
                 ),
@@ -593,8 +582,7 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
         // Health issues list
         if (result.healthIssues.isNotEmpty)
           ...result.healthIssues.map((issue) => Padding(
-                padding:
-                    const EdgeInsets.only(bottom: DesignTokens.spacingSm),
+                padding: const EdgeInsets.only(bottom: DesignTokens.spacingSm),
                 child: _buildSectionCard(
                   context,
                   icon: Icons.bug_report_outlined,
@@ -639,13 +627,11 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
                       if (issue.treatment != null) ...[
                         const SizedBox(height: DesignTokens.spacingSm),
                         Container(
-                          padding:
-                              const EdgeInsets.all(DesignTokens.spacingSm),
+                          padding: const EdgeInsets.all(DesignTokens.spacingSm),
                           decoration: BoxDecoration(
-                            color:
-                                AppColors.success.withValues(alpha: 0.05),
-                            borderRadius: BorderRadius.circular(
-                                DesignTokens.radiusSm),
+                            color: AppColors.success.withValues(alpha: 0.05),
+                            borderRadius:
+                                BorderRadius.circular(DesignTokens.radiusSm),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -692,12 +678,10 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
   // ============ CARE TAB ============
   Widget _buildCareTab(BuildContext context, PlantScanResult result) {
     final hasWatering = result.watering != null && result.watering!.isNotEmpty;
-    final hasPropagation =
-        result.propagationMethods != null &&
+    final hasPropagation = result.propagationMethods != null &&
         result.propagationMethods!.isNotEmpty;
     final hasGrowingTips = result.matchedPlant?.growingTips.isNotEmpty ?? false;
-    final hasHarvestTime =
-        result.matchedPlant?.harvestTime.isNotEmpty ?? false;
+    final hasHarvestTime = result.matchedPlant?.harvestTime.isNotEmpty ?? false;
 
     if (!hasWatering && !hasPropagation && !hasGrowingTips && !hasHarvestTime) {
       return Center(
@@ -752,8 +736,8 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen>
               children: result.propagationMethods!
                   .map((method) => Chip(
                         avatar: const Icon(Icons.eco, size: 16),
-                        label: Text(method,
-                            style: const TextStyle(fontSize: 13)),
+                        label:
+                            Text(method, style: const TextStyle(fontSize: 13)),
                         backgroundColor:
                             AppColors.primary.withValues(alpha: 0.08),
                         side: BorderSide.none,

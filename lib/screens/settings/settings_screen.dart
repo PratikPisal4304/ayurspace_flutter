@@ -5,6 +5,7 @@ import '../../config/design_tokens.dart';
 import '../../providers/user_provider.dart';
 import '../../data/models/user_profile.dart';
 import '../../providers/auth_provider.dart';
+import 'package:ayurspace_flutter/l10n/app_localizations.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -13,23 +14,24 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProfileProvider);
     final settings = user?.settings ?? const UserSettings();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(l10n.settingsTitle),
       ),
       body: ListView(
         padding: const EdgeInsets.all(DesignTokens.spacingMd),
         children: [
           // Notifications Section
-          const _SectionHeader(title: 'Notifications'),
+          _SectionHeader(title: l10n.settingsNotifications),
           _SettingsCard(
             children: [
               _SwitchTile(
                 icon: Icons.notifications_outlined,
-                title: 'Push Notifications',
-                subtitle: 'Receive daily tips and reminders',
+                title: l10n.settingsPushNotifications,
+                subtitle: l10n.settingsPushSubtitle,
                 value: settings.notificationsEnabled,
                 onChanged: (value) {
                   ref.read(userProvider.notifier).updateSettings(
@@ -40,8 +42,8 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(height: 1),
               _SwitchTile(
                 icon: Icons.wb_sunny_outlined,
-                title: 'Daily Wellness Tips',
-                subtitle: 'Get Ayurvedic tips each morning',
+                title: l10n.settingsDailyTips,
+                subtitle: l10n.settingsDailyTipsSubtitle,
                 value: true,
                 onChanged: (value) {},
               ),
@@ -50,21 +52,21 @@ class SettingsScreen extends ConsumerWidget {
           const SizedBox(height: DesignTokens.spacingMd),
 
           // Appearance Section
-          const _SectionHeader(title: 'Appearance'),
+          _SectionHeader(title: l10n.settingsAppearance),
           _SettingsCard(
             children: [
               _SwitchTile(
                 icon: Icons.dark_mode_outlined,
-                title: 'Dark Mode',
-                subtitle: 'Switch to dark theme',
+                title: l10n.settingsDarkMode,
+                subtitle: l10n.settingsDarkModeSubtitle,
                 value: settings.darkMode,
                 onChanged: (value) {
                   ref.read(userProvider.notifier).updateSettings(
                         settings.copyWith(darkMode: value),
                       );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Dark mode coming in next update!'),
+                    SnackBar(
+                      content: Text(l10n.settingsDarkModeComingSoon),
                     ),
                   );
                 },
@@ -72,22 +74,27 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(height: 1),
               _NavigationTile(
                 icon: Icons.language_outlined,
-                title: 'Language',
-                trailing: settings.language == 'en' ? 'English' : 'हिंदी',
-                onTap: () => _showLanguageSelector(context, ref, settings),
+                title: l10n.settingsLanguage,
+                trailing: settings.language == 'en'
+                    ? 'English'
+                    : settings.language == 'mr'
+                        ? 'मराठी'
+                        : 'हिंदी',
+                onTap: () =>
+                    _showLanguageSelector(context, ref, settings, l10n),
               ),
             ],
           ),
           const SizedBox(height: DesignTokens.spacingMd),
 
           // Data & Privacy Section
-          const _SectionHeader(title: 'Data & Privacy'),
+          _SectionHeader(title: l10n.settingsData),
           _SettingsCard(
             children: [
               _SwitchTile(
                 icon: Icons.cloud_outlined,
-                title: 'Auto Backup',
-                subtitle: 'Backup your data to cloud',
+                title: l10n.settingsAutoBackup,
+                subtitle: l10n.settingsAutoBackupSubtitle,
                 value: settings.autoBackup,
                 onChanged: (value) {
                   ref.read(userProvider.notifier).updateSettings(
@@ -98,26 +105,32 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(height: 1),
               _NavigationTile(
                 icon: Icons.delete_outline,
-                title: 'Clear Cache',
-                onTap: () => _showClearCacheDialog(context),
+                title: l10n.settingsClearCache,
+                onTap: () => _showClearCacheDialog(context, l10n),
               ),
               const Divider(height: 1),
               _NavigationTile(
                 icon: Icons.privacy_tip_outlined,
-                title: 'Privacy Policy',
+                title: l10n.settingsPrivacyPolicy,
                 onTap: () {},
+              ),
+              const Divider(height: 1),
+              _NavigationTile(
+                icon: Icons.person_off_outlined,
+                title: l10n.settingsDeleteAccount,
+                onTap: () => _showDeleteAccountDialog(context, l10n),
               ),
             ],
           ),
           const SizedBox(height: DesignTokens.spacingMd),
 
           // About Section
-          const _SectionHeader(title: 'About'),
+          _SectionHeader(title: l10n.settingsAbout),
           _SettingsCard(
             children: [
               _NavigationTile(
                 icon: Icons.info_outline,
-                title: 'App Version',
+                title: l10n.settingsAppVersion,
                 trailing: '1.0.0',
                 onTap: () {},
               ),
@@ -130,7 +143,7 @@ class SettingsScreen extends ConsumerWidget {
               const Divider(height: 1),
               _NavigationTile(
                 icon: Icons.share_outlined,
-                title: 'Share App',
+                title: l10n.actionShare,
                 onTap: () {},
               ),
             ],
@@ -139,26 +152,32 @@ class SettingsScreen extends ConsumerWidget {
 
           // Logout Button
           OutlinedButton(
-            onPressed: () => _showSignOutDialog(context, ref),
+            onPressed: () => _showSignOutDialog(context, ref, l10n),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.error,
               side: const BorderSide(color: AppColors.error),
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),
-            child: const Text('Sign Out'),
+            child: Text(l10n.settingsSignOut),
           ),
         ],
       ),
     );
   }
 
-  void _showLanguageSelector(
-      BuildContext context, WidgetRef ref, UserSettings settings) {
+  void _showLanguageSelector(BuildContext context, WidgetRef ref,
+      UserSettings settings, AppLocalizations l10n) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(DesignTokens.spacingMd),
+            child: Text(l10n.settingsSelectLanguage,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+          ),
           ListTile(
             leading: settings.language == 'en'
                 ? const Icon(Icons.check, color: AppColors.primary)
@@ -181,9 +200,18 @@ class SettingsScreen extends ConsumerWidget {
                     settings.copyWith(language: 'hi'),
                   );
               Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Hindi language coming soon!')),
-              );
+            },
+          ),
+          ListTile(
+            leading: settings.language == 'mr'
+                ? const Icon(Icons.check, color: AppColors.primary)
+                : const SizedBox(width: 24),
+            title: const Text('मराठी (Marathi)'),
+            onTap: () {
+              ref.read(userProvider.notifier).updateSettings(
+                    settings.copyWith(language: 'mr'),
+                  );
+              Navigator.pop(context);
             },
           ),
           const SizedBox(height: 16),
@@ -192,51 +220,82 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  void _showClearCacheDialog(BuildContext context) {
+  void _showClearCacheDialog(BuildContext context, AppLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Cache'),
-        content:
-            const Text('This will clear all cached images and data. Continue?'),
+        title: Text(l10n.settingsClearCache),
+        content: Text(l10n.settingsClearCacheConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Cache cleared!')),
+                SnackBar(content: Text(l10n.settingsCacheCleared)),
               );
             },
-            child: const Text('Clear'),
+            child: Text(l10n.settingsClearCache),
           ),
         ],
       ),
     );
   }
-  void _showSignOutDialog(BuildContext context, WidgetRef ref) {
+
+  void _showSignOutDialog(
+      BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out?'),
+        title: Text(l10n.settingsSignOut),
+        content: Text(l10n.settingsSignOutConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
-              Navigator.pop(context); // Close dialog
+              Navigator.pop(context);
               await ref.read(authProvider.notifier).signOut();
             },
             style: TextButton.styleFrom(
               foregroundColor: AppColors.error,
             ),
-            child: const Text('Sign Out'),
+            child: Text(l10n.settingsSignOut),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteAccountDialog(BuildContext context, AppLocalizations l10n) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.settingsDeleteAccountTitle),
+        content: Text(l10n.settingsDeleteAccountMsg),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(l10n.settingsDeleteAccountRequested),
+                    backgroundColor: AppColors.warning),
+              );
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.error,
+            ),
+            child: Text(l10n.delete),
           ),
         ],
       ),
