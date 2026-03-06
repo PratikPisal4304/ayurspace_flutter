@@ -1,24 +1,16 @@
-graph TD
-    classDef process fill:#90caf9,stroke:#0d47a1,stroke-width:2px
-    classDef entity fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+flowchart LR
+    classDef process fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef entity fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef store fill:#fff,stroke:#000,stroke-width:1px,color:#000
 
-    User["Mobile End User"]:::entity
-    PlantId["Plant.id API Engine"]:::entity
-    Gemini["Google Gemini API"]:::entity
-    Firebase["Firebase Cloud"]:::entity
+    User["User"]:::entity
+    P0(("0.1<br/>AyurSpace<br/>System")):::process
+    Firebase["Firebase"]:::entity
+    D1["D1 | User Database"]:::store
 
-    Sys(("AyurSpace System")):::process
-
-    User -- "Login Credentials" --> Sys
-    User -- "Camera Image and Chat Prompt" --> Sys
-
-    Sys -- "Compressed Base64" --> PlantId
-    PlantId -- "Taxonomy Arrays" --> Sys
-
-    Sys -- "Augmented Contextual Prompts" --> Gemini
-    Gemini -- "Ayurvedic Responses" --> Sys
-
-    Sys -- "JSON Payloads and Sync" --> Firebase
-    Firebase -- "Live User Profiling" --> Sys
-
-    Sys -- "Result UI rendering" --> User
+    User -->|"User Inputs"| P0
+    P0 -->|"App Results"| User
+    P0 -->|"Auth Requests"| Firebase
+    Firebase -->|"Auth State"| P0
+    P0 -->|"Stored Data"| D1
+    D1 -->|"User Profile"| P0

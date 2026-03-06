@@ -1,34 +1,62 @@
-graph LR
-    classDef process fill:#bbdefb,stroke:#1565c0,stroke-width:2px
-    classDef datastore fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+flowchart LR
+    classDef process fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef entity fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef store fill:#fff,stroke:#000,stroke-width:1px,color:#000
 
-    User(("User"))
-    PlantId(("Plant.id API"))
-    Gemini(("Gemini API"))
+    subgraph Col0[" "]
+        direction TB
+        User["User"]:::entity
+    end
 
-    D1[("D1: User Profiles")]:::datastore
-    D2[("D2: Scan History")]:::datastore
+    subgraph Col1[" "]
+        direction TB
+        P1(("1.1<br/>Authentication")):::process
+        Firebase["Firebase"]:::entity
+        D1["D1 | User Database"]:::store
+        P1 -->|"Auth Data"| D1
+        Firebase -->|"Auth Access"| D1
+    end
 
-    P1["1.0 Auth Mgmt"]:::process
-    P2["2.0 Vision Processor"]:::process
-    P3["3.0 Reasoning Engine"]:::process
-    P4["4.0 Health Profiling"]:::process
+    subgraph Col2[" "]
+        direction TB
+        P2(("1.2<br/>Browse<br/>Content")):::process
+        D2["D2 | Plant & Remedy Data"]:::store
+        D2 -->|"Records"| P2
+    end
 
-    User -- "Credentials" --> P1
-    P1 -- "Read/Write Auth" --> D1
+    subgraph Col3[" "]
+        direction TB
+        P3(("1.3<br/>Plant<br/>Scanner")):::process
+    end
 
-    User -- "Image" --> P2
-    P2 -- "Compressions" --> PlantId
-    PlantId -- "Taxonomy" --> P2
+    subgraph Col4[" "]
+        direction TB
+        P4(("1.4<br/>AI Chat")):::process
+        D4["D4 | Preferences"]:::store
+        P4 -->|"Session Data"| D4
+    end
 
-    P2 -- "Context data" --> P3
-    User -- "Chat Text" --> P3
-    P3 -- "LLM Prompt" --> Gemini
-    Gemini -- "AI Generation" --> P3
+    subgraph Col5[" "]
+        direction TB
+        P5(("1.5<br/>Wellness<br/>& Profile")):::process
+        D3["D3 | Quiz Data"]:::store
+        D3 -->|"Questions"| P5
+    end
 
-    P3 -- "Store Result" --> D2
-    D2 -- "Retrieve Log" --> User
+    style Col0 fill:none,stroke:none
+    style Col1 fill:none,stroke:none
+    style Col2 fill:none,stroke:none
+    style Col3 fill:none,stroke:none
+    style Col4 fill:none,stroke:none
+    style Col5 fill:none,stroke:none
 
-    User -- "Tridosha Answers" --> P4
-    P4 -- "Update Prakriti" --> D1
-    D1 -- "Apply context" --> P3
+    User -->|"Credentials"| P1
+    P1 -->|"Auth Token"| P2
+    P2 -->|"Plant Data"| P3
+    P3 -->|"Scan Result"| P4
+    P4 -->|"Chat Context"| P5
+    P5 -->|"User Profile"| User
+
+    D2 -->|"Local Match"| P3
+    D4 -->|"Saved Stats"| P5
+    P5 -->|"Wellness Data"| D4

@@ -357,14 +357,6 @@ The timeline ensures efficient project management, tracking module initiation an
 
 \newpage
 \section{Proposed System Architecture}
-\renewcommand{\thefigure}{4.2}
-\begin{figure}[h]
-\begin{mdframed}
-    \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_system_arch.png}
-\end{mdframed}
-\caption{Proposed System Architecture}
-\end{figure}
 \justify
 The AyurSpace system architecture is built as a cloud-native mobile application that follows Clean Architecture principles \cite{martin2017}. The system works on a Client-Server model, where the Flutter mobile client is the orchestration engine that links different microservices. The application logic is highly decoupled from the presentation layer, relying on dependency injection and robust state management.
 
@@ -398,6 +390,15 @@ The system's intelligence relies on a two-step hybrid approach:
     \item \textbf{Discriminative Phase (Vision)}: An image uploaded by the user is compressed and sent to the Plant.id API. The API uses a Convolutional Neural Network (CNN) to return the scientific classification (Taxonomy) with a confidence score.
     \item \textbf{Generative Phase (Language)}: The scientific name identified by the CNN is passed as a prompt to the Google Gemini Large Language Model (LLM). Gemini is constrained via strict system prompts to act as an Ayurvedic expert, returning the \textit{Dosha} properties, uses, and precautions associated with the plant.
 \end{itemize}
+
+\renewcommand{\thefigure}{4.2}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_system_arch.png}
+\end{mdframed}
+\caption{Proposed System Architecture}
+\end{figure}
 
 
 \newpage
@@ -573,12 +574,22 @@ The Flowchart maps out the navigation behavior within the app. Upon start, it ve
 \chapter{Implemented System}
 \section{System Architecture}
 
+\renewcommand{\thefigure}{7.1}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_system_arch.png}
+\end{mdframed}
+\caption{Implemented System Architecture}
+\end{figure}
+
 \justify
 The central infrastructure revolves around solving complex workflows via independent processes. High-resolution images from standard modern smartphone sensors (12MP) incur payload cost in network transmissions. A local Pre-processing function $P(I_{raw})$ performs bicubic downsampling, capping dimensions and heavily lossy compressing to JPEG Q=85. 
 This decreases payloads by 84\% before interfacing with REST APIs. 
 
 Our dual-stage API pipeline (Hybrid Inference) is built such that Plant.id supplies visual confidence, effectively serving as the discriminative boundary for the Google Gemini payload. By employing specific System Prompts acting as 'AyurBot', we curb any "Alignment Drift" that general LLMs hold regarding western interpretation of medicinal texts. The state updates in the Flutter UI smoothly execute over independent asynchronous threads connected via Riverpod. This methodology ensures AyurSpace retains efficiency on affordable hardware seen throughout various demographics.
 
+\newpage
 \section{State Management with Riverpod}
 \justify
 AyurSpace heavily utilizes Riverpod for reactive state management and dependency injection. Riverpod provides a compile-time safe mechanism to access global state without the pitfalls of standard InheritedWidgets or Provider.
