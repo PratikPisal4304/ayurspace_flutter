@@ -425,7 +425,7 @@ A use case diagram for the AyurSpace platform highlights the interactions betwee
 \begin{figure}[!htpb]
 \begin{mdframed}
     \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_use_case.png}
+    \includegraphics[width=0.91\linewidth,height=0.4\textheight]{placeholder_use_case.png}
 \end{mdframed}
 \caption{Use Case Diagram}
 \end{figure}
@@ -460,7 +460,7 @@ The class diagram highlights the primary object-oriented classes utilized in the
 \begin{figure}[!htpb]
   \begin{mdframed}
      \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_class_diagram.png}
+    \includegraphics[width=0.91\linewidth,height=0.55\textheight]{placeholder_class_diagram.png}
   \end{mdframed}
     \caption{Class Diagram}
 \end{figure}
@@ -472,8 +472,10 @@ The activity diagram captures the procedural logic of the plant scanning and ide
 
 \renewcommand{\thefigure}{5.3}
 \begin{figure}[!htpb]
+\begin{mdframed}
     \centering
     \includegraphics[width=0.5\linewidth,keepaspectratio]{placeholder_activity.png}
+\end{mdframed}
     \caption{Activity Diagram}
 \end{figure}
 
@@ -489,7 +491,7 @@ The Sequence Diagram outlines the timeline flow of execution. The user initiates
 \begin{figure}[!htpb]
 \begin{mdframed}
      \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_sequence.png}
+    \includegraphics[width=0.84\linewidth,height=0.6\textheight]{placeholder_sequence.png}
 \end{mdframed}
     \caption{Sequence Diagram}
 \end{figure}
@@ -534,12 +536,12 @@ The Level 0 Data Flow Diagram (DFD) delineates the boundary interactions of the 
 \subsection{Level 1 DFD}
 The Level 1 Data Flow Diagram breaks apart process 0 into dedicated internal components: Authentication Management (1.0), Image Processing \& Vision (2.0), Ayurvedic Reasoning Engine (3.0), and Health Profiling (4.0). Interaction between data stores (D1: User Profiles, D2: Scan History) is clear. Raw images get translated via external APIs within 2.0, the context flows into 3.0 alongside Gemini LLMs, and Profiling calculations merge into reasoning to yield tailored health output.
 
-\vspace{1cm}
+\vspace{0.5cm}
 \renewcommand{\thefigure}{6.1.2}
-\begin{figure}[h]
+\begin{figure}[!htpb]
 \begin{mdframed}
     \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_dfd1.png}
+    \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{placeholder_dfd1.png}
 \end{mdframed}
     \caption{Level 1 DFD}
 \end{figure}
@@ -553,7 +555,7 @@ The Flowchart maps out the navigation behavior within the app. Upon start, it ve
 \begin{figure}[!htpb]
 \begin{mdframed}
     \centering 
-   \includegraphics[width=0.7\linewidth,keepaspectratio]{placeholder_flowchart.png}
+   \includegraphics[width=\linewidth,height=0.7\textheight]{placeholder_flowchart.png}
 \end{mdframed}
 \caption{Flow Chart}
 \end{figure}
