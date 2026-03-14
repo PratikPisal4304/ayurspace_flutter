@@ -1,0 +1,107 @@
+% =============================================================
+% Chapter 7: Implemented System
+% =============================================================
+
+\newpage
+\vspace*{\fill}
+\begin{center}
+\textbf{\Huge{Chapter 7}}\\
+\vspace{5mm}
+\textbf{\Huge{Implemented System}}
+\end{center}
+$1
+\begin{center}
+\thepage
+\end{center}
+$2
+
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Implemented System]{}
+\section{State Management with Riverpod}
+\justify
+AyurSpace heavily utilizes Riverpod for reactive state management and dependency injection. Riverpod provides a compile-time safe mechanism to access global state without the pitfalls of standard InheritedWidgets or Provider.
+The Chat functionality requires maintaining a history of messages, handling loading states (typing indicators), and communicating with the Gemini service.
+
+The \texttt{ChatState} encompasses the list of messages, the typing status, and any potential errors encountered during the AI query process:
+\begin{lstlisting}[language=C++]
+class ChatState {
+  final List<ChatMessage> messages;
+  final bool isTyping;
+  final String? error;
+
+  const ChatState({
+    this.messages = const [],
+    this.isTyping = false,
+    this.error,
+  });
+
+  ChatState copyWith({
+    List<ChatMessage>? messages,
+    bool? isTyping,
+    String? error,
+    bool clearError = false,
+  }) {
+    return ChatState(
+      messages: messages ?? this.messages,
+      isTyping: isTyping ?? this.isTyping,
+      error: clearError ? null : (error ?? this.error),
+    );
+  }
+}
+\end{lstlisting}
+
+The system contains multiple providers corresponding to specific domains of the application:
+\begin{itemize}
+    \item \textbf{AuthProvider}: Manages Firebase Authentication states (logged in, logged out, loading).
+    \item \textbf{ScanProvider}: Manages the image capture, upload, and processing pipeline for plant identification.
+    \item \textbf{DoshaQuizProvider}: Manages the step-by-step questionnaire state to calculate the user's \textit{Prakriti}.
+    \item \textbf{UserProvider}: Syncs the user's profile and preferences with Cloud Firestore.
+\end{itemize}
+
+\section{External AI Integrations}
+
+\subsection{API Configuration}
+The application centralizes its API keys and endpoints in a secure configuration module, parsed from a \texttt{.env} file.
+
+\begin{lstlisting}[language=C++]
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class ApiConfig {
+  ApiConfig._();
+
+  static String get plantIdApiKey => dotenv.env['PLANT_ID_API_KEY'] ?? '';
+  static const String plantIdBaseUrl = 'https://plant.id/api/v3';
+
+  static String get geminiApiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
+  static const String geminiModel = 'gemini-2.5-flash';
+
+  static bool get isPlantIdConfigured =>
+      plantIdApiKey.isNotEmpty && plantIdApiKey != 'YOUR_PLANT_ID_API_KEY';
+  static bool get isGeminiConfigured =>
+      geminiApiKey.isNotEmpty && geminiApiKey != 'YOUR_GEMINI_API_KEY';
+}
+\end{lstlisting}
+
+\subsection{Plant.id Integration}
+The \texttt{PlantIdService} communicates with the Kindwise Plant.id API using REST over HTTP. The request requires the base64 encoded image sequence and configuration options dictating what data to return (common names, descriptions, edibility, propagation methods). The JSON response from the API is deeply nested. The service maps this JSON to the \texttt{PlantIdResult} Dart object, abstracting away the JSON structure from the rest of the application.
+
+\subsection{Google Gemini Integration}
+AyurSpace heavily relies on the \texttt{gemini-2.5-flash} model due to its high inference speed and robust multimodal capabilities. The \texttt{GeminiService} has distinct methods depending on the operation:
+\begin{itemize}
+    \item \texttt{getAyurvedicInfo()}: Zero-shot prompt for retrieving data about a specific identified plant.
+    \item \texttt{sendChat()}: Multiturn conversation utilizing the \texttt{system\_instruction} payload configuration alongside the historical \texttt{contents} array.
+    \item \texttt{analyzeImage()}: Multimodal prompt combining \texttt{inline\_data} image payload and a text prompt to perform end-to-end analysis.
+\end{itemize}
+
+Safety settings are injected into every Gemini request to prevent generation of harmful content, specifically filtering for Hate Speech, Dangerous Content, Harassment, and Sexually Explicit material.
+
+% Long source code listings moved to appendix/source_code.tex
+% Reference them here:
+\newpage
+\section{Complete Source Code Listings}
+\justify
+The complete service implementation listings are provided in the Appendix (see \ref{appendix:source_code}).
+
+% Alternatively, include them inline:
+\input{appendix/source_code}

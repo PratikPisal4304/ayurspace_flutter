@@ -1,0 +1,60 @@
+% =============================================================
+% packages.tex — All \usepackage declarations
+% =============================================================
+
+\renewcommand{\baselinestretch}{1.5}
+
+% Times New Roman font (text + math)
+\usepackage{mathptmx}
+
+\usepackage{makeidx}
+\makeindex
+\usepackage{graphicx,wrapfig}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage[dvipsnames, svgnames, table]{xcolor}
+\usepackage{epstopdf}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{commath}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{stackengine}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{array}
+\usepackage[nottoc]{tocbibind}
+
+% Page geometry
+\usepackage[paperwidth=612pt,paperheight=792pt,top=25mm,bottom=25mm,left=25mm,right=25mm]{geometry}
+\geometry{headheight=10mm,headsep=8mm,footskip=10mm}
+
+% Math helper
+\def\delequal{\mathrel{\stackon[1pt]{=}{$\scriptstyle\Delta$}}}
+
+% Indentation environment
+\makeatletter
+\newenvironment{indentation}[3]%
+  {\par\setlength{\parindent}{#3}
+   \setlength{\leftmargin}{#1}
+   \setlength{\rightmargin}{#2}%
+   \advance\linewidth -\leftmargin
+   \advance\linewidth -\rightmargin%
+   \advance\@totalleftmargin\leftmargin
+   \@setpar{{\@@par}}%
+   \parshape 1\@totalleftmargin
+   \linewidth\ignorespaces}{\par}%
+\makeatother
+
+% Abbreviations environment
+\newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}

@@ -1,0 +1,19 @@
+% =============================================================
+% page_style.tex — fancyhdr header / footer configuration
+% =============================================================
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\lhead{}
+\rhead{\footnotesize {\ProjectName}}
+\cfoot{}
+\lfoot{\footnotesize \InstitutionShort, \DegreeShort\ \Department}
+\rfoot{\thepage}
+
+% Suppress header/footer on continuation pages (TOC page 2+, chapter first pages, etc.)
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
