@@ -1,0 +1,337 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry} % 1-inch margins
+\usepackage{times}                % Times (Times New Roman–like) font
+\usepackage{fancyhdr}             % For custom headers/footers
+\usepackage{longtable}            % For multi-page tables
+
+\setcounter{page}{7}
+
+\pagestyle{fancy}
+\fancyhf{} % Clear default header and footer
+
+% Header (Right-aligned)
+\fancyhead[R]{\small Ultrasound Nerve Imaging And Clinical Decision Support System}
+
+%Footer (Left-aligned: College Name, Right-aligned: Page Number)
+\fancyfoot[L]{\small Pillai HOC College of Engineering and Technology, Rasayani}
+\fancyfoot[R]{\small \thepage}
+
+% Horizontal lines in header & footer
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\begin{document}
+
+\vspace*{\fill}
+\begin{center}
+    {\Large \bf Chapter 2} \\[1em] % Line break with extra space (1em)
+    {\Large \bf Literature Survey}
+\end{center}
+\vspace*{\fill}
+\newpage
+\setcounter{section}{2}
+
+% Section 2.1 - Related Work
+\subsection{Related Work}
+\vspace{10pt}
+\noindent The Ultrasound Nerve Imaging and Clinical Decision Support System, represents a significant advancement in medical diagnostics by automating the detection and classification of diseases such as thyroid disorders, breast cancer, kidney stones, and liver abnormalities from ultrasound images. Utilizing Convolutional Neural Networks (CNNs) for segmentation and the YOLOv11 algorithm for classification, the system balances speed and accuracy, enhancing diagnostic precision while reducing reliance on manual interpretation. Beyond disease detection, the platform offers comprehensive clinical support by generating detailed health reports, recommending subsequent actions, suggesting specialized doctors with their credentials and contact information, providing tailored diet plans, and curating educational resources including explanatory content and exercise videos related to the diagnosed condition. Additionally, it features a user-friendly glossary for medical terminologies and a platform facilitating financial assistance through donations, addressing the multifaceted needs of patients and promoting accessible healthcare solutions.
+
+\vspace{10pt}
+
+\noindent \textbf{1. Highlighting Nerves in Images for Ultrasound-Guided Regional Anesthesia (2022)} by Prema T. Akkasaligar et al.\\
+The purpose of this research is to identify nerve places from ultrasound images to facilitate regional anesthesia in surgery. Since ultrasound is very safe and less
+aggressive than the use of CT or MRI, it is selected. On a brachial plexus data set, the noise is
+filtered using a medium filter. To identify the edges of the veins, the division was performed using
+an active contour model. The performance of the partition was estimated using Dice and Jaccard
+coefficients. Moderate success was found, but limited automation to variable image quality and
+low adaptability.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Safe imaging method (ultrasound) used over CT/MRI.
+    \item Uses standard segmentation metrics.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Limited automation and adaptability.
+    \item Moderate success under variable image quality.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{2. Automatic Segmentation of the Optic Nerve in Transorbital Ultrasound Images Using Deep Learning (2023)} by Kristen M. Meberger et al.\\
+This thesis reflects deep education for the Department of the Optic Nerve to transport painted ultrasound images. The model used is a U-net
+with 50 codes reset, which achieves the exact split of the optical node chain and diameter using 201
+images from 50 patients. The method has high accuracy with minimal errors, and its purpose is to
+standardize the measurement and reduce the operator’s dependence and manual efforts. However,
+the dataset is limited and limits the normalization of the operator variability model in the image
+collection to more comprehensive scenarios and patient groups.\\
+
+\newpage
+\textbf{Advantages:}
+\begin{itemize}
+    \item High segmentation accuracy.
+    \item Reduces operator variability and manual effort.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Dataset is limited in size and diversity.
+    \item May not generalize to broader clinical scenarios.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{3. Network Security in Cloud Computing using Machine Learning, Neuro Quantology  (2022)} by Abhijeet More et al.\\
+it mentions the three-layered network architecture for security and the concepts of Infrastructure as a Service (IaaS) and Database as a Service (DaaS) in cloud computing.
+The text concludes with a discussion on network intrusion and its potential harm to network resources, emphasizing the significance of robust intrusion detection systems for addressing security
+challenges.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Superior performance in image denoising with high PSNR values compared to conventional methods, preserving image quality.
+    \item Enhanced threat detection capabilities in network security through machine learning, providing a proactive approach to safeguarding information integrity.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item It may face challenges in handling diverse noise distributions and could be sensitive to variations in dataset characteristics.
+\end{itemize}
+
+\noindent \textbf{4. Automatic Nerve Segmentation of Ultrasound Images (2021)} by Mariya Baby et al.\\
+This paper
+will focus on nervous divisions from ultrasound images, where problems such as noise and variability will be overcome by using pre-raising to improve the quality of the images. Partition is
+a process that tries to clearly define nerve structures for surgical applications and reduce manual
+placement efforts. The results of the division are investigated using a quantitative matrix. However,
+the approach remains sensitive to noise and depends on the predetermined parameters, limiting different imaging conditions and adaptation to nerve types. This idea will require more advanced and
+flexible techniques.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Improves image quality via preprocessing.
+    \item Reduces manual intervention.
+\end{itemize}
+\newpage
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Sensitive to noise.
+    \item Depends on fixed parameters, reducing adaptability.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{5. Nerve Segmentation in Ultrasound Images (2017)} by Vidushi Vashishtha et al.\\
+This paper focuses
+on the division of ultrasound images to help medical intervention as regional anesthesia. Pretreatment involves noise reduction using Gaussian filtration, and the partition uses Canny Edge
+operators. Machine learning algorithms classify areas such as nerves or non-colors to automatically identify the algorithm and reduce human errors. Although effective in controlled settings, the
+variation in imaging conditions and nerves reduces the complexity. The dependence on manual
+parameter adjustment and sensitivity to noise limits adaptation.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Integrates classical image processing with ML.
+    \item Effective in controlled settings.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Requires manual parameter tuning.
+    \item Limited performance under noisy conditions.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{6. Brachial Plexus Segmentation and Detection Using CNNs (2024)} by M. Sobhana et al.\\
+In this paper, the authors used the
+CNNS-UNet detects a model in a model and brachial plexus veins in ultrasound
+images. Some preaching techniques increased the accuracy of traditional methods of noise reduction and increased functions. The goal determines the efficiency of calculations, dice coefficients,
+and division. Although the model proved to be effective, it uses sufficient calculation resources
+and requires other high-quality sets. However, the physical variation of patients and the imaging
+position indicates the need for better architecture and diverse datasets for low stability and highly
+targeted performance.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Accurate segmentation performance.
+    \item Effective with Dice coefficients and advanced features.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Computationally expensive.
+    \item Requires high-quality and diverse datasets.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{7. Accelerating Deep Learning-Based Brachial Plexus Recognition Using Edge Computing (2022)} by Maleesha Sudara et al.\\
+The purpose of this paper
+is to enable the real-time recognition of the nerve. It introduces a better U-Nen model with remaining and boot blocks, which improves the division’s accuracy and operational efficiency. By taking
+advantage of FPGA-based edge platforms, the model receives a dice coefficient of 0.66 and treats
+up to 32 frames per second. However, this method depends on special hardware that requires high
+calculation, is not regularly scalable in the clinical environment, and does not adapt to different
+ultrasound machines.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Real-time segmentation.
+    \item Improved accuracy with advanced architecture.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Requires specialized hardware (FPGA).
+    \item Difficult to scale clinically.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{8. Real-time Segmentation of Vessels, Nerves, and Bone Using Deep Learning (2023)} by Erik Smistad et al.\\
+This paper represents an intensive learning method for the real-time division of blood vessels, nerves, and bones in ultrasonic regional
+anesthesia. The authors used the waist using veins, blood vessels, and bones for veins, blood vessels, and bones for the ultrasound images of the role crew for blood vessels and bones using the
+nerve network (CNN) of the U-NET type. The results show the accuracy of different veins for
+different veins, with accuracy of different identities, with the F1 point’s average nerve 0.84, while
+the F1 point of the ULNA nerve was 0.54.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Supports real-time multi-structure segmentation.
+    \item High performance for most nerve types.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Low performance for some nerve types (e.g., ULNA).
+    \item Needs tuning for consistent accuracy.
+\end{itemize}
+
+\vspace{10pt}
+\newpage
+\noindent \textbf{9. Learning-Based Median Nerve Segmentation for CTS Evaluation (2024)} by Mariachiara Di Cosmo et al.\\
+This paper presents a fully automatic
+learning method for ultrasound (US) images to help with the diagnosis of carpal tunnel syndrome
+(CTS). He proposed a method that used the top modern nerve network, masks R-CNN, and detects
+fragrant. The approach was valid on the data set of 151 US images from 53 patients, received
+the average DASA coefficient of 0.931, and performed the capacity as a reliable tool for CTS
+evaluation.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Very high segmentation accuracy (Dice 0.931).
+    \item Fully automated and clinically applicable.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Dataset limited in size.
+    \item Focused on CTS, not generalizable to all nerves.
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent \textbf{10. Deep Learning-Based Nerve Segmentation for Ultrasound-Guided Surgery (2023)} by Arjun Mehta et al.\\
+This study explores a deep learning-based approach for
+automatic nerve segmentation in ultrasound images to assist in regional anesthesia and nerve block
+procedures. The researchers employ a modified U-Net architecture with attention mechanisms
+to enhance segmentation accuracy. The model is trained on a dataset of 500 ultrasound images
+from diverse patient demographics. While the method significantly improves nerve visibility and reduces manual annotation errors, its effectiveness is limited in cases with poor image quality or
+high noise. The study suggests adaptive filtering and real-time feedback integration to improve
+clinical applicability\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Enhances segmentation accuracy.
+    \item Reduces need for manual annotation.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Less effective in poor-quality images.
+    \item Needs real-time feedback integration.
+\end{itemize}
+
+\vspace{10pt}
+\newpage
+\noindent \textbf{11. AI-Assisted Clinical Decision Support System for Peripheral Nerve Localization (2024)} by Olivia Zhang et al.\\
+This research introduces an AI-powered
+Clinical Decision Support System (CDSS) is designed to assist anesthesiologists in accurately identifying peripheral nerves using ultrasound images. The system integrates machine learning classifiers and real-time ultrasound data processing to suggest optimal needle insertion points. Experimental results demonstrate an improvement in localization accuracy compared to traditional
+manual identification. However, the study notes challenges related to computational speed and
+real-time adaptability, recommending the use of edge computing and lightweight neural networks
+for real-world deployment.\\
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Improves needle localization accuracy.
+    \item Assists anesthesiologists in real time.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Computational speed can be a bottleneck.
+    \item Needs optimization for clinical deployment.
+\end{itemize}
+\newpage
+
+% Section 2.2 - Literature Review
+\subsection{Literature Review}
+
+\noindent
+\begin{longtable}{|c|p{5cm}|c|p{2.5cm}|p{2cm}|p{3cm}|}
+\hline
+\textbf{Sr. No.} & \textbf{Title of Paper} & \textbf{Year} & \textbf{Author(s)} & \textbf{Advantage} & \textbf{Limitations} \\
+
+\hline
+1 & Thyroid Nodule Detection in Ultrasound Images with Convolutional Neural Networks & 2019 & Shuaining Xie, et al. & Fully automated detection of thyroid nodules using CNNs.& Still some false positives near actual nodules. \\
+\hline
+2 & Brachial Plexus Segmentation and Detection Through Ultrasound Image Analysis Using Convolutional Neural Networks & 2024 & M. Sobhana & High segmentation accuracy using CNNs & Requires high computational resources and diverse datasets. \\
+\hline
+3 & AI-Assisted Clinical Decision Support System for Peripheral Nerve Localization in Ultrasound & 2024 & Olivia Zhang, Matthew Carter, Li Wei & Enhances localization accuracy for needle insertion in regional anesthesia & Computationally expensive and requires real-time adaptability improvements \\
+\hline
+4 & Learning-Based Median Nerve Segmentation From Ultrasound Images For Carpal Tunnel Syndrome Evaluation & 2024 & Mariachiara Di Cosmo & Achieves high accuracy (Dice coefficient 0.931), useful for CTS diagnosis & Limited dataset size affecting model reliability in larger studies. \\
+\hline
+5 & Real-time segmentation of blood vessels, nerves, and bone in ultrasound-guided regional anesthesia using deep learning & 2023 & Erik Smistad & Achieves high segmentation accuracy (F1-score of 0.84) & Performance varies across different nerve types (F1-score of 0.54 for ULNA nerve). \\
+\hline
+6 & Deep Learning-Based Nerve Segmentation for Ultrasound-Guided Surgery & 2023 & Arjun Mehta, Sophia Kim, Daniel Rodriguez & Improves nerve visibility and segmentation accuracy using deep learning & Performance drops with poor image quality and noise. \\
+\hline
+7 & Automatic Segmentation of the Optic Nerve in Transorbital Ultrasound Images Using Deep Learning & 2023 & Kristen M. Meberger & High accuracy with minimal errors; reduces operator dependency & Limited dataset, reducing model generalization for diverse patient groups. \\
+\hline
+8 & Accelerating the Deep Learning-Based Brachial Plexus Nerve Trunks Recognition in Ultrasound Images Using Edge Computing & 2022 & Maleesha Sudara & Real-time processing with high efficiency (up to 32 FPS) & Requires specialized hardware (FPGA), making scalability difficult. \\
+\hline
+9 & Highlighting Nerves in Images for Ultrasound-Guided Regional Anesthesia & 2022 & Prema T. Akkasaligar, et al. & Safe and non-invasive approach using ultrasound instead of CT/MRI & Limited automation due to variable image quality and low adaptability. \\
+\hline
+10 & Network Security in Cloud Computing using Machine Learning, Neuro Quantology & 2022 & Abhijeet More & Machine learning based denoising techniques outperform traditional methods by achieving high PSNR, preserving key visual details, and maintaining image quality in cloud-hosted environments.& Image denoising methods are sensitive to varying noise types, with reduced accuracy under real-world or unstructured noise, affecting overall robustness.\\
+\hline
+11 & Automatic Nerve Segmentation of Ultrasound Images & 2021 & Mariya Baby & Improves image quality and nerve visibility & Sensitive to noise; depends on preset parameters. \\
+\hline
+12 & Nerve Segmentation in Ultrasound Images & 2017 & Vidushi Vashishtha & Reduces human error using machine learning & Highly dependent on manual parameter adjustment and sensitive to noise. \\
+\hline
+
+\end{longtable}
+
+
+\begin{center}
+    \text {Table 2.2.1 Literature Review}
+\end{center}
+\newpage
+% Section 2.3 - Existing Systems
+\subsection{Existing Systems}
+\vspace{10pt}
+The current ultrasound-based diagnostic systems rely heavily on the manual expertise of clinicians, where the interpretation of ultrasound images is a critical factor in identifying health conditions. These systems are often supported by semi-automatic image processing techniques, such as noise reduction filters like Gaussian filters and edge detection methods such as Canny edge detection. These tools are primarily used to enhance the clarity and visibility of anatomical features within the ultrasound images. However, these techniques face significant challenges when dealing with images that have low contrast, high levels of speckle noise, or complex anatomical structures. In such cases, these methods often fail to segment small or overlapping regions accurately, such as peripheral nerves or early-stage lesions. Traditional machine learning approaches, including basic convolutional neural networks and early versions of the You Only Look Once architecture, have been introduced for medical tasks like nerve segmentation and tumor detection. For instance, these methods have been used to detect the brachial plexus or identify thyroid nodules. Despite their usefulness, these models often suffer from limited generalization due to their dependence on small and imbalanced datasets. Their performance is inconsistent, and they lack robustness across different patient populations or varying image qualities.Advanced image segmentation frameworks, such as modified versions of U-Net, have demonstrated significant potential in the medical imaging field. These architectures are more capable of handling the complexity and variability of medical images. However, they demand substantial computational resources and are not yet integrated with systems that provide clinical decision support. As a result, there is a gap in offering automated, end-to-end solutions that not only segment medical features accurately but also generate personalized health reports and treatment suggestions based on the image analysis. Therefore, current systems remain limited in their ability to deliver comprehensive, efficient, and reliable diagnostic support.
+
+\newpage
+% Section 2.4 - Problem Statement
+\subsection{Problem Statement}
+\vspace{10pt}
+Present ultrasound-based disease diagnosis of diseases such as thyroid disease, breast cancer, kidney stones, and liver disease is highly reliant on the doctor’s operating skill, resulting in variable
+interpretations and delayed treatment. Manual interpretation is plagued by shortcomings such
+as poor image contrast, speckle noise, and the inability to differentiate between small structures
+from the adjacent tissue, resulting in higher risks of misdiagnosis. Present automation systems
+are either optimized for narrow functions (e.g., segmentation or detection) or do not encompass
+actionable clinical support activities such as diet plans, doctor referrals, or patient-friendly reports. Although machine learning algorithms such as CNNs and YOLO are promising, they are
+hardware-dependent, do not generalize across diseases, and do not offer end-to-end solutions for
+patient care . There is a dire need for one, easy-to-use system integrating accurate disease detection with complete clinical support to minimize human error, increase accessibility, and enhance
+patient outcomes in low-resource environments.
+
+\end{document}
