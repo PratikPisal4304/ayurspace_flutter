@@ -29,6 +29,9 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{setspace}
+\definecolor{navy}{RGB}{0, 0, 128}
+\definecolor{NavyBlue}{HTML}{000080}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
@@ -88,7 +91,7 @@
 \lhead{}
 \rhead{\footnotesize {AyurSpace}}
 \cfoot{}
-\lfoot{\footnotesize Pillai HOC College of Engineering and Technology, B.E. Computer Engineering}
+\lfoot{\footnotesize Pillai HOC College of Engineering and Technology(Autonomous), B. E. Computer Engineering}
 \rfoot{\thepage}
 
 
@@ -97,6 +100,187 @@
 
 
 \begin{document}
+
+%=============================================================
+%  FRONT MATTER — Title · Certificate · Approval · Declaration
+%=============================================================
+
+% --- Page 1: Title Page ---
+\begin{titlepage}
+\begin{singlespace}
+\centering
+
+\large\textbf{A} \\[0.1cm]
+\large\textbf{PROJECT REPORT} \\[0.2cm]
+
+\large\textbf{ON} \\[0.3cm]
+
+\large\textbf{\textcolor{navy}{``AYURSPACE: AN AI-POWERED SYSTEM FOR IDENTIFYING AYURVEDIC PLANTS AND PERSONALIZING HEALTH''}} \\[0.3cm]
+
+\large\textbf{SUBMITTED IN PARTIAL FULFILLMENT OF THE} \\
+\textbf{REQUIREMENTS OF DEGREE OF} \\
+\textbf{\textcolor{navy}{BACHELOR OF ENGINEERING}} \\[0.3cm]
+
+\large\textbf{BY} \\[0.2cm]
+\large\textbf{\textcolor{red}{Pratik Nitin Pisal}} \\[0.2cm]
+\large\textbf{\textcolor{red}{Soham Govardhan Patil}} \\[0.2cm]
+\large\textbf{\textcolor{red}{Pranav Shashikant Kamble}} \\[0.3cm]
+
+\large\textbf{\textcolor{navy}{SUPERVISOR}} \\[0.2cm]
+\large\textbf{\textcolor{red}{PROF. ABHIJEET MORE}} \\[0.6cm]
+
+\includegraphics[width=4cm]{PHCET logo.png} \\[0.8cm]
+
+\large\textbf{\textcolor{navy}{DEPARTMENT OF COMPUTER ENGINEERING}} \\[0.3cm]
+
+\large\textbf{\textcolor{navy}{PILLAI HOC COLLEGE OF ENGINEERING AND TECHNOLOGY (AUTONOMOUS)}} \\
+\large\textbf{\textcolor{navy}{PILLAI HOC EDUCATIONAL CAMPUS, HOCL COLONY,}} \\
+\large\textbf{\textcolor{navy}{RASAYANI, TAL: KHALAPUR, DIST: RAIGAD - 410207}} \\[0.2cm]
+
+\large\textbf{\textcolor{navy}{UNIVERSITY OF MUMBAI}} \\[0.2cm]
+\large\textbf{\textcolor{navy}{[2024-25]}} \\
+
+\end{singlespace}
+\end{titlepage}
+
+% --- Page 2: Certificate ---
+\thispagestyle{empty}
+\begin{singlespace}
+
+\noindent
+% Left image
+\hspace*{-1in}
+\begin{minipage}[b]{0.22\textwidth}
+  \centering
+  \includegraphics[height=2.5cm, keepaspectratio]{Pillaiphul.png}
+\end{minipage}%
+\hfill
+% Center text
+\begin{minipage}[c]{0.68\textwidth}
+  \centering
+  \textbf{\textcolor{NavyBlue}{
+    {\fontsize{14pt}{16pt}\selectfont Mahatma Education Society's}\\[0.1cm]
+    {\fontsize{16pt}{18pt}\selectfont Pillai HOC College of Engineering and Technology,}\\[0.1cm]
+    {\fontsize{12pt}{14pt}\selectfont (Autonomous)}\\[0.05cm]
+    {\fontsize{16pt}{18pt}\selectfont Rasayani-410207}\\[0.05cm]
+    {\fontsize{16pt}{18pt}\selectfont 2025-26}
+  }}
+\end{minipage}%
+\hfill
+% Right image
+\begin{minipage}[b]{0.1\textwidth}
+  \raggedleft
+  \hspace*{-1in}
+  \includegraphics[height=2cm, keepaspectratio]{pillaisign.png}
+\end{minipage}
+
+\vspace{0.7cm}
+
+\begin{center}
+    \includegraphics[width=3cm]{PHCET logo.png}
+\end{center}
+
+\vspace{0.4cm}
+
+\begin{center}
+  {\Large \bf Certificate}
+\end{center}
+
+\vspace{0.6cm}
+
+\begin{spacing}{1.5}
+\noindent
+This is to certify that the project entitled
+\textbf{``AYURSPACE: AN AI-POWERED SYSTEM FOR IDENTIFYING AYURVEDIC PLANTS AND PERSONALIZING HEALTH''}
+is a bonafide work done by
+\textbf{Pratik Nitin Pisal, Soham Govardhan Patil and Pranav Shashikant Kamble}
+and is submitted in partial fulfillment of the requirements for the degree of
+\textbf{Bachelors of Engineering} in \textbf{Computer Engineering} to the \textbf{University of Mumbai}.
+\end{spacing}
+
+\vfill
+
+\begin{center}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} c c}
+    \rule{7cm}{0.4pt} & \rule{7cm}{0.4pt} \\[0.5em]
+    \textbf{Prof. Abhijeet More} & \textbf{Ms. Nikita Saindane} \\[0.3em]
+    \textbf{Supervisor} & \textbf{Project Coordinator} \\[1.2cm]
+    \rule{7cm}{0.4pt} & \rule{7cm}{0.4pt} \\[0.5em]
+    \textbf{Dr. Rajashree Gadhave} & \textbf{Dr. Jagdish W. Bakal} \\[0.3em]
+    \textbf{Head of Department} & \textbf{Principal} \\
+\end{tabular*}
+\end{center}
+
+\end{singlespace}
+\clearpage
+
+% --- Page 3: Approval ---
+\thispagestyle{empty}
+\begin{spacing}{2.0}
+\begin{center}
+    {\Large \textbf{Project Report Approval for B.E}}
+\end{center}
+
+\vspace{0.5cm}
+
+\justifying
+
+This project report entitled \textbf{"ULTRASOUND NERVE IMAGING AND CLINICAL DECISION SUPPORT SYSTEM"}
+submitted by \textbf{"Pratik Vehele and Sumit Patil"} is approved for the degree of
+\textbf{Bachelor of Engineering} in \textbf{Computer Engineering}.
+
+\vspace{2cm}
+
+\hspace{235pt} \textbf{Examiners:}
+
+\begin{flushright}
+1.\ \rule{7cm}{0.4pt} \vspace{2em} \\
+2.\ \rule{7cm}{0.4pt}
+\end{flushright}
+
+\vfill
+
+\noindent \textbf{Date:} \\[2em]
+\textbf{Place:}
+\end{spacing}
+\clearpage
+
+% --- Page 4: Declaration ---
+\thispagestyle{empty}
+\begin{center}
+    {\Large \textbf{Declaration}}
+\end{center}
+
+\vspace{0.5cm}
+
+\justifying
+
+We declare that this written submission represents our ideas in our own
+words and where others ideas or words have been included, we have adequately
+cited and referenced the original sources. We also declare that we have adhered to
+all principles of academic honesty and integrity and have not misrepresented,
+fabricated, or falsified any idea/data/fact/source in our submission. We understand
+that any violation of the above will be cause for disciplinary action by the Institute
+and can also evoke penal action from the sources which have not been properly
+cited or from whom proper permission has not been taken when needed.
+
+\vspace{2cm}
+
+\begin{flushright}
+    \rule{6cm}{0.5pt} \\[-0.4cm]
+    \makebox[6cm]{\textbf{Sumit Patil}} \\[0.5cm]
+    \rule{6cm}{0.5pt} \\[-0.4cm]
+    \makebox[6cm]{\textbf{Pratik Vehele}}
+\end{flushright}
+
+\vfill
+
+\noindent
+\textbf{Date:}\\[2em]
+
+\clearpage
+
+%=============================================================
 \renewcommand*\contentsname{Table Of Content}
 \pagenumbering{roman}
 \pagestyle{fancy}
@@ -141,17 +325,19 @@
 {\setcounter{page}{1}}
 \pagenumbering{arabic}
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 1}}\\
 \vspace{5mm}
 \textbf{\Huge{Introduction}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
 \newpage
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
 \fancypagestyle{plain}{}
-\chapter{Introduction}
+\chapter[Introduction]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Background and Motivation} 
 \justify
@@ -216,18 +402,18 @@ This chapter summarizes the conclusion of this research work with the future sco
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 2}}\\
 \vspace{5mm}
 \textbf{\Huge{Literature Review}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-
-\chapter{Literature Review}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Literature Review]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 \justify
 \section{Related Work}
 
@@ -271,19 +457,18 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 3}}\\
 \vspace{5mm}
 \textbf{\Huge{Requirement Gathering}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-
-
-\chapter{Requirement Gathering}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Requirement Gathering]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Software and Hardware Requirements}
 
@@ -310,19 +495,18 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 4}}\\
 \vspace{5mm}
 \textbf{\Huge{Plan Of Project}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-
-
-\chapter{Plan Of Project}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Plan Of Project]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 \section{Methodology}
 \justify
 
@@ -403,19 +587,18 @@ The system's intelligence relies on a two-step hybrid approach:
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 5}}\\
 \vspace{5mm}
 \textbf{\Huge{Project Analysis}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-
-
-\chapter{Project Analysis}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Project Analysis]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Use Case Diagram}
 \justify
@@ -500,19 +683,18 @@ The Sequence Diagram outlines the timeline flow of execution. The user initiates
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 6}}\\
 \vspace{5mm}
 \textbf{\Huge{Project Design}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-
-
-\chapter{Project Design}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Project Design]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Data Flow Diagram}
 \vspace{1cm}
@@ -563,17 +745,18 @@ The Flowchart maps out the navigation behavior within the app. Upon start, it ve
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 7}}\\
 \vspace{5mm}
 \textbf{\Huge{Implemented System}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-\chapter{Implemented System}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Implemented System]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 \section{System Architecture}
 
 \renewcommand{\thefigure}{7.1}
@@ -943,19 +1126,19 @@ Keep it friendly, practical, and under 300 words.
 \end{lstlisting}
 
 \newpage
-
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 8}}\\
 \vspace{5mm}
 \textbf{\Huge{Result Analysis}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-\chapter{Result Analysis}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Result Analysis]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{User Interface Results}
 This section illustrates the core functionality of AyurSpace from the user's perspective, highlighting the UI rendering of the state changes managed by the Flutter and Riverpod framework.
@@ -1069,17 +1252,18 @@ We compared our Neuro-Symbolic method to a pure multimodal approach from start t
 
 \newpage
 \vspace*{\fill}
-\begingroup
-\centering
+\begin{center}
 \textbf{\Huge{Chapter 9}}\\
 \vspace{5mm}
 \textbf{\Huge{Conclusion \& Future Work}}
-
-\endgroup
+\end{center}
 \vspace*{\fill}
-
 \newpage
-\chapter{Conclusion and Future Work}
+\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
+\titlespacing{\chapter}{0pt}{-2em}{0pt}
+\chapter[Conclusion and Future Work]{}
+\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 \section{Conclusion}
 The creation of \textbf{AyurSpace} is a key step in the digital preservation and democratization of Ayurvedic knowledge. By effectively executing a hybrid neuro-symbolic architecture, this framework deals with the major problems facing current plant identification tools—specifically, the absence of medicinal context and the risk of generative hallucinations. Our experimental findings, producing a 96.4\% accuracy in taxonomy and a 99.1\% compliance in contextual generative reasoning, confirm the effectiveness of decoupling visual recognition from semantic analysis. This dependability is extremely important in the health field, where misidentification can have toxicological effects. Additionally, the algorithmic formalization of the \textit{Dosha} assessment transforms subjective clinical intuition into a replicable digital logic, enabling users to make smart health decisions based on ancient wisdom merged with robust modern mobile processing.
 
