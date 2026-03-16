@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+
+\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt,bottom=72pt,left=30mm,right=20mm]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\setstretch{1.5}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{AyurSpace}
+\fancyfoot[L]{Pillai HOC College of Engineering \& Technology (Autonomous), B. E. Computer Engineering}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+
+\vspace*{\fill}
+\begin{center}
+\textbf{\Huge{Chapter 6}}\\
+\vspace{5mm}
+\textbf{\Huge{Project Design}}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+\section*{6.1 \quad Data Flow Diagram}
+\addcontentsline{toc}{section}{6.1 Data Flow Diagram}
+\vspace{1cm}
+
+\subsection*{6.1.1 \quad Level 0 DFD}
+
+The Level 0 Data Flow Diagram (DFD) delineates the boundary interactions of the AyurSpace System.
+The central process (0) interfaces outward primarily to three entity bodies: The Mobile User End
+Device, the Firebase Cloud, and the external intelligence nodes (Plant.id and Google Gemini). User
+inputs credentials, images, and text queries. The system relays processed image arrays and text
+prompts out, securing taxonomic confidence arrays and Ayurvedic response text back, whilst syncing
+overall profiles securely with the Firebase cloud.
+
+\vspace{1cm}
+\renewcommand{\thefigure}{6.1.1}
+\renewcommand{\figurename}{Figure}
+\begin{figure}[h]
+\begin{mdframed}
+     \centering
+    \includegraphics[width=0.7\linewidth,keepaspectratio]{DFD0.png}
+\end{mdframed}
+ \caption{Level 0 DFD}
+\end{figure}
+
+\newpage
+
+\subsection*{6.1.2 \quad Level 1 DFD}
+
+The Level 1 Data Flow Diagram breaks apart process 0 into dedicated internal components:
+Authentication Management (1.0), Image Processing \& Vision (2.0), Ayurvedic Reasoning Engine
+(3.0), and Health Profiling (4.0). Interaction between data stores (D1: User Profiles, D2: Scan
+History) is clear. Raw images get translated via external APIs within 2.0, the context flows into
+3.0 alongside Gemini LLMs, and Profiling calculations merge into reasoning to yield tailored
+health output.
+
+\vspace{0.5cm}
+\renewcommand{\thefigure}{6.1.2}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{DFD1.png}
+\end{mdframed}
+    \caption{Level 1 DFD}
+\end{figure}
+
+\newpage
+
+\section*{6.2 \quad Flow Chart}
+\addcontentsline{toc}{section}{6.2 Flow Chart}
+
+The Flowchart maps out the navigation behavior within the app. Upon start, it verifies Auth. From
+the Home Dashboard, users branch their activities into Scanning (where invalid taxonomy trips
+alerts), Chatting (invoking Gemini query handling context rules), or executing assessments (which
+re-run scoring algorithms upon user completion). The design demonstrates systematic state
+transitions within the multi-faceted toolkit.
+
+\renewcommand{\thefigure}{6.2}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+   \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{FlowChart.png}
+\end{mdframed}
+\caption{Flow Chart}
+\end{figure}
+
+\end{document}

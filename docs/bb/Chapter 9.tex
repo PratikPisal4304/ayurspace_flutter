@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+
+\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt,bottom=72pt,left=30mm,right=20mm]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\setstretch{1.5}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{AyurSpace}
+\fancyfoot[L]{Pillai HOC College of Engineering \& Technology (Autonomous), B. E. Computer Engineering}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+
+\vspace*{\fill}
+\begin{center}
+\textbf{\Huge{Chapter 9}}\\
+\vspace{5mm}
+\textbf{\Huge{Conclusion \& Future Work}}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+\section*{9.1 \quad Conclusion}
+\addcontentsline{toc}{section}{9.1 Conclusion}
+\justify
+
+The creation of \textbf{AyurSpace} is a key step in the digital preservation and democratization
+of Ayurvedic knowledge. By effectively executing a hybrid neuro-symbolic architecture, this
+framework deals with the major problems facing current plant identification tools---specifically,
+the absence of medicinal context and the risk of generative hallucinations. Our experimental
+findings, producing a 96.4\% accuracy in taxonomy and a 99.1\% compliance in contextual generative
+reasoning, confirm the effectiveness of decoupling visual recognition from semantic analysis. This
+dependability is extremely important in the health field, where misidentification can have
+toxicological effects. Additionally, the algorithmic formalization of the \textit{Dosha} assessment
+transforms subjective clinical intuition into a replicable digital logic, enabling users to make
+smart health decisions based on ancient wisdom merged with robust modern mobile processing.
+
+\section*{9.2 \quad Limitations}
+\addcontentsline{toc}{section}{9.2 Limitations}
+\justify
+
+\begin{enumerate}
+    \item \textbf{Network Dependency}: The current architecture requires an active internet
+    connection for both Plant.id and Gemini API calls. Users in areas with poor connectivity
+    experience degraded performance or complete failure of AI features.
+
+    \item \textbf{API Cost}: Both Plant.id and Google Gemini APIs operate on usage-based pricing
+    models. High-volume production usage would incur significant operational costs.
+
+    \item \textbf{Dataset Bias}: Plant.id's training dataset may have lower representation for
+    rare Indian medicinal herbs, potentially reducing accuracy for uncommon species.
+
+    \item \textbf{LLM Hallucinations}: While significantly mitigated by the hybrid pipeline,
+    Gemini may occasionally produce inaccurate Ayurvedic properties for plants with limited
+    online documentation.
+\end{enumerate}
+
+\newpage
+
+\section*{9.3 \quad Future Scope}
+\addcontentsline{toc}{section}{9.3 Future Scope}
+\justify
+
+Future research and scale expansions will focus on three main development branches:
+
+\begin{enumerate}
+    \item \textbf{Edge AI Optimization}: Utilizing quantized MobileNet models (int8 quantization)
+    on the mobile device natively. This will allow for the complete offline visual identification
+    of plants, resolving accessibility issues for users in remote rural locations suffering from
+    weak network connectivity.
+
+    \item \textbf{Augmented Reality (AR) Interfaces}: Harnessing ARCore frameworks to overlay
+    medicinal properties, alerts, and detailed plant structures directly onto the camera
+    viewfinder. This transition to augmented realities will cultivate deeply immersive, real-time
+    educational experiences for students and the general public.
+
+    \item \textbf{Telemedicine Integration}: Launching a ``Vaidya Connect'' application component.
+    By piping users' generated Dosha baselines and scan histories into professional Ayurvedic
+    dashboards, we can create an end-to-end telemedicine ecosystem that blends self-evaluation
+    algorithms with direct oversight from licensed Ayurvedic doctors.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+
+\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt,bottom=72pt,left=30mm,right=20mm]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
+\usepackage{booktabs}
+\setstretch{1.5}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{AyurSpace}
+\fancyfoot[L]{Pillai HOC College of Engineering \& Technology (Autonomous), B. E. Computer Engineering}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+
+\vspace*{\fill}
+\begin{center}
+\textbf{\Huge{Chapter 2}}\\
+\vspace{5mm}
+\textbf{\Huge{Literature Review}}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+\section*{2.1 \quad Related Work}
+\addcontentsline{toc}{section}{2.1 Related Work}
+\justify
+
+\noindent\textbf{Computer Vision in Botany:}\\
+The area of automated plant identification has grown significantly with the advent of Convolutional
+Neural Networks (CNNs). Initial endeavors employed leaf-shape descriptors and edge detection
+algorithms [Waldchen et al., 2018]. Modern methods use Deep Learning architectures such as
+ResNet-50 and MobileNetV3. For instance, \textbf{Pl@ntNet}, a citizen-science project, uses a huge
+shared dataset that does a great job with European plants but has trouble with Indian medicinal
+herbs. Similarly, \textbf{LeafSnap} focuses on leaf curvature to determine tree species
+characteristics. The main limitation with these systems is that they work in a ``Botanical Silo.''
+They provide a Latin binomial---the end of the interaction for them---whereas for Ayurveda,
+identification is just the beginning of the consultation.
+
+\vspace{5mm}
+
+\noindent\textbf{LLMs in Healthcare:}\\
+Generative AI has shown promise in combining medical knowledge. For instance, Singhal et al.
+[2023] showed that Med-PaLM could pass the USMLE. But applying general-purpose LLMs to specific
+areas of traditional knowledge bases frequently leads to ``alignment drift,'' in which the model
+prioritizes Western medical interpretations ahead of traditional logic due to bias in the training
+data. There is no dedicated ``Ayur-PaLM,'' leading to a gap where prompt engineering methods are
+necessary to limit general LLMs (like Google Gemini) to act as reliable experts in Ayurveda.
+
+\vspace{5mm}
+
+\noindent\textbf{Digital Approaches to Ayurveda:}\\
+Previous research in ``Computational Ayurveda'' has concentrated primarily on structural diagnostics
+and static databases. Studies include \textbf{Pulse Diagnosis (\textit{Nadi Pariksha})}, using
+piezoelectric sensors to turn pulse waveforms into numbers, and \textbf{Tongue Diagnosis
+(\textit{Jivha Pariksha})}, using image processing to find color and coating. Further, existing
+``Ayur Apps'' provide simple static databases---CRUD apps serving as basic electronic dictionaries
+without active AI context or personalized adaptability.
+
+\vspace{5mm}
+
+\begin{table}[htbp]
+\caption{AyurSpace Compared to Other Solutions}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{PlantNet} & \textbf{Google Lens} & \textbf{Ayur Apps} & \textbf{AyurSpace} \\
+\hline
+\textbf{Visual ID} & High & High & None & \textbf{High} \\
+\hline
+\textbf{Context} & None & Limited & Static & \textbf{Dynamic} \\
+\hline
+\textbf{Dosha Logic} & None & None & Basic & \textbf{Adaptive} \\
+\hline
+\textbf{Interaction} & Passive & Passive & Passive & \textbf{Chat} \\
+\hline
+\textbf{Safety} & N/A & Low & Medium & \textbf{High} \\
+\hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+
+AyurSpace bridges the gap between high-tech vision and high-touch traditional wisdom.
+
+\end{document}
