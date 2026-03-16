@@ -4,7 +4,6 @@ A use case diagram for AyurSpace highlights interactions between the Mobile User
 Plant.id API, and Gemini API---authentication, plant scanning, dosha quiz, and AyurBot
 wellness advice.
 
-\renewcommand{\thefigure}{5.1}
 \begin{figure}[!htbp]
 \begin{mdframed}
     \centering
@@ -40,7 +39,6 @@ wellness advice.
 The class diagram highlights primary OOP classes: \texttt{User}, \texttt{Plant},
 \texttt{PlantIdResult}, \texttt{ChatService}, and \texttt{GeminiService}.
 
-\renewcommand{\thefigure}{5.2}
 \begin{figure}[!htbp]
   \begin{mdframed}
      \centering
@@ -55,7 +53,6 @@ The activity diagram captures the plant scanning flow: Dashboard $\rightarrow$ C
 $\rightarrow$ Compress $\rightarrow$ Plant.id API. If confidence $< 0.2$, error/retry.
 Otherwise $\rightarrow$ Gemini API $\rightarrow$ Firestore $\rightarrow$ UI render.
 
-\renewcommand{\thefigure}{5.3}
 \begin{figure}[!htbp]
 \begin{mdframed}
     \centering
@@ -72,7 +69,6 @@ POST to Plant.id $\rightarrow$ taxonomy result $\rightarrow$ Gemini API prompt
 $\rightarrow$ JSON response $\rightarrow$ Firestore async write $\rightarrow$ UI
 dashboard update.
 
-\renewcommand{\thefigure}{5.4}
 \begin{figure}[!htbp]
 \begin{mdframed}
      \centering

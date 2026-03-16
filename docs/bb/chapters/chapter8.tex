@@ -2,59 +2,54 @@
 This section illustrates the core functionality of AyurSpace from the user's perspective,
 highlighting the UI rendering of state changes managed by Flutter and Riverpod.
 
-\renewcommand{\thefigure}{8.1}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/home_screen.png}
     \caption{AyurSpace Home Dashboard}
     \vspace{10pt}
     \justify
-    Figure 8.1 illustrates the Home Dashboard---the orchestration hub for plant scanning,
+    The Home Dashboard is the orchestration hub for plant scanning,
     dosha assessments, and personalized wellness charts synchronized via Cloud Firestore.
 \end{figure}
 
 \newpage
-\renewcommand{\thefigure}{8.2}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/scan_plant_screen.png}
     \caption{Plant Scanning Interface}
     \vspace{10pt}
     \justify
-    Figure 8.2: The Plant Scanning Interface. The captured image undergoes
+    The Plant Scanning Interface. The captured image undergoes
     $P(I_{raw})$ downsampling before being dispatched to Plant.id over HTTP.
 \end{figure}
 
-\renewcommand{\thefigure}{8.3}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/plant_detail_screen.png}
     \caption{AI Diagnostic Results and Plant Detail}
     \vspace{10pt}
     \justify
-    Figure 8.3: Fused output from Plant.id taxonomy + Gemini LLM contextual
+    Fused output from Plant.id taxonomy + Gemini LLM contextual
     \textit{Rasa, Guna, Virya, Vipaka} data.
 \end{figure}
 
-\renewcommand{\thefigure}{8.4}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/AyurBot_screen.png}
     \caption{AyurBot Chat Session}
     \vspace{10pt}
     \justify
-    Figure 8.4: Multi-turn AyurBot session. Riverpod \texttt{ChatNotifier} renders
+    Multi-turn AyurBot session. Riverpod \texttt{ChatNotifier} renders
     message bubbles while passing the dosha context silently via System Instruction API.
 \end{figure}
 
-\renewcommand{\thefigure}{8.5}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/dosha_quiz_screen.png}
     \caption{Tridosha Quiz Assessment Screen}
     \vspace{10pt}
     \justify
-    Figure 8.5: The Tridosha Quiz. User choices are bound to algorithmic weights,
+    The Tridosha Quiz. User choices are bound to algorithmic weights,
     resolving into a discrete mathematical model for baseline health prediction.
 \end{figure}
 
