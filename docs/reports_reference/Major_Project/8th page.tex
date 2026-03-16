@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\setstretch{1.5}
+
+% Footer setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+
+% Roman numbering for preliminary pages
+\pagenumbering{roman}
+\setcounter{page}{4}   % iv
+
+% ================== LIST OF TABLES ==================
+
+\begin{center}
+    {\Large \bfseries List of Tables}
+\end{center}
+
+\vspace{1cm}
+
+\noindent
+2.2.1 \hspace{1em} Literature Review \dotfill 7 \\[8pt]
+5.1.1 \hspace{1em} Use Case Document \dotfill 19 \\[8pt]
+
+\end{document}
