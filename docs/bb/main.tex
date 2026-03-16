@@ -27,7 +27,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{array}
-\usepackage{tocbibind}
+\usepackage[nottoc]{tocbibind}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -257,7 +257,7 @@ not been taken when needed.
 %=============================================================
 \pagenumbering{roman}
 \setcounter{page}{1}
-\pagestyle{fancy}
+\pagestyle{empty}
 
 %=============================================================
 %  PAGE i: ABSTRACT
@@ -327,7 +327,9 @@ Identification, Computer Vision, Gemini API, Flutter, Digital Health}
 %  PAGE v: TABLE OF CONTENTS
 %=============================================================
 \newpage
+\thispagestyle{plain}
 \renewcommand*\contentsname{Table Of Content}
+\addtocontents{toc}{\noindent\textbf{Content}\hfill\textbf{Page No.}\par\noindent\rule{\textwidth}{0.4pt}\par}
 \tableofcontents
 
 %=============================================================
@@ -336,6 +338,7 @@ Identification, Computer Vision, Gemini API, Flutter, Digital Health}
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
+\pagestyle{fancy}
 
 %=============================================================
 %  CHAPTER 1: INTRODUCTION
