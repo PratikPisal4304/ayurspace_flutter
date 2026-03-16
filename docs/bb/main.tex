@@ -20,6 +20,7 @@
 \pagenumbering{roman}
 \setcounter{page}{1}
 \pagestyle{empty}
+\addtocontents{toc}{\noindent\textbf{Content}\hfill\textbf{Page No.}\par}
 
 \input{frontmatter/04_abstract}
 
@@ -35,7 +36,6 @@
 \newpage
 \thispagestyle{plain}
 \renewcommand*\contentsname{Table Of Content}
-\addtocontents{toc}{\noindent\textbf{Content}\hfill\textbf{Page No.}\par}
 \tableofcontents
 
 %==============================================================
