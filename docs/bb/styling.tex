@@ -1,0 +1,59 @@
+% =============================================================
+%  STYLING — Page geometry, headers/footers, chapter formatting
+%  Requires metadata.tex to be loaded before this file
+% =============================================================
+
+% --- Chapter title formatting ---
+\titleformat{\chapter}[display]
+  {\vspace{1cm}\normalfont\Large\bfseries\centering}
+  {\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+
+% --- Page geometry ---
+\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt,bottom=72pt]{geometry}
+\geometry{left=30mm,right=20mm,headheight=10mm,headsep=12mm}
+
+% --- Indentation environment ---
+\makeatletter
+\newenvironment{indentation}[3]%
+{\par\setlength{\parindent}{#3}
+\setlength{\leftmargin}{#1}
+\setlength{\rightmargin}{#2}%
+\advance\linewidth -\leftmargin
+\advance\linewidth -\rightmargin%
+\advance\@totalleftmargin\leftmargin
+\@setpar{{\@@par}}%
+\parshape 1\@totalleftmargin
+\linewidth\ignorespaces}{\par}%
+\makeatother
+
+% --- Fancy header/footer (uses metadata commands) ---
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\lhead{}
+\rhead{\footnotesize{\ProjectShortName}}
+\cfoot{}
+\lfoot{\footnotesize \CollegeShort, \DegreeProgram}
+\rfoot{\thepage}
+
+% --- Abbreviations list environment ---
+\newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
+
+% --- Chapter cover page macro ---
+% Usage: \ChapterCover{1}{Introduction}
+% Registers chapter in TOC with current page, then breaks to content page.
+% Place \clearpage BEFORE calling this (from chapter 2 onwards) to flush floats.
+\newcommand{\ChapterCover}[2]{%
+  \refstepcounter{chapter}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#2}%
+  \vspace*{\fill}%
+  \begin{center}%
+    \textbf{\Huge{Chapter #1}}\\%
+    \vspace{5mm}%
+    \textbf{\Huge{#2}}%
+  \end{center}%
+  \vspace*{\fill}%
+  \newpage%
+}

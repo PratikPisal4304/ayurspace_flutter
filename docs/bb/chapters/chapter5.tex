@@ -1,0 +1,82 @@
+\section{Use Case Diagram}
+\justify
+A use case diagram for AyurSpace highlights interactions between the Mobile User,
+Plant.id API, and Gemini API---authentication, plant scanning, dosha quiz, and AyurBot
+wellness advice.
+
+\renewcommand{\thefigure}{5.1}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.91\linewidth,height=0.4\textheight]{assets/placeholders/placeholder_use_case.png}
+\end{mdframed}
+\caption{Use Case Diagram}
+\end{figure}
+
+\newpage
+\subsection{Use Case Document}
+\begin{enumerate}
+    \item \textbf{User Registration / Authentication:}\\
+    Firebase Authentication + Firestore profile sync for cross-device persistence.
+
+    \item \textbf{Scan Medicinal Plant:}\\
+    Camera capture $\rightarrow$ local compression $\rightarrow$ Plant.id REST API
+    $\rightarrow$ taxonomic identity and health assessment.
+
+    \item \textbf{Consult AyurBot:}\\
+    Dynamic prompts inject user's \textit{Dosha} profile + conversation history into
+    Gemini LLM for hyper-personalized responses.
+
+    \item \textbf{Tridosha Questionnaire:}\\
+    Algorithmic scoring of Vata/Pitta/Kapha questions generates user's \textit{Prakriti}.
+
+    \item \textbf{Image Pre-processing (Internal):}\\
+    Bicubic downsampling converts 12MP captures to compressed Base64 byte arrays,
+    reducing API latency and ensuring stability.
+\end{enumerate}
+
+\newpage
+\section{Class Diagram}
+The class diagram highlights primary OOP classes: \texttt{User}, \texttt{Plant},
+\texttt{PlantIdResult}, \texttt{ChatService}, and \texttt{GeminiService}.
+
+\renewcommand{\thefigure}{5.2}
+\begin{figure}[!htbp]
+  \begin{mdframed}
+     \centering
+    \includegraphics[width=0.91\linewidth,height=0.55\textheight]{assets/placeholders/placeholder_class_diagram.png}
+  \end{mdframed}
+    \caption{Class Diagram}
+\end{figure}
+
+\newpage
+\section{Activity Diagram}
+The activity diagram captures the plant scanning flow: Dashboard $\rightarrow$ Camera
+$\rightarrow$ Compress $\rightarrow$ Plant.id API. If confidence $< 0.2$, error/retry.
+Otherwise $\rightarrow$ Gemini API $\rightarrow$ Firestore $\rightarrow$ UI render.
+
+\renewcommand{\thefigure}{5.3}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.5\linewidth,keepaspectratio]{assets/placeholders/placeholder_activity.png}
+\end{mdframed}
+    \caption{Activity Diagram}
+\end{figure}
+
+\newpage
+\section{Sequence Diagram}
+\justify
+The Sequence Diagram outlines the full execution timeline: Flutter Client $\rightarrow$
+POST to Plant.id $\rightarrow$ taxonomy result $\rightarrow$ Gemini API prompt
+$\rightarrow$ JSON response $\rightarrow$ Firestore async write $\rightarrow$ UI
+dashboard update.
+
+\renewcommand{\thefigure}{5.4}
+\begin{figure}[!htbp]
+\begin{mdframed}
+     \centering
+    \includegraphics[width=0.84\linewidth,height=0.6\textheight]{assets/placeholders/placeholder_sequence.png}
+\end{mdframed}
+    \caption{Sequence Diagram}
+\end{figure}

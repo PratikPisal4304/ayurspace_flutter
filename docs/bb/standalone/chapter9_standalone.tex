@@ -1,0 +1,15 @@
+% Standalone wrapper for Chapter 9: Conclusion \\& Future Work
+% Compile from the bb/ directory: pdflatex standalone/chapter9_standalone.tex
+\documentclass[12pt, a4paper]{report}
+\input{preamble}
+\input{metadata}
+\graphicspath{{assets/}{assets/placeholders/}{assets/screenshots/}}
+\input{styling}
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{chapter}{8}
+\ChapterCover{9}{Conclusion \\& Future Work}
+\input{chapters/chapter9}
+\end{document}

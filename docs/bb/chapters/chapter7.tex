@@ -1,100 +1,29 @@
-\documentclass[12pt]{article}
-
-\usepackage[paperwidth=612pt,paperheight=792pt,top=72pt,bottom=72pt,left=30mm,right=20mm]{geometry}
-\usepackage{times}
-\usepackage{setspace}
-\usepackage{fancyhdr}
-\usepackage{ragged2e}
-\usepackage{graphicx}
-\usepackage{mdframed}
-\usepackage{listings}
-\usepackage{color}
-\setstretch{1.5}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2
-}
-\lstset{style=mystyle}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{AyurSpace}
-\fancyfoot[L]{Pillai HOC College of Engineering \& Technology (Autonomous), B. E. Computer Engineering}
-\fancyfoot[R]{\thepage}
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{1pt}
-
-\begin{document}
-
-\vspace*{\fill}
-\begin{center}
-\textbf{\Huge{Chapter 7}}\\
-\vspace{5mm}
-\textbf{\Huge{Implemented System}}
-\end{center}
-\vspace*{\fill}
-\newpage
-
-\section*{7.1 \quad System Architecture}
-\addcontentsline{toc}{section}{7.1 System Architecture}
+\section{System Architecture}
 
 \renewcommand{\thefigure}{7.1}
-\renewcommand{\figurename}{Figure}
 \begin{figure}[!htbp]
 \begin{mdframed}
     \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{SystemArch.png}
+    \includegraphics[width=0.7\linewidth,keepaspectratio]{assets/placeholders/placeholder_system_arch.png}
 \end{mdframed}
 \caption{Implemented System Architecture}
 \end{figure}
 
 \justify
-The central infrastructure revolves around solving complex workflows via independent processes.
-High-resolution images from standard modern smartphone sensors (12MP) incur payload cost in network
-transmissions. A local Pre-processing function $P(I_{raw})$ performs bicubic downsampling, capping
-dimensions and heavily lossy compressing to JPEG Q=85. This decreases payloads by 84\% before
-interfacing with REST APIs.
+High-resolution images (12MP) incur payload cost in network transmissions. A local
+Pre-processing function $P(I_{raw})$ performs bicubic downsampling to JPEG Q=85,
+decreasing payloads by 84\% before interfacing with REST APIs.
 
-Our dual-stage API pipeline (Hybrid Inference) is built such that Plant.id supplies visual
-confidence, effectively serving as the discriminative boundary for the Google Gemini payload. By
-employing specific System Prompts acting as `AyurBot', we curb any ``Alignment Drift'' that general
-LLMs hold regarding western interpretation of medicinal texts. The state updates in the Flutter UI
-smoothly execute over independent asynchronous threads connected via Riverpod. This methodology
-ensures AyurSpace retains efficiency on affordable hardware seen throughout various demographics.
+The dual-stage API pipeline (Hybrid Inference) uses Plant.id for discriminative visual
+confidence and Gemini for generative Ayurvedic reasoning. Specific System Prompts acting
+as `AyurBot' curb ``Alignment Drift.'' Riverpod manages asynchronous state updates
+across independent threads, ensuring efficiency on affordable hardware.
 
 \newpage
-
-\section*{7.2 \quad State Management with Riverpod}
-\addcontentsline{toc}{section}{7.2 State Management with Riverpod}
+\section{State Management with Riverpod}
 \justify
-
-AyurSpace heavily utilizes Riverpod for reactive state management and dependency injection.
-Riverpod provides a compile-time safe mechanism to access global state without the pitfalls of
-standard InheritedWidgets or Provider. The Chat functionality requires maintaining a history of
-messages, handling loading states (typing indicators), and communicating with the Gemini service.
-
-The \texttt{ChatState} encompasses the list of messages, the typing status, and any potential
-errors encountered during the AI query process:
+Riverpod provides compile-time safe global state management. The \texttt{ChatState}
+manages message history, loading states (typing indicators), and errors:
 
 \begin{lstlisting}[language=C++]
 class ChatState {
@@ -123,40 +52,29 @@ class ChatState {
 }
 \end{lstlisting}
 
-The system contains multiple providers corresponding to specific domains of the application:
+Providers by domain:
 \begin{itemize}
-    \item \textbf{AuthProvider}: Manages Firebase Authentication states (logged in, logged out,
-    loading).
-    \item \textbf{ScanProvider}: Manages the image capture, upload, and processing pipeline for
-    plant identification.
-    \item \textbf{DoshaQuizProvider}: Manages the step-by-step questionnaire state to calculate
-    the user's \textit{Prakriti}.
-    \item \textbf{UserProvider}: Syncs the user's profile and preferences with Cloud Firestore.
+    \item \textbf{AuthProvider}: Firebase Authentication state management.
+    \item \textbf{ScanProvider}: Image capture and Plant.id processing pipeline.
+    \item \textbf{DoshaQuizProvider}: Step-by-step \textit{Prakriti} calculation state.
+    \item \textbf{UserProvider}: Firestore profile synchronization.
 \end{itemize}
 
-\newpage
+\section{External AI Integrations}
 
-\section*{7.3 \quad External AI Integrations}
-\addcontentsline{toc}{section}{7.3 External AI Integrations}
-
-\subsection*{7.3.1 \quad API Configuration}
-The application centralizes its API keys and endpoints in a secure configuration module, parsed
-from a \texttt{.env} file.
-
+\subsection{API Configuration}
 \begin{lstlisting}[language=C++]
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiConfig {
   ApiConfig._();
-
   static String get plantIdApiKey =>
       dotenv.env['PLANT_ID_API_KEY'] ?? '';
-  static const String plantIdBaseUrl = 'https://plant.id/api/v3';
-
+  static const String plantIdBaseUrl =
+      'https://plant.id/api/v3';
   static String get geminiApiKey =>
       dotenv.env['GEMINI_API_KEY'] ?? '';
   static const String geminiModel = 'gemini-2.5-flash';
-
   static bool get isPlantIdConfigured =>
       plantIdApiKey.isNotEmpty &&
       plantIdApiKey != 'YOUR_PLANT_ID_API_KEY';
@@ -166,37 +84,27 @@ class ApiConfig {
 }
 \end{lstlisting}
 
-\subsection*{7.3.2 \quad Plant.id Integration}
-The \texttt{PlantIdService} communicates with the Kindwise Plant.id API using REST over HTTP. The
-request requires the base64 encoded image sequence and configuration options dictating what data to
-return (common names, descriptions, edibility, propagation methods). The JSON response from the API
-is deeply nested. The service maps this JSON to the \texttt{PlantIdResult} Dart object, abstracting
-away the JSON structure from the rest of the application.
+\subsection{Plant.id Integration}
+The \texttt{PlantIdService} communicates with Kindwise Plant.id API via REST/HTTP. It
+maps the deeply nested JSON response to the \texttt{PlantIdResult} Dart object,
+abstracting JSON structure from the rest of the application.
 
-\subsection*{7.3.3 \quad Google Gemini Integration}
-AyurSpace heavily relies on the \texttt{gemini-2.5-flash} model due to its high inference speed
-and robust multimodal capabilities. The \texttt{GeminiService} has distinct methods depending on
-the operation:
+\subsection{Google Gemini Integration}
+AyurSpace uses \texttt{gemini-2.5-flash} for high inference speed and multimodal
+capabilities. The \texttt{GeminiService} provides:
 \begin{itemize}
-    \item \texttt{getAyurvedicInfo()}: Zero-shot prompt for retrieving data about a specific
-    identified plant.
-    \item \texttt{sendChat()}: Multi-turn conversation utilizing the \texttt{system\_instruction}
-    payload configuration alongside the historical \texttt{contents} array.
-    \item \texttt{analyzeImage()}: Multimodal prompt combining \texttt{inline\_data} image payload
-    and a text prompt to perform end-to-end analysis.
+    \item \texttt{getAyurvedicInfo()}: Zero-shot plant property retrieval.
+    \item \texttt{sendChat()}: Multi-turn conversation with system instruction and
+    conversation history.
+    \item \texttt{analyzeImage()}: Multimodal prompt with inline image data.
 \end{itemize}
-
-Safety settings are injected into every Gemini request to prevent generation of harmful content,
-specifically filtering for Hate Speech, Dangerous Content, Harassment, and Sexually Explicit
-material.
+Safety filters are injected into every Gemini request.
 
 \newpage
-
-\section*{7.4 \quad Complete Source Code Listings}
-\addcontentsline{toc}{section}{7.4 Complete Source Code Listings}
+\section{Complete Source Code Listings}
 \justify
 
-\textbf{Plant.id Service Implementation (\texttt{plant\_id\_service.dart}):}
+\textbf{Plant.id Service (\texttt{plant\_id\_service.dart}):}
 \begin{lstlisting}[language=C++]
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
@@ -228,7 +136,6 @@ class PlantIdResult {
     final suggestion =
         json['result']['classification']['suggestions'][0];
     final details = suggestion['details'] ?? {};
-
     return PlantIdResult(
       scientificName: suggestion['name'] ?? 'Unknown',
       commonName: details['common_names']?.first
@@ -251,7 +158,6 @@ class PlantIdResult {
 
 class PlantIdService {
   final http.Client _client;
-
   PlantIdService({http.Client? client})
       : _client = client ?? http.Client();
 
@@ -264,7 +170,7 @@ class PlantIdService {
       final base64Image = base64Encode(imageBytes);
       final response = await _client.post(
         Uri.parse(
-            '${ApiConfig.plantIdBaseUrl}/identification'),
+          '${ApiConfig.plantIdBaseUrl}/identification'),
         headers: {
           'Api-Key': ApiConfig.plantIdApiKey,
           'Content-Type': 'application/json',
@@ -277,9 +183,9 @@ class PlantIdService {
           'health': 'auto',
           'language': 'en',
           'details': [
-            'common_names', 'description',
-            'image', 'edible_parts',
-            'watering', 'propagation_methods',
+            'common_names', 'description', 'image',
+            'edible_parts', 'watering',
+            'propagation_methods',
           ],
         }),
       );
@@ -309,7 +215,7 @@ class PlantIdException implements Exception {
 
 \vspace{1cm}
 
-\textbf{Gemini Generative Flow Implementation (\texttt{gemini\_service.dart}):}
+\textbf{Gemini Service (\texttt{gemini\_service.dart}):}
 \begin{lstlisting}[language=C++]
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -318,8 +224,10 @@ import '../config/api_config.dart';
 class GeminiResponse {
   final String text;
   final bool isError;
-  const GeminiResponse({required this.text,
-      this.isError = false});
+  const GeminiResponse({
+    required this.text,
+    this.isError = false,
+  });
 }
 
 class ChatTurn {
@@ -360,11 +268,11 @@ class GeminiService {
   }) async {
     final prompt = '''
 You are AyurBot, a friendly Ayurvedic wellness guide.
-Tell me about: **$plantName**
+Tell me about the plant: **$plantName**
 ${scientificName != null
     ? '(Scientific name: *$scientificName*)' : ''}
 
-Include:
+Please include:
 - Hindi Name
 - Dosha Effect
 - Ayurvedic Uses
@@ -372,7 +280,7 @@ Include:
 - How to Use at Home
 - Precautions
 
-Keep it friendly and under 300 words.
+Keep it friendly, practical, and under 300 words.
 ''';
     return await sendMessage(prompt);
   }
@@ -394,7 +302,9 @@ Keep it friendly and under 300 words.
           'x-goog-api-key': ApiConfig.geminiApiKey,
         },
         body: jsonEncode({
-          'contents': [{'parts': [{'text': message}]}],
+          'contents': [
+            {'parts': [{'text': message}]}
+          ],
           'generationConfig': _generationConfig,
           'safetySettings': _safetySettings,
         }),
@@ -418,8 +328,55 @@ Keep it friendly and under 300 words.
     }
   }
 
+  Future<GeminiResponse> sendChat({
+    required String systemInstruction,
+    required List<ChatTurn> conversationHistory,
+  }) async {
+    if (!ApiConfig.isGeminiConfigured) {
+      return const GeminiResponse(
+          text: 'Mock response: API key not configured.');
+    }
+    try {
+      final url =
+          'https://generativelanguage.googleapis.com'
+          '/v1beta/models/${ApiConfig.geminiModel}'
+          ':generateContent';
+      final body = <String, dynamic>{
+        'system_instruction': {
+          'parts': [{'text': systemInstruction}]
+        },
+        'contents': conversationHistory
+            .map((t) => t.toJson()).toList(),
+        'generationConfig': _generationConfig,
+        'safetySettings': _safetySettings,
+      };
+      final response = await _client.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': ApiConfig.geminiApiKey,
+        },
+        body: jsonEncode(body),
+      );
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final candidates = json['candidates'] as List?;
+        if (candidates != null && candidates.isNotEmpty) {
+          final text = candidates[0]['content']
+              ['parts'][0]['text'] as String?;
+          return GeminiResponse(text: text ?? 'Error parsing');
+        }
+        return const GeminiResponse(
+            text: 'Empty response', isError: true);
+      }
+      return const GeminiResponse(
+          text: 'Error', isError: true);
+    } catch (e) {
+      return const GeminiResponse(
+          text: 'Error', isError: true);
+    }
+  }
+
   void dispose() => _client.close();
 }
 \end{lstlisting}
-
-\end{document}

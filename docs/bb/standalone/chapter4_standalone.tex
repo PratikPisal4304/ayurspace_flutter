@@ -1,0 +1,15 @@
+% Standalone wrapper for Chapter 4: Plan Of Project
+% Compile from the bb/ directory: pdflatex standalone/chapter4_standalone.tex
+\documentclass[12pt, a4paper]{report}
+\input{preamble}
+\input{metadata}
+\graphicspath{{assets/}{assets/placeholders/}{assets/screenshots/}}
+\input{styling}
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{chapter}{3}
+\ChapterCover{4}{Plan Of Project}
+\input{chapters/chapter4}
+\end{document}

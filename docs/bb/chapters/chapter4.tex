@@ -1,0 +1,91 @@
+\section{Methodology}
+\justify
+AyurSpace uses a highly decoupled method combining artificial intelligence, mobile
+frontend engineering, and backend cloud infrastructure.
+
+\begin{itemize}
+    \item \textbf{Presentation Layer (Flutter):}\\
+    Built entirely in Flutter; responsible for UI rendering, user input capture,
+    localization (ARB files), and cross-platform state updates across Android and iOS.
+
+    \item \textbf{State Management:}\\
+    Riverpod is used for reactive state management and DI, isolating UI from business
+    logic and enabling components to listen to streams for live changes.
+
+    \item \textbf{Domain Layer (Core Business Logic):}\\
+    Pure Dart classes mapping Ayurvedic concepts into technical objects---\texttt{Plant},
+    \texttt{Dosha}, \texttt{Remedy}.
+
+    \item \textbf{Plant Taxonomy Integration (Plant.id API):}\\
+    User-captured photos are compressed locally then sent to the Plant.id residual
+    network for species-level taxonomic classification.
+
+    \item \textbf{LLM Contextualizing (Gemini API):}\\
+    After identification, a Chain-of-Thought (CoT) prompt is sent to Gemini, which
+    synthesizes Ayurvedic properties: \textit{Rasa}, \textit{Guna}, \textit{Virya},
+    and home remedies.
+
+    \item \textbf{Cloud Storage and Authentication:}\\
+    Firebase Authentication and Cloud Firestore power secure cross-device synchronization
+    of scan history, dosha profiles, and user data.
+\end{itemize}
+
+\newpage
+\section{Project Plan (Timeline Diagram)}
+A Gantt chart illustrates the timeline of project modules from Planning to Deployment.
+
+\renewcommand{\thefigure}{4.1}
+\renewcommand{\figurename}{Figure}
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{assets/placeholders/placeholder_gantt.png}
+\caption{Project Plan Timeline}
+\end{center}
+\end{figure}
+
+The timeline ensures efficient project management, tracking module initiation and
+deadlines for the UI layout, API integration, testing, and deployment phases.
+
+\newpage
+\section{Proposed System Architecture}
+\justify
+
+\subsection{Layered Architecture}
+\begin{enumerate}
+    \item \textbf{Presentation Layer}: Flutter --- UI rendering, state updates, user input.
+    \item \textbf{Domain Layer}: Core business logic, entities, use-case definitions.
+    \item \textbf{Data Layer}: Data retrieval from local caches, Firebase, and third-party APIs.
+\end{enumerate}
+
+\subsection{Directory Structure}
+\begin{lstlisting}[language=bash]
+lib/
+|-- config/          # Global configs (API keys, theme, router)
+|-- data/            # Models, Repositories, Data Sources
+|   |-- models/
+|   |-- repositories/
+|   |-- sources/
+|-- providers/       # Riverpod Providers and Notifiers
+|-- screens/         # UI Screens
+|-- services/        # Service wrappers (API clients, Firebase)
+|-- utils/           # Utilities and helpers
+|-- widgets/         # Reusable UI components
+\end{lstlisting}
+
+\subsection{Hybrid Neuro-Symbolic Inference Pipeline}
+\begin{itemize}
+    \item \textbf{Discriminative Phase (Vision)}: Plant.id CNN returns scientific
+    classification with confidence score from compressed user image.
+    \item \textbf{Generative Phase (Language)}: Scientific name fed to Gemini LLM
+    constrained via system prompts to return \textit{Dosha} properties, uses, and
+    precautions.
+\end{itemize}
+
+\renewcommand{\thefigure}{4.2}
+\begin{figure}[!htbp]
+\begin{mdframed}
+    \centering
+    \includegraphics[width=0.7\linewidth,keepaspectratio]{assets/placeholders/placeholder_system_arch.png}
+\end{mdframed}
+\caption{Proposed System Architecture}
+\end{figure}

@@ -1,0 +1,15 @@
+% Standalone wrapper for Chapter 5: Project Analysis
+% Compile from the bb/ directory: pdflatex standalone/chapter5_standalone.tex
+\documentclass[12pt, a4paper]{report}
+\input{preamble}
+\input{metadata}
+\graphicspath{{assets/}{assets/placeholders/}{assets/screenshots/}}
+\input{styling}
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{chapter}{4}
+\ChapterCover{5}{Project Analysis}
+\input{chapters/chapter5}
+\end{document}

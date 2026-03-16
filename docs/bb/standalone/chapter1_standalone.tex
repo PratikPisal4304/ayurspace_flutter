@@ -1,0 +1,15 @@
+% Standalone wrapper for Chapter 1: Introduction
+% Compile from the bb/ directory: pdflatex standalone/chapter1_standalone.tex
+\documentclass[12pt, a4paper]{report}
+\input{preamble}
+\input{metadata}
+\graphicspath{{assets/}{assets/placeholders/}{assets/screenshots/}}
+\input{styling}
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{chapter}{0}
+\ChapterCover{1}{Introduction}
+\input{chapters/chapter1}
+\end{document}

@@ -1,0 +1,15 @@
+% Standalone wrapper for Chapter 8: Result Analysis
+% Compile from the bb/ directory: pdflatex standalone/chapter8_standalone.tex
+\documentclass[12pt, a4paper]{report}
+\input{preamble}
+\input{metadata}
+\graphicspath{{assets/}{assets/placeholders/}{assets/screenshots/}}
+\input{styling}
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{chapter}{7}
+\ChapterCover{8}{Result Analysis}
+\input{chapters/chapter8}
+\end{document}

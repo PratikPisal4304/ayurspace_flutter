@@ -1,0 +1,54 @@
+\justify
+
+\section{Related Work}
+
+\noindent\textbf{Computer Vision in Botany:}\\
+The area of automated plant identification has grown significantly with the advent of
+Convolutional Neural Networks (CNNs). Initial endeavors employed leaf-shape descriptors
+and edge detection algorithms [Waldchen et al., 2018]. Modern methods use Deep Learning
+architectures such as ResNet-50 and MobileNetV3. \textbf{Pl@ntNet} excels with European
+plants but struggles with Indian medicinal herbs. \textbf{LeafSnap} focuses on leaf
+curvature for tree species. These systems operate in a ``Botanical Silo''---they provide
+only a Latin binomial, whereas for Ayurveda, identification is just the beginning of the
+consultation.
+
+\vspace{5mm}
+\noindent\textbf{LLMs in Healthcare:}\\
+Generative AI has shown promise in combining medical knowledge. Singhal et al. [2023]
+showed that Med-PaLM could pass the USMLE. However, applying general-purpose LLMs to
+traditional knowledge bases frequently leads to ``alignment drift,'' prioritizing Western
+medical interpretations over traditional logic. There is no dedicated ``Ayur-PaLM,''
+making prompt engineering essential to constrain LLMs like Gemini to act as reliable
+Ayurvedic experts.
+
+\vspace{5mm}
+\noindent\textbf{Digital Approaches to Ayurveda:}\\
+Previous research in ``Computational Ayurveda'' has focused on structural diagnostics
+and static databases---Pulse Diagnosis (\textit{Nadi Pariksha}) using piezoelectric
+sensors, and Tongue Diagnosis (\textit{Jivha Pariksha}) using image processing. Existing
+Ayur Apps are simple CRUD applications without active AI context or personalized
+adaptability.
+
+\vspace{5mm}
+\begin{table}[htbp]
+\caption{AyurSpace Compared to Other Solutions}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{PlantNet} & \textbf{Google Lens} & \textbf{Ayur Apps} & \textbf{AyurSpace} \\
+\hline
+\textbf{Visual ID} & High & High & None & \textbf{High} \\
+\hline
+\textbf{Context} & None & Limited & Static & \textbf{Dynamic} \\
+\hline
+\textbf{Dosha Logic} & None & None & Basic & \textbf{Adaptive} \\
+\hline
+\textbf{Interaction} & Passive & Passive & Passive & \textbf{Chat} \\
+\hline
+\textbf{Safety} & N/A & Low & Medium & \textbf{High} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+AyurSpace bridges the gap between high-tech vision and high-touch traditional wisdom.
