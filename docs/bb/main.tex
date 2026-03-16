@@ -329,7 +329,7 @@ Identification, Computer Vision, Gemini API, Flutter, Digital Health}
 \newpage
 \thispagestyle{plain}
 \renewcommand*\contentsname{Table Of Content}
-\addtocontents{toc}{\noindent\textbf{Content}\hfill\textbf{Page No.}\par\noindent\rule{\textwidth}{0.4pt}\par}
+\addtocontents{toc}{\noindent\textbf{Content}\hfill\textbf{Page No.}\par}
 \tableofcontents
 
 %=============================================================
@@ -343,6 +343,8 @@ Identification, Computer Vision, Gemini API, Flutter, Digital Health}
 %=============================================================
 %  CHAPTER 1: INTRODUCTION
 %=============================================================
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Introduction}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 1}}\\
@@ -351,12 +353,6 @@ Identification, Computer Vision, Gemini API, Flutter, Digital Health}
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\fancypagestyle{plain}{}
-\chapter[Introduction]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Background and Motivation}
 \justify
@@ -450,6 +446,8 @@ To address these challenges, we present \textbf{AyurSpace}. Our contributions ar
 %  CHAPTER 2: LITERATURE REVIEW
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Literature Review}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 2}}\\
@@ -458,11 +456,6 @@ To address these challenges, we present \textbf{AyurSpace}. Our contributions ar
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Literature Review]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 \justify
 
 \section{Related Work}
@@ -522,6 +515,8 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 %  CHAPTER 3: REQUIREMENT GATHERING
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Requirement Gathering}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 3}}\\
@@ -530,11 +525,6 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Requirement Gathering]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Software and Hardware Requirements}
 \justify
@@ -571,6 +561,8 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 %  CHAPTER 4: PLAN OF PROJECT
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Plan Of Project}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 4}}\\
@@ -579,11 +571,6 @@ AyurSpace bridges the gap between high-tech vision and high-touch traditional wi
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Plan Of Project]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Methodology}
 \justify
@@ -681,6 +668,8 @@ lib/
 %  CHAPTER 5: PROJECT ANALYSIS
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Project Analysis}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 5}}\\
@@ -689,11 +678,6 @@ lib/
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Project Analysis]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Use Case Diagram}
 \justify
@@ -782,6 +766,8 @@ dashboard update.
 %  CHAPTER 6: PROJECT DESIGN
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Project Design}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 6}}\\
@@ -790,11 +776,6 @@ dashboard update.
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Project Design]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Data Flow Diagram}
 \vspace{1cm}
@@ -853,6 +834,8 @@ Dashboard $\rightarrow$ branches into Scanning (taxonomy confidence gate), Chatt
 %  CHAPTER 7: IMPLEMENTED SYSTEM
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Implemented System}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 7}}\\
@@ -861,11 +844,6 @@ Dashboard $\rightarrow$ branches into Scanning (taxonomy confidence gate), Chatt
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Implemented System]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{System Architecture}
 
@@ -1254,6 +1232,8 @@ Keep it friendly, practical, and under 300 words.
 %  CHAPTER 8: RESULT ANALYSIS
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Result Analysis}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 8}}\\
@@ -1262,11 +1242,6 @@ Keep it friendly, practical, and under 300 words.
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Result Analysis]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{User Interface Results}
 This section illustrates the core functionality of AyurSpace from the user's perspective,
@@ -1382,6 +1357,8 @@ significantly outperforms Generalized Multi-modal AI alone.
 %  CHAPTER 9: CONCLUSION & FUTURE WORK
 %=============================================================
 \newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Conclusion \& Future Work}
 \vspace*{\fill}
 \begin{center}
 \textbf{\Huge{Chapter 9}}\\
@@ -1390,11 +1367,6 @@ significantly outperforms Generalized Multi-modal AI alone.
 \end{center}
 \vspace*{\fill}
 \newpage
-\titleformat{\chapter}[block]{\normalfont}{}{0pt}{}
-\titlespacing{\chapter}{0pt}{-2em}{0pt}
-\chapter[Conclusion and Future Work]{}
-\titleformat{\chapter}[display]{\vspace{1cm}\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{20pt}{\vspace{0pt}}
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
 
 \section{Conclusion}
 The creation of \textbf{AyurSpace} is a key step in the digital preservation and
