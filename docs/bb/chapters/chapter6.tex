@@ -28,10 +28,125 @@ and profiling calculations merge into reasoning to yield tailored health output.
 \vspace{0.5cm}
 \begin{figure}[!htbp]
 \begin{mdframed}
-    \centering
-    \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{assets/placeholders/placeholder_dfd1.png}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth, thick,
+    %% Split-circle processes (number top, name bottom — matches reference style)
+    process/.style={
+        circle split, draw, thick,
+        minimum size=2.8cm,
+        every upper node part/.style={font=\small\bfseries, align=center},
+        every lower node part/.style={font=\small, text width=1.8cm, align=center}
+    },
+    %% Rounded-rectangle external entities
+    entity/.style={
+        rectangle, draw, thick, align=center, rounded corners=5pt,
+        minimum width=1.8cm, minimum height=0.9cm,
+        font=\small, inner sep=5pt
+    },
+    %% Open rectangle (top + bottom + left side only) for data stores
+    dstore/.style={
+        align=center, draw=none, inner sep=6pt,
+        minimum width=3.4cm, minimum height=0.7cm, font=\small,
+        path picture={
+            \draw[thick]
+                (path picture bounding box.north west) --
+                (path picture bounding box.north east);
+            \draw[thick]
+                (path picture bounding box.south west) --
+                (path picture bounding box.south east);
+            \draw[thick]
+                (path picture bounding box.north west) --
+                (path picture bounding box.south west);
+        }
+    },
+    lbl/.style={font=\scriptsize, fill=white, inner sep=2pt}
+]
+
+%% ── External entities ──────────────────────────────────────────
+\node[entity] (user)     at (0,    5.0) {User};
+\node[entity] (firebase) at (1.5, -1.2) {Firebase};
+
+%% ── Processes ──────────────────────────────────────────────────
+\node[process] (auth11)
+    at (4.0,  5.0) {1.1 \nodepart{lower} Authentication};
+\node[process] (browse12)
+    at (7.0,  8.0) {1.2 \nodepart{lower} Browse Content};
+\node[process] (scan13)
+    at (10.5, 10.5){1.3 \nodepart{lower} Plant Scanner};
+\node[process] (chat14)
+    at (14.0, 10.5){1.4 \nodepart{lower} AI Chat};
+\node[process] (well15)
+    at (17.5, 6.0) {1.5 \nodepart{lower} Wellness \& Profile};
+
+%% ── Data stores ────────────────────────────────────────────────
+\node[dstore] (d1) at (6.5, -1.2)  {D1 $|$ User Database};
+\node[dstore] (d2) at (5.0,  12.5) {D2 $|$ Plant \& Remedy Data};
+\node[dstore] (d3) at (14.0, 3.0)  {D3 $|$ Quiz Data};
+\node[dstore] (d4) at (16.0, 8.5)  {D4 $|$ Preferences};
+
+%% ── Data flows ─────────────────────────────────────────────────
+
+%% User → 1.1  (Credentials) — straight horizontal
+\draw[->] (user) -- node[lbl, above] {Credentials} (auth11);
+
+%% 1.1 → 1.2  (Auth Token) — orthogonal: up then right
+\draw[->] (auth11.north) |-
+    node[lbl, above, pos=0.75] {Auth Token} (browse12.west);
+
+%% 1.1 → D1   (Auth Data)  — orthogonal: right then down
+\draw[->] (auth11.south) -|
+    node[lbl, right, pos=0.7] {Auth Data} (d1.north);
+
+%% Firebase → D1  (Auth Access) — straight horizontal
+\draw[->] (firebase) -- node[lbl, above] {Auth Access} (d1);
+
+%% D2 → 1.2  (Records) — straight diagonal
+\draw[->] (d2.south east) --
+    node[lbl, right] {Records} (browse12.north west);
+
+%% D2 → 1.3  (Local Match) — gentle curve over top
+\draw[->] (d2.east) to[out=10, in=135]
+    node[lbl, above] {Local Match} (scan13.north west);
+
+%% 1.2 → 1.3  (Plant Data) — straight diagonal up-right
+\draw[->] (browse12.north east) --
+    node[lbl, above left] {Plant Data} (scan13.south west);
+
+%% 1.3 → 1.4  (Scan Result) — straight horizontal
+\draw[->] (scan13) -- node[lbl, above] {Scan Result} (chat14);
+
+%% 1.4 → D4   (Session Data) — orthogonal: right then down
+\draw[->] (chat14.east) -|
+    node[lbl, right, pos=0.75] {Session Data} (d4.north);
+
+%% 1.4 → 1.5  (Chat Context) — diagonal down-right
+\draw[->] (chat14) to[out=-15, in=105]
+    node[lbl, right] {Chat Context} (well15);
+
+%% D4 → 1.5   (Wellness Data) — short diagonal
+\draw[->] (d4) -- node[lbl, above] {Wellness Data} (well15);
+
+%% D3 → 1.5   (Saved Stats) — curve up-right
+\draw[->] (d3.east) to[out=20, in=255]
+    node[lbl, below right] {Saved Stats} (well15.south west);
+
+%% D3 → 1.5   (Questions) — steeper curve up-right
+\draw[->] (d3.north east) to[out=55, in=250]
+    node[lbl, right] {Questions} (well15.south);
+
+%% User → 1.5  (User Profile) — orthogonal bottom routing
+\coordinate (ubot) at ($(user.south) + (0,-2.8)$);
+\coordinate (wbot) at (ubot -| well15.south);
+\draw[->] (user.south) -- (ubot) --
+    node[lbl, below, midway] {User Profile}
+    (wbot) -- (well15.south);
+
+\end{tikzpicture}%
+}
 \end{mdframed}
-    \caption{Level 1 DFD}
+\caption{Level 1 DFD}
 \end{figure}
 
 \newpage
