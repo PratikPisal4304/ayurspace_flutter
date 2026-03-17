@@ -1,0 +1,50 @@
+graph LR
+    classDef actor fill:none,stroke:none
+    classDef usecase fill:#e8eaf6,stroke:#283593,stroke-width:1.5px,rx:30,ry:30
+    classDef system fill:#fafafa,stroke:#37474f,stroke-width:2px
+
+    %% Actors
+    MobileUser["🧑 Mobile<br/>User"]:::actor
+    PlantIdAPI["🤖 Plant.id<br/>API"]:::actor
+    GeminiAPI["🤖 Gemini<br/>API"]:::actor
+    FirebaseAPI["🔥 Firebase<br/>Service"]:::actor
+
+    subgraph AyurSpaceSystem["AyurSpace Application"]
+        UC1(["Authenticate User"]):::usecase
+        UC2(["Scan Plant Image"]):::usecase
+        UC3(["Pre-process Image"]):::usecase
+        UC4(["Identify Plant Taxonomy"]):::usecase
+        UC5(["Fetch Ayurvedic Info"]):::usecase
+        UC6(["Chat with AyurBot"]):::usecase
+        UC7(["Take Tridosha Quiz"]):::usecase
+        UC8(["View Scan History"]):::usecase
+        UC9(["Update Profile"]):::usecase
+        UC10(["Login"]):::usecase
+    end
+
+    %% Mobile User connections
+    MobileUser --> UC1
+    MobileUser --> UC2
+    MobileUser --> UC6
+    MobileUser --> UC7
+    MobileUser --> UC8
+    MobileUser --> UC9
+
+    %% Include relationships
+    UC1 -. "include" .-> UC10
+    UC2 -. "include" .-> UC3
+    UC2 -. "include" .-> UC4
+    UC6 -. "include" .-> UC10
+    UC7 -. "include" .-> UC10
+    UC8 -. "include" .-> UC10
+    UC9 -. "include" .-> UC10
+
+    %% Extend relationships
+    UC4 -. "extend" .-> UC5
+
+    %% External system actor connections
+    UC4 --> PlantIdAPI
+    UC5 --> GeminiAPI
+    UC6 --> GeminiAPI
+    UC1 --> FirebaseAPI
+    UC8 --> FirebaseAPI

@@ -1,0 +1,24 @@
+stateDiagram-v2
+    [*] --> Dashboard
+
+    Dashboard --> CameraInterface : Tap Scan
+    CameraInterface --> ImageCaptured : User takes photo
+
+    ImageCaptured --> Compressing : Downsample and JPEG compress
+    Compressing --> APIUpload : Compressed Bytes in Base64
+
+    APIUpload --> PlantIdResponse : POST to Plant.id
+
+    state PlantIdResponse {
+        [*] --> CheckConfidence
+        CheckConfidence --> ValidTaxonomy : Probability above 0.2
+        CheckConfidence --> Invalid : Probability below 0.2
+    }
+
+    Invalid --> CameraInterface : Show Error or Retry
+
+    ValidTaxonomy --> QueryGemini : Prompt creation with Taxonomy
+    QueryGemini --> DisplayResult : Gemini generates Ayurvedic response
+    DisplayResult --> CloudFirestore : Save to History
+
+    CloudFirestore --> Dashboard : Finish

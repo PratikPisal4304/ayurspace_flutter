@@ -1,0 +1,36 @@
+graph TD
+    classDef startend fill:#ffccbc,stroke:#bf360c,stroke-width:2px
+    classDef decision fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef process fill:#e1bee7,stroke:#4a148c,stroke-width:2px
+
+    Start(("App Start")):::startend
+    CheckAuth{"Is User Logged In?"}:::decision
+    LoginScreen["Render Login Options"]:::process
+    HomeBase["Home Dashboard"]:::process
+
+    Start --> CheckAuth
+    CheckAuth -- "No" --> LoginScreen
+    LoginScreen -- "Success" --> HomeBase
+    CheckAuth -- "Yes" --> HomeBase
+
+    HomeBase --> Branching{"Select Action"}:::decision
+
+    Branching -- "Tap Scan" --> CameraScan["Launch Camera"]:::process
+    CameraScan --> ProcessPhoto{"Confidence above 0.2?"}:::decision
+    ProcessPhoto -- "No" --> ErrorScan["Show Error and Retry"]:::process
+    ErrorScan --> CameraScan
+    ProcessPhoto -- "Yes" --> FetchGemini["Fetch Gemini Data"]:::process
+    FetchGemini --> RenderPlant["Show Ayurvedic Properties"]:::process
+    RenderPlant --> HomeBase
+
+    Branching -- "Tap Chat" --> AyurBot{"Has Chat History?"}:::decision
+    AyurBot -- "No" --> NewChat["Welcome Message"]:::process
+    AyurBot -- "Yes" --> LoadChat["Load Firestore stream"]:::process
+    NewChat --> LLMResponse["Generate Response"]:::process
+    LoadChat --> LLMResponse
+    LLMResponse --> HomeBase
+
+    Branching -- "Tap Quiz" --> RunQuiz["Execute Dosha Assessment"]:::process
+    RunQuiz --> MathAlgo["Compute Predominant Score"]:::process
+    MathAlgo --> SaveCloud["Sync to Profile"]:::process
+    SaveCloud --> HomeBase

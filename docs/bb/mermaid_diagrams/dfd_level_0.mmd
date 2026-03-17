@@ -1,0 +1,16 @@
+flowchart LR
+    classDef process fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef entity fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    classDef store fill:#fff,stroke:#000,stroke-width:1px,color:#000
+
+    User["User"]:::entity
+    P0(("0.1<br/>AyurSpace<br/>System")):::process
+    Firebase["Firebase"]:::entity
+    D1["D1 | User Database"]:::store
+
+    User -->|"User Inputs"| P0
+    P0 -->|"App Results"| User
+    P0 -->|"Auth Requests"| Firebase
+    Firebase -->|"Auth State"| P0
+    P0 -->|"Stored Data"| D1
+    D1 -->|"User Profile"| P0

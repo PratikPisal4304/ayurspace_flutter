@@ -1,0 +1,32 @@
+flowchart TD
+    classDef client fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
+    classDef state fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#000
+    classDef svc fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000
+    classDef data fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef ext fill:#ffebee,stroke:#b71c1c,stroke-width:2px,color:#000
+    classDef store fill:#eceff1,stroke:#455a64,stroke-width:2px,color:#000
+
+    USER(["User · Device Camera · ImagePicker"])
+
+    PRESENT["Presentation Layer<br/>17 Screens · GoRouter · 6 Auth Guards<br/>ShellRoute — 6 Tab Bottom Navigation<br/>Localization EN · HI · MR via gen_l10n<br/>Material 3 · AppTheme · AppColors · DesignTokens"]:::client
+
+    STATE["State Management — Riverpod<br/>11 StateNotifiers · StateNotifierProvider<br/>Auth · User · Plants · Remedies · Scan<br/>Chat · ChatHistory · DoshaQuiz<br/>Wellness · MeditationTimer · Language"]:::state
+
+    SERVICES["Services Layer<br/>AuthService — Email · Google · Silent Sign-In<br/>FirestoreService — User CRUD · Stream · Bookmarks<br/>GeminiService — Chat · Vision · Ayurvedic Info<br/>PlantIdService — Identify · Health Assessment"]:::svc
+
+    DATA["Data Layer<br/>PlantsRepository · RemediesRepository<br/>Abstract + Local impl · Firestore swappable<br/>Models: Plant · Remedy · UserProfile<br/>ChatMessage · DoshaResult · Ingredient"]:::data
+
+    EXTERNAL["External APIs — HTTP REST<br/>Google Gemini API — gemini-2.5-flash<br/>Plant.id API v3 — Image Recognition"]:::ext
+
+    FIREBASE["Firebase Platform — Native SDK<br/>Auth · Cloud Firestore<br/>Crashlytics"]:::ext
+
+    STORAGE[("Local Storage<br/>Seed Data — 50 Plants · 8 Remedies · 12 Quiz Q<br/>SharedPreferences — Wellness · Chat · Language<br/>flutter_dotenv .env — API Keys")]:::store
+
+    USER --> PRESENT
+    PRESENT -->|ConsumerWidget watch · read| STATE
+    STATE --> SERVICES
+    STATE -->|repository pattern| DATA
+    SERVICES -->|HTTP REST| EXTERNAL
+    SERVICES -->|Native SDK| FIREBASE
+    DATA --> STORAGE
+    DATA -.->|swappable impl| FIREBASE
