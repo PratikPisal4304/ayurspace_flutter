@@ -2,8 +2,78 @@
 
 \begin{figure}[!htbp]
 \begin{mdframed}
-    \centering
-    \includegraphics[width=0.7\linewidth,keepaspectratio]{assets/placeholders/placeholder_system_arch.png}
+  \centering
+  \resizebox{0.62\linewidth}{!}{%
+  \begin{tikzpicture}[>=Stealth,
+      %% ── Base node style ──────────────────────────────────────────
+      nd/.style={
+          rectangle, rounded corners=10pt, line width=1pt,
+          text=white, font=\small\bfseries,
+          inner sep=10pt, minimum height=1.5cm,
+          text centered, text width=4.0cm
+      },
+      %% ── Per-layer colors ─────────────────────────────────────────
+      usrnd/.style={nd, draw=Teal!50,        fill=Teal!45!black},
+      prend/.style={nd, draw=NavyBlue!60,    fill=NavyBlue!70},
+      stnd/.style={nd, draw=Orchid!55,       fill=Plum!60!black},
+      svcnd/.style={nd, draw=BurntOrange!60, fill=BurntOrange!55!black,
+                    text width=3.2cm},
+      datnd/.style={nd, draw=ForestGreen!60, fill=ForestGreen!50!black,
+                    text width=3.2cm},
+      apind/.style={nd, draw=BrickRed!60,    fill=BrickRed!55!black,
+                    text width=3.2cm},
+      fbsnd/.style={nd, draw=OliveGreen!60,  fill=OliveGreen!50!black,
+                    text width=3.2cm},
+      %% ── Arrows and labels ────────────────────────────────────────
+      arr/.style={-{Stealth[length=7pt,width=5pt]}, thick, draw=black!55},
+      lbl/.style={font=\small, fill=white, inner sep=3pt, align=center}
+  ]
+
+  %% ─── NODES (top to bottom) ───────────────────────────────────────
+  \node[usrnd] (user)  at (0.0, 17.5)
+      {Mobile User};
+  \node[prend] (pres)  at (0.0, 14.0)
+      {Flutter Screens\\[2pt]{\normalfont\footnotesize Dashboard, PlantScan,\\AyurBot, DoshaQuiz}};
+  \node[stnd]  (state) at (0.0, 10.6)
+      {Riverpod Notifiers\\[2pt]{\normalfont\footnotesize Scan, Chat, Dosha, User}};
+  \node[svcnd] (svc)   at (-4.0,  7.0)
+      {Services Layer\\[2pt]{\normalfont\footnotesize PlantIdService\\GeminiService}};
+  \node[datnd] (dat)   at ( 4.0,  7.0)
+      {Data Layer\\[2pt]{\normalfont\footnotesize FirestoreService\\AuthService}};
+  \node[apind] (api)   at (-4.0,  3.2)
+      {External APIs\\[2pt]{\normalfont\footnotesize Plant.id v3, Gemini 2.5}};
+  \node[fbsnd] (fbs)   at ( 4.0,  3.2)
+      {Firebase Platform\\[2pt]{\normalfont\footnotesize Firestore, Auth}};
+
+  %% ─── CONNECTIONS ─────────────────────────────────────────────────
+
+  %% Mobile User → Flutter Screens
+  \draw[arr] (user.south) -- (pres.north);
+
+  %% Flutter Screens → Riverpod Notifiers
+  \draw[arr] (pres.south) --
+      node[lbl, right]{Consumer\\Widget}
+      (state.north);
+
+  %% Riverpod Notifiers → T-junction → Services + Data
+  \coordinate (branch) at (0, 9.1);
+  \draw[thick, black!55] (state.south) -- (branch);
+  \draw[arr] (branch) -| (svc.north);
+  \draw[arr] (branch) -| (dat.north);
+  \node[lbl] at (2.2, 9.4) {Repository\\Pattern};
+
+  %% Services Layer → External APIs
+  \draw[arr] (svc.south) --
+      node[lbl, right]{HTTP REST}
+      (api.north);
+
+  %% Data Layer → Firebase Platform
+  \draw[arr] (dat.south) --
+      node[lbl, right]{Native SDK}
+      (fbs.north);
+
+  \end{tikzpicture}%
+  }
 \end{mdframed}
 \caption{Implemented System Architecture}
 \end{figure}
