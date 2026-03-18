@@ -19,6 +19,18 @@
 \lfoot{\footnotesize \CollegeShort, \DegreeProgram}
 \rfoot{\thepage}
 
+% Redefine 'plain' to match fancy so \chapter* pages also get headers/footers
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{1pt}%
+    \renewcommand{\footrulewidth}{1pt}%
+    \lhead{}%
+    \rhead{\footnotesize{\ProjectShortName}}%
+    \cfoot{}%
+    \lfoot{\footnotesize \CollegeShort, \DegreeProgram}%
+    \rfoot{\thepage}%
+}
+
 % --- Abbreviations list environment ---
 \newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
 \newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
