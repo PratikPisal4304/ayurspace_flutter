@@ -20,16 +20,16 @@ An AI-powered mobile application bringing ancient Ayurvedic wisdom to your finge
 <div align="center">
 <table>
   <tr>
-    <td><img src="screenshots/home.png" width="200" /><br/><b>Home</b></td>
-    <td><img src="screenshots/discover.png" width="200" /><br/><b>Discover Plants</b></td>
-    <td><img src="screenshots/plant_detail.png" width="200" /><br/><b>Plant Details</b></td>
-    <td><img src="screenshots/scanner.png" width="200" /><br/><b>Plant Scanner</b></td>
+    <td><img src="docs/assets/screenshots/home_screen.png" width="200" /><br/><b>Home</b></td>
+    <td><img src="docs/assets/screenshots/discover_screen.png" width="200" /><br/><b>Discover Plants</b></td>
+    <td><img src="docs/assets/screenshots/plant_detail_screen.png" width="200" /><br/><b>Plant Details</b></td>
+    <td><img src="docs/assets/screenshots/scan_plant_screen.png" width="200" /><br/><b>Plant Scanner</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/ai_chat.png" width="200" /><br/><b>AI Assistant</b></td>
-    <td><img src="screenshots/remedies.png" width="200" /><br/><b>Remedies</b></td>
-    <td><img src="screenshots/wellness.png" width="200" /><br/><b>Wellness Hub</b></td>
-    <td><img src="screenshots/dosha_quiz.png" width="200" /><br/><b>Dosha Quiz</b></td>
+    <td><img src="docs/assets/screenshots/AyurBot_screen.png" width="200" /><br/><b>AI Assistant</b></td>
+    <td><img src="docs/assets/screenshots/remedies_screen.png" width="200" /><br/><b>Remedies</b></td>
+    <td><img src="docs/assets/screenshots/wellness_screen.png" width="200" /><br/><b>Wellness Hub</b></td>
+    <td><img src="docs/assets/screenshots/dosha_quiz_screen.png" width="200" /><br/><b>Dosha Quiz</b></td>
   </tr>
 </table>
 </div>
