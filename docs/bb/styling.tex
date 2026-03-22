@@ -35,6 +35,27 @@
 \newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
 \newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
 
+% --- List of Figures / Tables formatting ---
+\setlength{\cftfigindent}{0pt}
+\setlength{\cftfignumwidth}{3.2cm}
+\renewcommand{\cftfigpresnum}{Figure }
+\setlength{\cfttabindent}{0pt}
+\setlength{\cfttabnumwidth}{3.2cm}
+\renewcommand{\cfttabpresnum}{Table }
+
+% Restore centered bold titles for LOF, LOT, and TOC
+\renewcommand{\cftloftitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Reduce top padding above LOF, LOT, TOC titles
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftbeforetoctitleskip}{0pt}
+
 % --- Chapter cover page macro ---
 % Usage: \ChapterCover{Title}
 % \thechapter is used automatically — no need to pass the number.

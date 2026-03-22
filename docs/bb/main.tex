@@ -33,9 +33,15 @@
 \input{frontmatter/05_abbreviations}
 
 \newpage
+\addtocontents{lof}{%
+  \noindent\makebox[3.2cm][l]{\textbf{Figure No.}}\textbf{Figure Name}\hfill\textbf{Page No.}\par\vspace{0.4em}%
+}
 \listoffigures
 
 \newpage
+\addtocontents{lot}{%
+  \noindent\makebox[3.2cm][l]{\textbf{Table No.}}\textbf{Name of Table}\hfill\textbf{Page No.}\par\vspace{0.4em}%
+}
 \listoftables
 
 \newpage
@@ -110,10 +116,32 @@
 
 \input{frontmatter/06_acknowledgement}
 
+\let\origaddcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{}
 \input{backmatter/publications}
+\let\addcontentsline\origaddcontentsline
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix I :List of Publication}
 
+\let\origaddcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{}
 \input{backmatter/published_paper}
+\let\addcontentsline\origaddcontentsline
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix II :Published Paper}
 
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix III :Plagiarism Report}
+\let\origaddcontentsline\addcontentsline
+\let\origclearpage\clearpage
+\let\origcleardoublepage\cleardoublepage
+\renewcommand{\addcontentsline}[3]{}
+\renewcommand{\clearpage}{}
+\renewcommand{\cleardoublepage}{}
 \input{backmatter/plagiarism_report}
+\let\addcontentsline\origaddcontentsline
+\let\clearpage\origclearpage
+\let\cleardoublepage\origcleardoublepage
 
 \end{document}
