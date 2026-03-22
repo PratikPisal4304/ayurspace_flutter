@@ -29,41 +29,34 @@ millions of people cannot get personalized diagnosis. This creates an urgent nee
 accessible to everyone.
 
 \newpage
-\section{Problem Statement}
-The digitization of Ayurveda introduces specific computational challenges that current
-solutions do not adequately resolve:
-\begin{enumerate}[label={\textbf{\arabic*.}}, leftmargin=*]
-    \item \textbf{Taxonomic Ambiguity}: Numerous distinct species possess identical
-    nomenclature. For example, ``Brahmi'' can mean either \textit{Bacopa monnieri} or
-    \textit{Centella asiatica}, depending on region. A text-only search is insufficient
-    and dangerous.
+\section{Relevance}
+\justify
+AyurSpace is highly relevant in today's healthcare and technology landscape because it
+directly addresses the widening gap between the depth of Ayurvedic knowledge and its
+practical accessibility to the general population. India alone has over 600 million
+smartphone users, yet there exists no intelligent, AI-powered mobile application that
+bridges traditional plant medicine with modern diagnostic reasoning. The 88\% of WHO
+member states that rely on traditional and complementary medicine~[1] represent a global
+user base with no reliable digital tool to identify medicinal plants and receive safe,
+personalized Ayurvedic guidance.
 
-    \item \textbf{Visual Similarity}: Many beneficial plants resemble harmful ones.
-    For instance, the Solanaceae family contains both poisonous plants and edible
-    vegetables, requiring accurate computer vision to distinguish them.
+The relevance of AyurSpace is further underscored by the rapid erosion of oral
+\textit{Gurukula} traditions. With fewer qualified \textit{Vaidyas} available in rural
+and semi-urban areas, millions of people self-medicate using plants they cannot accurately
+identify. Misidentification of medicinal herbs---such as confusing \textit{Bacopa monnieri}
+with \textit{Centella asiatica}, both commonly called ``Brahmi''---can lead to incorrect
+dosage and adverse health effects. AyurSpace resolves this critical safety issue by
+combining computer vision-based species identification with Gemini LLM-powered Ayurvedic
+reasoning, ensuring that plant identification always precedes any health recommendation.
 
-    \item \textbf{Contextual Disconnection}: Current plant identification apps (like
-    PlantNet) provide Linnaean taxonomy but no Ayurvedic context. Knowing a plant is
-    \textit{Tinospora cordifolia} is not useful without knowing its \textit{Guduchi}
-    properties and dosage.
-
-    \item \textbf{Generative Hallucinations}: LLMs like GPT-4 can provide Ayurvedic
-    advice but are prone to hallucinating citations and properties. Direct visual LLM
-    identification is presently unreliable for essential medical safety~[4].
-\end{enumerate}
-
-To address these challenges, we present \textbf{AyurSpace}. Our contributions are:
-\begin{itemize}
-    \item \textbf{Hybrid Neuro-Symbolic Architecture}: A pipeline that separates
-    ``Identification'' (specialized CNNs) from ``Reasoning'' (Semantic LLMs), minimizing
-    hallucination risks.
-    \item \textbf{Digitized Dravyaguna Ontology}: Medicinal plant properties in a
-    searchable, object-oriented schema with algorithmic safety checks.
-    \item \textbf{Quantitative Tridosha Assessment}: \textit{Prakriti Pariksha}
-    formalized into a discrete-math replicable scoring algorithm.
-    \item \textbf{Open Source Mobility}: Cross-platform Flutter implementation for
-    accessibility on affordable devices common in developing countries.
-\end{itemize}
+Furthermore, in an era where telemedicine and digital health are becoming mainstream,
+the ability to deliver personalized \textit{Prakriti} (constitution) assessment and
+AI-driven wellness guidance through an affordable mobile application is transformative.
+AyurSpace empowers individuals in underserved regions---where access to Ayurvedic
+practitioners is scarce---with the same quality of guidance previously available only
+in specialized clinics. This cross-platform Flutter implementation ensures reach across
+both Android and iOS devices without additional infrastructure cost, making expert
+Ayurvedic knowledge accessible, accurate, and safe for everyone.
 
 \newpage
 \section{Organisation of Report}

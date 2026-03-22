@@ -6,10 +6,10 @@ The following table presents a comparative survey of key research works in the a
 AI-based plant identification, large language models in healthcare, digital Ayurveda,
 and cross-platform mobile development---the foundational domains of AyurSpace.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \caption{Literature Survey}
 \label{tab:lit_survey}
-{\small\setlength{\tabcolsep}{4pt}
+{\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.95}
 \centering
 \begin{tabular}{|>{\centering\arraybackslash}p{0.7cm}|
                  >{\centering\arraybackslash}p{3.3cm}|
@@ -57,12 +57,6 @@ AI-Powered Personalized Wellness Applications: A Review~[15] &
 Personalised recommendations shown to improve user health outcomes &
 Significant data privacy concerns; risk of over-reliance on AI suggestions \\
 \hline
-7 &
-Flutter for Cross-Platform Mobile Health Applications~[16] &
-2023 & Raj et al. &
-Single codebase for iOS and Android; smooth native-like UI performance &
-Large initial binary size; limited access to some native device APIs \\
-\hline
 \end{tabular}}
 \end{table}
 
@@ -98,7 +92,7 @@ Ayur Apps are simple CRUD applications without active AI context or personalized
 adaptability.
 
 \vspace{5mm}
-\begin{table}[htbp]
+\begin{table}[H]
 \caption{AyurSpace Compared to Other Solutions}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -118,4 +112,75 @@ adaptability.
 \end{tabular}
 \end{center}
 \end{table}
+
+\newpage
+\section{Existing Systems}
+\justify
+In the existing landscape of plant identification and Ayurvedic wellness applications,
+monitoring and guidance are primarily performed using fragmented, single-purpose tools
+that lack the integration necessary for safe and personalized Ayurvedic practice. Users
+are required to switch between separate apps for plant identification, health tracking,
+and dietary guidance, with no unified platform providing end-to-end Ayurvedic reasoning.
+
+\textbf{Pl@ntNet} and \textbf{iNaturalist} are leading plant identification apps driven
+by crowd-sourced datasets and CNNs. While accurate for European flora, they operate in
+a ``Botanical Silo''---providing only a Latin binomial with no medicinal context,
+making them fundamentally unsuitable for Ayurvedic practice.
+
+\textbf{Google Lens} offers general-purpose visual recognition but does not specialize
+in Indian medicinal herbs and frequently misidentifies visually similar species. Its
+information is limited to Wikipedia-level data with no Ayurvedic property output or
+dosha analysis.
+
+\textbf{Existing Ayurvedic mobile applications} such as Jiva Ayurveda and NirogStreet
+are essentially static databases of herbs. They lack AI-based plant scanning, real-time
+LLM reasoning, and adaptive dosha scoring, offering no conversational interface for
+personalized guidance.
+
+\textbf{General-purpose LLM chatbots} (ChatGPT, Gemini standalone) are prone to
+hallucinating plant properties and fabricating citations~[4]. Without a grounding
+visual identification step, they cannot be trusted for plant-specific medical guidance.
+
+These limitations collectively highlight the need for an integrated, AI-powered mobile
+system that combines accurate visual plant identification, structured Ayurvedic property
+retrieval, personalized \textit{Prakriti} assessment, and a safety-constrained
+conversational interface---the exact gap that AyurSpace addresses.
+
+\newpage
+\section{Problem Statement}
+\justify
+The digitization of Ayurveda introduces specific computational challenges that current
+solutions do not adequately resolve:
+\begin{enumerate}[label={\textbf{\arabic*.}}, leftmargin=*]
+    \item \textbf{Taxonomic Ambiguity}: Numerous distinct species possess identical
+    nomenclature. For example, ``Brahmi'' can mean either \textit{Bacopa monnieri} or
+    \textit{Centella asiatica}, depending on region. A text-only search is insufficient
+    and dangerous.
+
+    \item \textbf{Visual Similarity}: Many beneficial plants resemble harmful ones.
+    For instance, the Solanaceae family contains both poisonous plants and edible
+    vegetables, requiring accurate computer vision to distinguish them.
+
+    \item \textbf{Contextual Disconnection}: Current plant identification apps (like
+    PlantNet) provide Linnaean taxonomy but no Ayurvedic context. Knowing a plant is
+    \textit{Tinospora cordifolia} is not useful without knowing its \textit{Guduchi}
+    properties and dosage.
+
+    \item \textbf{Generative Hallucinations}: LLMs like GPT-4 can provide Ayurvedic
+    advice but are prone to hallucinating citations and properties. Direct visual LLM
+    identification is presently unreliable for essential medical safety~[4].
+\end{enumerate}
+
+To address these challenges, we present \textbf{AyurSpace}. Our contributions are:
+\begin{itemize}
+    \item \textbf{Hybrid Neuro-Symbolic Architecture}: A pipeline that separates
+    ``Identification'' (specialized CNNs) from ``Reasoning'' (Semantic LLMs), minimizing
+    hallucination risks.
+    \item \textbf{Digitized Dravyaguna Ontology}: Medicinal plant properties in a
+    searchable, object-oriented schema with algorithmic safety checks.
+    \item \textbf{Quantitative Tridosha Assessment}: \textit{Prakriti Pariksha}
+    formalized into a discrete-math replicable scoring algorithm.
+    \item \textbf{Open Source Mobility}: Cross-platform Flutter implementation for
+    accessibility on affordable devices common in developing countries.
+\end{itemize}
 
