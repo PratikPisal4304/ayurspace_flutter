@@ -1,3 +1,5 @@
+\renewcommand{\thefigure}{8.1.\arabic{figure}}
+\setcounter{figure}{0}
 \section{User Interface Results}
 This section illustrates the core functionality of AyurSpace from the user's perspective,
 highlighting the UI rendering of state changes managed by Flutter and Riverpod.
@@ -12,8 +14,9 @@ highlighting the UI rendering of state changes managed by Flutter and Riverpod.
     dosha assessments, and personalized wellness charts synchronized via Cloud Firestore.
 \end{figure}
 
-\newpage
+\clearpage
 \begin{figure}[!htbp]
+    \vspace{3cm}
     \centering
     \includegraphics[width=0.3\textwidth]{assets/screenshots/scan_plant_screen.png}
     \caption{Plant Scanning Interface}
@@ -55,7 +58,7 @@ highlighting the UI rendering of state changes managed by Flutter and Riverpod.
 
 \newpage
 \section{Experimental Setup \& Metric Definition}
-\begin{enumerate}
+\begin{enumerate}[itemsep=2pt, topsep=4pt]
     \item \textbf{Top-1 Identification Accuracy ($Acc_1$)}: Frequency of correct species
     as the first suggestion returned.
     \item \textbf{Hallucination Rate ($H_r$)}: Frequency of incorrect LLM-generated plant
@@ -66,8 +69,10 @@ highlighting the UI rendering of state changes managed by Flutter and Riverpod.
 Testing performed on a mid-range Android device over 4G LTE. Dataset: 50 Indian medicinal
 plant species (e.g., \textit{Ocimum sanctum, Azadirachta indica, Tinospora cordifolia}).
 
+\vspace{-8pt}
 \section{Performance Benchmarks}
-\begin{table}[htbp]
+\setcounter{table}{2}
+\begin{table}[H]
 \caption{System Performance Benchmarks}
 \begin{center}
 \begin{tabular}{|c|c|l|}
@@ -89,12 +94,14 @@ Avg. LLM Latency & 1.8s & Gemini 2.5 Flash inference \\
 \end{tabular}
 \end{center}
 \end{table}
+\vspace{-12pt}
 
 Total latency of 4.2s is acceptable for non-real-time educational apps. Compression adds
 200ms overhead but saves $\approx$1.5s in network transfer compared to raw uploads.
 
+\vspace{-8pt}
 \section{Ablation Study}
-\begin{itemize}
+\begin{itemize}[itemsep=2pt, topsep=4pt]
     \item \textbf{Pathway A (Control)}: Direct image to Gemini Vision.\\
     Result: Inconsistent; occasional plant misidentification.
     \item \textbf{Pathway B (AyurSpace Hybrid)}: Plant.id + Gemini.\\
