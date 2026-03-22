@@ -37,7 +37,7 @@
 \contentsline {section}{\numberline {7.3}External AI Integrations}{30}{section.7.3}%
 \contentsline {subsection}{\numberline {7.3.1}API Configuration}{30}{subsection.7.3.1}%
 \contentsline {subsection}{\numberline {7.3.2}Plant.id Integration}{30}{subsection.7.3.2}%
-\contentsline {subsection}{\numberline {7.3.3}Google Gemini Integration}{30}{subsection.7.3.3}%
+\contentsline {subsection}{\numberline {7.3.3}Google Gemini Integration}{31}{subsection.7.3.3}%
 \contentsline {section}{\numberline {7.4}Complete Source Code Listings}{32}{section.7.4}%
 \contentsline {chapter}{\numberline {8}Result Analysis}{40}{chapter.8}%
 \contentsline {section}{\numberline {8.1}User Interface Results}{41}{section.8.1}%
