@@ -144,4 +144,12 @@
 \let\clearpage\origclearpage
 \let\cleardoublepage\origcleardoublepage
 
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix IV :List of Certifications}
+\let\origaddcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{}
+\input{backmatter/certificates}
+\let\addcontentsline\origaddcontentsline
+
 \end{document}
