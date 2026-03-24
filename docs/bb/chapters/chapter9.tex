@@ -10,20 +10,7 @@ into replicable digital logic, enabling smart health decisions based on ancient 
 merged with robust modern mobile processing.
 
 \section{Limitations}
-\begin{enumerate}
-    \item \textbf{Network Dependency}: Both AI APIs require an active internet connection.
-    \item \textbf{API Cost}: Usage-based pricing models limit high-volume production.
-    \item \textbf{Dataset Bias}: Plant.id may under-represent rare Indian medicinal herbs.
-    \item \textbf{LLM Hallucinations}: Mitigated but not fully eliminated by the hybrid
-    pipeline.
-\end{enumerate}
+The current implementation of AyurSpace has several limitations. Both AI APIs---Plant.id and Google Gemini---require an active internet connection, which restricts usability in areas with poor connectivity. The usage-based pricing models of these APIs limit high-volume production deployment. Additionally, the Plant.id dataset may under-represent rare Indian medicinal herbs, potentially affecting identification accuracy for region-specific species. While the hybrid neuro-symbolic pipeline significantly mitigates LLM hallucinations, it does not fully eliminate them, necessitating continued caution in critical health-related recommendations.
 
 \section{Future Scope}
-\begin{enumerate}
-    \item \textbf{Edge AI Optimization}: Quantized MobileNet models (int8) for complete
-    offline plant identification on device, resolving connectivity issues in rural areas.
-    \item \textbf{Augmented Reality (AR) Interfaces}: ARCore overlays to display medicinal
-    properties, alerts, and plant structures directly on the camera viewfinder.
-    \item \textbf{Telemedicine Integration}: ``Vaidya Connect'' component linking user
-    Dosha baselines and scan histories with licensed Ayurvedic practitioners' dashboards.
-\end{enumerate}
+Several promising directions exist for the future development of AyurSpace. Edge AI optimization through quantized MobileNet models (int8) would enable complete offline plant identification on device, resolving connectivity issues in rural areas. Augmented Reality (AR) interfaces using ARCore could overlay medicinal properties, alerts, and plant structures directly on the camera viewfinder, enhancing the user experience. A ``Vaidya Connect'' telemedicine integration component could link user Dosha baselines and scan histories with licensed Ayurvedic practitioners' dashboards, bridging the gap between digital tools and traditional clinical practice.
